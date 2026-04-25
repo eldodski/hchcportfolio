@@ -10,7 +10,8 @@ function generatePresentationHTML(data) {
     address = '',
     rooms = [],
     designer_name = 'Ena Dodski',
-    company_name = 'Hill Country Home Concepts'
+    company_name = 'Hill Country Home Concepts',
+    design_style = null
   } = data;
 
   const date = new Date().toLocaleDateString('en-US', {
@@ -284,6 +285,7 @@ function generatePresentationHTML(data) {
   <div class="subtitle">${esc(builder_name)}</div>
   <div class="cover-divider"></div>
   <div class="cover-meta">
+    ${design_style ? `<strong>Style: ${esc(design_style.name)}</strong><br><br>` : ''}
     ${lot_number ? `Lot ${esc(lot_number)}<br>` : ''}
     ${address ? `${esc(address)}<br>` : ''}
     <br>
@@ -306,9 +308,11 @@ function buildRoomPage(room, index) {
 
   const rows = room.materials.map(m => {
     const tone = m.tone || guessTone(m);
+    const matType = (m.category || '').toLowerCase() === 'flooring' ? inferMaterialType(m) : null;
+    const catLabel = matType ? `${m.category} / ${matType}` : m.category;
     return `
       <tr>
-        <td><span class="cat-badge">${esc(m.category)}</span></td>
+        <td><span class="cat-badge">${esc(catLabel)}</span></td>
         <td><strong>${esc(m.product)}</strong></td>
         <td>${esc(m.color) || '—'}</td>
         <td>${esc(m.quantity) || '—'}</td>
@@ -397,6 +401,23 @@ function guessTone(material) {
   if (warmWords.some(w => text.includes(w))) return 'warm';
   if (coolWords.some(w => text.includes(w))) return 'cool';
   return 'neutral';
+}
+
+// Infer flooring material_type from name, vendor, color, and description fields
+function inferMaterialType(material) {
+  const text = [
+    material.product, material.name, material.color,
+    material.vendor, material.description, material.notes
+  ].filter(Boolean).join(' ').toLowerCase();
+
+  if (/\b(lvp|lvt|vinyl\s*plank|luxury\s*vinyl|vinyl)\b/.test(text)) return 'LVP';
+  if (/\b(hardwood|solid\s*wood|engineered\s*wood|oak\s*hardwood|walnut\s*hardwood|hickory|maple\s*hardwood)\b/.test(text)) return 'Hardwood';
+  if (/\b(tile|porcelain|ceramic|travertine|slate|marble\s*tile|stone\s*tile|mosaic)\b/.test(text)) return 'Tile';
+  if (/\b(laminate)\b/.test(text)) return 'Laminate';
+  if (/\b(carpet)\b/.test(text)) return 'Carpet';
+  if (/\b(concrete)\b/.test(text)) return 'Concrete';
+
+  return null;
 }
 
 function esc(str) {

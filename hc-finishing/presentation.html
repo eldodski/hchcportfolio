@@ -305,6 +305,14 @@
       <h2>Presentation Details</h2>
       <p style="font-weight: 300; color: var(--mocha); margin-bottom: 1rem;">Edit any fields before generating. These override the parsed data.</p>
       <div class="edit-grid">
+        <div class="edit-field" style="grid-column: 1 / -1;">
+          <label>Design Style</label>
+          <select id="styleSelector" onchange="onStyleSelected()">
+            <option value="">None (no style filtering)</option>
+          </select>
+          <p id="styleDescription" style="font-size: 0.85rem; font-weight: 300; color: var(--mocha); margin-top: 0.3rem;"></p>
+          <ul id="styleRestrictions" style="font-size: 0.8rem; font-weight: 300; color: var(--error); margin-top: 0.3rem; list-style: none;"></ul>
+        </div>
         <div class="edit-field">
           <label>Designer Name</label>
           <input type="text" id="designerName" value="Ena Dodski">
@@ -386,8 +394,49 @@
   <script>
     let selectedForm = null;
     let generatedHTML = null;
+    let designStyles = [];
+    let activeStyle = null;
+
+    async function loadStyles() {
+      try {
+        const res = await fetch('data/styles.json');
+        const json = await res.json();
+        designStyles = json.styles || [];
+        const selector = document.getElementById('styleSelector');
+        designStyles.forEach(s => {
+          const opt = document.createElement('option');
+          opt.value = s.id;
+          opt.textContent = s.name;
+          selector.appendChild(opt);
+        });
+      } catch (e) {
+        console.warn('Could not load styles.json:', e);
+      }
+    }
+
+    function onStyleSelected() {
+      const id = document.getElementById('styleSelector').value;
+      activeStyle = designStyles.find(s => s.id === id) || null;
+
+      const descEl = document.getElementById('styleDescription');
+      const restrictEl = document.getElementById('styleRestrictions');
+
+      if (activeStyle) {
+        descEl.textContent = activeStyle.description;
+        restrictEl.innerHTML = activeStyle.restrictions.map(r => `<li>&#9888; ${r}</li>`).join('');
+      } else {
+        descEl.textContent = '';
+        restrictEl.innerHTML = '';
+      }
+
+      // Re-run compatibility if a form is selected
+      if (selectedForm && selectedForm.parsed_json) {
+        runCompatibilityCheck(selectedForm.parsed_json);
+      }
+    }
 
     async function init() {
+      await loadStyles();
       try {
         const forms = await getOrderForms();
         const list = document.getElementById('formList');
@@ -466,6 +515,29 @@
       if (selections.length < 2) return;
 
       const report = evaluateCompatibility(selections);
+
+      // Apply style-based checks if a design style is active
+      if (activeStyle) {
+        selections.forEach(sel => {
+          const catKey = (sel.category || '').toLowerCase();
+          const pref = activeStyle.preferences[catKey];
+          if (!pref) return;
+
+          const tone = sel.tone || 'neutral';
+          if (pref.tones && pref.tones.length > 0 && !pref.tones.includes(tone)) {
+            report.warnings.push(
+              `${sel.category} "${sel.name}" has a ${tone} tone, but ${activeStyle.name} style prefers ${pref.tones.join(' or ')} for this category.`
+            );
+            report.overallScore = Math.max(0, report.overallScore - 5);
+          }
+        });
+
+        // Re-evaluate status after style adjustments
+        if (report.overallScore >= 80) report.status = 'good';
+        else if (report.overallScore >= 60) report.status = 'warning';
+        else report.status = 'conflict';
+      }
+
       const indicator = document.getElementById('compatIndicator');
       indicator.className = `compat-indicator active compat-${report.status}`;
       document.getElementById('compatScore').textContent = `${report.overallScore}/100`;
@@ -499,6 +571,7 @@
       parsed.address = document.getElementById('presAddress').value || parsed.address;
       parsed.designer_name = document.getElementById('designerName').value;
       parsed.company_name = document.getElementById('companyName').value;
+      parsed.design_style = activeStyle || null;
 
       generatedHTML = generatePresentationHTML(parsed);
 
