@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HC Finishing — SelectFlow</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600&family=Jost:wght@300;400&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --navy: #1B2A4A;
+      --ivory: #F5F0EB;
+      --espresso: #3C2A21;
+      --sand: #D4C5B2;
+      --mocha: #A37762;
+      --carrara: #E8E4E0;
+      --gold: #C4A265;
+    }
+
+    body {
+      font-family: 'Jost', sans-serif;
+      font-weight: 400;
+      color: var(--espresso);
+      background: var(--ivory);
+      min-height: 100vh;
+    }
+
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.5rem 3rem;
+      background: var(--navy);
+      color: white;
+    }
+
+    nav .logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.5rem;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+    }
+
+    nav .logo span {
+      color: var(--gold);
+      font-family: 'Jost', sans-serif;
+      font-weight: 300;
+      font-size: 0.9rem;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      margin-left: 0.75rem;
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 2rem;
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      font-weight: 300;
+      font-size: 0.95rem;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      transition: color 0.2s;
+    }
+
+    nav a:hover { color: var(--gold); }
+
+    .hero {
+      text-align: center;
+      padding: 6rem 2rem;
+      background: linear-gradient(135deg, var(--navy) 0%, #2a3f6a 100%);
+      color: white;
+    }
+
+    .hero h1 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 3rem;
+      font-weight: 600;
+      margin-bottom: 1rem;
+      letter-spacing: 0.02em;
+    }
+
+    .hero p {
+      font-weight: 300;
+      font-size: 1.2rem;
+      max-width: 600px;
+      margin: 0 auto 2.5rem;
+      opacity: 0.9;
+      line-height: 1.6;
+    }
+
+    .hero .cta {
+      display: inline-block;
+      padding: 0.9rem 2.5rem;
+      background: var(--gold);
+      color: var(--navy);
+      text-decoration: none;
+      font-weight: 400;
+      font-size: 1rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      transition: background 0.2s;
+    }
+
+    .hero .cta:hover { background: #d4b275; }
+
+    .features {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2rem;
+      padding: 4rem 3rem;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    .feature-card {
+      background: white;
+      padding: 2rem;
+      border: 1px solid var(--sand);
+    }
+
+    .feature-card h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.3rem;
+      color: var(--navy);
+      margin-bottom: 0.75rem;
+    }
+
+    .feature-card p {
+      font-weight: 300;
+      font-size: 0.95rem;
+      line-height: 1.6;
+      color: var(--espresso);
+    }
+
+    .feature-card .status {
+      display: inline-block;
+      margin-top: 1rem;
+      padding: 0.25rem 0.75rem;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+    }
+
+    .status-active {
+      background: #e8f5e9;
+      color: #2e7d32;
+    }
+
+    .status-upcoming {
+      background: var(--carrara);
+      color: var(--mocha);
+    }
+
+    footer {
+      text-align: center;
+      padding: 2rem;
+      background: var(--navy);
+      color: rgba(255, 255, 255, 0.6);
+      font-size: 0.85rem;
+      font-weight: 300;
+      letter-spacing: 0.05em;
+    }
+
+    footer span { color: var(--gold); }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <div class="logo">HC Finishing <span>SelectFlow</span></div>
+    <ul>
+      <li><a href="dashboard.html">Dashboard</a></li>
+      <li><a href="upload.html">Upload</a></li>
+      <li><a href="materials.html">Materials</a></li>
+      <li><a href="review.html">Review</a></li>
+      <li><a href="presentation.html">Present</a></li>
+    </ul>
+  </nav>
+
+  <section class="hero">
+    <h1>Transform Order Forms Into Presentations</h1>
+    <p>Upload a builder order form. Get structured data, branded presentations, and intelligent material recommendations. In minutes, not hours.</p>
+    <a href="upload.html" class="cta">Upload Order Form</a>
+  </section>
+
+  <section class="features">
+    <div class="feature-card">
+      <h3>Finish Intake</h3>
+      <p>Upload PDF order forms. The system extracts and structures all material selections, room assignments, and specifications into clean, editable data.</p>
+      <span class="status status-active">Active</span>
+    </div>
+    <div class="feature-card">
+      <h3>Sanity Gate</h3>
+      <p>Every parsed document goes through human review before anything reaches a client. Edit, correct, and approve with confidence.</p>
+      <span class="status status-active">Active</span>
+    </div>
+    <div class="feature-card">
+      <h3>Finish Presentation</h3>
+      <p>Generate branded, client-ready presentation decks from verified data. HCHC styling, material grids, and design summaries. Print or share.</p>
+      <span class="status status-upcoming">Coming Soon</span>
+    </div>
+  </section>
+
+  <footer>
+    <span>HC Finishing</span> / SelectFlow / Hill Country Home Concepts
+  </footer>
+
+</body>
+</html>

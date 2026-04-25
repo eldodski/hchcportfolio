@@ -68,26 +68,25 @@ async function uploadMaterialImage(file) {
   const sb = getSupabase();
   const ext = file.name.split('.').pop();
   const filename = `${crypto.randomUUID()}.${ext}`;
-  const path = `material-images/${filename}`;
 
-  const { error } = await sb.storage.from('material-images').upload(path, file, {
+  const { error } = await sb.storage.from('material-images').upload(filename, file, {
     cacheControl: '3600',
     upsert: false
   });
 
   if (error) { console.error('uploadImage error:', error); throw error; }
 
-  const { data: urlData } = sb.storage.from('material-images').getPublicUrl(path);
+  const { data: urlData } = sb.storage.from('material-images').getPublicUrl(filename);
   return urlData.publicUrl;
 }
 
 async function deleteMaterialImage(url) {
   if (!url) return;
   const sb = getSupabase();
-  // Extract path from full URL
-  const match = url.match(/material-images\/(.+)$/);
+  // Extract filename from full URL (after bucket name)
+  const match = url.match(/\/material-images\/(.+)$/);
   if (!match) return;
-  await sb.storage.from('material-images').remove([`material-images/${match[1]}`]);
+  await sb.storage.from('material-images').remove([match[1]]);
 }
 
 // ============ PROJECTS CRUD ============

@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Generate Presentation — HC Finishing</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --navy: #1B2A4A;
+      --ivory: #F5F0EB;
+      --espresso: #3C2A21;
+      --sand: #D4C5B2;
+      --mocha: #A37762;
+      --carrara: #E8E4E0;
+      --gold: #C4A265;
+      --success: #2e7d32;
+      --warning: #f57c00;
+      --error: #c62828;
+    }
+
+    body {
+      font-family: 'Jost', sans-serif;
+      font-weight: 400;
+      color: var(--espresso);
+      background: var(--ivory);
+      min-height: 100vh;
+      padding-bottom: 80px;
+    }
+
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.5rem 3rem;
+      background: var(--navy);
+      color: white;
+    }
+
+    nav .logo { font-family: 'Cormorant Garamond', serif; font-size: 1.5rem; font-weight: 600; }
+    nav .logo span { color: var(--gold); font-family: 'Jost', sans-serif; font-weight: 300; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 0.15em; margin-left: 0.75rem; }
+    .nav-links { display: flex; align-items: center; gap: 2rem; }
+    nav a { color: white; text-decoration: none; font-weight: 300; font-size: 0.95rem; letter-spacing: 0.05em; text-transform: uppercase; transition: color 0.2s; }
+    nav a:hover { color: var(--gold); }
+
+    .container { max-width: 900px; margin: 0 auto; padding: 2rem; }
+
+    h1 { font-family: 'Cormorant Garamond', serif; font-size: 2rem; color: var(--navy); margin-bottom: 0.5rem; }
+    h2 { font-family: 'Cormorant Garamond', serif; font-size: 1.5rem; color: var(--navy); margin-bottom: 1rem; }
+    h3 { font-family: 'Cormorant Garamond', serif; font-size: 1.2rem; color: var(--navy); margin-bottom: 0.5rem; }
+
+    .subtitle { font-weight: 300; color: var(--mocha); margin-bottom: 2rem; }
+
+    /* Source Selector */
+    .source-section {
+      background: white;
+      border: 1px solid var(--sand);
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .form-list-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.8rem 1rem;
+      border: 1px solid var(--sand);
+      margin-bottom: 0.5rem;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .form-list-item:hover { border-color: var(--navy); }
+    .form-list-item.selected { border-color: var(--gold); background: #fffdf5; }
+
+    .form-name { font-weight: 400; color: var(--navy); }
+    .form-date { font-size: 0.85rem; color: var(--mocha); }
+
+    .badge {
+      display: inline-block;
+      padding: 0.2rem 0.5rem;
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+    .badge-reviewed { background: #e8f5e9; color: var(--success); }
+    .badge-pending { background: #fff3e0; color: var(--warning); }
+
+    /* Sanity Gate Warning */
+    .gate-warning {
+      padding: 1rem;
+      background: #fff3e0;
+      border-left: 3px solid var(--warning);
+      margin-bottom: 1.5rem;
+      font-size: 0.9rem;
+      font-weight: 300;
+      display: none;
+    }
+
+    .gate-warning.active { display: block; }
+
+    .gate-warning strong { font-weight: 500; }
+
+    /* Preview Section */
+    .preview-section {
+      display: none;
+      margin-bottom: 1.5rem;
+    }
+
+    .preview-section.active { display: block; }
+
+    .preview-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1rem;
+    }
+
+    .preview-frame {
+      border: 1px solid var(--sand);
+      background: white;
+      min-height: 400px;
+      overflow: auto;
+      max-height: 600px;
+    }
+
+    .preview-frame iframe {
+      width: 100%;
+      height: 600px;
+      border: none;
+    }
+
+    /* Edit Section */
+    .edit-section {
+      display: none;
+      background: white;
+      border: 1px solid var(--sand);
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .edit-section.active { display: block; }
+
+    .edit-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .edit-field label {
+      display: block;
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--mocha);
+      margin-bottom: 0.3rem;
+    }
+
+    .edit-field input, .edit-field textarea {
+      width: 100%;
+      padding: 0.5rem 0.75rem;
+      border: 1px solid var(--sand);
+      font-family: 'Jost', sans-serif;
+      font-size: 0.95rem;
+      color: var(--espresso);
+    }
+
+    .edit-field input:focus, .edit-field textarea:focus { outline: none; border-color: var(--navy); }
+
+    /* Compatibility Indicator */
+    .compat-indicator {
+      display: none;
+      padding: 1rem;
+      margin-bottom: 1.5rem;
+      border-left: 3px solid #9e9e9e;
+    }
+
+    .compat-indicator.active { display: block; }
+    .compat-good { border-color: var(--success); background: #e8f5e9; }
+    .compat-warning { border-color: var(--warning); background: #fff3e0; }
+    .compat-conflict { border-color: var(--error); background: #fbe9e7; }
+
+    .compat-score {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.5rem;
+      color: var(--navy);
+    }
+
+    .compat-warnings { margin-top: 0.5rem; font-size: 0.85rem; font-weight: 300; }
+    .compat-warnings li { margin-left: 1.5rem; margin-bottom: 0.2rem; }
+
+    /* Buttons */
+    .btn {
+      padding: 0.7rem 2rem;
+      border: none;
+      cursor: pointer;
+      font-family: 'Jost', sans-serif;
+      font-size: 0.9rem;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      transition: all 0.2s;
+    }
+    .btn-primary { background: var(--gold); color: var(--navy); }
+    .btn-primary:hover { background: #d4b275; }
+    .btn-approve { background: var(--success); color: white; }
+    .btn-approve:hover { background: #388e3c; }
+    .btn-secondary { background: transparent; border: 1px solid var(--sand); color: var(--espresso); }
+    .btn-secondary:hover { border-color: var(--navy); }
+    .btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+    /* Action Bar */
+    .action-bar {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: white;
+      border-top: 1px solid var(--sand);
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      z-index: 100;
+      box-shadow: 0 -2px 10px rgba(0,0,0,0.05);
+    }
+
+    /* Modal */
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0,0,0,0.4);
+      z-index: 200;
+      justify-content: center;
+      align-items: center;
+    }
+    .modal-overlay.active { display: flex; }
+    .modal { background: white; padding: 2rem; max-width: 450px; width: 90%; text-align: center; }
+    .modal h3 { margin-bottom: 0.75rem; }
+    .modal p { font-weight: 300; margin-bottom: 1.5rem; line-height: 1.5; }
+    .modal-actions { display: flex; gap: 1rem; justify-content: center; }
+
+    /* Toast */
+    .toast { display: none; position: fixed; bottom: 5rem; right: 2rem; padding: 1rem 1.5rem; background: var(--navy); color: white; font-size: 0.9rem; z-index: 300; }
+    .toast.active { display: block; }
+
+    .empty-state { text-align: center; padding: 3rem; font-weight: 300; color: var(--mocha); }
+
+    /* Approved banner */
+    .approved-banner {
+      display: none;
+      padding: 1rem;
+      background: #e8f5e9;
+      border: 1px solid #a5d6a7;
+      text-align: center;
+      margin-bottom: 1.5rem;
+    }
+    .approved-banner.active { display: block; }
+    .approved-banner .check { color: var(--success); font-size: 1.5rem; margin-right: 0.5rem; }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="index.html" style="text-decoration: none; color: white;">
+      <div class="logo">HC Finishing <span>SelectFlow</span></div>
+    </a>
+    <div class="nav-links">
+      <a href="dashboard.html">Dashboard</a>
+      <a href="upload.html">Upload</a>
+      <a href="materials.html">Materials</a>
+      <a href="review.html">Review</a>
+      <a href="presentation.html" style="color: var(--gold);">Present</a>
+    </div>
+  </nav>
+
+  <div class="container">
+    <h1>Generate Presentation</h1>
+    <p class="subtitle">Select an approved order form to generate a branded client presentation.</p>
+
+    <!-- Source Selection -->
+    <div class="source-section" id="sourceSection">
+      <h2>Select Order Form</h2>
+      <div id="formList"><div class="empty-state">Loading order forms...</div></div>
+    </div>
+
+    <!-- Sanity Gate Warning -->
+    <div class="gate-warning" id="gateWarning">
+      <strong>Sanity Gate:</strong> This order form has not been reviewed and approved. You must
+      <a href="#" id="reviewLink">review and approve it</a> before generating a client presentation.
+    </div>
+
+    <!-- Approved Banner -->
+    <div class="approved-banner" id="approvedBanner">
+      <span class="check">&#10003;</span>
+      This presentation has been approved and is ready for the client.
+    </div>
+
+    <!-- Edit Overrides -->
+    <div class="edit-section" id="editSection">
+      <h2>Presentation Details</h2>
+      <p style="font-weight: 300; color: var(--mocha); margin-bottom: 1rem;">Edit any fields before generating. These override the parsed data.</p>
+      <div class="edit-grid">
+        <div class="edit-field">
+          <label>Designer Name</label>
+          <input type="text" id="designerName" value="Ena Dodski">
+        </div>
+        <div class="edit-field">
+          <label>Company</label>
+          <input type="text" id="companyName" value="Hill Country Home Concepts">
+        </div>
+        <div class="edit-field">
+          <label>Builder Name</label>
+          <input type="text" id="presBuilder" value="">
+        </div>
+        <div class="edit-field">
+          <label>Project Name</label>
+          <input type="text" id="presProject" value="">
+        </div>
+        <div class="edit-field">
+          <label>Lot Number</label>
+          <input type="text" id="presLot" value="">
+        </div>
+        <div class="edit-field">
+          <label>Address</label>
+          <input type="text" id="presAddress" value="">
+        </div>
+      </div>
+
+      <!-- Compatibility Check -->
+      <div class="compat-indicator" id="compatIndicator">
+        <div>
+          <span class="compat-score" id="compatScore"></span>
+          <span id="compatLabel"></span>
+        </div>
+        <ul class="compat-warnings" id="compatWarnings"></ul>
+      </div>
+    </div>
+
+    <!-- Preview -->
+    <div class="preview-section" id="previewSection">
+      <div class="preview-header">
+        <h2>Presentation Preview</h2>
+        <span style="font-weight: 300; color: var(--mocha); font-size: 0.85rem;">
+          Review before exporting. This is the Sanity Gate.
+        </span>
+      </div>
+      <div class="preview-frame">
+        <iframe id="previewFrame"></iframe>
+      </div>
+    </div>
+  </div>
+
+  <!-- Action Bar -->
+  <div class="action-bar" id="actionBar">
+    <button class="btn btn-primary" id="generateBtn" onclick="generatePresentation()" disabled>Generate Preview</button>
+    <button class="btn btn-approve" id="exportBtn" onclick="openExportModal()" disabled>Approve and Export</button>
+  </div>
+
+  <!-- Export Modal -->
+  <div class="modal-overlay" id="exportModal">
+    <div class="modal">
+      <h3>Approve Presentation</h3>
+      <p>This will open the presentation in a new tab for printing or saving as PDF. By exporting, you confirm this presentation is client-ready.</p>
+      <div class="modal-actions">
+        <button class="btn btn-approve" onclick="confirmExport()">Export to New Tab</button>
+        <button class="btn btn-secondary" onclick="closeExportModal()">Cancel</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast -->
+  <div class="toast" id="toast"></div>
+
+  <!-- Dependencies -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="js/config.js"></script>
+  <script src="js/supabase-client.js"></script>
+  <script src="js/design-rules.js"></script>
+  <script src="js/presentation-template.js"></script>
+
+  <script>
+    let selectedForm = null;
+    let generatedHTML = null;
+
+    async function init() {
+      try {
+        const forms = await getOrderForms();
+        const list = document.getElementById('formList');
+
+        if (forms.length === 0) {
+          list.innerHTML = '<div class="empty-state">No order forms yet. <a href="upload.html">Upload one</a> first.</div>';
+          return;
+        }
+
+        list.innerHTML = forms.map(f => `
+          <div class="form-list-item" data-id="${f.id}" onclick="selectForm('${f.id}')">
+            <div>
+              <span class="form-name">${f.original_filename}</span>
+              <span class="form-date">${new Date(f.created_at).toLocaleDateString()}</span>
+            </div>
+            <span class="badge ${f.reviewed ? 'badge-reviewed' : 'badge-pending'}">
+              ${f.reviewed ? 'Approved' : 'Pending Review'}
+            </span>
+          </div>
+        `).join('');
+      } catch (e) {
+        document.getElementById('formList').innerHTML =
+          '<div class="empty-state">Could not load order forms. Check Supabase connection.</div>';
+      }
+    }
+
+    async function selectForm(id) {
+      // Highlight selected
+      document.querySelectorAll('.form-list-item').forEach(el => el.classList.remove('selected'));
+      document.querySelector(`.form-list-item[data-id="${id}"]`)?.classList.add('selected');
+
+      try {
+        const form = await getOrderForm(id);
+        selectedForm = form;
+        const parsed = form.parsed_json;
+
+        // Check Sanity Gate
+        if (!form.reviewed) {
+          document.getElementById('gateWarning').classList.add('active');
+          document.getElementById('reviewLink').href = `review.html?id=${id}`;
+          document.getElementById('editSection').classList.remove('active');
+          document.getElementById('generateBtn').disabled = true;
+          return;
+        }
+
+        document.getElementById('gateWarning').classList.remove('active');
+
+        // Populate edit fields
+        document.getElementById('presBuilder').value = parsed.builder_name || '';
+        document.getElementById('presProject').value = parsed.project_name || '';
+        document.getElementById('presLot').value = parsed.lot_number || '';
+        document.getElementById('presAddress').value = parsed.address || '';
+
+        // Show edit section
+        document.getElementById('editSection').classList.add('active');
+        document.getElementById('generateBtn').disabled = false;
+
+        // Run compatibility check
+        runCompatibilityCheck(parsed);
+
+      } catch (e) {
+        showToast('Error loading form: ' + e.message);
+      }
+    }
+
+    function runCompatibilityCheck(parsed) {
+      const selections = (parsed.rooms || []).flatMap(r =>
+        r.materials.map(m => ({
+          category: m.category,
+          tone: m.tone || guessMaterialTone(m),
+          price_tier: m.price_tier || 'mid',
+          name: m.product
+        }))
+      );
+
+      if (selections.length < 2) return;
+
+      const report = evaluateCompatibility(selections);
+      const indicator = document.getElementById('compatIndicator');
+      indicator.className = `compat-indicator active compat-${report.status}`;
+      document.getElementById('compatScore').textContent = `${report.overallScore}/100`;
+      document.getElementById('compatLabel').textContent = ` — ${getStatusLabel(report.status)}`;
+
+      const warnings = document.getElementById('compatWarnings');
+      const allItems = [...report.warnings, ...report.suggestions];
+      warnings.innerHTML = allItems.length > 0
+        ? allItems.map(w => `<li>${w}</li>`).join('')
+        : '<li>No issues detected.</li>';
+    }
+
+    function guessMaterialTone(m) {
+      const text = `${m.product} ${m.color}`.toLowerCase();
+      const warmWords = ['oak', 'walnut', 'brass', 'gold', 'bronze', 'honey', 'warm', 'beige', 'cream'];
+      const coolWords = ['chrome', 'silver', 'nickel', 'blue', 'grey', 'gray', 'cool', 'white', 'slate'];
+      if (warmWords.some(w => text.includes(w))) return 'warm';
+      if (coolWords.some(w => text.includes(w))) return 'cool';
+      return 'neutral';
+    }
+
+    function generatePresentation() {
+      if (!selectedForm) return;
+
+      const parsed = { ...selectedForm.parsed_json };
+
+      // Apply overrides
+      parsed.builder_name = document.getElementById('presBuilder').value || parsed.builder_name;
+      parsed.project_name = document.getElementById('presProject').value || parsed.project_name;
+      parsed.lot_number = document.getElementById('presLot').value || parsed.lot_number;
+      parsed.address = document.getElementById('presAddress').value || parsed.address;
+      parsed.designer_name = document.getElementById('designerName').value;
+      parsed.company_name = document.getElementById('companyName').value;
+
+      generatedHTML = generatePresentationHTML(parsed);
+
+      // Show preview
+      const previewSection = document.getElementById('previewSection');
+      previewSection.classList.add('active');
+
+      const iframe = document.getElementById('previewFrame');
+      iframe.srcdoc = generatedHTML;
+
+      document.getElementById('exportBtn').disabled = false;
+
+      showToast('Preview generated. Review before exporting.');
+    }
+
+    function openExportModal() {
+      if (!generatedHTML) return;
+      document.getElementById('exportModal').classList.add('active');
+    }
+
+    function closeExportModal() {
+      document.getElementById('exportModal').classList.remove('active');
+    }
+
+    function confirmExport() {
+      closeExportModal();
+
+      // Open in new tab for print/PDF
+      const newTab = window.open('', '_blank');
+      newTab.document.write(generatedHTML);
+      newTab.document.close();
+
+      // Show approved banner
+      document.getElementById('approvedBanner').classList.add('active');
+      showToast('Presentation exported to new tab. Use Ctrl+P to save as PDF.');
+    }
+
+    function showToast(msg) {
+      const toast = document.getElementById('toast');
+      toast.textContent = msg;
+      toast.classList.add('active');
+      setTimeout(() => toast.classList.remove('active'), 5000);
+    }
+
+    document.addEventListener('DOMContentLoaded', init);
+  </script>
+
+</body>
+</html>

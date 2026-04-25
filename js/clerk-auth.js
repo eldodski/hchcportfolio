@@ -9,11 +9,12 @@ async function initClerk() {
   // Wait for Clerk to load
   await new Promise((resolve) => {
     if (window.Clerk) { resolve(); return; }
+    let timer;
     const check = setInterval(() => {
-      if (window.Clerk) { clearInterval(check); resolve(); }
+      if (window.Clerk) { clearInterval(check); clearTimeout(timer); resolve(); }
     }, 50);
     // Timeout after 10s
-    setTimeout(() => { clearInterval(check); resolve(); }, 10000);
+    timer = setTimeout(() => { clearInterval(check); resolve(); }, 10000);
   });
 
   if (!window.Clerk) {
@@ -39,7 +40,7 @@ function isSignedIn() {
 function getUserRole() {
   const user = getUser();
   if (!user) return null;
-  return user.publicMetadata?.role || 'home_purchaser';
+  return user.publicMetadata?.role || user.unsafeMetadata?.role || 'home_purchaser';
 }
 
 function getUserId() {

@@ -1,0 +1,735 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Material Library — HC Finishing</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --navy: #1B2A4A;
+      --ivory: #F5F0EB;
+      --espresso: #3C2A21;
+      --sand: #D4C5B2;
+      --mocha: #A37762;
+      --carrara: #E8E4E0;
+      --gold: #C4A265;
+      --success: #2e7d32;
+      --error: #c62828;
+    }
+
+    body {
+      font-family: 'Jost', sans-serif;
+      font-weight: 400;
+      color: var(--espresso);
+      background: var(--ivory);
+      min-height: 100vh;
+    }
+
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.5rem 3rem;
+      background: var(--navy);
+      color: white;
+    }
+
+    nav .logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.5rem;
+      font-weight: 600;
+    }
+
+    nav .logo span {
+      color: var(--gold);
+      font-family: 'Jost', sans-serif;
+      font-weight: 300;
+      font-size: 0.9rem;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      margin-left: 0.75rem;
+    }
+
+    .nav-links { display: flex; align-items: center; gap: 2rem; }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      font-weight: 300;
+      font-size: 0.95rem;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      transition: color 0.2s;
+    }
+
+    nav a:hover { color: var(--gold); }
+
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 2rem;
+    }
+
+    .page-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1.5rem;
+    }
+
+    h1 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2rem;
+      color: var(--navy);
+    }
+
+    .btn {
+      padding: 0.6rem 1.5rem;
+      border: none;
+      cursor: pointer;
+      font-family: 'Jost', sans-serif;
+      font-size: 0.9rem;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      transition: all 0.2s;
+    }
+
+    .btn-primary { background: var(--gold); color: var(--navy); }
+    .btn-primary:hover { background: #d4b275; }
+    .btn-secondary { background: transparent; border: 1px solid var(--sand); color: var(--espresso); }
+    .btn-secondary:hover { border-color: var(--navy); }
+    .btn-danger { background: var(--error); color: white; }
+    .btn-danger:hover { background: #b71c1c; }
+    .btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+    /* Filters */
+    .filters {
+      display: flex;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .filter-group {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .filter-group label {
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--mocha);
+    }
+
+    .filter-group select, .search-input {
+      padding: 0.4rem 0.75rem;
+      border: 1px solid var(--sand);
+      font-family: 'Jost', sans-serif;
+      font-size: 0.9rem;
+      color: var(--espresso);
+      background: white;
+    }
+
+    .search-input {
+      min-width: 200px;
+    }
+
+    .filter-group select:focus, .search-input:focus {
+      outline: none;
+      border-color: var(--navy);
+    }
+
+    /* Material Grid */
+    .material-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .material-card {
+      background: white;
+      border: 1px solid var(--sand);
+      overflow: hidden;
+      transition: all 0.2s;
+    }
+
+    .material-card:hover {
+      border-color: var(--navy);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    }
+
+    .material-card .thumb {
+      width: 100%;
+      height: 160px;
+      background: var(--carrara);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--sand);
+      font-size: 2rem;
+      overflow: hidden;
+    }
+
+    .material-card .thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .material-card .info {
+      padding: 1rem;
+    }
+
+    .material-card .name {
+      font-weight: 500;
+      color: var(--navy);
+      margin-bottom: 0.25rem;
+    }
+
+    .material-card .vendor {
+      font-size: 0.85rem;
+      color: var(--mocha);
+      font-weight: 300;
+    }
+
+    .material-card .tags {
+      display: flex;
+      gap: 0.4rem;
+      flex-wrap: wrap;
+      margin-top: 0.5rem;
+    }
+
+    .tag {
+      display: inline-block;
+      padding: 0.15rem 0.5rem;
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      background: var(--carrara);
+      color: var(--espresso);
+    }
+
+    .tag-warm { background: #fff3e0; color: #e65100; }
+    .tag-cool { background: #e3f2fd; color: #1565c0; }
+    .tag-neutral { background: #f5f5f5; color: #616161; }
+
+    .material-card .actions {
+      display: flex;
+      gap: 0.5rem;
+      padding: 0 1rem 1rem;
+    }
+
+    .material-card .actions button {
+      font-size: 0.8rem;
+      padding: 0.3rem 0.8rem;
+    }
+
+    /* Add/Edit Modal */
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0,0,0,0.4);
+      z-index: 200;
+      justify-content: center;
+      align-items: flex-start;
+      padding-top: 5vh;
+      overflow-y: auto;
+    }
+
+    .modal-overlay.active { display: flex; }
+
+    .modal {
+      background: white;
+      padding: 2rem;
+      max-width: 500px;
+      width: 90%;
+      margin-bottom: 2rem;
+    }
+
+    .modal h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.5rem;
+      color: var(--navy);
+      margin-bottom: 1.5rem;
+    }
+
+    .form-group {
+      margin-bottom: 1rem;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--mocha);
+      margin-bottom: 0.3rem;
+    }
+
+    .form-group input, .form-group select {
+      width: 100%;
+      padding: 0.5rem 0.75rem;
+      border: 1px solid var(--sand);
+      font-family: 'Jost', sans-serif;
+      font-size: 0.95rem;
+      color: var(--espresso);
+    }
+
+    .form-group input:focus, .form-group select:focus {
+      outline: none;
+      border-color: var(--navy);
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+
+    .image-upload {
+      border: 2px dashed var(--sand);
+      padding: 1.5rem;
+      text-align: center;
+      cursor: pointer;
+      transition: border-color 0.2s;
+    }
+
+    .image-upload:hover { border-color: var(--gold); }
+    .image-upload input { display: none; }
+    .image-upload p { font-size: 0.85rem; color: var(--mocha); font-weight: 300; }
+
+    .image-preview {
+      max-width: 100%;
+      max-height: 150px;
+      margin-top: 0.5rem;
+    }
+
+    .modal-actions {
+      display: flex;
+      gap: 1rem;
+      margin-top: 1.5rem;
+    }
+
+    /* Empty State */
+    .empty-state {
+      text-align: center;
+      padding: 4rem 2rem;
+      grid-column: 1 / -1;
+    }
+
+    .empty-state p {
+      font-weight: 300;
+      margin-bottom: 1rem;
+      font-size: 1.1rem;
+      color: var(--mocha);
+    }
+
+    /* Toast */
+    .toast {
+      display: none;
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      padding: 1rem 1.5rem;
+      background: var(--navy);
+      color: white;
+      font-size: 0.9rem;
+      z-index: 300;
+    }
+
+    .toast.active { display: block; }
+
+    .material-count {
+      font-weight: 300;
+      color: var(--mocha);
+      font-size: 0.9rem;
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="index.html" style="text-decoration: none; color: white;">
+      <div class="logo">HC Finishing <span>SelectFlow</span></div>
+    </a>
+    <div class="nav-links">
+      <a href="dashboard.html">Dashboard</a>
+      <a href="upload.html">Upload</a>
+      <a href="materials.html" style="color: var(--gold);">Materials</a>
+      <a href="review.html">Review</a>
+      <a href="presentation.html">Present</a>
+    </div>
+  </nav>
+
+  <div class="container">
+    <div class="page-header">
+      <div>
+        <h1>Material Library</h1>
+        <span class="material-count" id="materialCount"></span>
+      </div>
+      <button class="btn btn-primary" onclick="openAddModal()">+ Add Material</button>
+    </div>
+
+    <div class="filters">
+      <input type="text" class="search-input" id="searchInput" placeholder="Search materials..." oninput="filterMaterials()">
+      <div class="filter-group">
+        <label>Category</label>
+        <select id="filterCategory" onchange="filterMaterials()">
+          <option value="">All</option>
+          <option value="Flooring">Flooring</option>
+          <option value="Countertops">Countertops</option>
+          <option value="Cabinetry">Cabinetry</option>
+          <option value="Backsplash">Backsplash</option>
+          <option value="Paint">Paint</option>
+          <option value="Fixtures">Fixtures</option>
+          <option value="Hardware">Hardware</option>
+          <option value="Lighting">Lighting</option>
+          <option value="Window Treatments">Window Treatments</option>
+        </select>
+      </div>
+      <div class="filter-group">
+        <label>Tone</label>
+        <select id="filterTone" onchange="filterMaterials()">
+          <option value="">All</option>
+          <option value="warm">Warm</option>
+          <option value="cool">Cool</option>
+          <option value="neutral">Neutral</option>
+        </select>
+      </div>
+      <div class="filter-group">
+        <label>Price Tier</label>
+        <select id="filterPrice" onchange="filterMaterials()">
+          <option value="">All</option>
+          <option value="builder">Builder Grade</option>
+          <option value="mid">Mid Range</option>
+          <option value="premium">Premium</option>
+          <option value="luxury">Luxury</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="material-grid" id="materialGrid">
+      <div class="empty-state"><p>Loading materials...</p></div>
+    </div>
+  </div>
+
+  <!-- Add/Edit Modal -->
+  <div class="modal-overlay" id="materialModal">
+    <div class="modal">
+      <h2 id="modalTitle">Add Material</h2>
+      <input type="hidden" id="editId">
+
+      <div class="form-group">
+        <label>Name</label>
+        <input type="text" id="matName" placeholder="e.g., Calacatta Gold Quartz">
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label>Category</label>
+          <select id="matCategory">
+            <option value="Flooring">Flooring</option>
+            <option value="Countertops">Countertops</option>
+            <option value="Cabinetry">Cabinetry</option>
+            <option value="Backsplash">Backsplash</option>
+            <option value="Paint">Paint</option>
+            <option value="Fixtures">Fixtures</option>
+            <option value="Hardware">Hardware</option>
+            <option value="Lighting">Lighting</option>
+            <option value="Window Treatments">Window Treatments</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Tone</label>
+          <select id="matTone">
+            <option value="warm">Warm</option>
+            <option value="cool">Cool</option>
+            <option value="neutral">Neutral</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label>Price Tier</label>
+          <select id="matPriceTier">
+            <option value="builder">Builder Grade</option>
+            <option value="mid">Mid Range</option>
+            <option value="premium">Premium</option>
+            <option value="luxury">Luxury</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Vendor</label>
+          <input type="text" id="matVendor" placeholder="e.g., Caesarstone">
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label>Color</label>
+          <input type="text" id="matColor" placeholder="e.g., White Veined">
+        </div>
+        <div class="form-group">
+          <label>SKU</label>
+          <input type="text" id="matSku" placeholder="e.g., CS-5141">
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>Image</label>
+        <div class="image-upload" onclick="document.getElementById('matImage').click()">
+          <p>Click to upload an image</p>
+          <input type="file" id="matImage" accept="image/*" onchange="previewImage(this)">
+          <img class="image-preview" id="imagePreview" style="display: none;">
+        </div>
+      </div>
+
+      <div class="modal-actions">
+        <button class="btn btn-primary" id="saveMatBtn" onclick="saveMaterial()">Save Material</button>
+        <button class="btn btn-secondary" onclick="closeModal()">Cancel</button>
+        <button class="btn btn-danger" id="deleteMatBtn" style="display: none;" onclick="deleteMaterial()">Delete</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast -->
+  <div class="toast" id="toast"></div>
+
+  <!-- Dependencies -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="js/config.js"></script>
+  <script src="js/supabase-client.js"></script>
+
+  <script>
+    let allMaterials = [];
+
+    async function loadMaterials() {
+      try {
+        const sb = getSupabase();
+        const { data, error } = await sb
+          .from('materials')
+          .select('*')
+          .order('created_at', { ascending: false });
+
+        if (error) throw error;
+        allMaterials = data || [];
+        document.getElementById('materialCount').textContent = `${allMaterials.length} materials`;
+        renderMaterials(allMaterials);
+      } catch (e) {
+        document.getElementById('materialGrid').innerHTML =
+          '<div class="empty-state"><p>Could not load materials. Check Supabase connection.</p></div>';
+      }
+    }
+
+    function filterMaterials() {
+      const search = document.getElementById('searchInput').value.toLowerCase();
+      const category = document.getElementById('filterCategory').value;
+      const tone = document.getElementById('filterTone').value;
+      const price = document.getElementById('filterPrice').value;
+
+      const filtered = allMaterials.filter(m => {
+        if (search && !m.name.toLowerCase().includes(search) &&
+            !(m.vendor || '').toLowerCase().includes(search) &&
+            !(m.color || '').toLowerCase().includes(search)) return false;
+        if (category && m.category !== category) return false;
+        if (tone && m.tone !== tone) return false;
+        if (price && m.price_tier !== price) return false;
+        return true;
+      });
+
+      renderMaterials(filtered);
+    }
+
+    function renderMaterials(materials) {
+      const grid = document.getElementById('materialGrid');
+
+      if (materials.length === 0) {
+        grid.innerHTML = '<div class="empty-state"><p>No materials found.</p><button class="btn btn-primary" onclick="openAddModal()">Add First Material</button></div>';
+        return;
+      }
+
+      grid.innerHTML = materials.map(m => `
+        <div class="material-card">
+          <div class="thumb">
+            ${m.image_url
+              ? `<img src="${m.image_url}" alt="${m.name}" onerror="this.parentElement.innerHTML='&#127912;'">`
+              : '&#127912;'}
+          </div>
+          <div class="info">
+            <div class="name">${m.name}</div>
+            <div class="vendor">${m.vendor || ''} ${m.color ? '/ ' + m.color : ''}</div>
+            <div class="tags">
+              <span class="tag">${m.category}</span>
+              <span class="tag tag-${m.tone || 'neutral'}">${m.tone || 'neutral'}</span>
+              <span class="tag">${m.price_tier || 'mid'}</span>
+            </div>
+          </div>
+          <div class="actions">
+            <button class="btn btn-secondary" onclick="openEditModal('${m.id}')">Edit</button>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function openAddModal() {
+      document.getElementById('modalTitle').textContent = 'Add Material';
+      document.getElementById('editId').value = '';
+      document.getElementById('matName').value = '';
+      document.getElementById('matCategory').value = 'Flooring';
+      document.getElementById('matTone').value = 'neutral';
+      document.getElementById('matPriceTier').value = 'mid';
+      document.getElementById('matVendor').value = '';
+      document.getElementById('matColor').value = '';
+      document.getElementById('matSku').value = '';
+      document.getElementById('matImage').value = '';
+      document.getElementById('imagePreview').style.display = 'none';
+      document.getElementById('deleteMatBtn').style.display = 'none';
+      document.getElementById('materialModal').classList.add('active');
+    }
+
+    function openEditModal(id) {
+      const m = allMaterials.find(mat => mat.id === id);
+      if (!m) return;
+
+      document.getElementById('modalTitle').textContent = 'Edit Material';
+      document.getElementById('editId').value = m.id;
+      document.getElementById('matName').value = m.name;
+      document.getElementById('matCategory').value = m.category;
+      document.getElementById('matTone').value = m.tone || 'neutral';
+      document.getElementById('matPriceTier').value = m.price_tier || 'mid';
+      document.getElementById('matVendor').value = m.vendor || '';
+      document.getElementById('matColor').value = m.color || '';
+      document.getElementById('matSku').value = m.sku || '';
+      document.getElementById('matImage').value = '';
+      document.getElementById('deleteMatBtn').style.display = '';
+
+      if (m.image_url) {
+        document.getElementById('imagePreview').src = m.image_url;
+        document.getElementById('imagePreview').style.display = '';
+      } else {
+        document.getElementById('imagePreview').style.display = 'none';
+      }
+
+      document.getElementById('materialModal').classList.add('active');
+    }
+
+    function closeModal() {
+      document.getElementById('materialModal').classList.remove('active');
+    }
+
+    function previewImage(input) {
+      if (input.files && input.files[0]) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+          const preview = document.getElementById('imagePreview');
+          preview.src = e.target.result;
+          preview.style.display = '';
+        };
+        reader.readAsDataURL(input.files[0]);
+      }
+    }
+
+    async function saveMaterial() {
+      const btn = document.getElementById('saveMatBtn');
+      btn.disabled = true;
+      btn.textContent = 'Saving...';
+
+      const id = document.getElementById('editId').value;
+      const sb = getSupabase();
+
+      const data = {
+        name: document.getElementById('matName').value,
+        category: document.getElementById('matCategory').value,
+        tone: document.getElementById('matTone').value,
+        price_tier: document.getElementById('matPriceTier').value,
+        vendor: document.getElementById('matVendor').value,
+        color: document.getElementById('matColor').value,
+        sku: document.getElementById('matSku').value
+      };
+
+      if (!data.name) {
+        showToast('Material name is required.');
+        btn.disabled = false;
+        btn.textContent = 'Save Material';
+        return;
+      }
+
+      try {
+        // Handle image upload
+        const imageFile = document.getElementById('matImage').files[0];
+        if (imageFile) {
+          const filename = `materials/${Date.now()}-${imageFile.name.replace(/[^a-zA-Z0-9.-]/g, '_')}`;
+          const { error: uploadErr } = await sb.storage
+            .from('material-images')
+            .upload(filename, imageFile, { contentType: imageFile.type });
+
+          if (!uploadErr) {
+            const { data: urlData } = sb.storage.from('material-images').getPublicUrl(filename);
+            data.image_url = urlData.publicUrl;
+          }
+        }
+
+        if (id) {
+          // Update
+          const { error } = await sb.from('materials').update(data).eq('id', id);
+          if (error) throw error;
+          showToast('Material updated.');
+        } else {
+          // Insert
+          const { error } = await sb.from('materials').insert(data);
+          if (error) throw error;
+          showToast('Material added.');
+        }
+
+        closeModal();
+        await loadMaterials();
+      } catch (e) {
+        showToast('Error: ' + e.message);
+      }
+
+      btn.disabled = false;
+      btn.textContent = 'Save Material';
+    }
+
+    async function deleteMaterial() {
+      const id = document.getElementById('editId').value;
+      if (!id || !confirm('Delete this material?')) return;
+
+      try {
+        const sb = getSupabase();
+        const { error } = await sb.from('materials').delete().eq('id', id);
+        if (error) throw error;
+        showToast('Material deleted.');
+        closeModal();
+        await loadMaterials();
+      } catch (e) {
+        showToast('Error: ' + e.message);
+      }
+    }
+
+    function showToast(msg) {
+      const toast = document.getElementById('toast');
+      toast.textContent = msg;
+      toast.classList.add('active');
+      setTimeout(() => toast.classList.remove('active'), 4000);
+    }
+
+    // Close modal on overlay click
+    document.getElementById('materialModal').addEventListener('click', (e) => {
+      if (e.target === document.getElementById('materialModal')) closeModal();
+    });
+
+    document.addEventListener('DOMContentLoaded', loadMaterials);
+  </script>
+
+</body>
+</html>

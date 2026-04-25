@@ -1,0 +1,681 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Upload Order Form — HC Finishing</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --navy: #1B2A4A;
+      --ivory: #F5F0EB;
+      --espresso: #3C2A21;
+      --sand: #D4C5B2;
+      --mocha: #A37762;
+      --carrara: #E8E4E0;
+      --gold: #C4A265;
+      --success: #2e7d32;
+      --warning: #f57c00;
+      --error: #c62828;
+    }
+
+    body {
+      font-family: 'Jost', sans-serif;
+      font-weight: 400;
+      color: var(--espresso);
+      background: var(--ivory);
+      min-height: 100vh;
+    }
+
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.5rem 3rem;
+      background: var(--navy);
+      color: white;
+    }
+
+    nav .logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.5rem;
+      font-weight: 600;
+    }
+
+    nav .logo span {
+      color: var(--gold);
+      font-family: 'Jost', sans-serif;
+      font-weight: 300;
+      font-size: 0.9rem;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      margin-left: 0.75rem;
+    }
+
+    nav ul { list-style: none; display: flex; gap: 2rem; }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      font-weight: 300;
+      font-size: 0.95rem;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      transition: color 0.2s;
+    }
+
+    nav a:hover { color: var(--gold); }
+
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 2rem;
+    }
+
+    h1 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2rem;
+      color: var(--navy);
+      margin-bottom: 0.5rem;
+    }
+
+    .subtitle {
+      font-weight: 300;
+      color: var(--mocha);
+      margin-bottom: 2rem;
+    }
+
+    /* Drop Zone */
+    .drop-zone {
+      border: 2px dashed var(--sand);
+      padding: 3rem;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.3s;
+      background: white;
+      margin-bottom: 2rem;
+    }
+
+    .drop-zone:hover,
+    .drop-zone.drag-over {
+      border-color: var(--gold);
+      background: #faf8f5;
+    }
+
+    .drop-zone .icon {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+      color: var(--sand);
+    }
+
+    .drop-zone p {
+      font-weight: 300;
+      color: var(--espresso);
+      margin-bottom: 0.5rem;
+    }
+
+    .drop-zone .supported {
+      font-size: 0.85rem;
+      color: var(--mocha);
+    }
+
+    .drop-zone input[type="file"] { display: none; }
+
+    .file-btn {
+      display: inline-block;
+      padding: 0.6rem 1.5rem;
+      background: var(--navy);
+      color: white;
+      border: none;
+      cursor: pointer;
+      font-family: 'Jost', sans-serif;
+      font-size: 0.9rem;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      margin-top: 1rem;
+      transition: background 0.2s;
+    }
+
+    .file-btn:hover { background: #2a3f6a; }
+
+    /* Loading Spinner */
+    .spinner {
+      display: none;
+      text-align: center;
+      padding: 3rem;
+    }
+
+    .spinner.active { display: block; }
+
+    .spinner .dot-pulse {
+      display: inline-block;
+      width: 10px;
+      height: 10px;
+      background: var(--navy);
+      border-radius: 50%;
+      animation: pulse 1.2s ease-in-out infinite;
+    }
+
+    .spinner .dot-pulse:nth-child(2) { animation-delay: 0.2s; }
+    .spinner .dot-pulse:nth-child(3) { animation-delay: 0.4s; }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 0.3; transform: scale(0.8); }
+      50% { opacity: 1; transform: scale(1); }
+    }
+
+    /* Confidence Badge */
+    .confidence {
+      display: inline-block;
+      padding: 0.3rem 0.8rem;
+      font-size: 0.8rem;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 1.5rem;
+    }
+
+    .confidence-high { background: #e8f5e9; color: var(--success); }
+    .confidence-medium { background: #fff3e0; color: var(--warning); }
+    .confidence-low { background: #fbe9e7; color: var(--error); }
+
+    /* Warnings */
+    .warnings {
+      margin-bottom: 1.5rem;
+    }
+
+    .warning-item {
+      padding: 0.6rem 1rem;
+      background: #fff3e0;
+      border-left: 3px solid var(--warning);
+      margin-bottom: 0.5rem;
+      font-size: 0.9rem;
+      font-weight: 300;
+    }
+
+    /* Results */
+    .results {
+      display: none;
+      background: white;
+      border: 1px solid var(--sand);
+      padding: 2rem;
+      margin-bottom: 2rem;
+    }
+
+    .results.active { display: block; }
+
+    .results h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.5rem;
+      color: var(--navy);
+      margin-bottom: 1rem;
+    }
+
+    .info-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+
+    .info-item label {
+      display: block;
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--mocha);
+      margin-bottom: 0.25rem;
+    }
+
+    .info-item .value {
+      font-size: 1rem;
+      color: var(--navy);
+      font-weight: 400;
+      padding: 0.4rem 0;
+      border-bottom: 1px solid var(--sand);
+    }
+
+    .info-item .value.empty {
+      color: var(--sand);
+      font-style: italic;
+    }
+
+    /* Room Cards */
+    .room-card {
+      border: 1px solid var(--sand);
+      margin-bottom: 1rem;
+    }
+
+    .room-header {
+      padding: 0.8rem 1rem;
+      background: var(--carrara);
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.1rem;
+      color: var(--navy);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .room-header .count {
+      font-family: 'Jost', sans-serif;
+      font-size: 0.8rem;
+      color: var(--mocha);
+    }
+
+    .material-row {
+      display: grid;
+      grid-template-columns: 120px 1fr 100px 80px;
+      gap: 0.5rem;
+      padding: 0.6rem 1rem;
+      border-bottom: 1px solid #f0ede8;
+      font-size: 0.9rem;
+      align-items: center;
+    }
+
+    .material-row:last-child { border-bottom: none; }
+
+    .material-row .cat {
+      font-weight: 500;
+      color: var(--navy);
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .material-row .product { font-weight: 300; }
+    .material-row .color { color: var(--mocha); font-weight: 300; }
+    .material-row .qty { color: var(--mocha); font-size: 0.85rem; text-align: right; }
+
+    /* Error */
+    .error-box {
+      display: none;
+      padding: 1.5rem;
+      background: #fbe9e7;
+      border-left: 3px solid var(--error);
+      margin-bottom: 1.5rem;
+    }
+
+    .error-box.active { display: block; }
+
+    .error-box p {
+      color: var(--error);
+      font-weight: 400;
+    }
+
+    /* Actions */
+    .actions {
+      display: flex;
+      gap: 1rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--sand);
+    }
+
+    .btn {
+      padding: 0.7rem 2rem;
+      border: none;
+      cursor: pointer;
+      font-family: 'Jost', sans-serif;
+      font-size: 0.9rem;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      transition: all 0.2s;
+    }
+
+    .btn-primary {
+      background: var(--gold);
+      color: var(--navy);
+    }
+
+    .btn-primary:hover { background: #d4b275; }
+
+    .btn-secondary {
+      background: transparent;
+      border: 1px solid var(--sand);
+      color: var(--espresso);
+    }
+
+    .btn-secondary:hover { border-color: var(--navy); }
+
+    .btn:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    /* Toast */
+    .toast {
+      display: none;
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      padding: 1rem 1.5rem;
+      background: var(--navy);
+      color: white;
+      font-size: 0.9rem;
+      z-index: 1000;
+      animation: slideIn 0.3s ease;
+    }
+
+    .toast.active { display: block; }
+
+    .toast a { color: var(--gold); }
+
+    @keyframes slideIn {
+      from { transform: translateY(20px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+
+    /* Raw text toggle */
+    .raw-toggle {
+      cursor: pointer;
+      color: var(--mocha);
+      font-size: 0.85rem;
+      text-decoration: underline;
+      margin-top: 1rem;
+      display: inline-block;
+    }
+
+    .raw-text {
+      display: none;
+      margin-top: 0.5rem;
+      padding: 1rem;
+      background: #f8f6f3;
+      font-family: monospace;
+      font-size: 0.8rem;
+      white-space: pre-wrap;
+      max-height: 300px;
+      overflow-y: auto;
+      border: 1px solid var(--sand);
+    }
+
+    .raw-text.active { display: block; }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="index.html" style="text-decoration: none; color: white;">
+      <div class="logo">HC Finishing <span>SelectFlow</span></div>
+    </a>
+    <ul>
+      <li><a href="dashboard.html">Dashboard</a></li>
+      <li><a href="upload.html" style="color: var(--gold);">Upload</a></li>
+      <li><a href="materials.html">Materials</a></li>
+      <li><a href="review.html">Review</a>
+      <a href="presentation.html">Present</a></li>
+    </ul>
+  </nav>
+
+  <div class="container">
+    <h1>Upload Order Form</h1>
+    <p class="subtitle">Drop a builder order form PDF to extract and structure the data.</p>
+
+    <!-- Drop Zone -->
+    <div class="drop-zone" id="dropZone">
+      <div class="icon">&#128196;</div>
+      <p>Drag and drop your PDF here</p>
+      <p class="supported">Supports text-based and scanned PDF order forms</p>
+      <button class="file-btn" onclick="document.getElementById('fileInput').click()">Browse Files</button>
+      <input type="file" id="fileInput" accept=".pdf">
+    </div>
+
+    <!-- Spinner -->
+    <div class="spinner" id="spinner">
+      <div class="dot-pulse"></div>
+      <div class="dot-pulse"></div>
+      <div class="dot-pulse"></div>
+      <p style="margin-top: 1rem; font-weight: 300;" id="spinnerText">Extracting and parsing order form...</p>
+      <div id="ocrProgress" style="display: none; margin-top: 0.75rem;">
+        <div style="background: var(--carrara); height: 6px; width: 200px; margin: 0 auto;">
+          <div id="ocrBar" style="background: var(--gold); height: 100%; width: 0%; transition: width 0.3s;"></div>
+        </div>
+        <p style="font-size: 0.8rem; color: var(--mocha); margin-top: 0.4rem;" id="ocrStatus"></p>
+      </div>
+    </div>
+
+    <!-- Error -->
+    <div class="error-box" id="errorBox">
+      <p id="errorMessage"></p>
+    </div>
+
+    <!-- Results -->
+    <div class="results" id="results">
+      <h2>Parsed Order Form</h2>
+
+      <div id="confidenceBadge"></div>
+      <div class="warnings" id="warnings"></div>
+
+      <div class="info-grid" id="infoGrid"></div>
+
+      <div id="roomCards"></div>
+
+      <span class="raw-toggle" id="rawToggle">Show raw extracted text</span>
+      <div class="raw-text" id="rawText"></div>
+
+      <div class="actions">
+        <button class="btn btn-primary" id="saveBtn" onclick="saveToProject()">Save to Project</button>
+        <button class="btn btn-secondary" onclick="resetUpload()">Upload Another</button>
+      </div>
+    </div>
+
+    <!-- Toast -->
+    <div class="toast" id="toast"></div>
+  </div>
+
+  <!-- Dependencies -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js"></script>
+  <script type="module">
+    import * as pdfjsLib from 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.0.379/pdf.min.mjs';
+    window.pdfjsLib = pdfjsLib;
+    pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.0.379/pdf.worker.min.mjs';
+  </script>
+  <script src="js/config.js"></script>
+  <script src="js/supabase-client.js"></script>
+  <script src="js/pdf-parser.js"></script>
+
+  <script>
+    let currentParsedData = null;
+    let currentFileName = null;
+
+    // Drop zone events
+    const dropZone = document.getElementById('dropZone');
+    const fileInput = document.getElementById('fileInput');
+
+    dropZone.addEventListener('dragover', (e) => {
+      e.preventDefault();
+      dropZone.classList.add('drag-over');
+    });
+
+    dropZone.addEventListener('dragleave', () => {
+      dropZone.classList.remove('drag-over');
+    });
+
+    dropZone.addEventListener('drop', (e) => {
+      e.preventDefault();
+      dropZone.classList.remove('drag-over');
+      const file = e.dataTransfer.files[0];
+      if (file && file.type === 'application/pdf') {
+        handleFile(file);
+      }
+    });
+
+    fileInput.addEventListener('change', (e) => {
+      const file = e.target.files[0];
+      if (file) handleFile(file);
+    });
+
+    // Raw text toggle
+    document.getElementById('rawToggle').addEventListener('click', () => {
+      document.getElementById('rawText').classList.toggle('active');
+    });
+
+    async function handleFile(file) {
+      currentFileName = file.name;
+
+      // Show spinner
+      dropZone.style.display = 'none';
+      document.getElementById('spinner').classList.add('active');
+      document.getElementById('results').classList.remove('active');
+      document.getElementById('errorBox').classList.remove('active');
+
+      // Wait for pdf.js to load
+      let attempts = 0;
+      while (!window.pdfjsLib && attempts < 20) {
+        await new Promise(r => setTimeout(r, 200));
+        attempts++;
+      }
+
+      if (!window.pdfjsLib) {
+        showError('PDF library is still loading. Please try again in a moment.');
+        return;
+      }
+
+      // Set up OCR progress callback for scanned PDFs
+      ocrProgressCallback = (progress, totalPages, currentPage) => {
+        const ocrDiv = document.getElementById('ocrProgress');
+        ocrDiv.style.display = 'block';
+        document.getElementById('spinnerText').textContent = 'Scanned PDF detected — running OCR...';
+        if (currentPage) {
+          document.getElementById('ocrStatus').textContent = `Processing page ${currentPage} of ${totalPages}...`;
+        }
+        const pageProgress = currentPage ? ((currentPage - 1) / totalPages + progress / totalPages) : progress;
+        document.getElementById('ocrBar').style.width = `${Math.round(pageProgress * 100)}%`;
+      };
+
+      try {
+        const result = await parsePDF(file);
+
+        document.getElementById('spinner').classList.remove('active');
+        document.getElementById('ocrProgress').style.display = 'none';
+        document.getElementById('spinnerText').textContent = 'Extracting and parsing order form...';
+
+        if (result.error && !result.parsed) {
+          showError(result.error);
+          return;
+        }
+
+        currentParsedData = result.parsed;
+        renderResults(result);
+
+      } catch (err) {
+        document.getElementById('spinner').classList.remove('active');
+        showError('Failed to parse PDF: ' + err.message);
+        console.error(err);
+      }
+    }
+
+    function showError(msg) {
+      document.getElementById('errorMessage').textContent = msg;
+      document.getElementById('errorBox').classList.add('active');
+      dropZone.style.display = '';
+      document.getElementById('spinner').classList.remove('active');
+    }
+
+    function renderResults(result) {
+      const parsed = result.parsed;
+      document.getElementById('results').classList.add('active');
+
+      // Confidence badge
+      const badge = document.getElementById('confidenceBadge');
+      badge.innerHTML = `<span class="confidence confidence-${parsed.parse_confidence}">Parse Confidence: ${parsed.parse_confidence}</span>`;
+
+      // Warnings
+      const warnings = document.getElementById('warnings');
+      warnings.innerHTML = parsed.parse_warnings
+        .map(w => `<div class="warning-item">${w}</div>`)
+        .join('');
+
+      // Info grid
+      const grid = document.getElementById('infoGrid');
+      grid.innerHTML = [
+        { label: 'Builder', value: parsed.builder_name },
+        { label: 'Buyer', value: parsed.buyer_name },
+        { label: 'Project / Subdivision', value: parsed.project_name },
+        { label: 'Lot Number', value: parsed.lot_number },
+        { label: 'Address', value: parsed.address }
+      ].filter(item => item.value || item.label === 'Builder').map(item => `
+        <div class="info-item">
+          <label>${item.label}</label>
+          <div class="value ${!item.value ? 'empty' : ''}">${item.value || 'Not detected'}</div>
+        </div>
+      `).join('');
+
+      // Room cards
+      const roomCards = document.getElementById('roomCards');
+      roomCards.innerHTML = parsed.rooms.map(room => `
+        <div class="room-card">
+          <div class="room-header">
+            ${room.name}
+            <span class="count">${room.materials.length} material${room.materials.length !== 1 ? 's' : ''}</span>
+          </div>
+          ${room.materials.map(m => `
+            <div class="material-row">
+              <span class="cat">${m.category}</span>
+              <span class="product">${m.product}</span>
+              <span class="color">${m.color || '—'}</span>
+              <span class="qty">${m.quantity || '—'}</span>
+            </div>
+          `).join('')}
+        </div>
+      `).join('');
+
+      if (parsed.rooms.length === 0) {
+        roomCards.innerHTML = '<p style="color: var(--mocha); font-weight: 300; padding: 1rem 0;">No rooms or materials detected in this document.</p>';
+      }
+
+      // Raw text
+      document.getElementById('rawText').textContent = result.raw_text;
+    }
+
+    async function saveToProject() {
+      if (!currentParsedData) return;
+
+      const saveBtn = document.getElementById('saveBtn');
+      saveBtn.disabled = true;
+      saveBtn.textContent = 'Saving...';
+
+      try {
+        const result = await saveOrderForm({
+          original_filename: currentFileName,
+          raw_text: currentParsedData.raw_text,
+          parsed_json: currentParsedData,
+          parse_confidence: currentParsedData.parse_confidence,
+          parse_warnings: currentParsedData.parse_warnings
+        });
+
+        // Show toast with review link
+        const toast = document.getElementById('toast');
+        toast.innerHTML = `Saved successfully. <a href="review.html?id=${result.id}">Review and approve</a>`;
+        toast.classList.add('active');
+
+        saveBtn.textContent = 'Saved';
+
+        setTimeout(() => {
+          toast.classList.remove('active');
+        }, 8000);
+
+      } catch (err) {
+        saveBtn.disabled = false;
+        saveBtn.textContent = 'Save to Project';
+        showError('Failed to save: ' + err.message);
+      }
+    }
+
+    function resetUpload() {
+      currentParsedData = null;
+      currentFileName = null;
+      document.getElementById('results').classList.remove('active');
+      document.getElementById('errorBox').classList.remove('active');
+      dropZone.style.display = '';
+      fileInput.value = '';
+      document.getElementById('saveBtn').disabled = false;
+      document.getElementById('saveBtn').textContent = 'Save to Project';
+    }
+  </script>
+
+</body>
+</html>

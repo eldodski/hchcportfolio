@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ADG Design Services — Builder Partnership Guide</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Jost:ital,wght@0,200;0,300;0,400;1,200&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+:root {
+  --ivory: #F5F0EB; --navy: #1B2A4A; --espresso: #3C2A21;
+  --sand: #D4C5B2; --mocha: #A37762; --carrara: #E8E4E0;
+  --gold: #C4A265; --dusty-blue: #7B9BAE;
+  --heading: 'Cormorant Garamond', Georgia, serif;
+  --body: 'Jost', 'Segoe UI', sans-serif;
+}
+html { scroll-behavior: smooth; }
+body { font-family: var(--body); font-weight: 400; font-size: 16px; line-height: 1.7; color: var(--espresso); background: var(--ivory); -webkit-font-smoothing: antialiased; }
+img { max-width: 100%; height: auto; display: block; }
+
+/* Layout */
+.container { max-width: 900px; margin: 0 auto; padding: 0 40px; }
+
+/* Cover */
+.cover { background: var(--navy); color: var(--ivory); padding: 120px 40px; text-align: center; }
+.cover h1 { font-family: var(--heading); font-weight: 600; font-size: 3rem; color: #fff; margin-bottom: 8px; line-height: 1.15; }
+.cover .subtitle { font-family: var(--body); font-weight: 200; font-size: 0.85rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--dusty-blue); margin-bottom: 24px; }
+.cover .tagline { font-family: var(--body); font-weight: 300; font-size: 1.1rem; color: rgba(255,255,255,0.7); max-width: 540px; margin: 0 auto; }
+.cover .divider { width: 60px; height: 1px; background: var(--gold); margin: 32px auto; }
+
+/* Section */
+.section { padding: 72px 0; border-bottom: 1px solid var(--sand); }
+.section:last-child { border-bottom: none; }
+.section-num { font-family: var(--body); font-weight: 200; font-size: 0.72rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--mocha); margin-bottom: 8px; }
+h2 { font-family: var(--heading); font-weight: 600; font-size: 2rem; color: var(--navy); margin-bottom: 24px; line-height: 1.2; }
+h3 { font-family: var(--heading); font-weight: 600; font-size: 1.35rem; color: var(--navy); margin-bottom: 12px; margin-top: 36px; }
+h4 { font-family: var(--body); font-weight: 200; font-size: 0.78rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--mocha); margin-bottom: 8px; margin-top: 28px; }
+p { margin-bottom: 1em; max-width: 720px; }
+strong { font-weight: 600; }
+
+/* Lists */
+ul, ol { margin: 0 0 1em 20px; }
+li { margin-bottom: 6px; }
+
+/* Tables */
+table { width: 100%; border-collapse: collapse; margin: 20px 0 28px; font-size: 0.92rem; }
+th { font-family: var(--body); font-weight: 200; font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--mocha); text-align: left; padding: 10px 16px; border-bottom: 2px solid var(--sand); }
+td { padding: 12px 16px; border-bottom: 1px solid var(--carrara); vertical-align: top; }
+tr:last-child td { border-bottom: none; }
+
+/* Highlight boxes */
+.highlight { background: var(--carrara); padding: 28px 32px; margin: 24px 0; border-left: 3px solid var(--navy); }
+.highlight p { margin-bottom: 0.6em; }
+.highlight p:last-child { margin-bottom: 0; }
+
+/* Quote / pitch */
+.pitch { font-family: var(--heading); font-weight: 400; font-size: 1.2rem; font-style: italic; color: var(--navy); border-left: 3px solid var(--gold); padding-left: 24px; margin: 28px 0; line-height: 1.6; }
+
+/* Stats row */
+.stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; margin: 32px 0; }
+.stat { text-align: center; padding: 24px 16px; border: 1px solid var(--sand); }
+.stat .num { font-family: var(--heading); font-weight: 700; font-size: 2.4rem; color: var(--navy); line-height: 1; margin-bottom: 4px; }
+.stat .label { font-family: var(--body); font-weight: 200; font-size: 0.68rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--mocha); }
+
+/* Color swatches */
+.swatches { display: flex; gap: 16px; flex-wrap: wrap; margin: 16px 0 28px; }
+.swatch { text-align: center; }
+.swatch .box { width: 64px; height: 64px; border-radius: 4px; margin-bottom: 6px; border: 1px solid var(--sand); }
+.swatch .name { font-size: 0.72rem; font-weight: 400; color: var(--espresso); }
+.swatch .hex { font-size: 0.65rem; color: var(--mocha); }
+
+/* Flow diagram */
+.flow { display: flex; align-items: center; justify-content: center; gap: 8px; margin: 24px 0; flex-wrap: wrap; }
+.flow .step { background: var(--navy); color: var(--ivory); padding: 10px 20px; font-size: 0.78rem; font-weight: 300; letter-spacing: 0.08em; }
+.flow .arrow { color: var(--sand); font-size: 1.2rem; }
+
+/* Five things grid */
+.five-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin: 24px 0; }
+.five-item { padding: 24px; border: 1px solid var(--sand); }
+.five-item .number { font-family: var(--heading); font-weight: 700; font-size: 1.6rem; color: var(--navy); margin-bottom: 4px; }
+.five-item h4 { margin-top: 0; margin-bottom: 6px; color: var(--navy); font-family: var(--heading); font-weight: 600; font-size: 1rem; letter-spacing: 0; text-transform: none; }
+.five-item p { font-size: 0.88rem; margin-bottom: 0; }
+.five-item.full { grid-column: span 2; }
+
+/* Footer */
+.doc-footer { text-align: center; padding: 48px 40px; color: var(--mocha); font-size: 0.8rem; font-style: italic; }
+
+/* Print */
+@media print {
+  .cover { padding: 80px 40px; page-break-after: always; }
+  .section { page-break-inside: avoid; padding: 48px 0; }
+  body { font-size: 11pt; }
+  .stats { grid-template-columns: repeat(4, 1fr); }
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+  .cover { padding: 80px 24px; }
+  .cover h1 { font-size: 2.2rem; }
+  .container { padding: 0 24px; }
+  .stats { grid-template-columns: 1fr 1fr; }
+  .five-grid { grid-template-columns: 1fr; }
+  .five-item.full { grid-column: span 1; }
+  table { font-size: 0.82rem; }
+  th, td { padding: 8px 10px; }
+}
+</style>
+</head>
+<body>
+
+<!-- COVER -->
+<div class="cover">
+  <div class="subtitle">Builder Partnership Guide</div>
+  <h1>ADG Design Services</h1>
+  <div class="divider"></div>
+  <p class="tagline">Design + Installation. One Partner.<br>Professional interior design selections paired with expert flooring installation for custom home builders.</p>
+</div>
+
+<div class="container">
+
+<!-- 1. WHO WE ARE -->
+<div class="section">
+  <div class="section-num">Section 01</div>
+  <h2>Who We Are</h2>
+  <p>ADG (United Finishes) is a full-service flooring installation and design company serving custom home builders across San Antonio and the Texas Hill Country. Our Design Center is led by <strong>Ena</strong>, a designer with 8+ years of production-level experience for national builders including <strong>KB Home</strong> and <strong>Pulte Group</strong>.</p>
+  <p>What sets us apart: builders get a single point of contact for both <strong>interior design selections</strong> and <strong>professional flooring installation</strong>. No middleman. No coordination headaches. One partner from design concept through final install.</p>
+
+  <div class="stats">
+    <div class="stat"><div class="num">8+</div><div class="label">Years Experience</div></div>
+    <div class="stat"><div class="num">100s</div><div class="label">Homes Designed</div></div>
+    <div class="stat"><div class="num">3</div><div class="label">National Builders</div></div>
+    <div class="stat"><div class="num">1</div><div class="label">Design Center</div></div>
+  </div>
+</div>
+
+<!-- 2. THE PROBLEM WE SOLVE -->
+<div class="section">
+  <div class="section-num">Section 02</div>
+  <h2>The Problem We Solve</h2>
+  <p>Custom home builders face a recurring pain point: <strong>design selections slow down builds.</strong> Homeowners get overwhelmed, decisions stall, timelines slip, and the builder absorbs the cost. Outsourcing design to independent firms adds coordination complexity and communication gaps.</p>
+
+  <div class="highlight">
+    <p><strong>ADG eliminates that friction.</strong> Our design-to-installation pipeline means selections happen in our Design Center with a professional designer, materials are specified from verified inventory, and installation is scheduled and executed by our own crews. One company. One timeline. No surprises.</p>
+  </div>
+</div>
+
+<!-- 3. ABOUT ENA -->
+<div class="section">
+  <div class="section-num">Section 03</div>
+  <h2>The Design Team</h2>
+
+  <table>
+    <tr><td style="width:200px;"><strong>Current Role</strong></td><td>Design Center Manager, United Finishes (ADG)</td></tr>
+    <tr><td><strong>Responsibilities</strong></td><td>Client design appointments, operations & reporting, procedures, business development</td></tr>
+    <tr><td><strong>Previous</strong></td><td>Production-level design for KB Home and Pulte Group</td></tr>
+    <tr><td><strong>Experience</strong></td><td>8+ years residential interior design</td></tr>
+    <tr><td><strong>Specialties</strong></td><td>Flooring, cabinetry, countertops, fixtures, lighting, tile, full material selections</td></tr>
+  </table>
+
+  <p>Ena has guided hundreds of homeowners through the selection process at production scale. She knows how to translate a client's half-formed vision into a cohesive, buildable design — on budget and on schedule.</p>
+
+  <h3>Why This Background Matters to Builders</h3>
+  <ul>
+    <li><strong>She speaks builder language.</strong> Timelines, budgets, trade coordination, material lead times — she understands the operational side.</li>
+    <li><strong>She keeps buyers moving.</strong> A structured appointment process means selections don't stall. Homeowners leave the Design Center with decisions made, not more questions.</li>
+    <li><strong>She thinks at scale.</strong> Whether it's one custom home or a multi-lot development, the process is consistent and repeatable.</li>
+  </ul>
+</div>
+
+<!-- 4. SERVICES -->
+<div class="section">
+  <div class="section-num">Section 04</div>
+  <h2>Services for Builders</h2>
+
+  <h3>Full-Service Design + Installation</h3>
+  <p>The complete package. Ena handles all design selections in our Design Center, specifies materials, and ADG's installation crews execute.</p>
+  <ul>
+    <li>Design consultation and needs assessment</li>
+    <li>Full material selections (flooring, tile, countertops, backsplash, cabinetry, fixtures, lighting)</li>
+    <li>Presentation boards / digital design concepts</li>
+    <li>Material specification and ordering</li>
+    <li>Professional flooring installation by ADG crews</li>
+    <li>Project coordination with builder's timeline</li>
+  </ul>
+
+  <h3>Design Selections Only</h3>
+  <p>For builders who have their own installation crews but need professional design guidance for their buyers.</p>
+  <ul>
+    <li>Design Center appointments with homeowners</li>
+    <li>Full material selections and specification</li>
+    <li>Presentation boards / digital concepts</li>
+    <li>Material sourcing and pricing</li>
+  </ul>
+
+  <h3>Designer Partnership Program</h3>
+  <p>Independent interior designers can bring their clients to ADG's Design Center for flooring selections and installation. ADG handles the flooring; the designer maintains the client relationship.</p>
+
+  <h4>Our Process</h4>
+  <div class="flow">
+    <span class="step">Builder Intake</span><span class="arrow">&rarr;</span>
+    <span class="step">Design Appointment</span><span class="arrow">&rarr;</span>
+    <span class="step">Specification</span><span class="arrow">&rarr;</span>
+    <span class="step">Ordering</span><span class="arrow">&rarr;</span>
+    <span class="step">Installation</span><span class="arrow">&rarr;</span>
+    <span class="step">Walkthrough</span>
+  </div>
+
+  <table>
+    <thead><tr><th>Phase</th><th>What Happens</th><th>Timeline</th></tr></thead>
+    <tbody>
+      <tr><td>Builder Intake</td><td>Meet with builder — home specs, buyer profile, budget, design direction</td><td>Day 1</td></tr>
+      <tr><td>Design Appointment</td><td>Homeowner visits Design Center. Ena guides full material selections.</td><td>Week 1-2</td></tr>
+      <tr><td>Specification</td><td>Materials specified, pricing confirmed, lead times locked</td><td>Week 2</td></tr>
+      <tr><td>Ordering</td><td>Materials ordered from verified vendors</td><td>Week 2-3</td></tr>
+      <tr><td>Installation</td><td>ADG crews install per builder's construction schedule</td><td>Per schedule</td></tr>
+      <tr><td>Walkthrough</td><td>Quality check with builder and/or homeowner</td><td>Post-install</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- 5. WHY ADG -->
+<div class="section">
+  <div class="section-num">Section 05</div>
+  <h2>Why ADG</h2>
+
+  <h3>vs. Independent Designers</h3>
+  <table>
+    <thead><tr><th>Factor</th><th>Independent Designer</th><th>ADG</th></tr></thead>
+    <tbody>
+      <tr><td>Design expertise</td><td>Yes</td><td>Yes — production-tested</td></tr>
+      <tr><td>Installation</td><td>No — refers out</td><td>Yes — in-house crews</td></tr>
+      <tr><td>Single point of contact</td><td>No</td><td>Yes — one company</td></tr>
+      <tr><td>Design Center</td><td>Rarely</td><td>Yes — professional studio</td></tr>
+      <tr><td>Builder timeline fluency</td><td>Sometimes</td><td>Always</td></tr>
+      <tr><td>Accountability</td><td>Split across vendors</td><td>One company owns it</td></tr>
+    </tbody>
+  </table>
+
+  <h3>The Five Things Builders Get</h3>
+  <div class="five-grid">
+    <div class="five-item">
+      <div class="number">01</div>
+      <h4>A designer who won't slow your build</h4>
+      <p>Structured appointments, decisive guidance, timeline-aware scheduling.</p>
+    </div>
+    <div class="five-item">
+      <div class="number">02</div>
+      <h4>Installation you don't have to babysit</h4>
+      <p>Our crews, our accountability, our quality standards.</p>
+    </div>
+    <div class="five-item">
+      <div class="number">03</div>
+      <h4>A Design Center that sells your homes</h4>
+      <p>Buyers feel the upgrade when they walk in. It elevates your brand.</p>
+    </div>
+    <div class="five-item">
+      <div class="number">04</div>
+      <h4>One invoice, one relationship</h4>
+      <p>Design + materials + install. No chasing three vendors.</p>
+    </div>
+    <div class="five-item full">
+      <div class="number">05</div>
+      <h4>A business development partner</h4>
+      <p>We want your pipeline to grow because ours grows with it.</p>
+    </div>
+  </div>
+</div>
+
+<!-- 6. VISUAL IDENTITY -->
+<div class="section">
+  <div class="section-num">Section 06</div>
+  <h2>Visual Identity</h2>
+
+  <h4>Color Palette</h4>
+  <div class="swatches">
+    <div class="swatch"><div class="box" style="background:#F5F0EB;"></div><div class="name">Ivory Warm</div><div class="hex">#F5F0EB</div></div>
+    <div class="swatch"><div class="box" style="background:#1B2A4A;"></div><div class="name">Deep Navy</div><div class="hex">#1B2A4A</div></div>
+    <div class="swatch"><div class="box" style="background:#3C2A21;"></div><div class="name">Espresso</div><div class="hex">#3C2A21</div></div>
+    <div class="swatch"><div class="box" style="background:#D4C5B2;"></div><div class="name">Warm Sand</div><div class="hex">#D4C5B2</div></div>
+    <div class="swatch"><div class="box" style="background:#A37762;"></div><div class="name">Mocha</div><div class="hex">#A37762</div></div>
+    <div class="swatch"><div class="box" style="background:#E8E4E0;"></div><div class="name">Carrara</div><div class="hex">#E8E4E0</div></div>
+    <div class="swatch"><div class="box" style="background:#C4A265;"></div><div class="name">Muted Gold</div><div class="hex">#C4A265</div></div>
+  </div>
+
+  <h4>Typography</h4>
+  <table>
+    <thead><tr><th>Role</th><th>Font</th><th>Weight</th></tr></thead>
+    <tbody>
+      <tr><td>Headings</td><td>Cormorant Garamond</td><td>SemiBold (600)</td></tr>
+      <tr><td>Subheadings</td><td>Jost — UPPERCASE, wide tracking</td><td>Light (200)</td></tr>
+      <tr><td>Body</td><td>Jost</td><td>Regular (400)</td></tr>
+    </tbody>
+  </table>
+
+  <h4>Brand Voice — B2B</h4>
+  <table>
+    <thead><tr><th>Trait</th><th>What It Means</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Professional</strong></td><td>Business-appropriate. Speak to timelines, budgets, process.</td></tr>
+      <tr><td><strong>Confident</strong></td><td>State capabilities clearly. No hedging.</td></tr>
+      <tr><td><strong>Operational</strong></td><td>Emphasize systems, repeatability, reliability.</td></tr>
+      <tr><td><strong>Partnership</strong></td><td>"We grow when you grow." Collaborative, not transactional.</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- 7. NETWORKING -->
+<div class="section">
+  <div class="section-num">Section 07</div>
+  <h2>Networking Materials</h2>
+
+  <h4>Elevator Pitch</h4>
+  <div class="pitch">"I run the Design Center at ADG — United Finishes. We pair professional interior design services with in-house flooring installation for custom home builders. Builders get one partner for design selections and install, so their buyers stay on track and their timelines don't slip. I've done this at scale for KB Home and Pulte — now I'm bringing that to the Hill Country custom market."</div>
+
+  <h4>Materials Checklist</h4>
+  <table>
+    <thead><tr><th>Material</th><th>Format</th><th>Status</th></tr></thead>
+    <tbody>
+      <tr><td>Builder Portfolio</td><td>Digital + printed PDF</td><td>Built</td></tr>
+      <tr><td>Business Cards</td><td>ADG-branded</td><td>To design</td></tr>
+      <tr><td>One-Pager</td><td>Leave-behind PDF</td><td>To design</td></tr>
+      <tr><td>LinkedIn Profile</td><td>Updated headline + role</td><td>To update</td></tr>
+    </tbody>
+  </table>
+
+  <h4>Follow-Up Email Template</h4>
+  <div class="highlight">
+    <p><strong>Subject:</strong> ADG Design Services — Following Up</p>
+    <p>Hi [Builder Name],</p>
+    <p>Great meeting you at [event]. As we discussed, ADG provides design selections and flooring installation as a single service for custom home builders.</p>
+    <p>I've attached our portfolio and a one-page overview of how we work with builders. Happy to set up a time to walk through the Design Center — most builders find it clicks when they see the space.</p>
+    <p>Looking forward to connecting.</p>
+    <p>Ena<br>Design Center Manager, ADG / United Finishes<br>[phone] | [email]</p>
+  </div>
+</div>
+
+<!-- 8. QUICK REFERENCE -->
+<div class="section">
+  <div class="section-num">Section 08</div>
+  <h2>Quick Reference</h2>
+  <table>
+    <tbody>
+      <tr><td style="width:200px;"><strong>Brand Name</strong></td><td>ADG Design Services (United Finishes)</td></tr>
+      <tr><td><strong>Tagline</strong></td><td>"Design + Installation. One Partner."</td></tr>
+      <tr><td><strong>Lead Designer</strong></td><td>Ena — Design Center Manager</td></tr>
+      <tr><td><strong>Primary Audience</strong></td><td>Custom home builders, San Antonio / Hill Country</td></tr>
+      <tr><td><strong>Key Differentiator</strong></td><td>Professional design selections + in-house flooring installation</td></tr>
+      <tr><td><strong>Signature Color</strong></td><td>Deep Navy #1B2A4A</td></tr>
+      <tr><td><strong>Voice</strong></td><td>Professional, confident, operational, partnership-oriented</td></tr>
+    </tbody>
+  </table>
+</div>
+
+</div><!-- /container -->
+
+<div class="doc-footer">
+  This brand guide covers ADG's builder-facing identity.<br>
+  For Ena's independent consumer practice, see the separate Hill Country Home Concepts (HCHC) brand book.
+</div>
+
+</body>
+</html>

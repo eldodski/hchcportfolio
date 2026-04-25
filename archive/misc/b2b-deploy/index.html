@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ena Dodski | Design Leader | Texas Hill Country Residential Interiors</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Jost:ital,wght@0,200;0,300;0,400;1,200&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+:root {
+  --ivory: #F5F0EB; --navy: #1B2A4A; --espresso: #3C2A21;
+  --sand: #D4C5B2; --mocha: #A37762; --carrara: #E8E4E0;
+  --gold: #C4A265; --dusty-blue: #7B9BAE; --sage: #8A9A7B;
+  --heading: 'Cormorant Garamond', Georgia, serif;
+  --body: 'Jost', 'Segoe UI', sans-serif;
+}
+html { scroll-behavior: smooth; }
+body { font-family: var(--body); font-weight: 400; font-size: 17px; line-height: 1.7; color: var(--espresso); background: var(--ivory); -webkit-font-smoothing: antialiased; }
+img { max-width: 100%; height: auto; display: block; }
+a { color: inherit; text-decoration: none; }
+h1, h2 { font-family: var(--heading); font-weight: 600; color: var(--navy); line-height: 1.2; }
+h1 { font-size: clamp(2.4rem, 5vw, 3.6rem); }
+h2 { font-size: clamp(1.8rem, 3.5vw, 2.6rem); margin-bottom: 0.4em; }
+.subheading { font-family: var(--body); font-weight: 200; font-size: 0.85rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--mocha); margin-bottom: 1rem; }
+p { max-width: 680px; }
+.btn { display: inline-block; font-family: var(--body); font-weight: 300; font-size: 0.85rem; letter-spacing: 0.15em; text-transform: uppercase; padding: 14px 40px; background: var(--navy); color: var(--ivory); border: none; cursor: pointer; transition: background 0.3s ease; }
+.btn:hover { background: var(--mocha); }
+
+/* Nav */
+nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; background: rgba(245,240,235,0.95); backdrop-filter: blur(10px); border-bottom: 1px solid var(--sand); }
+nav .nav-inner { max-width: 1280px; margin: 0 auto; padding: 18px 40px; display: flex; justify-content: space-between; align-items: center; }
+.logo { font-family: var(--heading); font-weight: 600; font-size: 1.15rem; color: var(--navy); }
+.logo span { font-family: var(--body); font-weight: 200; font-size: 0.62rem; letter-spacing: 0.2em; text-transform: uppercase; display: block; color: var(--mocha); margin-top: -2px; }
+nav ul { list-style: none; display: flex; gap: 32px; }
+nav ul li a { font-family: var(--body); font-weight: 300; font-size: 0.78rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--espresso); transition: color 0.3s; position: relative; }
+nav ul li a::after { content: ''; position: absolute; bottom: -4px; left: 0; width: 0; height: 1px; background: var(--navy); transition: width 0.3s; }
+nav ul li a:hover { color: var(--navy); }
+nav ul li a:hover::after { width: 100%; }
+.nav-toggle { display: none; background: none; border: none; cursor: pointer; padding: 8px; }
+.nav-toggle span { display: block; width: 22px; height: 1.5px; background: var(--espresso); margin: 5px 0; }
+
+/* Hero */
+.hero { position: relative; height: 100vh; min-height: 600px; overflow: hidden; display: flex; align-items: center; justify-content: center; }
+.hero-img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center 40%; }
+.hero-overlay { position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(27,42,74,0.15) 0%, rgba(27,42,74,0.45) 50%, rgba(27,42,74,0.65) 100%); }
+.hero-content { position: relative; z-index: 2; text-align: center; color: var(--ivory); padding: 0 24px; }
+.hero-content .pre { font-family: var(--body); font-weight: 200; font-size: 0.82rem; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(255,255,255,0.7); margin-bottom: 12px; }
+.hero-content h1 { color: #fff; font-size: clamp(2.4rem, 5.5vw, 4rem); margin-bottom: 16px; text-shadow: 0 2px 20px rgba(0,0,0,0.15); }
+.hero-content .tagline { font-family: var(--body); font-weight: 300; font-size: clamp(0.95rem, 1.8vw, 1.15rem); color: rgba(255,255,255,0.85); margin-bottom: 36px; max-width: 560px; margin-left: auto; margin-right: auto; }
+.hero .btn { background: rgba(245,240,235,0.95); color: var(--navy); }
+.hero .btn:hover { background: #fff; }
+
+/* Sections */
+section { padding: 100px 40px; max-width: 1280px; margin: 0 auto; }
+.section-header { text-align: center; margin-bottom: 60px; }
+.section-header .subheading { margin-bottom: 8px; }
+.divider { width: 60px; height: 1px; background: var(--sand); margin: 20px auto 0; }
+
+/* About / Value Grid */
+.value-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
+.value-text p { margin-bottom: 1.2em; }
+.value-image img { width: 100%; aspect-ratio: 4/3; object-fit: cover; }
+
+/* Stats */
+.stats-bar { background: var(--navy); padding: 60px 40px; max-width: 100%; margin: 0; }
+.stats-inner { max-width: 1280px; margin: 0 auto; display: grid; grid-template-columns: repeat(4, 1fr); gap: 32px; text-align: center; }
+.stat .num { font-family: var(--heading); font-weight: 700; font-size: clamp(2rem, 4vw, 3rem); color: #fff; line-height: 1; margin-bottom: 4px; }
+.stat .label { font-family: var(--body); font-weight: 200; font-size: 0.72rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--dusty-blue); }
+
+/* Portfolio */
+.portfolio-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+.portfolio-item { position: relative; overflow: hidden; }
+.portfolio-item img { width: 100%; aspect-ratio: 4/3; object-fit: cover; transition: transform 0.6s ease, filter 0.6s ease; }
+.portfolio-item:hover img { transform: scale(1.04); filter: brightness(1.03) saturate(1.05); }
+.portfolio-item .overlay { position: absolute; bottom: 0; left: 0; right: 0; padding: 24px; background: linear-gradient(to top, rgba(27,42,74,0.75) 0%, transparent 100%); opacity: 0; transition: opacity 0.4s; }
+.portfolio-item:hover .overlay { opacity: 1; }
+.portfolio-item .overlay h3 { font-family: var(--heading); font-weight: 600; font-size: 1.2rem; color: #fff; margin-bottom: 4px; }
+.portfolio-item .overlay .tag { font-family: var(--body); font-weight: 200; font-size: 0.7rem; letter-spacing: 0.15em; text-transform: uppercase; color: rgba(255,255,255,0.8); }
+.portfolio-grid .wide { grid-column: span 2; }
+.portfolio-grid .wide img { aspect-ratio: 16/9; }
+.portfolio-credit { text-align: center; margin-top: 24px; font-size: 0.78rem; font-weight: 200; letter-spacing: 0.1em; color: var(--mocha); }
+
+/* Services */
+.services-bg { background: var(--carrara); padding: 100px 40px; max-width: 100%; margin: 0; }
+.services-inner { max-width: 1280px; margin: 0 auto; }
+.services-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px; }
+.service-card { background: var(--ivory); padding: 40px 32px; border: 1px solid var(--sand); transition: border-color 0.3s; }
+.service-card:hover { border-color: var(--navy); }
+.service-card h3 { font-family: var(--heading); font-weight: 600; font-size: 1.3rem; color: var(--navy); margin-bottom: 14px; }
+.service-card p { font-size: 0.9rem; line-height: 1.7; margin: 0 auto; }
+.service-card ul { font-size: 0.88rem; margin: 12px 0 0 18px; }
+.service-card ul li { margin-bottom: 4px; }
+
+.process-flow { text-align: center; margin-top: 48px; }
+.process-flow .subheading { margin-bottom: 20px; }
+.process-steps { display: flex; justify-content: center; align-items: center; gap: 10px; flex-wrap: wrap; }
+.process-steps .step { background: var(--navy); color: var(--ivory); padding: 10px 22px; font-size: 0.8rem; font-weight: 300; letter-spacing: 0.08em; }
+.process-steps .arrow { color: var(--sand); font-size: 1rem; }
+
+/* Why Section */
+.why-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+.why-item { padding: 32px; border: 1px solid var(--sand); transition: border-color 0.3s; }
+.why-item:hover { border-color: var(--navy); }
+.why-item .num { font-family: var(--heading); font-weight: 700; font-size: 1.8rem; color: var(--navy); margin-bottom: 6px; }
+.why-item h3 { font-family: var(--heading); font-weight: 600; font-size: 1.15rem; color: var(--navy); margin-bottom: 8px; }
+.why-item p { font-size: 0.9rem; margin: 0; }
+.why-item.full { grid-column: span 2; }
+
+/* Contact */
+.contact-bg { background: var(--navy); padding: 100px 40px; max-width: 100%; margin: 0; }
+.contact-inner { max-width: 720px; margin: 0 auto; text-align: center; }
+.contact-inner h2 { color: #fff; margin-bottom: 8px; }
+.contact-inner .subheading { color: var(--dusty-blue); margin-bottom: 12px; }
+.contact-inner .intro { color: rgba(255,255,255,0.7); font-size: 0.95rem; margin: 0 auto 48px; }
+.form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; text-align: left; }
+.form-group { display: flex; flex-direction: column; }
+.form-group.full { grid-column: span 2; }
+.form-group label { font-family: var(--body); font-weight: 200; font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--dusty-blue); margin-bottom: 8px; }
+.form-group input, .form-group select, .form-group textarea { font-family: var(--body); font-weight: 300; font-size: 0.95rem; padding: 14px 16px; border: 1px solid rgba(255,255,255,0.15); background: rgba(255,255,255,0.06); color: #fff; outline: none; transition: border-color 0.3s; }
+.form-group input::placeholder, .form-group textarea::placeholder { color: rgba(255,255,255,0.3); }
+.form-group input:focus, .form-group select:focus, .form-group textarea:focus { border-color: var(--gold); }
+.form-group select option { color: var(--espresso); background: var(--ivory); }
+.form-group textarea { resize: vertical; min-height: 100px; }
+.contact-inner .btn { margin-top: 32px; background: var(--ivory); color: var(--navy); width: 100%; padding: 16px; }
+.contact-inner .btn:hover { background: var(--gold); color: #fff; }
+.contact-note { color: rgba(255,255,255,0.4); font-size: 0.8rem; margin-top: 20px; }
+
+/* Footer */
+footer { background: var(--espresso); padding: 48px 40px; text-align: center; }
+footer .f-logo { font-family: var(--heading); font-weight: 600; font-size: 1.2rem; color: var(--ivory); margin-bottom: 4px; }
+footer .f-tag { font-family: var(--body); font-weight: 200; font-size: 0.72rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--sand); margin-bottom: 8px; }
+footer .f-sub { font-family: var(--body); font-weight: 200; font-size: 0.65rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--mocha); margin-bottom: 16px; }
+footer .copyright { font-size: 0.72rem; color: rgba(212,197,178,0.5); }
+
+/* Fade */
+.fade-in { opacity: 0; transform: translateY(24px); transition: opacity 0.7s ease, transform 0.7s ease; }
+.fade-in.visible { opacity: 1; transform: translateY(0); }
+
+/* Responsive */
+@media (max-width: 768px) {
+  nav ul { display: none; }
+  nav ul.open { display: flex; flex-direction: column; position: absolute; top: 100%; left: 0; right: 0; background: var(--ivory); padding: 24px 40px; gap: 16px; border-bottom: 1px solid var(--sand); }
+  .nav-toggle { display: block; }
+  section { padding: 64px 24px; }
+  .services-bg, .contact-bg, .stats-bar { padding: 64px 24px; }
+  .value-grid { grid-template-columns: 1fr; gap: 40px; }
+  .value-image { order: -1; }
+  .stats-inner { grid-template-columns: 1fr 1fr; }
+  .portfolio-grid { grid-template-columns: 1fr; }
+  .portfolio-grid .wide { grid-column: span 1; }
+  .portfolio-grid .wide img { aspect-ratio: 4/3; }
+  .services-grid { grid-template-columns: 1fr; }
+  .why-grid { grid-template-columns: 1fr; }
+  .why-item.full { grid-column: span 1; }
+  .form-grid { grid-template-columns: 1fr; }
+  .form-group.full { grid-column: span 1; }
+}
+
+/* Print */
+@media print {
+  nav, .contact-bg, .nav-toggle { display: none !important; }
+  .hero { height: auto; min-height: auto; page-break-after: always; }
+  .hero-overlay { background: rgba(27,42,74,0.5) !important; }
+  section, .services-bg, .stats-bar { padding: 40px 20px; page-break-inside: avoid; }
+  .fade-in { opacity: 1 !important; transform: none !important; }
+  .portfolio-item .overlay { opacity: 1; }
+  body { font-size: 11pt; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-inner">
+    <a href="#" class="logo">Ena Dodski<span>Design Leader &middot; United Finishes</span></a>
+    <button class="nav-toggle" onclick="document.querySelector('nav ul').classList.toggle('open')" aria-label="Menu"><span></span><span></span><span></span></button>
+    <ul>
+      <li><a href="#about">About</a></li>
+      <li><a href="#portfolio">Portfolio</a></li>
+      <li><a href="#services">Services</a></li>
+      <li><a href="#why">Why Work With Me</a></li>
+      <li><a href="#contact">Connect</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <img src="pro_photos/hill-country-vista.webp" alt="Custom home with open concept living and kitchen overlooking the Texas Hill Country" class="hero-img">
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <div class="pre">Design Leader &middot; Texas Hill Country Residential Interiors</div>
+    <h1>Design With Intent.</h1>
+    <p class="tagline">Leading design operations at United Finishes. Partnering with custom home builders across San Antonio and the Hill Country to deliver homes that perform for buyers and builders alike.</p>
+    <a href="#about" class="btn">Learn More</a>
+  </div>
+</section>
+
+<!-- ABOUT / DESIGN LEADER -->
+<section id="about">
+  <div class="value-grid">
+    <div class="value-image fade-in">
+      <img src="pro_photos/headshot.jpg" alt="Ena Dodski, Design Leader specializing in Texas Hill Country residential interiors" style="aspect-ratio: 4/5; object-fit: cover; object-position: center top;">
+    </div>
+    <div class="value-text fade-in">
+      <div class="subheading">Design Leadership</div>
+      <h2>Ena Dodski</h2>
+      <p>I am a design leader with over ten years of experience in high-volume production and semi-custom residential interiors across the Texas Hill Country market. I currently lead the Design Center at United Finishes, where I direct operations for a portfolio of projects ranging from $500K to $1.5M.</p>
+      <p>Builders partner with me because I keep selections on schedule, presentations professional, and homeowners confident in their choices. I develop scalable design systems that drive upgrade revenue, reduce decision fatigue, and keep builds on timeline.</p>
+      <p>My approach sits at the intersection of creative vision and operational strategy. I do not just select finishes. I position homes to sell.</p>
+      <p style="margin-top: 1.6em;"><a href="#contact" class="btn">Work With Me</a></p>
+    </div>
+  </div>
+</section>
+
+<!-- STATS -->
+<div class="stats-bar">
+  <div class="stats-inner">
+    <div class="stat fade-in"><div class="num">10+</div><div class="label">Years Experience</div></div>
+    <div class="stat fade-in"><div class="num">100s</div><div class="label">Homes Designed</div></div>
+    <div class="stat fade-in"><div class="num">3</div><div class="label">National Builders</div></div>
+    <div class="stat fade-in"><div class="num">1</div><div class="label">Design Center</div></div>
+  </div>
+</div>
+
+<!-- PORTFOLIO -->
+<section id="portfolio">
+  <div class="section-header fade-in">
+    <div class="subheading">Portfolio</div>
+    <h2>Builder Projects</h2>
+    <div class="divider"></div>
+  </div>
+  <div class="portfolio-grid">
+    <div class="portfolio-item wide fade-in">
+      <img src="pro_photos/hero.webp" alt="Open concept living and kitchen with full design selections and flooring">
+      <div class="overlay">
+        <h3>Hill Country Custom Home</h3>
+        <span class="tag">Full Design Selections &middot; Flooring Installation</span>
+      </div>
+    </div>
+    <div class="portfolio-item fade-in">
+      <img src="pro_photos/modern-warmth.webp" alt="Contemporary kitchen with natural wood cabinets and waterfall marble island">
+      <div class="overlay">
+        <h3>Contemporary Kitchen</h3>
+        <span class="tag">Cabinetry &middot; Countertops &middot; Flooring</span>
+      </div>
+    </div>
+    <div class="portfolio-item fade-in">
+      <img src="pro_photos/soft-collected.webp" alt="Transitional kitchen with sage island and globe pendants">
+      <div class="overlay">
+        <h3>Transitional Kitchen</h3>
+        <span class="tag">Design Selections &middot; Material Specification</span>
+      </div>
+    </div>
+    <div class="portfolio-item fade-in">
+      <img src="pro_photos/master-retreat.webp" alt="Primary bathroom with freestanding tub and espresso vanities">
+      <div class="overlay">
+        <h3>Primary Suite Bath</h3>
+        <span class="tag">Tile &middot; Cabinetry &middot; Fixtures &middot; Flooring</span>
+      </div>
+    </div>
+    <div class="portfolio-item fade-in">
+      <img src="pro_photos/spa-bath.webp" alt="Spa bathroom with dual vanity and freestanding tub">
+      <div class="overlay">
+        <h3>Spa-Inspired Bath</h3>
+        <span class="tag">Full Material Selections &middot; Installation</span>
+      </div>
+    </div>
+  </div>
+  <p class="portfolio-credit fade-in">Projects completed through United Finishes / ADG Design Services</p>
+</section>
+
+<!-- SERVICES -->
+<div class="services-bg" id="services">
+  <div class="services-inner">
+    <div class="section-header fade-in">
+      <div class="subheading">Services</div>
+      <h2>How I Work With Builders</h2>
+      <div class="divider"></div>
+    </div>
+    <div class="services-grid">
+      <div class="service-card fade-in">
+        <h3>Full-Service Design + Installation</h3>
+        <p>The complete package. Design selections in our Design Center paired with professional flooring installation by United Finishes crews.</p>
+        <ul>
+          <li>Full material selections</li>
+          <li>Presentation boards</li>
+          <li>Material specification and ordering</li>
+          <li>Flooring installation</li>
+          <li>Timeline coordination</li>
+        </ul>
+      </div>
+      <div class="service-card fade-in">
+        <h3>Design Selections Only</h3>
+        <p>For builders with their own installation crews who need professional design guidance for their buyers.</p>
+        <ul>
+          <li>Design Center appointments</li>
+          <li>Material selections and specification</li>
+          <li>Digital design concepts</li>
+          <li>Sourcing and pricing</li>
+        </ul>
+      </div>
+      <div class="service-card fade-in">
+        <h3>Designer Partnership</h3>
+        <p>Independent designers bring clients to the Design Center for flooring selections and installation. You keep the client relationship. We handle the floor.</p>
+        <ul>
+          <li>Design Center access</li>
+          <li>Selection support</li>
+          <li>Professional installation</li>
+          <li>Builder network growth</li>
+        </ul>
+      </div>
+    </div>
+    <div class="process-flow fade-in">
+      <div class="subheading">Our Process</div>
+      <div class="process-steps">
+        <span class="step">Builder Intake</span><span class="arrow">&rarr;</span>
+        <span class="step">Design Appointment</span><span class="arrow">&rarr;</span>
+        <span class="step">Specification</span><span class="arrow">&rarr;</span>
+        <span class="step">Ordering</span><span class="arrow">&rarr;</span>
+        <span class="step">Installation</span><span class="arrow">&rarr;</span>
+        <span class="step">Walkthrough</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- WHY WORK WITH ME -->
+<section id="why">
+  <div class="section-header fade-in">
+    <div class="subheading">Differentiators</div>
+    <h2>Why Builders Work With Me</h2>
+    <div class="divider"></div>
+  </div>
+  <div class="why-grid">
+    <div class="why-item fade-in">
+      <div class="num">01</div>
+      <h3>A Designer Who Will Not Slow Your Build</h3>
+      <p>I run structured appointments with decisive guidance and timeline-aware scheduling. Homeowners leave with decisions made, not more questions.</p>
+    </div>
+    <div class="why-item fade-in">
+      <div class="num">02</div>
+      <h3>Installation You Do Not Have to Manage</h3>
+      <p>United Finishes uses our own crews, holds ourselves accountable, and maintains our own quality standards. One company owns the result from selection through final installation.</p>
+    </div>
+    <div class="why-item fade-in">
+      <div class="num">03</div>
+      <h3>A Design Center That Sells Your Homes</h3>
+      <p>Buyers feel the upgrade when they walk into a professional studio. It elevates your brand and builds buyer confidence in their investment.</p>
+    </div>
+    <div class="why-item fade-in">
+      <div class="num">04</div>
+      <h3>One Invoice, One Relationship</h3>
+      <p>Design, materials, and installation all under one invoice. You will never need to chase three vendors or deal with finger-pointing when something goes wrong.</p>
+    </div>
+    <div class="why-item full fade-in">
+      <div class="num">05</div>
+      <h3>A Strategic Partner, Not a Vendor</h3>
+      <p>I want your pipeline to grow because mine grows with it. This is not transactional. It is a partnership built on mutual success and a shared commitment to delivering homes that stand out in the market.</p>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<div class="contact-bg" id="contact">
+  <div class="contact-inner">
+    <div class="fade-in">
+      <div class="subheading">Connect</div>
+      <h2>Let's Talk About Your Builds</h2>
+      <p class="intro">Whether you are a custom builder looking for a design partner or an independent designer interested in our partnership program, I would like to hear from you.</p>
+    </div>
+    <form class="form-grid fade-in" action="https://formsubmit.co/ena.dodski@united-finishes.com" method="POST">
+      <input type="hidden" name="_subject" value="New ADG Builder Inquiry">
+      <input type="hidden" name="_captcha" value="false">
+      <input type="hidden" name="_template" value="table">
+      <input type="text" name="_honey" style="display:none">
+      <div class="form-group">
+        <label for="name">Name</label>
+        <input type="text" id="name" name="name" placeholder="Your name" required>
+      </div>
+      <div class="form-group">
+        <label for="company">Company</label>
+        <input type="text" id="company" name="company" placeholder="Builder or firm name">
+      </div>
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input type="email" id="email" name="email" placeholder="your@email.com" required>
+      </div>
+      <div class="form-group">
+        <label for="interest">I am Interested In</label>
+        <select id="interest" name="interest">
+          <option value="" disabled selected>Select</option>
+          <option>Full-Service Design + Installation</option>
+          <option>Design Selections Only</option>
+          <option>Designer Partnership Program</option>
+          <option>Other</option>
+        </select>
+      </div>
+      <div class="form-group full">
+        <label for="message">Tell Me About Your Needs</label>
+        <textarea id="message" name="message" placeholder="Number of homes per year, typical price range, current design process, what you are looking for..."></textarea>
+      </div>
+      <div class="form-group full" style="text-align:center;">
+        <button type="submit" class="btn">Connect With Me</button>
+      </div>
+    </form>
+    <p class="contact-note fade-in">Ena Dodski &middot; Design Leader, United Finishes</p>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="f-logo">Ena Dodski</div>
+  <div class="f-tag">Design With Intent.</div>
+  <div class="f-sub">United Finishes &middot; Hill Country Home Concepts</div>
+  <p class="copyright">&copy; 2026 Ena Dodski. All rights reserved.</p>
+</footer>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); });
+  }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+  document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+});
+</script>
+</body>
+</html>

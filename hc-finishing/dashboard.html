@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard — HC Finishing</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --navy: #1B2A4A;
+      --ivory: #F5F0EB;
+      --espresso: #3C2A21;
+      --sand: #D4C5B2;
+      --mocha: #A37762;
+      --carrara: #E8E4E0;
+      --gold: #C4A265;
+      --success: #2e7d32;
+    }
+
+    body {
+      font-family: 'Jost', sans-serif;
+      font-weight: 400;
+      color: var(--espresso);
+      background: var(--ivory);
+      min-height: 100vh;
+    }
+
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.5rem 3rem;
+      background: var(--navy);
+      color: white;
+    }
+
+    nav .logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.5rem;
+      font-weight: 600;
+    }
+
+    nav .logo span {
+      color: var(--gold);
+      font-family: 'Jost', sans-serif;
+      font-weight: 300;
+      font-size: 0.9rem;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      margin-left: 0.75rem;
+    }
+
+    .nav-links { display: flex; align-items: center; gap: 2rem; list-style: none; }
+
+    nav a, .nav-link {
+      color: white;
+      text-decoration: none;
+      font-weight: 300;
+      font-size: 0.95rem;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      transition: color 0.2s;
+      cursor: pointer;
+    }
+
+    nav a:hover, .nav-link:hover { color: var(--gold); }
+
+    .nav-btn {
+      background: transparent;
+      border: 1px solid rgba(255,255,255,0.3);
+      color: white;
+      padding: 0.4rem 1rem;
+      cursor: pointer;
+      font-family: 'Jost', sans-serif;
+      font-size: 0.85rem;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      transition: all 0.2s;
+    }
+
+    .nav-btn:hover { border-color: var(--gold); color: var(--gold); }
+    .nav-btn-primary { background: var(--gold); color: var(--navy); border-color: var(--gold); }
+
+    .nav-user {
+      font-weight: 300;
+      font-size: 0.9rem;
+      color: var(--gold);
+    }
+
+    .container {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 2rem;
+    }
+
+    .welcome {
+      margin-bottom: 2rem;
+    }
+
+    .welcome h1 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2rem;
+      color: var(--navy);
+    }
+
+    .welcome p {
+      font-weight: 300;
+      color: var(--mocha);
+      margin-top: 0.25rem;
+    }
+
+    .role-badge {
+      display: inline-block;
+      padding: 0.2rem 0.6rem;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      background: #e3f2fd;
+      color: #1565c0;
+      margin-left: 0.5rem;
+    }
+
+    .quick-actions {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1.5rem;
+      margin-bottom: 3rem;
+    }
+
+    .action-card {
+      display: block;
+      background: white;
+      border: 1px solid var(--sand);
+      padding: 1.5rem;
+      text-decoration: none;
+      color: var(--espresso);
+      transition: all 0.2s;
+    }
+
+    .action-card:hover {
+      border-color: var(--navy);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    }
+
+    .action-card .icon {
+      font-size: 2rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .action-card h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.2rem;
+      color: var(--navy);
+      margin-bottom: 0.5rem;
+    }
+
+    .action-card p {
+      font-weight: 300;
+      font-size: 0.9rem;
+      line-height: 1.5;
+    }
+
+    .recent-section h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.5rem;
+      color: var(--navy);
+      margin-bottom: 1rem;
+    }
+
+    .recent-list {
+      background: white;
+      border: 1px solid var(--sand);
+    }
+
+    .recent-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 1.5rem;
+      border-bottom: 1px solid var(--carrara);
+      text-decoration: none;
+      color: var(--espresso);
+      transition: background 0.2s;
+    }
+
+    .recent-item:last-child { border-bottom: none; }
+    .recent-item:hover { background: #faf8f5; }
+
+    .recent-item .name { font-weight: 400; color: var(--navy); }
+    .recent-item .date { font-size: 0.85rem; color: var(--mocha); font-weight: 300; }
+
+    .badge {
+      display: inline-block;
+      padding: 0.2rem 0.5rem;
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .badge-reviewed { background: #e8f5e9; color: var(--success); }
+    .badge-pending { background: #fff3e0; color: #f57c00; }
+    .badge-parsed { background: #e3f2fd; color: #1565c0; }
+
+    .empty-state {
+      padding: 2rem;
+      text-align: center;
+      font-weight: 300;
+      color: var(--mocha);
+    }
+
+    .stats-bar {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+
+    .stat-card {
+      background: white;
+      border: 1px solid var(--sand);
+      padding: 1rem;
+      text-align: center;
+    }
+
+    .stat-card .number {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2rem;
+      color: var(--navy);
+    }
+
+    .stat-card .label {
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--mocha);
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="index.html" style="text-decoration: none; color: white;">
+      <div class="logo">HC Finishing <span>SelectFlow</span></div>
+    </a>
+    <div class="nav-links">
+      <a href="upload.html">Upload</a>
+      <a href="materials.html">Materials</a>
+      <a href="review.html">Review</a>
+      <a href="presentation.html">Present</a>
+      <div id="auth-nav"></div>
+    </div>
+  </nav>
+
+  <div class="container">
+    <div class="welcome" id="welcome">
+      <h1>Welcome back</h1>
+      <p>HC Finishing Dashboard</p>
+    </div>
+
+    <div class="stats-bar" id="statsBar">
+      <div class="stat-card">
+        <div class="number" id="totalForms">-</div>
+        <div class="label">Order Forms</div>
+      </div>
+      <div class="stat-card">
+        <div class="number" id="pendingReview">-</div>
+        <div class="label">Pending Review</div>
+      </div>
+      <div class="stat-card">
+        <div class="number" id="approvedCount">-</div>
+        <div class="label">Approved</div>
+      </div>
+      <div class="stat-card">
+        <div class="number" id="materialCount">-</div>
+        <div class="label">Materials</div>
+      </div>
+    </div>
+
+    <div class="quick-actions">
+      <a href="upload.html" class="action-card">
+        <div class="icon">&#128196;</div>
+        <h3>Upload Order Form</h3>
+        <p>Parse a new builder order form into structured data.</p>
+      </a>
+      <a href="materials.html" class="action-card">
+        <div class="icon">&#127912;</div>
+        <h3>Material Library</h3>
+        <p>Manage materials with categories, tones, and pricing.</p>
+      </a>
+      <a href="review.html" class="action-card">
+        <div class="icon">&#9989;</div>
+        <h3>Review Queue</h3>
+        <p>Review and approve parsed order forms.</p>
+      </a>
+    </div>
+
+    <div class="recent-section">
+      <h2>Recent Order Forms</h2>
+      <div class="recent-list" id="recentList">
+        <div class="empty-state">Loading...</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Dependencies -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script
+    data-clerk-publishable-key="pk_test_cmFwaWQtbWFja2VyZWwtMjguY2xlcmsuYWNjb3VudHMuZGV2JA"
+    src="https://cdn.jsdelivr.net/npm/@anthropic-ai/clerk-js@1/dist/clerk.browser.js"
+    crossorigin="anonymous"
+    onerror="console.warn('Clerk SDK failed to load — running without auth')"
+  ></script>
+  <script src="js/config.js"></script>
+  <script src="js/supabase-client.js"></script>
+  <script src="js/clerk-auth.js"></script>
+
+  <script>
+    async function initDashboard() {
+      // Init auth (non-blocking — dashboard works without Clerk)
+      try {
+        await initClerk();
+        updateNavAuth();
+        const name = getUserDisplayName();
+        document.querySelector('.welcome h1').textContent = `Welcome back, ${name}`;
+        const role = getUserRole();
+        document.querySelector('.welcome p').innerHTML =
+          `HC Finishing Dashboard <span class="role-badge">${role}</span>`;
+      } catch (e) {
+        console.warn('Auth not available:', e);
+      }
+
+      // Load stats
+      try {
+        const forms = await getOrderForms();
+        document.getElementById('totalForms').textContent = forms.length;
+        document.getElementById('pendingReview').textContent =
+          forms.filter(f => !f.reviewed).length;
+        document.getElementById('approvedCount').textContent =
+          forms.filter(f => f.reviewed).length;
+
+        // Recent list
+        const recentList = document.getElementById('recentList');
+        if (forms.length === 0) {
+          recentList.innerHTML = '<div class="empty-state">No order forms yet. <a href="upload.html">Upload one</a>.</div>';
+        } else {
+          recentList.innerHTML = forms.slice(0, 10).map(f => `
+            <a href="review.html?id=${f.id}" class="recent-item">
+              <div>
+                <span class="name">${f.original_filename}</span>
+                <span class="date">${new Date(f.created_at).toLocaleDateString()}</span>
+              </div>
+              <span class="badge ${f.reviewed ? 'badge-reviewed' : 'badge-pending'}">
+                ${f.reviewed ? 'Reviewed' : 'Pending'}
+              </span>
+            </a>
+          `).join('');
+        }
+      } catch (e) {
+        document.getElementById('recentList').innerHTML =
+          '<div class="empty-state">Could not load data. Supabase table may not be set up yet.</div>';
+      }
+
+      // Material count
+      try {
+        const sb = getSupabase();
+        const { count } = await sb.from('materials').select('*', { count: 'exact', head: true });
+        document.getElementById('materialCount').textContent = count || 0;
+      } catch (e) {
+        document.getElementById('materialCount').textContent = '0';
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', initDashboard);
+  </script>
+
+</body>
+</html>

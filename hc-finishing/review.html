@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Review Order Form — HC Finishing</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --navy: #1B2A4A;
+      --ivory: #F5F0EB;
+      --espresso: #3C2A21;
+      --sand: #D4C5B2;
+      --mocha: #A37762;
+      --carrara: #E8E4E0;
+      --gold: #C4A265;
+      --success: #2e7d32;
+      --warning: #f57c00;
+      --error: #c62828;
+    }
+
+    body {
+      font-family: 'Jost', sans-serif;
+      font-weight: 400;
+      color: var(--espresso);
+      background: var(--ivory);
+      min-height: 100vh;
+      padding-bottom: 80px;
+    }
+
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.5rem 3rem;
+      background: var(--navy);
+      color: white;
+    }
+
+    nav .logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.5rem;
+      font-weight: 600;
+    }
+
+    nav .logo span {
+      color: var(--gold);
+      font-family: 'Jost', sans-serif;
+      font-weight: 300;
+      font-size: 0.9rem;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      margin-left: 0.75rem;
+    }
+
+    nav ul { list-style: none; display: flex; gap: 2rem; }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      font-weight: 300;
+      font-size: 0.95rem;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      transition: color 0.2s;
+    }
+
+    nav a:hover { color: var(--gold); }
+
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 2rem;
+    }
+
+    h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2rem;
+      color: var(--navy);
+    }
+
+    h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.3rem;
+      color: var(--navy);
+      margin-bottom: 1rem;
+    }
+
+    /* Review Header */
+    .review-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 1.5rem;
+    }
+
+    .file-name {
+      font-weight: 300;
+      color: var(--mocha);
+      margin-top: 0.25rem;
+    }
+
+    /* Confidence */
+    .confidence {
+      display: inline-block;
+      padding: 0.3rem 0.8rem;
+      font-size: 0.8rem;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .confidence-high { background: #e8f5e9; color: var(--success); }
+    .confidence-medium { background: #fff3e0; color: var(--warning); }
+    .confidence-low { background: #fbe9e7; color: var(--error); }
+
+    /* Badges */
+    .badge {
+      display: inline-block;
+      padding: 0.25rem 0.6rem;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .badge-approved { background: #e8f5e9; color: var(--success); }
+    .badge-parsed { background: #e3f2fd; color: #1565c0; }
+    .badge-pending { background: var(--carrara); color: var(--mocha); }
+
+    /* Warnings */
+    .warnings-section { margin-bottom: 1.5rem; }
+
+    .warning-item {
+      padding: 0.6rem 1rem;
+      background: #fff3e0;
+      border-left: 3px solid var(--warning);
+      margin-bottom: 0.5rem;
+      font-size: 0.9rem;
+      font-weight: 300;
+    }
+
+    /* Review Sections */
+    .review-section {
+      background: white;
+      border: 1px solid var(--sand);
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .edit-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+
+    .edit-field label {
+      display: block;
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--mocha);
+      margin-bottom: 0.3rem;
+    }
+
+    .edit-field input {
+      width: 100%;
+      padding: 0.5rem 0.75rem;
+      border: 1px solid var(--sand);
+      font-family: 'Jost', sans-serif;
+      font-size: 0.95rem;
+      color: var(--espresso);
+      background: white;
+      transition: border-color 0.2s;
+    }
+
+    .edit-field input:focus {
+      outline: none;
+      border-color: var(--navy);
+    }
+
+    .edit-field input:disabled {
+      background: var(--carrara);
+      cursor: not-allowed;
+    }
+
+    .edit-field input.modified {
+      border-color: var(--gold);
+      background: #fffdf5;
+    }
+
+    /* Room Editor */
+    .room-editor {
+      border: 1px solid var(--sand);
+      margin-bottom: 1rem;
+    }
+
+    .room-editor-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.6rem 1rem;
+      background: var(--carrara);
+    }
+
+    .room-name-input {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.1rem;
+      color: var(--navy);
+      border: none;
+      background: transparent;
+      padding: 0.2rem;
+      width: 70%;
+    }
+
+    .room-name-input:focus { outline: none; border-bottom: 1px solid var(--navy); }
+    .room-name-input:disabled { background: transparent; cursor: default; }
+
+    /* Materials Grid */
+    .materials-grid { padding: 0.5rem 1rem; }
+
+    .materials-header {
+      display: grid;
+      grid-template-columns: 120px 1fr 100px 80px 30px;
+      gap: 0.5rem;
+      padding: 0.4rem 0;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--mocha);
+      border-bottom: 1px solid var(--sand);
+    }
+
+    .material-edit-row {
+      display: grid;
+      grid-template-columns: 120px 1fr 100px 80px 30px;
+      gap: 0.5rem;
+      padding: 0.4rem 0;
+      border-bottom: 1px solid #f0ede8;
+    }
+
+    .material-edit-row input {
+      width: 100%;
+      padding: 0.3rem 0.5rem;
+      border: 1px solid transparent;
+      font-family: 'Jost', sans-serif;
+      font-size: 0.85rem;
+      color: var(--espresso);
+      background: transparent;
+    }
+
+    .material-edit-row input:hover { border-color: var(--sand); }
+    .material-edit-row input:focus { outline: none; border-color: var(--navy); background: white; }
+    .material-edit-row input:disabled { cursor: default; }
+
+    /* Buttons */
+    .btn {
+      padding: 0.7rem 2rem;
+      border: none;
+      cursor: pointer;
+      font-family: 'Jost', sans-serif;
+      font-size: 0.9rem;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      transition: all 0.2s;
+      text-decoration: none;
+      display: inline-block;
+    }
+
+    .btn-primary {
+      background: var(--gold);
+      color: var(--navy);
+    }
+
+    .btn-primary:hover { background: #d4b275; }
+
+    .btn-approve {
+      background: var(--success);
+      color: white;
+    }
+
+    .btn-approve:hover { background: #388e3c; }
+
+    .btn-secondary {
+      background: transparent;
+      border: 1px solid var(--sand);
+      color: var(--espresso);
+    }
+
+    .btn-secondary:hover { border-color: var(--navy); }
+
+    .btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+    .btn-add, .btn-add-sm {
+      background: transparent;
+      border: 1px dashed var(--sand);
+      color: var(--mocha);
+      cursor: pointer;
+      font-family: 'Jost', sans-serif;
+      font-size: 0.85rem;
+      padding: 0.4rem 1rem;
+      width: 100%;
+      margin-top: 0.5rem;
+      transition: all 0.2s;
+    }
+
+    .btn-add:hover, .btn-add-sm:hover {
+      border-color: var(--navy);
+      color: var(--navy);
+    }
+
+    .btn-remove, .btn-remove-sm {
+      background: transparent;
+      border: none;
+      color: var(--error);
+      cursor: pointer;
+      font-family: 'Jost', sans-serif;
+      font-size: 0.8rem;
+    }
+
+    .btn-remove:hover, .btn-remove-sm:hover { text-decoration: underline; }
+
+    /* Sticky Action Bar */
+    .action-bar {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: white;
+      border-top: 1px solid var(--sand);
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      z-index: 100;
+      box-shadow: 0 -2px 10px rgba(0,0,0,0.05);
+    }
+
+    /* Approved State */
+    .approved-state {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .approved-check {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 28px;
+      height: 28px;
+      background: var(--success);
+      color: white;
+      border-radius: 50%;
+      font-size: 1rem;
+    }
+
+    /* Approval Modal */
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0,0,0,0.4);
+      z-index: 200;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .modal-overlay.active { display: flex; }
+
+    .modal {
+      background: white;
+      padding: 2rem;
+      max-width: 450px;
+      width: 90%;
+      text-align: center;
+    }
+
+    .modal h3 {
+      margin-bottom: 0.75rem;
+    }
+
+    .modal p {
+      font-weight: 300;
+      margin-bottom: 1.5rem;
+      line-height: 1.5;
+    }
+
+    .modal .modal-actions {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+    }
+
+    /* Raw text */
+    .raw-section { margin-bottom: 1.5rem; }
+
+    .raw-toggle {
+      cursor: pointer;
+      color: var(--mocha);
+      font-size: 0.85rem;
+      text-decoration: underline;
+    }
+
+    .raw-text {
+      display: none;
+      margin-top: 0.5rem;
+      padding: 1rem;
+      background: #f8f6f3;
+      font-family: monospace;
+      font-size: 0.8rem;
+      white-space: pre-wrap;
+      max-height: 300px;
+      overflow-y: auto;
+      border: 1px solid var(--sand);
+    }
+
+    .raw-text.active { display: block; }
+
+    /* Form List */
+    .form-list { margin-top: 1rem; }
+
+    .form-list-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 1.5rem;
+      background: white;
+      border: 1px solid var(--sand);
+      margin-bottom: 0.5rem;
+      text-decoration: none;
+      color: var(--espresso);
+      transition: border-color 0.2s;
+    }
+
+    .form-list-item:hover { border-color: var(--navy); }
+
+    .form-name {
+      font-weight: 400;
+      color: var(--navy);
+    }
+
+    .form-date {
+      font-size: 0.85rem;
+      color: var(--mocha);
+      margin-top: 0.25rem;
+      display: block;
+    }
+
+    /* Empty State */
+    .empty-state {
+      text-align: center;
+      padding: 4rem 2rem;
+    }
+
+    .empty-state p {
+      font-weight: 300;
+      margin-bottom: 1.5rem;
+      font-size: 1.1rem;
+    }
+
+    /* Review Error */
+    .review-error {
+      padding: 1.5rem;
+      background: #fbe9e7;
+      border-left: 3px solid var(--error);
+      color: var(--error);
+    }
+
+    /* Toast */
+    .toast {
+      display: none;
+      position: fixed;
+      bottom: 5rem;
+      right: 2rem;
+      padding: 1rem 1.5rem;
+      background: var(--navy);
+      color: white;
+      font-size: 0.9rem;
+      z-index: 300;
+      animation: slideIn 0.3s ease;
+    }
+
+    .toast.active { display: block; }
+
+    @keyframes slideIn {
+      from { transform: translateY(20px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="index.html" style="text-decoration: none; color: white;">
+      <div class="logo">HC Finishing <span>SelectFlow</span></div>
+    </a>
+    <ul>
+      <li><a href="dashboard.html">Dashboard</a></li>
+      <li><a href="upload.html">Upload</a></li>
+      <li><a href="materials.html">Materials</a></li>
+      <li><a href="review.html">Review</a>
+      <a href="presentation.html">Present</a></li>
+    </ul>
+  </nav>
+
+  <div class="container">
+    <div id="reviewContent">
+      <p style="font-weight: 300; color: var(--mocha);">Loading...</p>
+    </div>
+  </div>
+
+  <!-- Sticky Action Bar -->
+  <div class="action-bar" id="actionBar">
+    <button class="btn btn-secondary" id="saveDraftBtn" onclick="saveDraft()">Save Draft</button>
+    <button class="btn btn-approve" id="approveBtn" onclick="approveAndSignOff()">Approve and Sign Off</button>
+    <a href="upload.html" class="btn btn-secondary">Back to Upload</a>
+  </div>
+
+  <!-- Approval Modal -->
+  <div class="modal-overlay" id="approveModal">
+    <div class="modal">
+      <h3>Confirm Approval</h3>
+      <p>Are you sure? This marks the order form as verified and locks the data. This is the Sanity Gate sign-off.</p>
+      <div class="modal-actions">
+        <button class="btn btn-approve" onclick="confirmApproval()">Yes, Approve</button>
+        <button class="btn btn-secondary" onclick="cancelApproval()">Cancel</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast -->
+  <div class="toast" id="toast"></div>
+
+  <!-- Dependencies -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="js/config.js"></script>
+  <script src="js/supabase-client.js"></script>
+  <script src="js/review-ui.js"></script>
+
+</body>
+</html>

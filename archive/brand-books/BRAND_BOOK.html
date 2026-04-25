@@ -1,0 +1,1487 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hill Country Home Concepts — Brand Book</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Jost:ital,wght@0,200;0,300;0,400;0,500;1,200;1,300&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --ivory: #F5F0EB;
+            --navy: #1B2A4A;
+            --espresso: #3C2A21;
+            --sand: #D4C5B2;
+            --mocha: #A37762;
+            --carrara: #E8E4E0;
+            --gold: #C4A265;
+            --dusty-blue: #7B9BAE;
+            --sage: #8A9A7B;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'Jost', sans-serif;
+            font-weight: 400;
+            font-size: 17px;
+            line-height: 1.7;
+            color: var(--espresso);
+            background: var(--ivory);
+        }
+
+        /* --- NAV --- */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: var(--navy);
+            z-index: 1000;
+            padding: 0 40px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 56px;
+        }
+        nav .nav-brand {
+            font-family: 'Cormorant Garamond', serif;
+            font-weight: 600;
+            font-size: 20px;
+            color: var(--ivory);
+            letter-spacing: 0.05em;
+        }
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 28px;
+        }
+        nav ul li a {
+            font-family: 'Jost', sans-serif;
+            font-weight: 200;
+            font-size: 11px;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: var(--sand);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        nav ul li a:hover { color: #fff; }
+
+        /* --- COVER --- */
+        .cover {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            background: var(--navy);
+            color: var(--ivory);
+            position: relative;
+        }
+        .cover::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 1px;
+            height: 80px;
+            background: var(--sand);
+            opacity: 0.4;
+        }
+        .cover h1 {
+            font-family: 'Cormorant Garamond', serif;
+            font-weight: 600;
+            font-size: clamp(48px, 7vw, 96px);
+            letter-spacing: 0.04em;
+            line-height: 1.1;
+            margin-bottom: 16px;
+        }
+        .cover .subtitle {
+            font-family: 'Jost', sans-serif;
+            font-weight: 200;
+            font-size: clamp(12px, 1.5vw, 16px);
+            letter-spacing: 0.25em;
+            text-transform: uppercase;
+            color: var(--sand);
+            margin-bottom: 48px;
+        }
+        .cover .tagline {
+            font-family: 'Cormorant Garamond', serif;
+            font-weight: 400;
+            font-style: italic;
+            font-size: clamp(20px, 2.5vw, 28px);
+            color: var(--gold);
+        }
+
+        /* --- SECTIONS --- */
+        section {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 100px 40px;
+        }
+        section.wide {
+            max-width: 1100px;
+        }
+        section.full-bleed {
+            max-width: 100%;
+            padding-left: 0;
+            padding-right: 0;
+        }
+
+        .section-number {
+            font-family: 'Jost', sans-serif;
+            font-weight: 200;
+            font-size: 12px;
+            letter-spacing: 0.25em;
+            text-transform: uppercase;
+            color: var(--mocha);
+            margin-bottom: 12px;
+            display: block;
+        }
+
+        h2 {
+            font-family: 'Cormorant Garamond', serif;
+            font-weight: 600;
+            font-size: clamp(32px, 4vw, 48px);
+            color: var(--navy);
+            margin-bottom: 40px;
+            line-height: 1.2;
+        }
+
+        h3 {
+            font-family: 'Jost', sans-serif;
+            font-weight: 200;
+            font-size: 13px;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--navy);
+            margin-top: 56px;
+            margin-bottom: 20px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid var(--sand);
+        }
+
+        h4 {
+            font-family: 'Cormorant Garamond', serif;
+            font-weight: 600;
+            font-size: 22px;
+            color: var(--espresso);
+            margin-top: 36px;
+            margin-bottom: 12px;
+        }
+
+        p { margin-bottom: 20px; max-width: 680px; }
+
+        strong { font-weight: 500; color: var(--navy); }
+
+        blockquote {
+            font-family: 'Cormorant Garamond', serif;
+            font-style: italic;
+            font-size: 24px;
+            line-height: 1.5;
+            color: var(--navy);
+            border-left: 3px solid var(--gold);
+            padding: 16px 0 16px 28px;
+            margin: 32px 0;
+            max-width: 640px;
+        }
+
+        ul, ol {
+            margin: 0 0 24px 24px;
+            max-width: 680px;
+        }
+        li { margin-bottom: 8px; }
+
+        /* --- DIVIDERS --- */
+        .divider {
+            width: 100%;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 40px;
+        }
+        .divider hr {
+            border: none;
+            border-top: 1px solid var(--sand);
+        }
+
+        /* --- BANNER SECTIONS --- */
+        .banner {
+            background: var(--navy);
+            color: var(--ivory);
+            padding: 80px 40px;
+            text-align: center;
+        }
+        .banner h2 { color: var(--ivory); }
+        .banner .section-number { color: var(--gold); }
+
+        .banner-light {
+            background: var(--carrara);
+            padding: 80px 40px;
+        }
+
+        /* --- TABLES --- */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 24px 0 32px;
+            font-size: 15px;
+        }
+        th {
+            font-family: 'Jost', sans-serif;
+            font-weight: 300;
+            font-size: 11px;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            text-align: left;
+            padding: 12px 16px;
+            border-bottom: 2px solid var(--navy);
+            color: var(--navy);
+        }
+        td {
+            padding: 14px 16px;
+            border-bottom: 1px solid var(--sand);
+            vertical-align: top;
+        }
+        tr:last-child td { border-bottom: none; }
+
+        /* --- COLOR SWATCHES --- */
+        .palette-group {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            gap: 20px;
+            margin: 28px 0 40px;
+        }
+        .swatch {
+            border-radius: 8px;
+            overflow: hidden;
+            background: #fff;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+        }
+        .swatch-color {
+            height: 100px;
+            width: 100%;
+        }
+        .swatch-info {
+            padding: 14px 16px;
+        }
+        .swatch-name {
+            font-weight: 500;
+            font-size: 15px;
+            color: var(--espresso);
+        }
+        .swatch-hex {
+            font-family: 'Jost', sans-serif;
+            font-weight: 300;
+            font-size: 13px;
+            color: var(--mocha);
+            margin-top: 2px;
+        }
+        .swatch-role {
+            font-size: 13px;
+            color: #888;
+            margin-top: 6px;
+            line-height: 1.4;
+        }
+
+        /* --- TYPOGRAPHY SPECIMEN --- */
+        .type-specimen {
+            background: #fff;
+            border-radius: 8px;
+            padding: 40px;
+            margin: 28px 0;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+        }
+        .type-heading-demo {
+            font-family: 'Cormorant Garamond', serif;
+            font-weight: 600;
+            font-size: 42px;
+            color: var(--navy);
+            margin-bottom: 8px;
+        }
+        .type-sub-demo {
+            font-family: 'Jost', sans-serif;
+            font-weight: 200;
+            font-size: 13px;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--mocha);
+            margin-bottom: 24px;
+        }
+        .type-body-demo {
+            font-family: 'Jost', sans-serif;
+            font-weight: 400;
+            font-size: 17px;
+            line-height: 1.7;
+            color: var(--espresso);
+            max-width: 560px;
+            margin-bottom: 16px;
+        }
+        .type-caption-demo {
+            font-family: 'Jost', sans-serif;
+            font-weight: 200;
+            font-style: italic;
+            font-size: 14px;
+            color: #999;
+        }
+
+        /* --- LOGO MOCK --- */
+        .logo-showcase {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+            margin: 28px 0;
+        }
+        .logo-box {
+            border-radius: 8px;
+            padding: 60px 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+        .logo-box.light {
+            background: var(--ivory);
+            border: 1px solid var(--sand);
+        }
+        .logo-box.dark {
+            background: var(--navy);
+        }
+        .logo-text {
+            font-family: 'Cormorant Garamond', serif;
+            font-weight: 600;
+            font-size: 28px;
+            letter-spacing: 0.06em;
+        }
+        .logo-text.on-light { color: var(--espresso); }
+        .logo-text.on-dark { color: var(--ivory); }
+        .logo-sub {
+            font-family: 'Jost', sans-serif;
+            font-weight: 200;
+            font-size: 10px;
+            letter-spacing: 0.35em;
+            text-transform: uppercase;
+            margin-top: 6px;
+        }
+        .logo-sub.on-light { color: var(--mocha); }
+        .logo-sub.on-dark { color: var(--sand); }
+
+        /* --- VOICE CARDS --- */
+        .voice-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin: 28px 0;
+        }
+        .voice-card {
+            background: #fff;
+            border-radius: 8px;
+            padding: 28px;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+        }
+        .voice-card .trait {
+            font-family: 'Jost', sans-serif;
+            font-weight: 200;
+            font-size: 11px;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--navy);
+            margin-bottom: 10px;
+        }
+        .voice-card .meaning {
+            font-size: 15px;
+            margin-bottom: 14px;
+            color: var(--espresso);
+        }
+        .voice-card .example {
+            font-size: 14px;
+            color: var(--mocha);
+            font-style: italic;
+            border-top: 1px solid var(--carrara);
+            padding-top: 12px;
+        }
+        .voice-card .example .do { color: var(--navy); font-weight: 500; }
+        .voice-card .example .dont { color: #b88; text-decoration: line-through; }
+
+        /* --- RATIO BAR --- */
+        .ratio-bar {
+            display: flex;
+            height: 48px;
+            border-radius: 8px;
+            overflow: hidden;
+            margin: 20px 0 8px;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+        }
+        .ratio-bar div {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 11px;
+            font-weight: 300;
+            letter-spacing: 0.1em;
+        }
+
+        /* --- PHASE CARDS --- */
+        .phase {
+            background: #fff;
+            border-radius: 8px;
+            padding: 36px;
+            margin: 28px 0;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+            border-left: 4px solid var(--navy);
+        }
+        .phase.critical { border-left-color: var(--navy); }
+        .phase.growth { border-left-color: var(--mocha); }
+        .phase.scale { border-left-color: var(--gold); }
+        .phase-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-weight: 600;
+            font-size: 24px;
+            color: var(--navy);
+            margin-bottom: 20px;
+        }
+
+        /* --- POSITIONING CHART --- */
+        .positioning-chart {
+            background: #fff;
+            border-radius: 8px;
+            padding: 48px;
+            margin: 28px 0;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+            position: relative;
+            min-height: 360px;
+        }
+        .chart-grid {
+            position: relative;
+            width: 100%;
+            height: 320px;
+            border-left: 2px solid var(--sand);
+            border-bottom: 2px solid var(--sand);
+        }
+        .chart-label {
+            font-family: 'Jost', sans-serif;
+            font-weight: 200;
+            font-size: 10px;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--mocha);
+            position: absolute;
+        }
+        .chart-label.top { top: -24px; left: -8px; }
+        .chart-label.bottom { bottom: -28px; left: -8px; }
+        .chart-label.left { bottom: -28px; left: 4px; }
+        .chart-label.right { bottom: -28px; right: 0; }
+        .chart-dot {
+            position: absolute;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 400;
+            white-space: nowrap;
+        }
+        .chart-dot.ena {
+            background: var(--navy);
+            color: var(--ivory);
+            font-weight: 500;
+            box-shadow: 0 4px 16px rgba(27,42,74,0.3);
+        }
+        .chart-dot.comp {
+            background: var(--carrara);
+            color: var(--espresso);
+        }
+
+        /* --- CONTENT PILLAR --- */
+        .pillar-bar {
+            display: flex;
+            border-radius: 8px;
+            overflow: hidden;
+            height: 56px;
+            margin: 20px 0 12px;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+        }
+        .pillar-bar div {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 11px;
+            font-weight: 300;
+            letter-spacing: 0.05em;
+            text-align: center;
+            padding: 0 8px;
+        }
+
+        /* --- QUICK REF --- */
+        .quick-ref {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            margin: 28px 0;
+        }
+        .qr-item {
+            background: #fff;
+            border-radius: 8px;
+            padding: 20px 24px;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+        }
+        .qr-label {
+            font-family: 'Jost', sans-serif;
+            font-weight: 200;
+            font-size: 10px;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--mocha);
+            margin-bottom: 4px;
+        }
+        .qr-value {
+            font-family: 'Cormorant Garamond', serif;
+            font-weight: 600;
+            font-size: 20px;
+            color: var(--navy);
+        }
+        .qr-value.small {
+            font-family: 'Jost', sans-serif;
+            font-weight: 400;
+            font-size: 15px;
+        }
+
+        /* --- DO/DON'T --- */
+        .do-dont {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin: 24px 0;
+        }
+        .do-box, .dont-box {
+            padding: 24px;
+            border-radius: 8px;
+        }
+        .do-box {
+            background: #f0f5f0;
+            border: 1px solid var(--sage);
+        }
+        .dont-box {
+            background: #f5f0f0;
+            border: 1px solid #c9a8a8;
+        }
+        .do-box .label, .dont-box .label {
+            font-family: 'Jost', sans-serif;
+            font-weight: 300;
+            font-size: 11px;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            margin-bottom: 12px;
+        }
+        .do-box .label { color: #5a7a5a; }
+        .dont-box .label { color: #8a5a5a; }
+        .do-box li, .dont-box li {
+            font-size: 14px;
+            margin-bottom: 6px;
+        }
+
+        /* --- SITE MAP --- */
+        .sitemap {
+            background: #fff;
+            border-radius: 8px;
+            padding: 40px;
+            margin: 28px 0;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+            font-family: 'Jost', sans-serif;
+        }
+        .sitemap-item {
+            padding: 8px 0;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .sitemap-item.level-0 {
+            font-weight: 500;
+            font-size: 16px;
+            color: var(--navy);
+            border-bottom: 1px solid var(--carrara);
+            padding-bottom: 12px;
+            margin-bottom: 4px;
+        }
+        .sitemap-item.level-1 {
+            padding-left: 28px;
+            font-size: 14px;
+            color: var(--espresso);
+        }
+        .sitemap-item.level-2 {
+            padding-left: 56px;
+            font-size: 13px;
+            color: var(--mocha);
+        }
+        .sitemap-dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: var(--navy);
+            flex-shrink: 0;
+        }
+        .sitemap-item.level-1 .sitemap-dot { background: var(--mocha); width: 5px; height: 5px; }
+        .sitemap-item.level-2 .sitemap-dot { background: var(--sand); width: 4px; height: 4px; }
+
+        /* --- FOOTER --- */
+        footer {
+            text-align: center;
+            padding: 60px 40px;
+            background: var(--navy);
+            color: var(--sand);
+            font-size: 13px;
+            font-weight: 300;
+            letter-spacing: 0.05em;
+        }
+        footer .footer-logo {
+            font-family: 'Cormorant Garamond', serif;
+            font-weight: 600;
+            font-size: 24px;
+            color: var(--ivory);
+            margin-bottom: 8px;
+        }
+
+        /* --- RESPONSIVE --- */
+        @media (max-width: 768px) {
+            nav ul { display: none; }
+            section { padding: 60px 24px; }
+            .logo-showcase { grid-template-columns: 1fr; }
+            .voice-grid { grid-template-columns: 1fr; }
+            .do-dont { grid-template-columns: 1fr; }
+            .quick-ref { grid-template-columns: 1fr; }
+            .palette-group { grid-template-columns: 1fr; }
+        }
+
+        /* --- PRINT --- */
+        @media print {
+            nav { display: none; }
+            .cover { height: auto; padding: 120px 40px; page-break-after: always; }
+            section { page-break-inside: avoid; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+    <div class="nav-brand">Hill Country Home Concepts</div>
+    <ul>
+        <li><a href="#foundation">Foundation</a></li>
+        <li><a href="#identity">Identity</a></li>
+        <li><a href="#photography">Photography</a></li>
+        <li><a href="#voice">Voice</a></li>
+        <li><a href="#website">Website</a></li>
+        <li><a href="#social">Social</a></li>
+        <li><a href="#action">Action Plan</a></li>
+    </ul>
+</nav>
+
+<!-- COVER -->
+<div class="cover">
+    <h1>Hill Country Home Concepts</h1>
+    <div class="subtitle">Brand Book &amp; Strategic Identity Guide</div>
+    <div class="tagline">"Warm by Design."</div>
+</div>
+
+<!-- ============================================ -->
+<!-- 1. BRAND FOUNDATION -->
+<!-- ============================================ -->
+<section id="foundation">
+    <span class="section-number">01 &mdash; Brand Foundation</span>
+    <h2>Brand Foundation</h2>
+
+    <h3>Brand Story</h3>
+    <p>Hill Country Home Concepts is led by Ena, a designer with 8+ years of professional interior design experience. She's guided hundreds of homeowners through the selection process &mdash; flooring, cabinetry, countertops, fixtures, lighting, tile &mdash; and knows how to translate a half-formed vision into a cohesive, buildable design. Ena brings systems thinking, vendor fluency, and an eye for warm, layered interiors to every project.</p>
+    <p>Ena has guided hundreds of homeowners through the selection process &mdash; flooring, cabinetry, countertops, fixtures, lighting, tile &mdash; and knows how to translate a client's half-formed vision into a cohesive, buildable design. She brings systems thinking, vendor fluency, and operational discipline to every project, whether it's a full custom home or a single-room transformation.</p>
+    <p>Now she's channeling that production expertise into the Texas Hill Country market, where builders and homeowners alike need a designer who understands both the creative and the business side of residential design.</p>
+
+    <h3>Mission</h3>
+    <p>To deliver warm, intentional interior design at every scale &mdash; from production homes to custom builds &mdash; by combining creative vision with the operational expertise to execute flawlessly, on budget, and on schedule.</p>
+
+    <h3>Vision</h3>
+    <p>To become the leading interior design voice in the Texas Hill Country &mdash; the designer that realtors recommend to close the deal, and that homeowners call when they're ready to invest in a home that truly fits.</p>
+
+    <h3>Core Values</h3>
+    <table>
+        <thead><tr><th>Value</th><th>Meaning</th></tr></thead>
+        <tbody>
+            <tr><td><strong>Warmth First</strong></td><td>Every material, every color, every choice should make a space feel inviting. Cold perfection is not the goal.</td></tr>
+            <tr><td><strong>Design for Real Life</strong></td><td>Cookbooks belong in the kitchen island. Guitars belong in the living room. Spaces are designed for the people who live in them.</td></tr>
+            <tr><td><strong>Intentional Quality</strong></td><td>Every selection is deliberate &mdash; quality finishes and carefully chosen pieces over quantity.</td></tr>
+            <tr><td><strong>Systems &amp; Scale</strong></td><td>Great design doesn't have to mean slow or unpredictable. Production-tested processes deliver consistent results &mdash; whether it's one home or fifty.</td></tr>
+            <tr><td><strong>Transformation</strong></td><td>The best design work tells a before-and-after story. We don't decorate &mdash; we transform.</td></tr>
+            <tr><td><strong>Honest Partnership</strong></td><td>Design is collaborative &mdash; with homeowners, builders, and trades alike. Clear communication, no surprises.</td></tr>
+        </tbody>
+    </table>
+
+    <h3>Brand Positioning</h3>
+    <blockquote>For Texas Hill Country builders and homeowners who refuse to settle for builder-grade, Hill Country Home Concepts delivers warm, elevated interiors backed by 8+ years of production design experience &mdash; the creative eye of a boutique designer with the systems discipline of someone who's delivered at scale.</blockquote>
+
+    <h3>Target Audiences</h3>
+
+    <h4>Audience 1: Custom Home Builders</h4>
+    <table>
+        <thead><tr><th>Attribute</th><th>Detail</th></tr></thead>
+        <tbody>
+            <tr><td><strong>Who</strong></td><td>Custom and semi-custom builders in the Texas Hill Country (San Antonio, New Braunfels, Boerne, Dripping Springs, Fredericksburg corridor)</td></tr>
+            <tr><td><strong>Need</strong></td><td>A design partner who elevates their product, streamlines the selection process, and doesn't slow down the build schedule</td></tr>
+            <tr><td><strong>Pain Point</strong></td><td>"My clients keep upgrading after closing because the standard selections feel flat. I need a designer who can build better packages upfront."</td></tr>
+            <tr><td><strong>What HCHC Offers</strong></td><td>Curated design packages, design center management, client-facing selection appointments, vendor coordination &mdash; all from someone who's already done it at national-builder scale</td></tr>
+        </tbody>
+    </table>
+
+    <h4>Audience 2: Homeowners</h4>
+    <table>
+        <thead><tr><th>Attribute</th><th>Detail</th></tr></thead>
+        <tbody>
+            <tr><td><strong>Who</strong></td><td>Homeowners aged 30&ndash;55, household income $120K+, Hill Country and greater San Antonio area</td></tr>
+            <tr><td><strong>Life Stage</strong></td><td>Building custom, renovating, or upgrading a home they plan to stay in</td></tr>
+            <tr><td><strong>Pain Point</strong></td><td>"I know my house could look so much better but I don't know where to start, and I'm afraid of making expensive mistakes"</td></tr>
+            <tr><td><strong>Budget</strong></td><td>$15K&ndash;$80K per project (room, kitchen, or multi-room)</td></tr>
+        </tbody>
+    </table>
+
+    <h4>Audience 3: Real Estate Professionals</h4>
+    <table>
+        <thead><tr><th>Attribute</th><th>Detail</th></tr></thead>
+        <tbody>
+            <tr><td><strong>Who</strong></td><td>Listing agents and real estate teams in the Hill Country market</td></tr>
+            <tr><td><strong>Need</strong></td><td>A designer who can stage, refresh, or consult on pre-listing improvements that maximize sale price</td></tr>
+            <tr><td><strong>Pain Point</strong></td><td>"This house could sell for $40K more if it didn't look like 2012 inside"</td></tr>
+            <tr><td><strong>What HCHC Offers</strong></td><td>Pre-listing consultations, staging, targeted refresh packages (paint, fixtures, hardware, styling) with fast turnaround</td></tr>
+        </tbody>
+    </table>
+
+    <h3>Tagline</h3>
+    <blockquote>"Warm by Design."</blockquote>
+    <p>Alternatives: "Where Bold Meets Home." &bull; "Curated Comfort. Real Life." &bull; "Designed to Be Lived In."</p>
+</section>
+
+<div class="divider"><hr></div>
+
+<!-- ============================================ -->
+<!-- 2. VISUAL IDENTITY -->
+<!-- ============================================ -->
+<section id="identity" class="wide">
+    <span class="section-number">02 &mdash; Visual Identity</span>
+    <h2>Visual Identity</h2>
+
+    <h3>Logo Direction</h3>
+    <p>Clean wordmark &mdash; "HILL COUNTRY HOME CONCEPTS" in Cormorant Garamond. No house icons, no furniture silhouettes, no clip art. The name IS the logo.</p>
+
+    <div class="logo-showcase">
+        <div class="logo-box light">
+            <div>
+                <div class="logo-text on-light">Hill Country Home Concepts</div>
+                <div class="logo-sub on-light">Warm by Design</div>
+            </div>
+        </div>
+        <div class="logo-box dark">
+            <div>
+                <div class="logo-text on-dark">Hill Country Home Concepts</div>
+                <div class="logo-sub on-dark">Warm by Design</div>
+            </div>
+        </div>
+    </div>
+
+    <table>
+        <thead><tr><th>Version</th><th>Use Case</th></tr></thead>
+        <tbody>
+            <tr><td><strong>Primary Wordmark</strong></td><td>Website header, proposals, print materials</td></tr>
+            <tr><td><strong>Stacked Version</strong></td><td>Square formats, social media profiles</td></tr>
+            <tr><td><strong>Submark / Monogram</strong></td><td>"HCHC" monogram &mdash; favicon, watermark, small applications</td></tr>
+            <tr><td><strong>One-Color Versions</strong></td><td>White on dark backgrounds, Espresso on light backgrounds</td></tr>
+        </tbody>
+    </table>
+
+    <!-- COLOR PALETTE -->
+    <h3>Primary Palette</h3>
+    <div class="palette-group">
+        <div class="swatch">
+            <div class="swatch-color" style="background:#F5F0EB; border-bottom: 1px solid #e0dbd5;"></div>
+            <div class="swatch-info">
+                <div class="swatch-name">Ivory Warm</div>
+                <div class="swatch-hex">#F5F0EB &bull; RGB 245, 240, 235</div>
+                <div class="swatch-role">Primary background, white space</div>
+            </div>
+        </div>
+        <div class="swatch">
+            <div class="swatch-color" style="background:#1B2A4A;"></div>
+            <div class="swatch-info">
+                <div class="swatch-name">Deep Navy</div>
+                <div class="swatch-hex">#1B2A4A &bull; RGB 27, 42, 74</div>
+                <div class="swatch-role">Signature color. Headers, accents, bold statements. <strong>THE color.</strong></div>
+            </div>
+        </div>
+        <div class="swatch">
+            <div class="swatch-color" style="background:#3C2A21;"></div>
+            <div class="swatch-info">
+                <div class="swatch-name">Espresso</div>
+                <div class="swatch-hex">#3C2A21 &bull; RGB 60, 42, 33</div>
+                <div class="swatch-role">Text color, logo. Warmer than black.</div>
+            </div>
+        </div>
+    </div>
+
+    <h3>Secondary Palette</h3>
+    <div class="palette-group">
+        <div class="swatch">
+            <div class="swatch-color" style="background:#D4C5B2;"></div>
+            <div class="swatch-info">
+                <div class="swatch-name">Warm Sand</div>
+                <div class="swatch-hex">#D4C5B2 &bull; RGB 212, 197, 178</div>
+                <div class="swatch-role">Soft backgrounds, dividers, secondary cards</div>
+            </div>
+        </div>
+        <div class="swatch">
+            <div class="swatch-color" style="background:#A37762;"></div>
+            <div class="swatch-info">
+                <div class="swatch-name">Mocha</div>
+                <div class="swatch-hex">#A37762 &bull; RGB 163, 119, 98</div>
+                <div class="swatch-role">Warm mid-tone, buttons, accent blocks</div>
+            </div>
+        </div>
+        <div class="swatch">
+            <div class="swatch-color" style="background:#E8E4E0; border-bottom: 1px solid #d8d4d0;"></div>
+            <div class="swatch-info">
+                <div class="swatch-name">Carrara</div>
+                <div class="swatch-hex">#E8E4E0 &bull; RGB 232, 228, 224</div>
+                <div class="swatch-role">Light neutral, inspired by marble</div>
+            </div>
+        </div>
+    </div>
+
+    <h3>Accent Palette (Use Sparingly)</h3>
+    <div class="palette-group">
+        <div class="swatch">
+            <div class="swatch-color" style="background:#C4A265;"></div>
+            <div class="swatch-info">
+                <div class="swatch-name">Muted Gold</div>
+                <div class="swatch-hex">#C4A265</div>
+                <div class="swatch-role">Premium accent, CTAs, highlights</div>
+            </div>
+        </div>
+        <div class="swatch">
+            <div class="swatch-color" style="background:#7B9BAE;"></div>
+            <div class="swatch-info">
+                <div class="swatch-name">Dusty Blue</div>
+                <div class="swatch-hex">#7B9BAE</div>
+                <div class="swatch-role">Soft complement to navy</div>
+            </div>
+        </div>
+        <div class="swatch">
+            <div class="swatch-color" style="background:#8A9A7B;"></div>
+            <div class="swatch-info">
+                <div class="swatch-name">Sage</div>
+                <div class="swatch-hex">#8A9A7B</div>
+                <div class="swatch-role">Nature accent, organic warmth</div>
+            </div>
+        </div>
+    </div>
+
+    <h3>Color Usage Ratios</h3>
+    <div class="ratio-bar">
+        <div style="flex:60; background:var(--ivory); color:var(--espresso); border: 1px solid var(--sand); border-right:none;">60% Ivory / Carrara</div>
+        <div style="flex:25; background:var(--navy); color:var(--ivory);">25% Navy / Espresso</div>
+        <div style="flex:10; background:var(--sand); color:var(--espresso);">10% Sand / Mocha</div>
+        <div style="flex:5; background:var(--gold); color:#fff;">5%</div>
+    </div>
+    <p style="font-size:14px; color:var(--mocha); margin-top:4px;">The Navy Rule: Deep Navy should appear in every major brand touchpoint &mdash; website header, business cards, social media highlights, proposal covers. It's the visual thread.</p>
+
+    <!-- TYPOGRAPHY -->
+    <h3>Typography System</h3>
+    <div class="type-specimen">
+        <div class="type-heading-demo">The Navy Kitchen</div>
+        <div class="type-sub-demo">Full Renovation &bull; Texas Hill Country</div>
+        <div class="type-body-demo">The homeowners wanted a kitchen that could handle a family of five and still feel like a grown-up space. We gutted the original layout and rebuilt around a massive navy island with built-in cookbook storage, marble countertops, and sculptural wood pendants.</div>
+        <div class="type-caption-demo">Photography by [Photographer Name] &bull; Completed 2021</div>
+    </div>
+
+    <table>
+        <thead><tr><th>Role</th><th>Font</th><th>Weight</th><th>Details</th></tr></thead>
+        <tbody>
+            <tr><td><strong>Headings (H1&ndash;H2)</strong></td><td>Cormorant Garamond</td><td>SemiBold (600)</td><td>36&ndash;48px, Title Case</td></tr>
+            <tr><td><strong>Subheadings (H3&ndash;H4)</strong></td><td>Jost</td><td>Light (200), UPPERCASE</td><td>13&ndash;18px, letter-spacing 0.15&ndash;0.2em</td></tr>
+            <tr><td><strong>Body Text</strong></td><td>Jost</td><td>Regular (400)</td><td>16&ndash;18px, line-height 1.6&ndash;1.7</td></tr>
+            <tr><td><strong>Captions</strong></td><td>Jost</td><td>Light Italic (200i)</td><td>13&ndash;14px, for photo credits &amp; pull quotes</td></tr>
+        </tbody>
+    </table>
+    <p><strong>Rules:</strong> Maximum 2 fonts across all materials. Never use decorative scripts. Never all-caps for serif headings. Paragraph max-width: 680px on web. Both fonts are <strong>free on Google Fonts</strong>.</p>
+
+    <h3>Graphic Elements</h3>
+    <ul>
+        <li><strong>Dividers:</strong> Thin 1px lines in Warm Sand or Espresso. Whitespace preferred over heavy dividers.</li>
+        <li><strong>Textures:</strong> Subtle linen at 5&ndash;10% opacity for warmth. Marble texture for accent sections. No heavy patterns, gradients, or drop shadows.</li>
+        <li><strong>Icons:</strong> Thin line-weight (1&ndash;1.5px stroke), minimal, geometric. Espresso or Navy only.</li>
+    </ul>
+</section>
+
+<div class="divider"><hr></div>
+
+<!-- ============================================ -->
+<!-- 3. PHOTOGRAPHY -->
+<!-- ============================================ -->
+<section id="photography">
+    <span class="section-number">03 &mdash; Photography &amp; Imagery</span>
+    <h2>Photography &amp; Imagery</h2>
+
+    <blockquote>Photography is the single most important brand asset for an interior designer. It's not optional &mdash; it's the product.</blockquote>
+
+    <h3>Photography Style</h3>
+    <table>
+        <thead><tr><th>Element</th><th>Guideline</th></tr></thead>
+        <tbody>
+            <tr><td><strong>Lighting</strong></td><td>Natural light preferred. Warm color temperature. Golden hour or overcast. Never harsh flash.</td></tr>
+            <tr><td><strong>Temperature</strong></td><td>Warm (5500&ndash;6500K). Never cool/blue.</td></tr>
+            <tr><td><strong>Composition</strong></td><td>Wide establishing (40%) + medium vignettes (30%) + tight close-ups (30%)</td></tr>
+            <tr><td><strong>Styling</strong></td><td>Lived-in but curated. Books, flowers, candles, coffee cup. Never sterile, never cluttered.</td></tr>
+            <tr><td><strong>Editing</strong></td><td>Minimal. Light and airy processing. No heavy filters or desaturation.</td></tr>
+            <tr><td><strong>Perspective</strong></td><td>Eye-level for living spaces. Straight-on for kitchens/built-ins. No extreme wide-angle distortion.</td></tr>
+        </tbody>
+    </table>
+
+    <h3>Shot List (Per Project)</h3>
+    <ol>
+        <li>2&ndash;3 wide establishing shots (different angles)</li>
+        <li>2&ndash;3 medium vignette shots (styled corners, furniture groupings)</li>
+        <li>2&ndash;3 detail/texture close-ups (countertop grain, fabric, hardware, tile)</li>
+        <li>1 lifestyle shot (someone using the space naturally)</li>
+        <li>1&ndash;2 architectural detail shots (lighting fixture, molding, built-in)</li>
+    </ol>
+    <p><strong>Total: 8&ndash;14 images per project minimum.</strong></p>
+
+    <h3>Before &amp; After Rules</h3>
+    <ul>
+        <li><strong>Same angle, same lens</strong> for before and after. Non-negotiable for impact.</li>
+        <li>Before shots: honest but well-lit enough to read clearly</li>
+        <li>After shots: fully styled and professionally lit</li>
+        <li>Always pair them &mdash; never show an after without context</li>
+    </ul>
+
+    <h3>Photography Investment Priority</h3>
+    <div class="phase critical">
+        <div class="phase-title">Immediate: Reshoot the Kitchen</div>
+        <p>Hire a professional architectural photographer to reshoot the completed navy kitchen renovation. Styled, same-angle before/after. This single project, properly photographed, is worth more than 10 phone photos.<br><strong>Budget: $500&ndash;$1,500 for a half-day shoot.</strong></p>
+    </div>
+
+    <h3>Imagery Don'ts</h3>
+    <ul>
+        <li>No phone photos in the portfolio (BTS social content is fine from phone)</li>
+        <li>No photos with construction debris, boxes, or visible brand tags</li>
+        <li>No heavily filtered or artificially saturated images</li>
+        <li>No stock photography on the website &mdash; ever</li>
+        <li>No Bassett/HGTV-branded presentation boards in the portfolio</li>
+    </ul>
+</section>
+
+<div class="divider"><hr></div>
+
+<!-- ============================================ -->
+<!-- 4. BRAND VOICE -->
+<!-- ============================================ -->
+<section id="voice">
+    <span class="section-number">04 &mdash; Brand Voice &amp; Messaging</span>
+    <h2>Brand Voice</h2>
+
+    <h3>Voice Traits</h3>
+    <div class="voice-grid">
+        <div class="voice-card">
+            <div class="trait">Warm</div>
+            <div class="meaning">Approachable, friendly, conversational. Not stiff or formal.</div>
+            <div class="example"><span class="do">"Let's talk about your space"</span> &mdash; not <span class="dont">"Submit an inquiry regarding our services"</span></div>
+        </div>
+        <div class="voice-card">
+            <div class="trait">Confident</div>
+            <div class="meaning">Knows her stuff. States opinions clearly. Not wishy-washy. 8+ years backs every recommendation.</div>
+            <div class="example"><span class="do">"Navy is always the right answer"</span> &mdash; not <span class="dont">"Navy might be a nice option if you're considering it"</span></div>
+        </div>
+        <div class="voice-card">
+            <div class="trait">Strategic</div>
+            <div class="meaning">Thinks beyond aesthetics &mdash; about timelines, budgets, builder relationships, and business impact. Design decisions are grounded in ROI.</div>
+            <div class="example"><span class="do">"Upgrading these three selections adds $12K in perceived value for under $3K in material cost"</span></div>
+        </div>
+        <div class="voice-card">
+            <div class="trait">Professional</div>
+            <div class="meaning">Speaks the language of builders and trades, not just Pinterest boards. Delivers on time, communicates proactively, runs a tight process.</div>
+            <div class="example"><span class="do">"Here's the selection schedule aligned to your build timeline"</span> &mdash; not <span class="dont">"We'll figure it out as we go"</span></div>
+        </div>
+    </div>
+
+    <h3>Do's &amp; Don'ts</h3>
+    <div class="do-dont">
+        <div class="do-box">
+            <div class="label">Do</div>
+            <ul style="margin-left:18px;">
+                <li>Use "we" and "your" &mdash; it's a partnership</li>
+                <li>Reference specific experience and expertise</li>
+                <li>Use specific details (material names, color references, trade names)</li>
+                <li>Be willing to have a design opinion &mdash; that's what they're hiring you for</li>
+                <li>Speak like you're talking to a smart friend, not a client file</li>
+            </ul>
+        </div>
+        <div class="dont-box">
+            <div class="label">Don't</div>
+            <ul style="margin-left:18px;">
+                <li>Be self-deprecating or hedging ("I think maybe this could work?")</li>
+                <li>Use jargon without context ("bespoke millwork solution" &rarr; "custom built-ins")</li>
+                <li>Use corporate buzzwords ("leverage," "synergy," "optimize")</li>
+                <li>Use flowery clich&eacute;s ("sanctuary of serenity")</li>
+                <li>Apologize for having opinions &mdash; clients want decisiveness</li>
+            </ul>
+        </div>
+    </div>
+
+    <h3>Key Messages</h3>
+
+    <h4>Elevator Pitch</h4>
+    <blockquote>"I'm an interior designer who creates warm, layered spaces that actually work for real life &mdash; not just for photos."</blockquote>
+
+    <h4>Website Hero Copy</h4>
+    <div class="type-specimen" style="text-align:center;">
+        <div style="font-family:'Cormorant Garamond',serif; font-weight:600; font-size:48px; color:var(--navy); margin-bottom:12px;">Warm by Design.</div>
+        <div style="font-family:'Jost',sans-serif; font-weight:300; font-size:18px; color:var(--espresso); margin-bottom:24px;">Production-tested expertise. Custom-home soul. Texas Hill Country roots.</div>
+        <div style="display:inline-block; background:var(--navy); color:var(--ivory); padding:12px 32px; border-radius:4px; font-family:'Jost',sans-serif; font-weight:300; font-size:12px; letter-spacing:0.15em; text-transform:uppercase;">View Our Work</div>
+    </div>
+
+    <h4>About Page Opening</h4>
+    <blockquote>Great design isn't about following trends &mdash; it's about knowing which ones to ignore. At Hill Country Home Concepts, we build rooms around the people who live in them. Rich textures, natural wood, confident color, and not a single piece of furniture that's just for show.</blockquote>
+
+    <h4>Instagram Bio</h4>
+    <div style="background:#fff; padding:24px; border-radius:8px; box-shadow:0 2px 12px rgba(0,0,0,0.06); font-size:15px; max-width:360px;">
+        <strong>Hill Country Home Concepts</strong><br>
+        Warm, layered interiors<br>
+        Residential design &bull; Renovations &bull; Full-service<br>
+        Texas Hill Country &bull; San Antonio<br>
+        &darr; See our work &darr;<br>
+        <span style="color:var(--navy);">hillcountryhomeconcepts.com</span>
+    </div>
+</section>
+
+<div class="divider"><hr></div>
+
+<!-- ============================================ -->
+<!-- 5. WEBSITE -->
+<!-- ============================================ -->
+<section id="website">
+    <span class="section-number">05 &mdash; Website Blueprint</span>
+    <h2>Website Blueprint</h2>
+
+    <h3>Platform Recommendation</h3>
+    <table>
+        <thead><tr><th>Platform</th><th>Best For</th><th>Price</th></tr></thead>
+        <tbody>
+            <tr><td><strong>Showit</strong> (Primary)</td><td>Pixel-perfect design control. IDCO Studio templates built for interior designers.</td><td>$24&ndash;39/mo</td></tr>
+            <tr><td><strong>Squarespace</strong> (Alternative)</td><td>Faster launch, less custom. Templates: Isabella or Lily.</td><td>$23&ndash;65/mo</td></tr>
+        </tbody>
+    </table>
+
+    <h3>Site Structure</h3>
+    <div class="sitemap">
+        <div class="sitemap-item level-0"><span class="sitemap-dot"></span>HOME</div>
+        <div class="sitemap-item level-0"><span class="sitemap-dot"></span>PORTFOLIO</div>
+        <div class="sitemap-item level-1"><span class="sitemap-dot"></span>The Navy Kitchen &mdash; Kitchen Renovation</div>
+        <div class="sitemap-item level-1"><span class="sitemap-dot"></span>[Project 2]</div>
+        <div class="sitemap-item level-1"><span class="sitemap-dot"></span>[Project 3] &hellip; aim for 5&ndash;8 at launch</div>
+        <div class="sitemap-item level-0"><span class="sitemap-dot"></span>ABOUT</div>
+        <div class="sitemap-item level-0"><span class="sitemap-dot"></span>SERVICES</div>
+        <div class="sitemap-item level-1"><span class="sitemap-dot"></span>Builder Partnerships &amp; Design Programs</div>
+        <div class="sitemap-item level-1"><span class="sitemap-dot"></span>Full-Service Residential Design</div>
+        <div class="sitemap-item level-1"><span class="sitemap-dot"></span>Kitchen &amp; Bath Renovation</div>
+        <div class="sitemap-item level-1"><span class="sitemap-dot"></span>Pre-Listing Refresh &amp; Staging</div>
+        <div class="sitemap-item level-1"><span class="sitemap-dot"></span>Design Consultation</div>
+        <div class="sitemap-item level-0"><span class="sitemap-dot"></span>JOURNAL (Blog / SEO)</div>
+        <div class="sitemap-item level-0"><span class="sitemap-dot"></span>INQUIRE (Contact)</div>
+    </div>
+
+    <h3>Page Guidelines</h3>
+
+    <h4>Home</h4>
+    <ul>
+        <li><strong>Hero:</strong> Single full-bleed image + "Warm by Design." + CTA "View Our Work"</li>
+        <li>3&ndash;4 portfolio preview images in a clean grid below the fold</li>
+        <li>2&ndash;3 sentences of positioning copy</li>
+        <li>One strong client testimonial</li>
+        <li>CTA: "Ready to transform your space?"</li>
+    </ul>
+
+    <h4>Portfolio</h4>
+    <ul>
+        <li>2&ndash;3 column grid, generous whitespace, warm hover zoom effect</li>
+        <li>Each project: 8&ndash;14 images, 1&ndash;2 sentence brief, scope tags, before/after</li>
+        <li>Let images carry the narrative &mdash; minimal text</li>
+    </ul>
+
+    <h4>Services</h4>
+    <ul>
+        <li><strong>Builder Partnerships:</strong> Design program development, curated selection packages, design center setup/management, client-facing appointments. Position this FIRST &mdash; it's the differentiator.</li>
+        <li><strong>Residential Design:</strong> Full-service for custom builds and renovations. Process: Discovery &rarr; Concept &rarr; Selections &rarr; Install &rarr; Reveal</li>
+        <li><strong>Pre-Listing Refresh:</strong> Targeted updates (paint, fixtures, hardware, staging) for realtors. Fast turnaround, high ROI.</li>
+        <li><strong>No pricing on the website.</strong> CTA: "Let's Talk" or "Start a Project"</li>
+        <li>Include a <strong>"For Realtors"</strong> section highlighting pre-listing refresh services and fast turnaround</li>
+    </ul>
+
+    <h4>Journal / Blog</h4>
+    <ul>
+        <li>2&ndash;4 posts/month &mdash; the SEO engine</li>
+        <li>Topics: design tips, project BTS, material spotlights, before/after deep-dives</li>
+        <li>Example: "Why We Almost Always Recommend Navy Cabinets"</li>
+    </ul>
+
+    <h3>Design Rules</h3>
+    <table>
+        <thead><tr><th>Element</th><th>Rule</th></tr></thead>
+        <tbody>
+            <tr><td><strong>Backgrounds</strong></td><td>Ivory Warm or white. Never dark for main content.</td></tr>
+            <tr><td><strong>Text</strong></td><td>Espresso for body. Deep Navy for headings.</td></tr>
+            <tr><td><strong>Buttons</strong></td><td>Navy bg + Ivory text. Hover: Mocha bg.</td></tr>
+            <tr><td><strong>Images</strong></td><td>Always full-width or large. No small thumbnails.</td></tr>
+            <tr><td><strong>Whitespace</strong></td><td>Generous. When in doubt, add more.</td></tr>
+            <tr><td><strong>Animations</strong></td><td>Subtle fade-in only. No bouncing/spinning.</td></tr>
+            <tr><td><strong>Mobile</strong></td><td>Must be flawless. 60%+ traffic is mobile.</td></tr>
+        </tbody>
+    </table>
+</section>
+
+<div class="divider"><hr></div>
+
+<!-- ============================================ -->
+<!-- 6. SOCIAL MEDIA -->
+<!-- ============================================ -->
+<section id="social" class="wide">
+    <span class="section-number">06 &mdash; Social Media Strategy</span>
+    <h2>Social Media Strategy</h2>
+
+    <h3>Platform Priority</h3>
+    <table>
+        <thead><tr><th>Priority</th><th>Platform</th><th>Role</th></tr></thead>
+        <tbody>
+            <tr><td><strong>1</strong></td><td>Instagram</td><td>Portfolio showcase, client acquisition, brand building</td></tr>
+            <tr><td><strong>2</strong></td><td>Pinterest</td><td>Long-tail SEO, passive traffic to website</td></tr>
+            <tr><td><strong>3</strong></td><td>Blog/Journal</td><td>SEO anchor, authority building, content source</td></tr>
+        </tbody>
+    </table>
+
+    <h3>Content Pillars</h3>
+    <div class="pillar-bar">
+        <div style="flex:35; background:var(--navy); color:var(--ivory);">35% Portfolio / Reveals</div>
+        <div style="flex:25; background:var(--mocha); color:#fff;">25% Education / Tips</div>
+        <div style="flex:20; background:var(--sand); color:var(--espresso);">20% Process / BTS</div>
+        <div style="flex:20; background:var(--carrara); color:var(--espresso);">20% Personal / Lifestyle</div>
+    </div>
+    <p style="font-size:14px; margin-top:8px;">The "Personal / Lifestyle" pillar keeps the brand human. Design inspiration, favorite local spots, day-in-the-life content &mdash; it builds connection and trust with potential clients who want to feel comfortable reaching out.</p>
+
+    <h3>Posting Cadence</h3>
+    <table>
+        <thead><tr><th>Format</th><th>Frequency</th><th>Notes</th></tr></thead>
+        <tbody>
+            <tr><td><strong>Feed Posts</strong></td><td>4&ndash;5/week</td><td>Mix of carousels, images, and Reels</td></tr>
+            <tr><td><strong>Carousels</strong></td><td>2&ndash;3/week</td><td>Highest engagement (1.92% avg). Prioritize these.</td></tr>
+            <tr><td><strong>Reels</strong></td><td>1&ndash;2/week</td><td>Time-lapses, room tours, quick tips</td></tr>
+            <tr><td><strong>Stories</strong></td><td>Daily</td><td>Polls, Q&As, casual BTS</td></tr>
+        </tbody>
+    </table>
+
+    <h3>High-Performing Formats</h3>
+    <ol>
+        <li><strong>Before/After Carousel</strong> &mdash; Slide 1: dramatic "before." Slides 2&ndash;4: progress. Final slide: styled "after" + CTA.</li>
+        <li><strong>"Which would you choose?" Poll</strong> &mdash; Two options side by side. Drives comments and saves.</li>
+        <li><strong>Material Close-Up + Story</strong> &mdash; Tight texture shot + why it was chosen. Shows expertise.</li>
+        <li><strong>Design Mistake Carousel</strong> &mdash; Educational, shareable, saved.</li>
+        <li><strong>Time-Lapse Reel</strong> &mdash; Full transformation in 15&ndash;30 seconds.</li>
+    </ol>
+
+    <h3>Hashtag Strategy</h3>
+    <div class="do-dont">
+        <div class="do-box">
+            <div class="label">Use (Niche-Specific)</div>
+            <ul style="margin-left:18px; font-size:14px;">
+                <li>#hillcountrydesign</li>
+                <li>#texashillcountryhomes</li>
+                <li>#navykitchen</li>
+                <li>#kitchenrenovation</li>
+                <li>#sanantoniohomes</li>
+            </ul>
+        </div>
+        <div class="dont-box">
+            <div class="label">Avoid (Too Generic)</div>
+            <ul style="margin-left:18px; font-size:14px;">
+                <li>#interiordesign</li>
+                <li>#homedecor</li>
+                <li>#beautiful</li>
+                <li>#inspo</li>
+                <li>#designinspiration</li>
+            </ul>
+        </div>
+    </div>
+    <p style="font-size:14px; color:var(--mocha);">Max 3&ndash;5 hashtags per post. Rotate sets. Place in caption, not comments.</p>
+
+    <h3>Content Repurposing System</h3>
+    <div class="phase">
+        <div class="phase-title">1 Project Shoot = 15&ndash;25 Pieces of Content</div>
+        <table style="font-size:14px;">
+            <tbody>
+                <tr><td>8&ndash;14 photos</td><td>&rarr;</td><td>1 blog post (project story + design decisions)</td></tr>
+                <tr><td></td><td>&rarr;</td><td>3&ndash;4 Instagram feed posts (hero + detail shots)</td></tr>
+                <tr><td></td><td>&rarr;</td><td>1&ndash;2 before/after carousels</td></tr>
+                <tr><td></td><td>&rarr;</td><td>1 Reel (room tour or time-lapse)</td></tr>
+                <tr><td></td><td>&rarr;</td><td>5&ndash;8 Pinterest pins (keyword-rich descriptions)</td></tr>
+                <tr><td></td><td>&rarr;</td><td>3&ndash;5 Stories (BTS, client reaction, material close-ups)</td></tr>
+                <tr><td></td><td>&rarr;</td><td>1 newsletter feature</td></tr>
+            </tbody>
+        </table>
+        <p style="margin-top:16px; font-size:15px;"><strong>That's 2&ndash;4 weeks of social media from a single shoot.</strong></p>
+    </div>
+</section>
+
+<div class="divider"><hr></div>
+
+<!-- ============================================ -->
+<!-- 7. COLLATERAL -->
+<!-- ============================================ -->
+<section>
+    <span class="section-number">07 &mdash; Collateral &amp; Templates</span>
+    <h2>Collateral &amp; Templates</h2>
+
+    <h3>Business Card</h3>
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:20px; margin:20px 0;">
+        <div style="background:var(--ivory); border:1px solid var(--sand); border-radius:8px; padding:48px 32px; text-align:center;">
+            <div style="font-family:'Cormorant Garamond',serif; font-weight:600; font-size:22px; color:var(--espresso);">Hill Country Home Concepts</div>
+            <div style="font-family:'Jost',sans-serif; font-weight:200; font-size:9px; letter-spacing:0.3em; text-transform:uppercase; color:var(--mocha); margin-top:4px;">Warm by Design</div>
+            <div style="font-size:10px; color:#aaa; margin-top:16px;">FRONT</div>
+        </div>
+        <div style="background:var(--ivory); border:1px solid var(--sand); border-radius:8px; padding:32px; position:relative; overflow:hidden;">
+            <div style="position:absolute; left:0; top:0; bottom:0; width:4px; background:var(--navy);"></div>
+            <div style="font-family:'Jost',sans-serif; font-weight:300; font-size:13px; color:var(--espresso); padding-left:16px;">
+                <div style="font-weight:400; margin-bottom:2px;">Ena</div>
+                <div style="font-size:10px; letter-spacing:0.15em; text-transform:uppercase; color:var(--navy); margin-bottom:8px;">Principal Designer</div>
+                <div style="color:var(--mocha); font-size:12px; line-height:1.8;">
+                    ena@hillcountryhomeconcepts.com<br>
+                    (xxx) xxx-xxxx<br>
+                    hillcountryhomeconcepts.com
+                </div>
+            </div>
+            <div style="font-size:10px; color:#aaa; text-align:center; margin-top:16px;">BACK</div>
+        </div>
+    </div>
+    <p style="font-size:14px;">Paper: thick cotton stock (130lb+), soft matte or soft-touch finish. No gloss.</p>
+
+    <h3>Design Presentation Deck</h3>
+    <ul>
+        <li>Replace Bassett-branded boards with HCHC-branded templates</li>
+        <li>Platform: Canva Pro or Google Slides</li>
+        <li>Ivory Warm background, Espresso text, images at 60%+ of slide area</li>
+        <li>Slides: Cover &rarr; Mood Board &rarr; Product Selections &rarr; Layout &rarr; Budget</li>
+    </ul>
+
+    <h3>Client Welcome Packet</h3>
+    <ul>
+        <li>Digital PDF sent after booking</li>
+        <li>Welcome letter (warm, personal)</li>
+        <li>What to expect + timeline</li>
+        <li>Communication preferences</li>
+        <li>Prep checklist for first meeting</li>
+        <li>FAQ</li>
+    </ul>
+
+    <h3>Social Media Templates</h3>
+    <ul>
+        <li><strong>Story template:</strong> Ivory background, Espresso text, Navy accent bar</li>
+        <li><strong>Carousel covers:</strong> Clean image + small HCHC watermark</li>
+        <li><strong>Highlight covers:</strong> Navy circles + thin ivory icons (Home, Kitchen, Process, Tips, About)</li>
+    </ul>
+</section>
+
+<div class="divider"><hr></div>
+
+<!-- ============================================ -->
+<!-- 8. POSITIONING -->
+<!-- ============================================ -->
+<section>
+    <span class="section-number">08 &mdash; Competitive Positioning</span>
+    <h2>Competitive Positioning</h2>
+
+    <h3>Market Position</h3>
+    <div class="positioning-chart">
+        <div class="chart-grid">
+            <span class="chart-label top">Custom / High-End</span>
+            <span class="chart-label left">Design Only</span>
+            <span class="chart-label right">Design + Operations</span>
+            <span class="chart-label bottom">Production / Volume</span>
+            <div class="chart-dot comp" style="top:20%; left:20%;">Boutique Designers</div>
+            <div class="chart-dot comp" style="bottom:25%; right:15%;">Big-Box Design Services</div>
+            <div class="chart-dot comp" style="bottom:30%; left:25%;">Freelance Decorators</div>
+            <div class="chart-dot ena" style="top:38%; right:28%;">Hill Country Home Concepts</div>
+        </div>
+    </div>
+    <p>HCHC occupies the sweet spot: <strong>professional-grade design expertise with the warmth and personal attention of a boutique practice.</strong> Most big-box design services lack the creative vision. Most boutique designers can't manage complex projects at scale. Ena bridges both worlds.</p>
+
+    <h3>Differentiators to Own</h3>
+    <table>
+        <thead><tr><th>Differentiator</th><th>Why It Matters</th></tr></thead>
+        <tbody>
+            <tr><td><strong>Navy as a Signature</strong></td><td>"The designer who made me fall in love with navy" is a referral line worth building toward. A recognizable aesthetic in a crowded market.</td></tr>
+            <tr><td><strong>Before/After Storytelling</strong></td><td>The most engaging content type in interior design. HCHC's renovation work proves dramatic transformations &mdash; not just decorating.</td></tr>
+            <tr><td><strong>Renovation + Design</strong></td><td>Many designers only do furniture selection. HCHC does structural renovation, material specification, and contractor coordination. Higher-value service.</td></tr>
+            <tr><td><strong>Real Life, Not Showroom</strong></td><td>Cookbooks in the island, guitars in the living room. Spaces designed for the people who live in them &mdash; not for a magazine spread.</td></tr>
+            <tr><td><strong>Texas Hill Country Focus</strong></td><td>Not trying to be everywhere. Deep roots and market knowledge in a specific, high-growth region.</td></tr>
+        </tbody>
+    </table>
+</section>
+
+<div class="divider"><hr></div>
+
+<!-- ============================================ -->
+<!-- 9. ACTION PLAN -->
+<!-- ============================================ -->
+<section id="action">
+    <span class="section-number">09 &mdash; Action Plan</span>
+    <h2>Action Plan</h2>
+
+    <div class="phase critical">
+        <div class="phase-title">Phase 1: Portfolio &amp; Positioning (Weeks 1&ndash;4)</div>
+        <table>
+            <thead><tr><th>Action</th><th>Priority</th><th>Est. Cost</th></tr></thead>
+            <tbody>
+                <tr><td>Build Beautiful.ai portfolio presentation (dual-purpose: client pitch + Design Director pitch)</td><td><strong>CRITICAL</strong></td><td>$0&ndash;12/mo</td></tr>
+                <tr><td>Professional photo shoot of kitchen renovation (styled, same-angle before/after)</td><td><strong>CRITICAL</strong></td><td>$500&ndash;1,500</td></tr>
+                <tr><td>Design logo suite (wordmark + HCHC monogram)</td><td>HIGH</td><td>$0 DIY or $300&ndash;800</td></tr>
+                <tr><td>Secure domain name (hillcountryhomeconcepts.com)</td><td>HIGH</td><td>$12&ndash;15/yr</td></tr>
+                <tr><td>Create realtor networking one-pager (pre-listing refresh services)</td><td>HIGH</td><td>$0</td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="phase growth">
+        <div class="phase-title">Phase 2: Digital Presence (Weeks 4&ndash;8)</div>
+        <table>
+            <thead><tr><th>Action</th><th>Priority</th><th>Est. Cost</th></tr></thead>
+            <tbody>
+                <tr><td>Build website with portfolio, services, about, contact</td><td><strong>CRITICAL</strong></td><td>$24&ndash;65/mo</td></tr>
+                <tr><td>Write website copy (use voice guidelines &mdash; homeowner audience)</td><td>HIGH</td><td>$0 or $500&ndash;1,500</td></tr>
+                <tr><td>Set up Instagram business account + first 10 posts</td><td>HIGH</td><td>$0</td></tr>
+                <tr><td>Create HCHC-branded design presentation templates</td><td>HIGH</td><td>$15/mo (Canva Pro)</td></tr>
+                <tr><td>Set up Pinterest business account + create 8&ndash;10 boards</td><td>MEDIUM</td><td>$0</td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="phase growth">
+        <div class="phase-title">Phase 3: Outreach &amp; Launch (Weeks 8&ndash;12)</div>
+        <table>
+            <thead><tr><th>Action</th><th>Priority</th><th>Est. Cost</th></tr></thead>
+            <tbody>
+                <tr><td>Launch website</td><td><strong>CRITICAL</strong></td><td>&mdash;</td></tr>
+                <tr><td>Connect with local realtor networks (SABOR, Hill Country boards)</td><td>HIGH</td><td>$0</td></tr>
+                <tr><td>Begin consistent Instagram posting (4&ndash;5x/week)</td><td>HIGH</td><td>$0</td></tr>
+                <tr><td>Begin Pinterest pinning (3&ndash;5x/day via scheduler)</td><td>MEDIUM</td><td>$15/mo (Tailwind)</td></tr>
+                <tr><td>Order business cards + client welcome packet</td><td>MEDIUM</td><td>$50&ndash;100</td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="phase scale">
+        <div class="phase-title">Phase 4: Growth &amp; Decision Point (Months 3&ndash;6)</div>
+        <table>
+            <thead><tr><th>Action</th></tr></thead>
+            <tbody>
+                <tr><td>Build to 5&ndash;8 portfolio projects on website (photograph every completed project)</td></tr>
+                <tr><td>Establish monthly blog cadence (2&ndash;4 posts) for SEO</td></tr>
+                <tr><td>Pursue local press/feature opportunities (Hill Country Living, SA magazines)</td></tr>
+                <tr><td>Collect and display client testimonials</td></tr>
+                <tr><td>Develop signature design elements (e.g., "the navy island," specific material pairings)</td></tr>
+                <tr><td>Build realtor referral network for pre-listing refresh pipeline</td></tr>
+            </tbody>
+        </table>
+    </div>
+</section>
+
+<div class="divider"><hr></div>
+
+<!-- ============================================ -->
+<!-- 10. QUICK REFERENCE -->
+<!-- ============================================ -->
+<section>
+    <span class="section-number">10 &mdash; Quick Reference</span>
+    <h2>Brand Summary</h2>
+
+    <div class="quick-ref">
+        <div class="qr-item">
+            <div class="qr-label">Brand Name</div>
+            <div class="qr-value">Hill Country Home Concepts</div>
+        </div>
+        <div class="qr-item">
+            <div class="qr-label">Tagline</div>
+            <div class="qr-value">"Warm by Design."</div>
+        </div>
+        <div class="qr-item">
+            <div class="qr-label">Style</div>
+            <div class="qr-value">Warm Transitional</div>
+        </div>
+        <div class="qr-item">
+            <div class="qr-label">Signature Color</div>
+            <div class="qr-value" style="display:flex; align-items:center; gap:10px;">
+                <span style="display:inline-block; width:24px; height:24px; background:#1B2A4A; border-radius:4px;"></span>
+                Deep Navy #1B2A4A
+            </div>
+        </div>
+        <div class="qr-item">
+            <div class="qr-label">Background</div>
+            <div class="qr-value" style="display:flex; align-items:center; gap:10px;">
+                <span style="display:inline-block; width:24px; height:24px; background:#F5F0EB; border-radius:4px; border:1px solid #ddd;"></span>
+                Ivory Warm #F5F0EB
+            </div>
+        </div>
+        <div class="qr-item">
+            <div class="qr-label">Text Color</div>
+            <div class="qr-value" style="display:flex; align-items:center; gap:10px;">
+                <span style="display:inline-block; width:24px; height:24px; background:#3C2A21; border-radius:4px;"></span>
+                Espresso #3C2A21
+            </div>
+        </div>
+        <div class="qr-item">
+            <div class="qr-label">Heading Font</div>
+            <div class="qr-value" style="font-family:'Cormorant Garamond',serif;">Cormorant Garamond</div>
+        </div>
+        <div class="qr-item">
+            <div class="qr-label">Body Font</div>
+            <div class="qr-value" style="font-family:'Jost',sans-serif; font-weight:400;">Jost Regular</div>
+        </div>
+        <div class="qr-item">
+            <div class="qr-label">Voice</div>
+            <div class="qr-value small">Warm, Confident, Strategic, Professional</div>
+        </div>
+        <div class="qr-item">
+            <div class="qr-label">Primary Platform</div>
+            <div class="qr-value small">Instagram (4&ndash;5 posts/week)</div>
+        </div>
+        <div class="qr-item">
+            <div class="qr-label">Hero Content</div>
+            <div class="qr-value small">Before/after carousels</div>
+        </div>
+        <div class="qr-item">
+            <div class="qr-label">Target Market</div>
+            <div class="qr-value small">Texas Hill Country</div>
+        </div>
+        <div class="qr-item">
+            <div class="qr-label">Key Audiences</div>
+            <div class="qr-value small">Builders, Homeowners, Realtors</div>
+        </div>
+        <div class="qr-item">
+            <div class="qr-label">#1 Priority</div>
+            <div class="qr-value small">Portfolio presentation + pro photography</div>
+        </div>
+    </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+    <div class="footer-logo">Hill Country Home Concepts</div>
+    <div style="margin-top:4px;">Brand Book &amp; Strategic Identity Guide</div>
+    <div style="margin-top:20px; font-size:12px; opacity:0.6;">This brand book is a living document. Update as the brand evolves.</div>
+</footer>
+
+</body>
+</html>

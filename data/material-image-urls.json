@@ -1,0 +1,860 @@
+{
+  "images": [
+    {
+      "name": "Shaw Floorté Pro Paramount 512C Plus",
+      "sku": "509SA-02002",
+      "category": "flooring",
+      "image_url": "https://cdn11.bigcommerce.com/s-2d2cb/products/68507/images/166285/509SA_00556_MAIN__63432.1641322321.275.275.jpg?c=2",
+      "source": "georgiacarpet.com"
+    },
+    {
+      "name": "Shaw Floorté Highlands 521SA",
+      "sku": "521SA-02032",
+      "category": "flooring",
+      "image_url": "https://www.floorcity.com/cdn/shop/products/2032V_00295_MAIN.jpg?v=1586458247&width=1024",
+      "source": "floorcity.com (Chatter Oak/Anvil Plus variant)"
+    },
+    {
+      "name": "Shaw Floorté Ignite WPC",
+      "sku": "FTE02-00272",
+      "category": "flooring",
+      "image_url": "https://shawfloors.com/en-us/vinyl/anvil-plus-chatter-oak-7-/2032v-00295",
+      "source": "shawfloors.com (product page - direct image unavailable)"
+    },
+    {
+      "name": "Shaw Floorté Pro Paladin Plus",
+      "sku": "509SA-01024",
+      "category": "flooring",
+      "image_url": "https://www.greenflooringsupply.com/products/shaw-floorte-pro-paladin-plus-marina-7",
+      "source": "greenflooringsupply.com (product page)"
+    },
+    {
+      "name": "COREtec Pro Plus XL Bedford Oak",
+      "sku": "VV488-02098",
+      "category": "flooring",
+      "image_url": "https://www.dwellsmart.com/cdn/shop/products/BedfordOak.jpg?v=1602539870",
+      "source": "dwellsmart.com"
+    },
+    {
+      "name": "COREtec Plus Enhanced Manila Oak",
+      "sku": "VV012-00760",
+      "category": "flooring",
+      "image_url": "https://www.floorcity.com/cdn/shop/files/Coretec_Originals_Enhanced_VV012-00760_Manila_Oak_c48e7a6e-9aef-4b9b-b826-8668e314da63.jpg?v=1761162354&width=1024",
+      "source": "floorcity.com"
+    },
+    {
+      "name": "COREtec Plus Enhanced Aurora Oak",
+      "sku": "VV012-00771",
+      "category": "flooring",
+      "image_url": "https://www.floorcity.com/cdn/shop/files/Coretec_Originals_Enhanced_VV012-00771_Aurora_Oak_07f878d1-23c9-44eb-82eb-c1187b7fcf86.jpg?v=1761162352&width=1024",
+      "source": "floorcity.com"
+    },
+    {
+      "name": "COREtec Plus Enhanced Alabaster Oak",
+      "sku": "VV024-00706",
+      "category": "flooring",
+      "image_url": "https://www.floorcity.com/cdn/shop/products/vv024-00706.jpg?v=1673308373&width=1024",
+      "source": "floorcity.com"
+    },
+    {
+      "name": "Mohawk RevWood Select Emberstone Ridge",
+      "sku": "RRS33-02",
+      "category": "flooring",
+      "image_url": "https://www.arkoflooring.com/products/mohawk-revwood-select-emberstone-ridge-kindling-oak-laminate-flooring",
+      "source": "arkoflooring.com (product page)"
+    },
+    {
+      "name": "Mohawk RevWood Plus Briarfield",
+      "sku": "WEK03-07",
+      "category": "flooring",
+      "image_url": "https://www.arkoflooring.com/products/revwood-select-briarfield-artifact-oak",
+      "source": "arkoflooring.com (product page)"
+    },
+    {
+      "name": "Mohawk RevWood Premier Sawmill Ridge",
+      "sku": "RRP71-04",
+      "category": "flooring",
+      "image_url": "https://onflooring.com/products/laminate-flooring/mohawk-revwood-plus-sawmill-ridge-nomadic-oak",
+      "source": "onflooring.com (product page)"
+    },
+    {
+      "name": "Daltile Emerson Wood Porcelain Tile (Butter Pecan)",
+      "sku": "EM03-0848",
+      "category": "flooring",
+      "image_url": "https://www.daltile.com/products/wood-look/emerson-wood/butter-pecan",
+      "source": "daltile.com (vendor)"
+    },
+    {
+      "name": "Daltile Emerson Wood Porcelain Tile (Ash White)",
+      "sku": "EM01-0648",
+      "category": "flooring",
+      "image_url": "https://www.daltile.com/products/wood-look/emerson-wood/ash-white",
+      "source": "daltile.com (vendor)"
+    },
+    {
+      "name": "MSI Glenridge Saddle Oak LVP",
+      "sku": "VTGSADOAK6X48-2MM",
+      "category": "flooring",
+      "image_url": "https://www.floorcity.com/cdn/shop/files/glenridge-saddle-oak-vinyl-flooring.jpg?v=1693614096&width=1024",
+      "source": "floorcity.com"
+    },
+    {
+      "name": "MSI Katavia Reclaimed Wood LVP",
+      "sku": "VTGRECWOO6X48",
+      "category": "flooring",
+      "image_url": "https://www.floorcity.com/cdn/shop/files/katavia-reclaimed-oak-vinyl-flooring.jpg?v=1693614345&width=1024",
+      "source": "floorcity.com"
+    },
+    {
+      "name": "MSI Nove Bayhill Blonde LVP",
+      "sku": "NOVE-BAYBLND",
+      "category": "flooring",
+      "image_url": "https://www.msisurfaces.com/luxury-vinyl-planks/nove/",
+      "source": "msisurfaces.com (product page)"
+    },
+    {
+      "name": "Mannington ADURA Max Regency Oak",
+      "sku": "MPB750-554286",
+      "category": "flooring",
+      "image_url": "https://www.floorcity.com/cdn/shop/products/MPB750RPB750AngleSwatchRegencyOakPolishedPlatinum.jpg?v=1656187175&width=1024",
+      "source": "floorcity.com"
+    },
+    {
+      "name": "Mannington ADURA Max Acacia",
+      "sku": "MAX010-555687",
+      "category": "flooring",
+      "image_url": "https://www.floorcity.com/cdn/shop/products/ALP070AcaciaHigh_6b6d4489-82b6-4b5e-9e1b-c6a40eaeffed.jpg?v=1656187166&width=1024",
+      "source": "floorcity.com"
+    },
+    {
+      "name": "Mannington ADURA Max Seaport",
+      "sku": "MAX040-555690",
+      "category": "flooring",
+      "image_url": "https://www.floorcity.com/cdn/shop/files/Seaport_Surf_ALP640_1e9f4c07-4a6d-41ab-937d-a8c215eb4549.jpg?v=1729629453&width=1024",
+      "source": "floorcity.com"
+    },
+    {
+      "name": "Mannington ADURA Max Coventry",
+      "sku": "MPB781-554279",
+      "category": "flooring",
+      "image_url": "https://www.floorcity.com/cdn/shop/files/image_c055691d-b183-4466-85cf-a824d4a80cdd.jpg?v=1729958904&width=1024",
+      "source": "floorcity.com"
+    },
+    {
+      "name": "European White Oak Hardwood",
+      "sku": "EWOAK-001",
+      "category": "flooring",
+      "image_url": "https://shawfloors.com/en-us/hardwood",
+      "source": "shawfloors.com (product page - seed material)"
+    },
+    {
+      "name": "Luxury Vinyl Plank - Harvest Oak",
+      "sku": "LVP-HO-42",
+      "category": "flooring",
+      "image_url": "https://coretecfloors.com/en-us/products/coretec-pro-plus-enhanced",
+      "source": "coretecfloors.com (product page - seed material)"
+    },
+    {
+      "name": "Large Format Concrete Tile",
+      "sku": "LFC-24x48",
+      "category": "flooring",
+      "image_url": "https://www.daltile.com/products/concrete-look",
+      "source": "daltile.com (product page - seed material)"
+    },
+    {
+      "name": "KraftMaid Putnam Maple Shaker",
+      "sku": "KM-PUTNAM-PRL",
+      "category": "cabinetry",
+      "image_url": "https://www.kraftmaid.com/putnam/",
+      "source": "kraftmaid.com (vendor)"
+    },
+    {
+      "name": "KraftMaid Putnam Maple Painted",
+      "sku": "KM-PUTNAM-DW",
+      "category": "cabinetry",
+      "image_url": "https://www.kraftmaid.com/putnam/",
+      "source": "kraftmaid.com (vendor)"
+    },
+    {
+      "name": "KraftMaid Garrison Maple",
+      "sku": "KM-GARRISON-PPC",
+      "category": "cabinetry",
+      "image_url": "https://www.kraftmaid.com/products/door-styles/",
+      "source": "kraftmaid.com (vendor)"
+    },
+    {
+      "name": "Wellborn Premier Henlow Square",
+      "sku": "WB-HENLOW-GLC",
+      "category": "cabinetry",
+      "image_url": "https://www.wellborn.com/door-styles/",
+      "source": "wellborn.com (vendor page)"
+    },
+    {
+      "name": "Wellborn Select Prairie",
+      "sku": "WB-PRAIRIE-DFT",
+      "category": "cabinetry",
+      "image_url": "https://www.wellborn.com/door-styles/",
+      "source": "wellborn.com (vendor page)"
+    },
+    {
+      "name": "Wellborn Premier Sonoma",
+      "sku": "WB-SONOMA-SHD",
+      "category": "cabinetry",
+      "image_url": "https://www.wellborn.com/door-styles/",
+      "source": "wellborn.com (vendor page)"
+    },
+    {
+      "name": "Fabuwood Allure Galaxy (Frost)",
+      "sku": "FAB-GALAXY-FRST",
+      "category": "cabinetry",
+      "image_url": "https://cabinetshq.com/cdn/shop/files/fabuwood-allure-galaxy-signature-collection-frost-door.webp?v=1719267138",
+      "source": "cabinetshq.com"
+    },
+    {
+      "name": "Fabuwood Allure Galaxy (Dove)",
+      "sku": "FAB-GALAXY-DOVE",
+      "category": "cabinetry",
+      "image_url": "https://www.fabuwood.com/cabinets/allure/galaxy/dove/",
+      "source": "fabuwood.com (vendor page)"
+    },
+    {
+      "name": "Fabuwood Allure Fusion",
+      "sku": "FAB-FUSION-MCH",
+      "category": "cabinetry",
+      "image_url": "https://www.fabuwood.com/cabinets/allure/fusion/",
+      "source": "fabuwood.com (vendor page)"
+    },
+    {
+      "name": "Shiloh Cabinetry Reese",
+      "sku": "SH-REESE-NM",
+      "category": "cabinetry",
+      "image_url": "https://www.shilohcabinetry.com/",
+      "source": "shilohcabinetry.com (vendor page)"
+    },
+    {
+      "name": "IKEA AXSTAD",
+      "sku": "704.682.84",
+      "category": "cabinetry",
+      "image_url": "https://www.ikea.com/us/en/p/axstad-door-matte-white-30426049/",
+      "source": "ikea.com (vendor)"
+    },
+    {
+      "name": "IKEA BODBYN",
+      "sku": "302.210.53",
+      "category": "cabinetry",
+      "image_url": "https://www.ikea.com/us/en/p/bodbyn-door-gray-80266034/",
+      "source": "ikea.com (vendor)"
+    },
+    {
+      "name": "Cabinets To Go Shaker Elite",
+      "sku": "CTG-SHKELITE-W",
+      "category": "cabinetry",
+      "image_url": "https://www.cabinetstogo.com/",
+      "source": "cabinetstogo.com (vendor page)"
+    },
+    {
+      "name": "Cabinets To Go Tuscany",
+      "sku": "CTG-TUSCANY-SDL",
+      "category": "cabinetry",
+      "image_url": "https://www.cabinetstogo.com/",
+      "source": "cabinetstogo.com (vendor page)"
+    },
+    {
+      "name": "KraftMaid ColorCast Cottage",
+      "sku": "KM-COLORCAST-SB",
+      "category": "cabinetry",
+      "image_url": "https://www.kraftmaid.com/products/door-styles/",
+      "source": "kraftmaid.com (vendor page)"
+    },
+    {
+      "name": "White Shaker Cabinet",
+      "sku": "WS-BASE-36",
+      "category": "cabinetry",
+      "image_url": "https://www.kraftmaid.com/putnam/",
+      "source": "kraftmaid.com (vendor - seed material)"
+    },
+    {
+      "name": "Natural Walnut Flat Panel",
+      "sku": "WFP-WAL-01",
+      "category": "cabinetry",
+      "image_url": "https://www.wellborn.com/door-styles/",
+      "source": "wellborn.com (vendor - seed material)"
+    },
+    {
+      "name": "Matte Grey Slab Door",
+      "sku": "VOXTORP-GRY",
+      "category": "cabinetry",
+      "image_url": "https://www.ikea.com/us/en/cat/voxtorp-fronts-36887/",
+      "source": "ikea.com (vendor - seed material)"
+    },
+    {
+      "name": "Cambria Brittanicca Gold Warm",
+      "sku": "CAM-BRITGW",
+      "category": "countertops",
+      "image_url": "https://shop.cambriausa.com/cdn/shop/files/Brittanicca_Gold_Warm_1440x1440_RGB_17.jpg?v=1760729565",
+      "source": "cambriausa.com"
+    },
+    {
+      "name": "Cambria Inverness Frost",
+      "sku": "CAM-INVFST",
+      "category": "countertops",
+      "image_url": "https://shop.cambriausa.com/cdn/shop/files/Inverness_Frost_1440x1440_RGB_21.jpg?v=1760727363",
+      "source": "cambriausa.com"
+    },
+    {
+      "name": "Cambria Kenwood",
+      "sku": "CAM-KENWOOD",
+      "category": "countertops",
+      "image_url": "https://shop.cambriausa.com/cdn/shop/files/Kenwood-1440x1440-RGB-25.jpg?v=1760719779",
+      "source": "cambriausa.com"
+    },
+    {
+      "name": "Cambria Clovelly",
+      "sku": "CAM-CLOVELLY",
+      "category": "countertops",
+      "image_url": "https://shop.cambriausa.com/cdn/shop/files/Clovelly_1440x1440_RGB_20.jpg?v=1760729927",
+      "source": "cambriausa.com"
+    },
+    {
+      "name": "Silestone Eternal Calacatta Gold",
+      "sku": "SS-ET-CALCGOLD",
+      "category": "countertops",
+      "image_url": "https://prizekitchens.com/cdn/shop/files/Cosentino-Silestone-Et_Calacatta_Gold-Detail.jpg?v=1717425382",
+      "source": "prizekitchens.com"
+    },
+    {
+      "name": "Silestone Ethereal Glow",
+      "sku": "SS-ETHGLOW",
+      "category": "countertops",
+      "image_url": "https://prizekitchens.com/cdn/shop/files/Cosentino-Silestone-Ethereal_Glow-Detail.jpg?v=1717425414",
+      "source": "prizekitchens.com"
+    },
+    {
+      "name": "Silestone Charcoal Soapstone",
+      "sku": "SS-CHSOAP",
+      "category": "countertops",
+      "image_url": "https://prizekitchens.com/cdn/shop/files/Cosentino-Silestone-Charcoal_Soapstone-Detail.jpg?v=1717425309",
+      "source": "prizekitchens.com"
+    },
+    {
+      "name": "Caesarstone Statuario Maximus",
+      "sku": "5031",
+      "category": "countertops",
+      "image_url": "https://marble.com/uploads/materials/1296/1280X720/quartz_5031-Statuario-Maximus-Caesarstone_add6tdcdWPH52BH1ESFT.jpg",
+      "source": "marble.com"
+    },
+    {
+      "name": "Caesarstone Calacatta Nuvo",
+      "sku": "5131",
+      "category": "countertops",
+      "image_url": "https://marble.com/uploads/materials/834/1280X720/quartz_5131-Calacatta-Nuvo-Caesarstone_JDNPhmFenJwzg0Bsb9oP.png",
+      "source": "marble.com"
+    },
+    {
+      "name": "Caesarstone Buttermilk",
+      "sku": "4220",
+      "category": "countertops",
+      "image_url": "https://marble.com/uploads/materials/852/1280X720/quartz_4220-Buttermilk-Caesarstone_HX3DQ3o9ABsqVoMHVsPj.jpg",
+      "source": "marble.com"
+    },
+    {
+      "name": "MSI Calacatta Miraggio Cove",
+      "sku": "Q-MSI-CALCOVE",
+      "category": "countertops",
+      "image_url": "https://prizekitchens.com/cdn/shop/files/MSI-Calacatta_Miraggio_Cove-Slab_2ec6b1c4-316b-4f87-9f97-f06af338052a.jpg?v=1717697160",
+      "source": "prizekitchens.com"
+    },
+    {
+      "name": "MSI Calacatta Alto",
+      "sku": "Q-MSI-CALALT",
+      "category": "countertops",
+      "image_url": "https://www.msisurfaces.com/quartz-countertops/calacatta-alto-quartz/",
+      "source": "msisurfaces.com (vendor page)"
+    },
+    {
+      "name": "MSI Carrara Breve",
+      "sku": "Q-MSI-CARBRV",
+      "category": "countertops",
+      "image_url": "https://graniteselection.com/wp-content/uploads/2023/11/carrara-breve-quartz.jpg",
+      "source": "graniteselection.com"
+    },
+    {
+      "name": "Vicostone Taj Mahal",
+      "sku": "BQ8860",
+      "category": "countertops",
+      "image_url": "https://us.vicostone.com/product/BQ9453",
+      "source": "vicostone.com (vendor - note: actual SKU is BQ9453)"
+    },
+    {
+      "name": "Daltile One Quartz Luminesce",
+      "sku": "NQ30-FRWHT",
+      "category": "countertops",
+      "image_url": "https://www.daltile.com/products/slab/one-quartz-monochromatic-look/morning-frost",
+      "source": "daltile.com (vendor page)"
+    },
+    {
+      "name": "Calacatta Quartz",
+      "sku": "CAL-QTZ-01",
+      "category": "countertops",
+      "image_url": "https://shop.cambriausa.com/cdn/shop/files/Brittanicca_Gold_Warm_1440x1440_RGB_17.jpg?v=1760729565",
+      "source": "cambriausa.com (seed material - Brittanicca Warm)"
+    },
+    {
+      "name": "White Quartz with Grey Veining",
+      "sku": "WQ-GV-22",
+      "category": "countertops",
+      "image_url": "https://prizekitchens.com/cdn/shop/files/Cosentino-Silestone-Ethereal_Glow-Detail.jpg?v=1717425414",
+      "source": "prizekitchens.com (seed material - Silestone Ethereal Haze)"
+    },
+    {
+      "name": "Honed Granite - Absolute Black",
+      "sku": "HG-AB-3CM",
+      "category": "countertops",
+      "image_url": "https://www.msisurfaces.com/granite/premium-black/absolute-black-granite/",
+      "source": "msisurfaces.com (vendor page - seed material)"
+    },
+    {
+      "name": "Daltile Rittenhouse Square Subway",
+      "sku": "010036MOD1P4",
+      "category": "backsplash",
+      "image_url": "https://www.daltile.com/products/wall-tile/rittenhouse-square",
+      "source": "daltile.com (vendor)"
+    },
+    {
+      "name": "Daltile Contempee Crackle Wall Tile",
+      "sku": "DT-CNTP-WC",
+      "category": "backsplash",
+      "image_url": "https://www.daltile.com/products/wall-tile",
+      "source": "daltile.com (vendor page)"
+    },
+    {
+      "name": "Daltile Artefino Jewel Mosaic",
+      "sku": "DT-ARTJWL-PB",
+      "category": "backsplash",
+      "image_url": "https://www.daltile.com/products/mosaic",
+      "source": "daltile.com (vendor page)"
+    },
+    {
+      "name": "Jeffrey Court Bling Series Lamport",
+      "sku": "99433",
+      "category": "backsplash",
+      "image_url": "https://www.homedepot.com/s/jeffrey%20court%2099433",
+      "source": "homedepot.com (search page)"
+    },
+    {
+      "name": "Jeffrey Court Classic Statuario Mosaic",
+      "sku": "99788",
+      "category": "backsplash",
+      "image_url": "https://www.homedepot.com/s/jeffrey%20court%2099788",
+      "source": "homedepot.com (search page)"
+    },
+    {
+      "name": "Jeffrey Court European Countryside",
+      "sku": "97935",
+      "category": "backsplash",
+      "image_url": "https://www.homedepot.com/s/jeffrey%20court%2097935",
+      "source": "homedepot.com (search page)"
+    },
+    {
+      "name": "Bedrosians Cloe Ceramic Subway (White)",
+      "sku": "DECCLOSWHT28G",
+      "category": "backsplash",
+      "image_url": "https://www.bedrosians.com/en/product/detail/cloe-tile/?itemNo=DECCLOWHI28G",
+      "source": "bedrosians.com (vendor)"
+    },
+    {
+      "name": "Bedrosians Cloe Ceramic Subway (Creme)",
+      "sku": "DECCLOCRM28G",
+      "category": "backsplash",
+      "image_url": "https://www.bedrosians.com/en/product/detail/cloe-tile/?itemNo=DECCLOCRE28G",
+      "source": "bedrosians.com (vendor)"
+    },
+    {
+      "name": "Bedrosians Cloe Ceramic Subway (Baby Blue)",
+      "sku": "DECCLOBLU28G",
+      "category": "backsplash",
+      "image_url": "https://www.bedrosians.com/en/product/detail/cloe-tile/?itemNo=DECCLOBLU28G",
+      "source": "bedrosians.com (vendor)"
+    },
+    {
+      "name": "MSI Whisper White Beveled Subway",
+      "sku": "SMOT-PT-WW312B",
+      "category": "backsplash",
+      "image_url": "https://www.arkoflooring.com/cdn/shop/files/ceramic-tile-msi-subway-tile-highland-park-whisper-white-ceramic-wall-tile-msi-international-39972234264801.png?v=1684342173",
+      "source": "arkoflooring.com"
+    },
+    {
+      "name": "MSI Antique White Beveled Subway",
+      "sku": "AMZ-M-00318",
+      "category": "backsplash",
+      "image_url": "https://www.msisurfaces.com/whisper-white/antique-white-2x6/",
+      "source": "msisurfaces.com (vendor page)"
+    },
+    {
+      "name": "MSI Arabesque Bianco Ceramic",
+      "sku": "SMOT-ARA-WHT",
+      "category": "backsplash",
+      "image_url": "https://www.msisurfaces.com/ceramic-tile/arabesque-bianco/",
+      "source": "msisurfaces.com (vendor page)"
+    },
+    {
+      "name": "Clé Tile Zellige (Weathered White)",
+      "sku": "CLE-ZLG-WTHWHT",
+      "category": "backsplash",
+      "image_url": "https://www.cletile.com/cdn/shop/files/thumbnail_cle_tile_zellige_4x4_weatheredwhite_9up_overhead_main_thumbnail.jpg?v=1776759993",
+      "source": "cletile.com (vendor)"
+    },
+    {
+      "name": "Clé Tile Zellige (Moroccan Blue)",
+      "sku": "CLE-ZLG-MRCBLU",
+      "category": "backsplash",
+      "image_url": "https://www.cletile.com/products/zellige-terracotta-moroccan-blue-4x4",
+      "source": "cletile.com (vendor page)"
+    },
+    {
+      "name": "Daltile Color Wheel Mosaic",
+      "sku": "CW02-22PM1P",
+      "category": "backsplash",
+      "image_url": "https://www.daltile.com/products/mosaic/color-wheel",
+      "source": "daltile.com (vendor page)"
+    },
+    {
+      "name": "White Marble Subway Tile 3x6",
+      "sku": "WMS-3x6",
+      "category": "backsplash",
+      "image_url": "https://www.homedepot.com/s/jeffrey%20court%20carrara%20white%20marble%20subway",
+      "source": "homedepot.com (search - seed material)"
+    },
+    {
+      "name": "Zellige Tile - Warm White",
+      "sku": "ZEL-WW-4x4",
+      "category": "backsplash",
+      "image_url": "https://www.cletile.com/cdn/shop/files/thumbnail_cle_tile_zellige_4x4_weatheredwhite_9up_overhead_main_thumbnail.jpg?v=1776759993",
+      "source": "cletile.com (vendor - seed material)"
+    },
+    {
+      "name": "Matte White Large Format Porcelain",
+      "sku": "MWLF-12x24",
+      "category": "backsplash",
+      "image_url": "https://www.daltile.com/products/wall-tile",
+      "source": "daltile.com (vendor page - seed material)"
+    },
+    {
+      "name": "Amerock Candler Pull",
+      "sku": "BP29355CZ",
+      "category": "hardware",
+      "image_url": "https://theknobshop.net/cdn/shop/files/601handle_3in_-AmerockCandlerchampagnebronzeBP29349CZ_1.jpg?v=1773685377",
+      "source": "theknobshop.net"
+    },
+    {
+      "name": "Amerock Ravino Knob",
+      "sku": "BP53012CZ",
+      "category": "hardware",
+      "image_url": "https://www.homedepot.com/s/amerock%20BP53012CZ",
+      "source": "homedepot.com (search page)"
+    },
+    {
+      "name": "Amerock Blackrock Pull",
+      "sku": "BP55275BBZ",
+      "category": "hardware",
+      "image_url": "https://www.homedepot.com/s/amerock%20BP55275BBZ",
+      "source": "homedepot.com (search page)"
+    },
+    {
+      "name": "Amerock Monument Pull",
+      "sku": "BP36909BBZ",
+      "category": "hardware",
+      "image_url": "https://www.homedepot.com/s/amerock%20BP36909BBZ",
+      "source": "homedepot.com (search page)"
+    },
+    {
+      "name": "Top Knobs Charlotte Bar Pull (Honey Bronze)",
+      "sku": "M2111",
+      "category": "hardware",
+      "image_url": "https://hardwarehut.com/images/moreimages/cabinetknobsandpulls/topknobs/top-m2111-big.jpg",
+      "source": "hardwarehut.com"
+    },
+    {
+      "name": "Top Knobs Charlotte Bar Pull (Brushed Satin Nickel)",
+      "sku": "M1281",
+      "category": "hardware",
+      "image_url": "https://hardwarehut.com/products/top-knobs-dakota-3-76mm-centers-charlotte-cabinet-pull-brushed-satin-nickel-m1281",
+      "source": "hardwarehut.com (product page)"
+    },
+    {
+      "name": "Top Knobs Ellis Mushroom Knob",
+      "sku": "TK3000BLK",
+      "category": "hardware",
+      "image_url": "https://www.topknobs.com/collections/ellis.html",
+      "source": "topknobs.com (vendor page)"
+    },
+    {
+      "name": "Emtek Freestone Cabinet Pull",
+      "sku": "EMT-FREESTONE-6-SB",
+      "category": "hardware",
+      "image_url": "https://www.supplystop.com/cdn/shop/products/emtek86453us19.jpg?v=1752518791",
+      "source": "supplystop.com (flat black variant shown)"
+    },
+    {
+      "name": "Emtek Alexander Cabinet Pull",
+      "sku": "EMT-ALEXANDER-6-FB",
+      "category": "hardware",
+      "image_url": "https://www.emtek.com/all-products/cabinet-hardware/cabinet-pulls/alexander/",
+      "source": "emtek.com (vendor page)"
+    },
+    {
+      "name": "Richelieu Expressions Modern Knob",
+      "sku": "BP734544CHBRZ",
+      "category": "hardware",
+      "image_url": "https://www.richelieu.com/us/en/category/kitchen-and-bathroom-accessories/cabinet-hardware/knobs/1010103",
+      "source": "richelieu.com (vendor page)"
+    },
+    {
+      "name": "Liberty Lombard Round Knob",
+      "sku": "P29542Z-FB-B",
+      "category": "hardware",
+      "image_url": "https://www.homedepot.com/p/Franklin-Brass-Parow-1-1-8-in-29-mm-Classic-Matte-Black-Cabinet-Knobs-10-Pack-P29542Z-FB-B/313808909",
+      "source": "homedepot.com (product page)"
+    },
+    {
+      "name": "Franklin Brass Vignette Dual Mount Pull",
+      "sku": "P17890V-VBR-C",
+      "category": "hardware",
+      "image_url": "https://www.homedepot.com/s/franklin%20brass%20P17890V-VBR-C",
+      "source": "homedepot.com (search page)"
+    },
+    {
+      "name": "Brainerd Garrett Knob",
+      "sku": "BRN-GARRETT-BB",
+      "category": "hardware",
+      "image_url": "https://www.homedepot.com/s/brainerd%20garrett%20brushed%20brass%20knob",
+      "source": "homedepot.com (search page)"
+    },
+    {
+      "name": "Amerock Revitalize Pull",
+      "sku": "BP55355CZ",
+      "category": "hardware",
+      "image_url": "https://www.homedepot.com/s/amerock%20BP55355CZ",
+      "source": "homedepot.com (search page)"
+    },
+    {
+      "name": "Richelieu Greenwich Pull",
+      "sku": "BP5016192195",
+      "category": "hardware",
+      "image_url": "https://www.richelieu.com/us/en/category/kitchen-and-bathroom-accessories/cabinet-hardware/pulls/1010104",
+      "source": "richelieu.com (vendor page)"
+    },
+    {
+      "name": "Brushed Brass Pull - 5 inch",
+      "sku": "BB-PULL-5",
+      "category": "hardware",
+      "image_url": "https://www.homedepot.com/s/amerock%20mulholland%20golden%20champagne",
+      "source": "homedepot.com (search - seed material)"
+    },
+    {
+      "name": "Matte Black Bar Pull - 6 inch",
+      "sku": "MB-BAR-6",
+      "category": "hardware",
+      "image_url": "https://www.homedepot.com/s/franklin%20brass%20simple%20modern%20matte%20black%20pull",
+      "source": "homedepot.com (search - seed material)"
+    },
+    {
+      "name": "Brushed Nickel Knob",
+      "sku": "BN-KNOB-1",
+      "category": "hardware",
+      "image_url": "https://www.homedepot.com/s/liberty%20classic%20edge%20brushed%20nickel%20knob",
+      "source": "homedepot.com (search - seed material)"
+    },
+    {
+      "name": "Sherwin-Williams Alabaster",
+      "sku": "SW 7008",
+      "category": "paint",
+      "image_url": "https://cdn.shopify.com/s/files/1/2613/0296/products/5691236e70273f03e8d76b082c4d586f.jpg?v=1757420875",
+      "source": "samplize.com"
+    },
+    {
+      "name": "Sherwin-Williams Agreeable Gray",
+      "sku": "SW 7029",
+      "category": "paint",
+      "image_url": "https://cdn.shopify.com/s/files/1/2613/0296/products/0ef75312dff58b1efca65962f7644052.jpg?v=1757420874",
+      "source": "samplize.com"
+    },
+    {
+      "name": "Sherwin-Williams Accessible Beige",
+      "sku": "SW 7036",
+      "category": "paint",
+      "image_url": "https://cdn.shopify.com/s/files/1/2613/0296/products/88d0a50d2f3062d1dbbfc444d3ead599_ae4783d2-e4fe-436d-8f18-5fb54d9ff5b4.jpg?v=1757420868",
+      "source": "samplize.com"
+    },
+    {
+      "name": "Sherwin-Williams Shoji White",
+      "sku": "SW 7042",
+      "category": "paint",
+      "image_url": "https://cdn.shopify.com/s/files/1/2613/0296/products/828f8ffc46c82bdd0e596c178d8e155b.jpg?v=1757420924",
+      "source": "samplize.com"
+    },
+    {
+      "name": "Sherwin-Williams Evergreen Fog",
+      "sku": "SW 9130",
+      "category": "paint",
+      "image_url": "https://cdn.shopify.com/s/files/1/2613/0296/products/b896d583dd8a35382ac77fd1baccd169.jpg?v=1757420896",
+      "source": "samplize.com"
+    },
+    {
+      "name": "Sherwin-Williams Clary Sage",
+      "sku": "SW 6178",
+      "category": "paint",
+      "image_url": "https://cdn.shopify.com/s/files/1/2613/0296/products/8f7893c63a5e0c62ad8375de77a873c3_8714d497-cfe2-466d-968a-db8f7bb758a0.jpg?v=1675955746",
+      "source": "samplize.com"
+    },
+    {
+      "name": "Sherwin-Williams Dover White",
+      "sku": "SW 6385",
+      "category": "paint",
+      "image_url": "https://cdn.shopify.com/s/files/1/2613/0296/products/6649e4fa532fe8cad5c6cc73269ebf8e.jpg?v=1675955684",
+      "source": "samplize.com"
+    },
+    {
+      "name": "Sherwin-Williams Creamy",
+      "sku": "SW 7012",
+      "category": "paint",
+      "image_url": "https://cdn.shopify.com/s/files/1/2613/0296/products/c13648e4234b72fa3c6fe23809a3c98c.jpg?v=1757420886",
+      "source": "samplize.com"
+    },
+    {
+      "name": "Sherwin-Williams Anonymous",
+      "sku": "SW 7046",
+      "category": "paint",
+      "image_url": "https://cdn.shopify.com/s/files/1/2613/0296/products/430e95455a258036e89e100a4b3b8f81.jpg?v=1675955874",
+      "source": "samplize.com"
+    },
+    {
+      "name": "Sherwin-Williams Halcyon Green",
+      "sku": "SW 6213",
+      "category": "paint",
+      "image_url": "https://cdn.shopify.com/s/files/1/2613/0296/products/05a0e90b0fbf40e9b1ee28b58ef1f596.jpg?v=1675955574",
+      "source": "samplize.com"
+    },
+    {
+      "name": "Benjamin Moore White Dove",
+      "sku": "OC-17",
+      "category": "paint",
+      "image_url": "https://cdn.shopify.com/s/files/1/2613/0296/products/da74b94c32cc3b72a171bd8c3b29fbcd_7de7ed88-9a75-4579-8e54-5b63bfba19df.jpg?v=1757420941",
+      "source": "samplize.com"
+    },
+    {
+      "name": "Benjamin Moore Revere Pewter",
+      "sku": "HC-172",
+      "category": "paint",
+      "image_url": "https://cdn.shopify.com/s/files/1/2613/0296/products/4b2372e93621f14b8307ab8f016dec1e_3f1aa54d-501f-44a2-85b2-e44292fd43ce.jpg?v=1757420918",
+      "source": "samplize.com"
+    },
+    {
+      "name": "Benjamin Moore Pale Oak",
+      "sku": "OC-20",
+      "category": "paint",
+      "image_url": "https://cdn.shopify.com/s/files/1/2613/0296/products/ed2acd4033ad5a6bc59c44e03d62586b_9e463ef9-eea1-400a-8536-e0f5c6ed2292.jpg?v=1757420909",
+      "source": "samplize.com"
+    },
+    {
+      "name": "Benjamin Moore Hale Navy",
+      "sku": "HC-154",
+      "category": "paint",
+      "image_url": "https://cdn.shopify.com/s/files/1/2613/0296/products/3f8ac204c4ed57b18d7bd123cdaf9969_9acfa3e0-6e4f-4b69-8f7a-69c72399669a.jpg?v=1757420902",
+      "source": "samplize.com"
+    },
+    {
+      "name": "Benjamin Moore Silhouette",
+      "sku": "AF-655",
+      "category": "paint",
+      "image_url": "https://cdn.shopify.com/s/files/1/2613/0296/products/787bfe7c182ea40ef9f0b084f8317432.jpg?v=1675955255",
+      "source": "samplize.com"
+    },
+    {
+      "name": "Benjamin Moore Pashmina",
+      "sku": "AF-100",
+      "category": "paint",
+      "image_url": "https://cdn.shopify.com/s/files/1/2613/0296/products/08418c390a23a127c9b1fbc87f509688.jpg?v=1675955382",
+      "source": "samplize.com"
+    },
+    {
+      "name": "Behr Blank Canvas",
+      "sku": "DC-003",
+      "category": "paint",
+      "image_url": "https://www.behr.com/consumer/ColorDetailView/DC-003",
+      "source": "behr.com (vendor color page)"
+    },
+    {
+      "name": "Behr Wheat Bread",
+      "sku": "PPU4-13",
+      "category": "paint",
+      "image_url": "https://www.behr.com/consumer/ColorDetailView/720C-3",
+      "source": "behr.com (vendor color page - actual code 720C-3)"
+    },
+    {
+      "name": "Behr Urban Nature",
+      "sku": "PPU11-05",
+      "category": "paint",
+      "image_url": "https://www.behr.com/consumer/ColorDetailView/PPU11-05",
+      "source": "behr.com (vendor color page - actual name Pesto Green)"
+    },
+    {
+      "name": "Behr Even Better Beige",
+      "sku": "PPU4-04",
+      "category": "paint",
+      "image_url": "https://www.behr.com/consumer/ColorDetailView/PPU4-04",
+      "source": "behr.com (vendor color page)"
+    },
+    {
+      "name": "Sherwin-Williams Alabaster SW7008",
+      "sku": "SW7008",
+      "category": "paint",
+      "image_url": "https://cdn.shopify.com/s/files/1/2613/0296/products/5691236e70273f03e8d76b082c4d586f.jpg?v=1757420875",
+      "source": "samplize.com (seed material - duplicate of SW 7008)"
+    },
+    {
+      "name": "Benjamin Moore Chantilly Lace OC-65",
+      "sku": "OC-65",
+      "category": "paint",
+      "image_url": "https://www.benjaminmoore.com/en-us/paint-colors/color/oc-65/chantilly-lace",
+      "source": "benjaminmoore.com (vendor color page - seed material)"
+    },
+    {
+      "name": "Sherwin-Williams Agreeable Gray SW7029",
+      "sku": "SW7029",
+      "category": "paint",
+      "image_url": "https://cdn.shopify.com/s/files/1/2613/0296/products/0ef75312dff58b1efca65962f7644052.jpg?v=1757420874",
+      "source": "samplize.com (seed material - duplicate of SW 7029)"
+    }
+  ],
+  "stats": {
+    "total_materials": 118,
+    "images_found": 118,
+    "direct_cdn_images": 55,
+    "vendor_product_pages": 63,
+    "images_missing": 0,
+    "missing_materials": [],
+    "notes": {
+      "quality_tiers": {
+        "tier_1_direct_cdn": "55 materials have direct CDN image URLs (floorcity.com, dwellsmart.com, cambriausa.com, prizekitchens.com, samplize.com, marble.com, etc.) - these can be used directly as img src",
+        "tier_2_product_pages": "63 materials have vendor/retailer product page URLs - these require visiting the page to get the actual image, or can be used as reference links",
+        "tier_3_missing": "0 materials have no reference at all"
+      },
+      "best_sources_by_category": {
+        "flooring": "floorcity.com and dwellsmart.com (Shopify CDN images)",
+        "cabinetry": "Vendor websites (kraftmaid.com, fabuwood.com, ikea.com, wellborn.com)",
+        "countertops": "cambriausa.com shop, prizekitchens.com, marble.com (direct CDN images)",
+        "backsplash": "cletile.com, bedrosians.com, arkoflooring.com, daltile.com",
+        "hardware": "theknobshop.net, hardwarehut.com, homedepot.com",
+        "paint": "samplize.com Shopify CDN (best quality - real paint swatches for SW and BM), behr.com color pages"
+      },
+      "data_corrections": [
+        "Vicostone Taj Mahal: database SKU BQ8860 is actually Concreto; Taj Mahal is BQ9453",
+        "Behr Wheat Bread: database SKU PPU4-13 not found; actual Behr code is 720C-3",
+        "Behr Urban Nature PPU11-05: actual Behr name is Pesto Green",
+        "Liberty Lombard P29542Z-FB-B: this is actually Franklin Brass Parow knob",
+        "Mannington ADURA Max Seaport Sand MAX040: actual colorway is Surf, not Sand; Sand is Sandpiper MAX041"
+      ]
+    }
+  }
+}
