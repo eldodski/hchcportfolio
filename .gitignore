@@ -1,0 +1,30 @@
+# Dependencies
+node_modules/
+
+# Environment / secrets
+.env
+.env.local
+
+# OS files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Temp scripts
+scripts/supabase-check.js
+scripts/supabase-dashboard.png
+scripts/supabase-*.png
+scripts/supabase-results.json
+
+# Original uploads (large)
+drive-download-*.zip
+images1/
+images2/
+
+# Source docs
+*.pptx
+Repositioning*.docx
+"# PROJECT HANDOFF"*
+
+# GSD planning (don't deploy)
+.planning/

@@ -1,0 +1,184 @@
+{
+  "materials": [
+    {
+      "name": "European White Oak Hardwood",
+      "category": "flooring",
+      "tone": "warm",
+      "price_tier": "high",
+      "vendor": "Shaw",
+      "series": "Canyon Ridge",
+      "color": "Alabaster Oak",
+      "sku": "EWOAK-001"
+    },
+    {
+      "name": "Luxury Vinyl Plank - Harvest Oak",
+      "category": "flooring",
+      "tone": "warm",
+      "price_tier": "low",
+      "vendor": "COREtec",
+      "series": "Pro Plus Enhanced",
+      "color": "Harvest Oak",
+      "sku": "LVP-HO-42"
+    },
+    {
+      "name": "Large Format Concrete Tile",
+      "category": "flooring",
+      "tone": "cool",
+      "price_tier": "mid",
+      "vendor": "Daltile",
+      "series": "Industrial Vogue",
+      "color": "Steel Grey",
+      "sku": "LFC-24x48"
+    },
+    {
+      "name": "White Shaker Cabinet",
+      "category": "cabinetry",
+      "tone": "neutral",
+      "price_tier": "mid",
+      "vendor": "KraftMaid",
+      "series": "Durham",
+      "color": "Dove White",
+      "sku": "WS-BASE-36"
+    },
+    {
+      "name": "Natural Walnut Flat Panel",
+      "category": "cabinetry",
+      "tone": "warm",
+      "price_tier": "high",
+      "vendor": "Wellborn",
+      "series": "Aspire",
+      "color": "Natural Walnut",
+      "sku": "WFP-WAL-01"
+    },
+    {
+      "name": "Matte Grey Slab Door",
+      "category": "cabinetry",
+      "tone": "cool",
+      "price_tier": "mid",
+      "vendor": "IKEA",
+      "series": "VOXTORP",
+      "color": "Dark Grey",
+      "sku": "VOXTORP-GRY"
+    },
+    {
+      "name": "Calacatta Quartz",
+      "category": "countertops",
+      "tone": "neutral",
+      "price_tier": "high",
+      "vendor": "Cambria",
+      "series": "Brittanicca",
+      "color": "Warm",
+      "sku": "CAL-QTZ-01"
+    },
+    {
+      "name": "White Quartz with Grey Veining",
+      "category": "countertops",
+      "tone": "neutral",
+      "price_tier": "mid",
+      "vendor": "Silestone",
+      "series": "Ethereal",
+      "color": "Haze",
+      "sku": "WQ-GV-22"
+    },
+    {
+      "name": "Honed Granite - Absolute Black",
+      "category": "countertops",
+      "tone": "cool",
+      "price_tier": "high",
+      "vendor": "MSI",
+      "series": "Premium Natural",
+      "color": "Absolute Black",
+      "sku": "HG-AB-3CM"
+    },
+    {
+      "name": "White Marble Subway Tile 3x6",
+      "category": "backsplash",
+      "tone": "neutral",
+      "price_tier": "mid",
+      "vendor": "Jeffrey Court",
+      "series": "Carrara Collection",
+      "color": "White Vein",
+      "sku": "WMS-3x6"
+    },
+    {
+      "name": "Zellige Tile - Warm White",
+      "category": "backsplash",
+      "tone": "warm",
+      "price_tier": "high",
+      "vendor": "Clé Tile",
+      "series": "Zellige",
+      "color": "Weathered White",
+      "sku": "ZEL-WW-4x4"
+    },
+    {
+      "name": "Matte White Large Format Porcelain",
+      "category": "backsplash",
+      "tone": "cool",
+      "price_tier": "mid",
+      "vendor": "Daltile",
+      "series": "Chord",
+      "color": "Canvas White",
+      "sku": "MWLF-12x24"
+    },
+    {
+      "name": "Brushed Brass Pull - 5 inch",
+      "category": "hardware",
+      "tone": "warm",
+      "price_tier": "mid",
+      "vendor": "Amerock",
+      "series": "Mulholland",
+      "color": "Golden Champagne",
+      "sku": "BB-PULL-5"
+    },
+    {
+      "name": "Matte Black Bar Pull - 6 inch",
+      "category": "hardware",
+      "tone": "neutral",
+      "price_tier": "low",
+      "vendor": "Franklin Brass",
+      "series": "Simple Modern",
+      "color": "Matte Black",
+      "sku": "MB-BAR-6"
+    },
+    {
+      "name": "Brushed Nickel Knob",
+      "category": "hardware",
+      "tone": "cool",
+      "price_tier": "low",
+      "vendor": "Liberty Hardware",
+      "series": "Classic Edge",
+      "color": "Brushed Nickel",
+      "sku": "BN-KNOB-1"
+    },
+    {
+      "name": "Sherwin-Williams Alabaster SW7008",
+      "category": "paint",
+      "tone": "warm",
+      "price_tier": "mid",
+      "vendor": "Sherwin-Williams",
+      "series": "Living Well",
+      "color": "Alabaster",
+      "sku": "SW7008"
+    },
+    {
+      "name": "Benjamin Moore Chantilly Lace OC-65",
+      "category": "paint",
+      "tone": "cool",
+      "price_tier": "mid",
+      "vendor": "Benjamin Moore",
+      "series": "Off-White Collection",
+      "color": "Chantilly Lace",
+      "sku": "OC-65"
+    },
+    {
+      "name": "Sherwin-Williams Agreeable Gray SW7029",
+      "category": "paint",
+      "tone": "neutral",
+      "price_tier": "mid",
+      "vendor": "Sherwin-Williams",
+      "series": "Living Well",
+      "color": "Agreeable Gray",
+      "sku": "SW7029"
+    }
+  ]
+}

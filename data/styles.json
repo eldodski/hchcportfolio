@@ -1,0 +1,104 @@
+{
+  "styles": [
+    {
+      "id": "hill-country-modern",
+      "name": "Hill Country Modern",
+      "description": "Natural textures meet clean lines. Warm neutrals, organic materials, and subtle mixed metals create a grounded yet refined aesthetic inspired by the Texas Hill Country landscape.",
+      "palette": {
+        "primary": "#D4C5B2",
+        "secondary": "#3C2A21",
+        "accent": "#A37762",
+        "neutral": "#F5F0EB"
+      },
+      "preferences": {
+        "flooring": { "tones": ["warm", "neutral"], "keywords": ["wood", "stone", "travertine"] },
+        "cabinetry": { "tones": ["warm", "neutral"], "keywords": ["wood", "shaker", "flat-panel"] },
+        "countertops": { "tones": ["warm", "neutral"], "keywords": ["quartz", "granite", "marble"] },
+        "backsplash": { "tones": ["warm", "neutral"], "keywords": ["stone", "subway", "natural"] },
+        "hardware": { "tones": ["warm"], "keywords": ["brass", "bronze", "matte-black"] },
+        "paint": { "tones": ["warm", "neutral"], "keywords": ["white", "cream", "greige"] }
+      },
+      "restrictions": ["Avoid high-gloss finishes", "Limit cool-toned metals", "No pure white — use warm whites only"]
+    },
+    {
+      "id": "warm-transitional",
+      "name": "Warm Transitional",
+      "description": "Classic shapes softened with warm woods, soft whites, and brass accents. This style bridges traditional and contemporary with timeless appeal and inviting textures.",
+      "palette": {
+        "primary": "#F5F0EB",
+        "secondary": "#1B2A4A",
+        "accent": "#C4A265",
+        "neutral": "#E8E4E0"
+      },
+      "preferences": {
+        "flooring": { "tones": ["warm"], "keywords": ["hardwood", "oak", "walnut"] },
+        "cabinetry": { "tones": ["warm", "neutral"], "keywords": ["shaker", "raised-panel", "white"] },
+        "countertops": { "tones": ["warm", "neutral"], "keywords": ["marble", "quartz", "soapstone"] },
+        "backsplash": { "tones": ["warm", "neutral"], "keywords": ["subway", "herringbone", "marble"] },
+        "hardware": { "tones": ["warm"], "keywords": ["brass", "gold", "champagne"] },
+        "paint": { "tones": ["warm", "neutral"], "keywords": ["soft-white", "cream", "warm-grey"] }
+      },
+      "restrictions": ["Avoid industrial finishes", "Limit matte black hardware", "Keep metals consistent — brass family only"]
+    },
+    {
+      "id": "clean-contemporary",
+      "name": "Clean Contemporary",
+      "description": "Cool tones, flat panels, and minimal ornamentation. Streamlined and sophisticated with an emphasis on material quality over decorative detail.",
+      "palette": {
+        "primary": "#FFFFFF",
+        "secondary": "#2C2C2C",
+        "accent": "#7B9BAE",
+        "neutral": "#E8E4E0"
+      },
+      "preferences": {
+        "flooring": { "tones": ["cool", "neutral"], "keywords": ["concrete", "large-format", "light-wood"] },
+        "cabinetry": { "tones": ["cool", "neutral"], "keywords": ["flat-panel", "slab", "handleless"] },
+        "countertops": { "tones": ["cool", "neutral"], "keywords": ["quartz", "concrete", "porcelain"] },
+        "backsplash": { "tones": ["cool", "neutral"], "keywords": ["large-format", "glass", "minimal"] },
+        "hardware": { "tones": ["cool", "neutral"], "keywords": ["matte-black", "brushed-nickel", "integrated"] },
+        "paint": { "tones": ["cool", "neutral"], "keywords": ["white", "grey", "charcoal"] }
+      },
+      "restrictions": ["Avoid ornate profiles", "No warm metals unless intentional contrast", "Keep grout lines minimal"]
+    },
+    {
+      "id": "classic-neutral",
+      "name": "Classic Neutral",
+      "description": "A timeless palette built on shaker cabinets, marble or granite surfaces, and brushed nickel hardware. Safe, sophisticated, and universally appealing.",
+      "palette": {
+        "primary": "#F5F0EB",
+        "secondary": "#5C5C5C",
+        "accent": "#D4C5B2",
+        "neutral": "#FFFFFF"
+      },
+      "preferences": {
+        "flooring": { "tones": ["neutral", "warm"], "keywords": ["hardwood", "lvp", "medium-tone"] },
+        "cabinetry": { "tones": ["neutral"], "keywords": ["shaker", "white", "grey"] },
+        "countertops": { "tones": ["neutral"], "keywords": ["marble", "granite", "quartz"] },
+        "backsplash": { "tones": ["neutral"], "keywords": ["subway", "marble", "classic"] },
+        "hardware": { "tones": ["neutral", "cool"], "keywords": ["brushed-nickel", "chrome", "satin"] },
+        "paint": { "tones": ["neutral"], "keywords": ["agreeable-grey", "white", "greige"] }
+      },
+      "restrictions": ["Avoid bold colors", "Keep hardware finish consistent", "No mixed metals"]
+    },
+    {
+      "id": "elevated-builder-grade",
+      "name": "Elevated Builder Grade",
+      "description": "Smart upgrades to standard builder selections. LVP flooring, quartz counters, and modern fixtures elevate the basics without exceeding a mid-range budget.",
+      "palette": {
+        "primary": "#F0EDE8",
+        "secondary": "#4A4A4A",
+        "accent": "#A37762",
+        "neutral": "#D4C5B2"
+      },
+      "preferences": {
+        "flooring": { "tones": ["neutral", "warm"], "keywords": ["lvp", "vinyl-plank", "laminate"] },
+        "cabinetry": { "tones": ["neutral", "warm"], "keywords": ["shaker", "thermofoil", "white"] },
+        "countertops": { "tones": ["neutral"], "keywords": ["quartz", "laminate", "butcher-block"] },
+        "backsplash": { "tones": ["neutral"], "keywords": ["subway", "peel-and-stick", "ceramic"] },
+        "hardware": { "tones": ["neutral", "warm"], "keywords": ["matte-black", "brushed-nickel"] },
+        "paint": { "tones": ["neutral"], "keywords": ["white", "greige", "light-grey"] }
+      },
+      "restrictions": ["Keep within mid budget tier", "Avoid luxury-only brands", "Prioritize durability over trend"]
+    }
+  ]
+}

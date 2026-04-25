@@ -1,0 +1,2020 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Presentation Engine | HCHC Platform</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Jost:ital,wght@0,200;0,300;0,400;1,200&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --ivory: #F5F0EB;
+  --navy: #1B2A4A;
+  --espresso: #3C2A21;
+  --sand: #D4C5B2;
+  --mocha: #A37762;
+  --carrara: #E8E4E0;
+  --gold: #C4A265;
+  --dusty-blue: #7B9BAE;
+  --sage: #8A9A7B;
+  --heading: 'Cormorant Garamond', Georgia, serif;
+  --body: 'Jost', 'Segoe UI', sans-serif;
+}
+
+body {
+  font-family: var(--body);
+  font-weight: 400;
+  font-size: 15px;
+  line-height: 1.6;
+  color: var(--espresso);
+  background: var(--carrara);
+  height: 100vh;
+  overflow: hidden;
+}
+
+/* --- Top Bar --- */
+.topbar {
+  background: var(--navy);
+  color: var(--ivory);
+  padding: 12px 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.topbar-logo {
+  font-family: var(--heading);
+  font-weight: 600;
+  font-size: 1.1rem;
+  color: var(--ivory);
+  text-decoration: none;
+}
+
+.topbar-logo span {
+  font-family: var(--body);
+  font-weight: 200;
+  font-size: 0.6rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--dusty-blue);
+  display: block;
+  margin-top: -2px;
+}
+
+.topbar-nav {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+}
+
+.topbar-nav a {
+  color: var(--sand);
+  font-size: 0.75rem;
+  font-weight: 300;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.topbar-nav a:hover { color: var(--ivory); }
+
+/* --- Main Split Layout --- */
+.app-layout {
+  display: grid;
+  grid-template-columns: 460px 1fr;
+  height: calc(100vh - 48px);
+}
+
+/* --- Left Panel (Input) --- */
+.input-panel {
+  background: #fff;
+  border-right: 1px solid var(--sand);
+  overflow-y: auto;
+  padding: 24px;
+}
+
+.input-panel h2 {
+  font-family: var(--heading);
+  font-weight: 600;
+  font-size: 1.4rem;
+  color: var(--navy);
+  margin-bottom: 20px;
+}
+
+.section-label {
+  font-size: 0.68rem;
+  font-weight: 300;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--mocha);
+  margin-bottom: 8px;
+  margin-top: 20px;
+}
+
+.section-label:first-of-type { margin-top: 0; }
+
+.input-group {
+  margin-bottom: 14px;
+}
+
+.input-group label {
+  display: block;
+  font-size: 0.72rem;
+  font-weight: 300;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--mocha);
+  margin-bottom: 4px;
+}
+
+.input-group input,
+.input-group select {
+  width: 100%;
+  font-family: var(--body);
+  font-weight: 300;
+  font-size: 0.88rem;
+  padding: 10px 12px;
+  border: 1px solid var(--sand);
+  background: #fff;
+  color: var(--espresso);
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.input-group input:focus,
+.input-group select:focus { border-color: var(--navy); }
+
+/* --- Status Indicator --- */
+.status-bar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 16px;
+  background: var(--ivory);
+  margin: 16px 0;
+  font-size: 0.82rem;
+}
+
+.status-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.status-score {
+  font-weight: 400;
+  color: var(--navy);
+  margin-left: auto;
+}
+
+/* --- Room Sections --- */
+.room-section {
+  border: 1px solid var(--sand);
+  margin-bottom: 16px;
+  background: #fff;
+}
+
+.room-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 14px;
+  background: var(--ivory);
+  cursor: pointer;
+  user-select: none;
+  border-bottom: 1px solid var(--sand);
+}
+
+.room-header-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.room-header-title {
+  font-family: var(--heading);
+  font-weight: 600;
+  font-size: 1.05rem;
+  color: var(--navy);
+}
+
+.room-header-type {
+  font-size: 0.6rem;
+  font-weight: 300;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--mocha);
+  background: var(--carrara);
+  padding: 2px 8px;
+}
+
+.room-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.room-collapse-icon {
+  font-size: 0.7rem;
+  color: var(--sand);
+  transition: transform 0.2s;
+}
+
+.room-section.collapsed .room-collapse-icon {
+  transform: rotate(-90deg);
+}
+
+.room-section.collapsed .room-body {
+  display: none;
+}
+
+.room-body {
+  padding: 14px;
+}
+
+/* --- Sub-sections (bathroom groups) --- */
+.sub-section {
+  margin-bottom: 16px;
+  border: 1px solid var(--carrara);
+  padding: 12px;
+}
+
+.sub-section-label {
+  font-size: 0.65rem;
+  font-weight: 300;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--dusty-blue);
+  margin-bottom: 10px;
+  padding-bottom: 4px;
+  border-bottom: 1px solid var(--carrara);
+}
+
+/* --- Material Cascade --- */
+.material-selector {
+  border: 1px solid var(--sand);
+  margin-bottom: 10px;
+  background: #fff;
+  padding: 12px;
+}
+
+.material-selector-category {
+  font-size: 0.7rem;
+  font-weight: 300;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--mocha);
+  margin-bottom: 8px;
+}
+
+.cascade-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 8px;
+  margin-bottom: 6px;
+}
+
+.cascade-row-4 {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  gap: 8px;
+  margin-bottom: 6px;
+}
+
+.cascade-row select,
+.cascade-row-4 select {
+  width: 100%;
+  font-family: var(--body);
+  font-weight: 300;
+  font-size: 0.82rem;
+  padding: 8px 10px;
+  border: 1px solid var(--sand);
+  background: #fff;
+  color: var(--espresso);
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.cascade-row select:focus,
+.cascade-row-4 select:focus { border-color: var(--navy); }
+
+.cascade-label {
+  font-size: 0.62rem;
+  font-weight: 300;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--sand);
+  margin-bottom: 2px;
+}
+
+.material-selected-display {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 6px;
+  min-height: 36px;
+}
+
+.material-selected-display img {
+  width: 36px;
+  height: 36px;
+  object-fit: cover;
+  border: 1px solid var(--carrara);
+  flex-shrink: 0;
+}
+
+.material-selected-name {
+  font-family: var(--heading);
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: var(--navy);
+}
+
+.material-selected-meta {
+  font-size: 0.68rem;
+  color: var(--sand);
+}
+
+.tone-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  display: inline-block;
+  margin-left: 6px;
+}
+
+.tone-warm { background: #D4A574; }
+.tone-cool { background: #7B9BAE; }
+.tone-neutral { background: #B0A89A; }
+
+.install-notes-input {
+  width: 100%;
+  font-family: var(--body);
+  font-weight: 300;
+  font-size: 0.82rem;
+  padding: 8px 10px;
+  border: 1px solid var(--sand);
+  background: #fff;
+  color: var(--espresso);
+  outline: none;
+  margin-top: 6px;
+  transition: border-color 0.2s;
+}
+
+.install-notes-input:focus { border-color: var(--navy); }
+
+/* --- Add / Remove Buttons --- */
+.add-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-family: var(--body);
+  font-weight: 300;
+  font-size: 0.75rem;
+  letter-spacing: 0.06em;
+  color: var(--dusty-blue);
+  background: none;
+  border: 1px dashed var(--dusty-blue);
+  padding: 6px 12px;
+  cursor: pointer;
+  transition: all 0.2s;
+  margin-top: 8px;
+}
+
+.add-btn:hover {
+  background: var(--ivory);
+  color: var(--navy);
+  border-color: var(--navy);
+}
+
+.remove-btn {
+  font-family: var(--body);
+  font-size: 0.72rem;
+  font-weight: 300;
+  color: var(--sand);
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 2px 6px;
+  transition: color 0.2s;
+}
+
+.remove-btn:hover { color: #F44336; }
+
+/* --- Fixture Block --- */
+.fixture-block {
+  border: 1px solid var(--carrara);
+  padding: 10px;
+  margin-bottom: 10px;
+  background: var(--ivory);
+  position: relative;
+}
+
+.fixture-block .remove-btn {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+}
+
+.fixture-block-label {
+  font-size: 0.65rem;
+  font-weight: 300;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--mocha);
+  margin-bottom: 6px;
+}
+
+/* --- Conditional Fields --- */
+.conditional-fields {
+  display: none;
+  margin-top: 8px;
+}
+
+.conditional-fields.visible {
+  display: block;
+}
+
+/* --- Inline field rows --- */
+.field-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.field-row-3 {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.field-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.field-group label {
+  font-size: 0.62rem;
+  font-weight: 300;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--sand);
+  margin-bottom: 2px;
+}
+
+.field-group input,
+.field-group select {
+  font-family: var(--body);
+  font-weight: 300;
+  font-size: 0.82rem;
+  padding: 7px 10px;
+  border: 1px solid var(--sand);
+  background: #fff;
+  color: var(--espresso);
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.field-group input:focus,
+.field-group select:focus { border-color: var(--navy); }
+
+/* --- Flooring block wrapper --- */
+.flooring-block {
+  border: 1px solid var(--carrara);
+  padding: 10px;
+  margin-bottom: 8px;
+  position: relative;
+}
+
+.flooring-block .remove-btn {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+}
+
+/* --- Mood Board Upload --- */
+.mood-board-section {
+  margin-top: 20px;
+  padding: 16px;
+  border: 1px dashed var(--sand);
+  background: var(--ivory);
+}
+
+.mood-board-section .section-label { margin-top: 0; }
+
+.mood-board-upload-area { margin-top: 8px; }
+
+.mood-board-upload-area input[type="file"] {
+  font-family: var(--body);
+  font-size: 0.82rem;
+}
+
+.mood-board-preview {
+  margin-top: 12px;
+  display: none;
+}
+
+.mood-board-preview img {
+  max-width: 100%;
+  max-height: 200px;
+  object-fit: contain;
+  border: 1px solid var(--sand);
+}
+
+.mood-board-prompt {
+  margin-top: 10px;
+  font-size: 0.78rem;
+  font-style: italic;
+  color: var(--mocha);
+  line-height: 1.5;
+  padding: 10px;
+  background: #fff;
+  border-left: 3px solid var(--gold);
+}
+
+/* --- Warnings / Suggestions --- */
+.feedback-list {
+  margin: 12px 0;
+  font-size: 0.82rem;
+}
+
+.feedback-item {
+  padding: 8px 12px;
+  margin-bottom: 6px;
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+}
+
+.feedback-warning { background: #FFF3E0; color: #E65100; }
+.feedback-suggestion { background: #E8F5E9; color: #2E7D32; }
+.feedback-icon { flex-shrink: 0; }
+
+/* --- Generate Button --- */
+.generate-section {
+  margin-top: 24px;
+  padding-top: 20px;
+  border-top: 1px solid var(--sand);
+}
+
+.btn {
+  font-family: var(--body);
+  font-weight: 300;
+  font-size: 0.82rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 14px 28px;
+  border: none;
+  cursor: pointer;
+  transition: background 0.2s;
+  width: 100%;
+}
+
+.btn-primary { background: var(--navy); color: var(--ivory); }
+.btn-primary:hover { background: var(--mocha); }
+.btn-primary:disabled { background: var(--sand); cursor: default; }
+
+/* --- Right Panel (Preview) --- */
+.preview-panel {
+  overflow-y: auto;
+  padding: 32px;
+  background: var(--carrara);
+}
+
+.preview-frame {
+  background: #fff;
+  max-width: 800px;
+  margin: 0 auto;
+  box-shadow: 0 2px 20px rgba(0,0,0,0.08);
+  min-height: 600px;
+}
+
+.preview-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 500px;
+  color: var(--sand);
+  text-align: center;
+  padding: 60px;
+}
+
+.preview-empty h3 {
+  font-family: var(--heading);
+  font-size: 1.4rem;
+  color: var(--mocha);
+  margin-bottom: 8px;
+}
+
+.preview-cover {
+  background: var(--ivory);
+  padding: 80px 60px;
+  text-align: center;
+  border-bottom: 1px solid var(--carrara);
+}
+
+.preview-cover-brand {
+  font-size: 0.65rem;
+  font-weight: 200;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--mocha);
+  margin-bottom: 24px;
+}
+
+.preview-cover h2 {
+  font-family: var(--heading);
+  font-size: 2rem;
+  color: var(--navy);
+  margin-bottom: 8px;
+}
+
+.preview-cover-client { font-size: 0.9rem; color: var(--mocha); }
+.preview-cover-builder { font-size: 0.82rem; color: var(--sand); margin-top: 4px; }
+.preview-cover-date { font-size: 0.8rem; color: var(--sand); margin-top: 32px; }
+
+/* Preview sections */
+.preview-section {
+  padding: 40px 60px;
+  border-bottom: 1px solid var(--carrara);
+}
+
+.preview-section:last-child { border-bottom: none; }
+
+.preview-section-label {
+  font-size: 0.65rem;
+  font-weight: 200;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--mocha);
+  margin-bottom: 4px;
+}
+
+.preview-section h3 {
+  font-family: var(--heading);
+  font-size: 1.3rem;
+  color: var(--navy);
+  margin-bottom: 16px;
+}
+
+.preview-materials-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+}
+
+.preview-mat-card {
+  border: 1px solid var(--sand);
+  overflow: hidden;
+}
+
+.preview-mat-img {
+  aspect-ratio: 16/10;
+  background: var(--carrara);
+  overflow: hidden;
+}
+
+.preview-mat-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.preview-mat-body { padding: 10px 12px; }
+
+.preview-mat-cat {
+  font-size: 0.6rem;
+  font-weight: 200;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--mocha);
+}
+
+.preview-mat-name {
+  font-family: var(--heading);
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: var(--navy);
+}
+
+.preview-mat-notes {
+  font-size: 0.72rem;
+  color: var(--espresso);
+  font-style: italic;
+  margin-top: 4px;
+}
+
+.preview-mood-img {
+  width: 100%;
+  max-height: 400px;
+  object-fit: contain;
+}
+
+/* Preview bathroom spec rows */
+.preview-spec-table {
+  width: 100%;
+  font-size: 0.82rem;
+  border-collapse: collapse;
+  margin-bottom: 16px;
+}
+
+.preview-spec-table th {
+  text-align: left;
+  font-weight: 300;
+  font-size: 0.65rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--mocha);
+  padding: 6px 8px;
+  border-bottom: 1px solid var(--sand);
+}
+
+.preview-spec-table td {
+  padding: 6px 8px;
+  border-bottom: 1px solid var(--carrara);
+  color: var(--espresso);
+}
+
+.preview-spec-table td:first-child {
+  font-weight: 400;
+  color: var(--navy);
+  white-space: nowrap;
+  width: 130px;
+}
+
+/* --- Responsive --- */
+@media (max-width: 900px) {
+  .app-layout {
+    grid-template-columns: 1fr;
+    height: auto;
+  }
+
+  body { overflow: auto; height: auto; }
+
+  .input-panel {
+    border-right: none;
+    border-bottom: 1px solid var(--sand);
+  }
+
+  .preview-panel { min-height: 600px; }
+  .preview-section { padding: 24px; }
+  .preview-cover { padding: 48px 24px; }
+  .preview-materials-grid { grid-template-columns: 1fr; }
+  .cascade-row { grid-template-columns: 1fr; }
+  .cascade-row-4 { grid-template-columns: 1fr 1fr; }
+  .field-row { grid-template-columns: 1fr; }
+  .field-row-3 { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<!-- Top Bar -->
+<div class="topbar">
+  <a href="/" class="topbar-logo">
+    Hill Country Home Concepts
+    <span>Presentation Engine</span>
+  </a>
+  <div class="topbar-nav">
+    <a href="/materials.html">Materials</a>
+    <a href="/dashboard.html">Dashboard</a>
+    <a href="/">Home</a>
+  </div>
+</div>
+
+<!-- Split Layout -->
+<div class="app-layout">
+
+  <!-- Left: Input Panel -->
+  <div class="input-panel">
+    <h2>Build Presentation</h2>
+
+    <div class="section-label">Project Details</div>
+
+    <div class="input-group">
+      <label for="project-name">Project Name</label>
+      <input type="text" id="project-name" placeholder="e.g., The Anderson Residence" oninput="updatePreview()">
+    </div>
+
+    <div class="input-group">
+      <label for="client-name">Client Name</label>
+      <input type="text" id="client-name" placeholder="e.g., Sarah & David Anderson" oninput="updatePreview()">
+    </div>
+
+    <div class="input-group">
+      <label for="builder-name">Builder</label>
+      <input type="text" id="builder-name" placeholder="e.g., Drees Custom Homes" oninput="updatePreview()">
+    </div>
+
+    <div class="input-group">
+      <label for="address">Address</label>
+      <input type="text" id="address" placeholder="e.g., 1842 Clover Pass, Boerne TX" oninput="updatePreview()">
+    </div>
+
+    <!-- Status Indicator -->
+    <div class="status-bar" id="status-bar">
+      <span class="status-dot" id="status-dot" style="background: #9E9E9E;"></span>
+      <span id="status-label">Add rooms and select materials to begin</span>
+      <span class="status-score" id="status-score"></span>
+    </div>
+
+    <div class="section-label">Rooms</div>
+
+    <!-- Room sections (generated by JS) -->
+    <div id="rooms-container"></div>
+
+    <!-- Add Room Button -->
+    <div style="display: flex; gap: 8px; margin-top: 8px;">
+      <button class="add-btn" onclick="addRoom('kitchen')">+ Add Kitchen</button>
+      <button class="add-btn" onclick="addRoom('bathroom')">+ Add Bathroom</button>
+    </div>
+
+    <!-- Feedback -->
+    <div class="feedback-list" id="feedback-list"></div>
+
+    <!-- Mood Board Upload -->
+    <div class="mood-board-section">
+      <div class="section-label">Mood Board Photo</div>
+      <div class="mood-board-upload-area">
+        <input type="file" id="mood-board-file" accept=".jpg,.jpeg,.png" onchange="onMoodBoardUpload(event)">
+      </div>
+      <div class="mood-board-preview" id="mood-board-preview">
+        <img id="mood-board-thumb" src="" alt="Mood board preview">
+      </div>
+      <div class="mood-board-prompt">
+        Boost this image into a cover worthy mood board for interior design. Keep the existing colors and materials consistent with the image, but remove all labels and text from the image.
+      </div>
+    </div>
+
+    <!-- Generate -->
+    <div class="generate-section">
+      <button class="btn btn-primary" id="generate-btn" onclick="generatePresentation()" disabled>
+        Generate Presentation
+      </button>
+    </div>
+  </div>
+
+  <!-- Right: Preview Panel -->
+  <div class="preview-panel">
+    <div class="preview-frame" id="preview-frame">
+      <div class="preview-empty">
+        <h3>Presentation Preview</h3>
+        <p>Add rooms and select materials to see the live preview.</p>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- Scripts -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="config.js"></script>
+<script src="js/supabase-client.js"></script>
+<script src="js/design-rules.js"></script>
+<script src="js/presentation-template.js"></script>
+
+<script>
+// ============================================================
+// STATE
+// ============================================================
+let allMaterials = [];
+let moodBoardUrl = null;
+let currentReport = null;
+let roomIdCounter = 0;
+let rooms = [];
+
+// ============================================================
+// CONSTANTS
+// ============================================================
+const FLOORING_MATERIAL_TYPES = ['Hardwood', 'Engineered', 'LVP', 'Tile', 'Carpet', 'Laminate'];
+
+const WATER_FIXTURE_TYPES = [
+  'Acrylic Insert Shower',
+  'Tub/Shower Combo (acrylic)',
+  'Tub/Shower Combo (tile surround)',
+  'Acrylic Shower Pan + Tile Walls',
+  'Mud Pan + Tile (full tile shower)',
+  'Stand-Alone Tub',
+  'Insert Soaker Tub',
+  'Tile Deck with Drop-In Tub',
+  'Curbless Shower',
+  'Vessel Tub (mud pan underneath)',
+  'Wet Room (shower + tub behind glass)'
+];
+
+// Which fixture types show tile surround fields
+const TILE_SURROUND_TYPES = new Set([
+  'Tub/Shower Combo (tile surround)',
+  'Acrylic Shower Pan + Tile Walls',
+  'Mud Pan + Tile (full tile shower)',
+  'Tile Deck with Drop-In Tub',
+  'Curbless Shower',
+  'Vessel Tub (mud pan underneath)',
+  'Wet Room (shower + tub behind glass)'
+]);
+
+// Which fixture types show floor tile
+const MUD_PAN_TYPES = new Set([
+  'Mud Pan + Tile (full tile shower)',
+  'Curbless Shower',
+  'Vessel Tub (mud pan underneath)',
+  'Wet Room (shower + tub behind glass)'
+]);
+
+// Which fixture types show niche/details
+const NICHE_TYPES = new Set([
+  'Tub/Shower Combo (tile surround)',
+  'Acrylic Shower Pan + Tile Walls',
+  'Mud Pan + Tile (full tile shower)',
+  'Curbless Shower',
+  'Vessel Tub (mud pan underneath)',
+  'Wet Room (shower + tub behind glass)'
+]);
+
+const TUB_DECK_TYPE = 'Tile Deck with Drop-In Tub';
+
+const KITCHEN_CATEGORIES = ['cabinetry', 'countertops', 'backsplash', 'hardware', 'paint'];
+
+const INSTALL_PLACEHOLDERS = {
+  flooring: 'e.g., Herringbone, 50% Offset, Straight Lay',
+  cabinetry: 'e.g., Overlay, Inset, Full Access',
+  countertops: 'e.g., Mitered Edge, Eased, Ogee',
+  backsplash: 'e.g., Vertical Stack, Straight, Herringbone',
+  hardware: 'e.g., Center-to-Center 5", 128mm Spacing',
+  paint: 'e.g., Eggshell, Satin, Flat Ceiling'
+};
+
+// ============================================================
+// INIT
+// ============================================================
+document.addEventListener('DOMContentLoaded', async () => {
+  await loadMaterials();
+  // Default rooms: Kitchen + Owner's Bath
+  addRoom('kitchen');
+  addRoom('bathroom');
+  updatePreview();
+});
+
+async function loadMaterials() {
+  try {
+    allMaterials = await getMaterials();
+  } catch (err) {
+    console.error('Failed to load materials:', err);
+    allMaterials = [];
+  }
+}
+
+// ============================================================
+// ROOM MANAGEMENT
+// ============================================================
+function createRoomState(type) {
+  const id = 'room-' + (roomIdCounter++);
+  const label = getRoomLabel(type);
+
+  const base = { id, type, label };
+
+  if (type === 'kitchen') {
+    return {
+      ...base,
+      flooring: [createFlooringState()],
+      cabinetry: createMaterialState(),
+      countertops: createMaterialState(),
+      backsplash: createMaterialState(),
+      hardware: createMaterialState(),
+      paint: createMaterialState()
+    };
+  }
+
+  // bathroom
+  return {
+    ...base,
+    waterFixtures: [createFixtureState()],
+    niches: { styleName: '', shelfMaterial: '', decorativeTile: createMaterialState(), placement: 'Back Wall' },
+    accents: { type: 'None', orientation: 'Horizontal', width: '', size: '', pencilRail: false, interiorTile: createMaterialState() },
+    tubDeck: { skirtTile: createMaterialState(), deckTile: createMaterialState(), splashTile: createMaterialState(), accentBandNotes: '' },
+    edgeProtection: { type: 'None', tileEdge: createMaterialState(), accessoryType: 'Schluter', accessory: createMaterialState() },
+    flooring: [createFlooringState()],
+    paint: createMaterialState(),
+    hardware: createMaterialState()
+  };
+}
+
+function createMaterialState() {
+  return { vendor: '', series: '', color: '', installNotes: '', material: null };
+}
+
+function createFlooringState() {
+  return { materialType: '', vendor: '', series: '', color: '', installNotes: '', material: null };
+}
+
+function createFixtureState() {
+  return {
+    type: '',
+    surroundTile: createMaterialState(),
+    floorTile: createMaterialState()
+  };
+}
+
+function getRoomLabel(type) {
+  if (type === 'kitchen') {
+    const kitchens = rooms.filter(r => r.type === 'kitchen');
+    return kitchens.length === 0 ? 'Kitchen' : `Kitchen ${kitchens.length + 1}`;
+  }
+  const baths = rooms.filter(r => r.type === 'bathroom');
+  if (baths.length === 0) return "Owner's Bath";
+  return `Bath ${baths.length + 1}`;
+}
+
+function addRoom(type) {
+  const room = createRoomState(type);
+  rooms.push(room);
+  renderRooms();
+  updatePreview();
+}
+
+function removeRoom(roomId) {
+  rooms = rooms.filter(r => r.id !== roomId);
+  renderRooms();
+  updatePreview();
+}
+
+function toggleRoom(roomId) {
+  const el = document.getElementById(roomId);
+  if (el) el.classList.toggle('collapsed');
+}
+
+function getRoom(roomId) {
+  return rooms.find(r => r.id === roomId);
+}
+
+// ============================================================
+// RENDER ALL ROOMS
+// ============================================================
+function renderRooms() {
+  const container = document.getElementById('rooms-container');
+  container.innerHTML = rooms.map(room => buildRoomPanel(room)).join('');
+  runRuleEngine();
+}
+
+function buildRoomPanel(room) {
+  const canRemove = rooms.length > 1;
+  const content = room.type === 'kitchen' ? buildKitchenContent(room) : buildBathroomContent(room);
+
+  return `
+    <div class="room-section" id="${room.id}">
+      <div class="room-header" onclick="toggleRoom('${room.id}')">
+        <div class="room-header-left">
+          <span class="room-header-title">${esc(room.label)}</span>
+          <span class="room-header-type">${room.type}</span>
+        </div>
+        <div class="room-header-actions">
+          ${canRemove ? `<button class="remove-btn" onclick="event.stopPropagation(); removeRoom('${room.id}')" title="Remove room">&#10005;</button>` : ''}
+          <span class="room-collapse-icon">&#9660;</span>
+        </div>
+      </div>
+      <div class="room-body">
+        ${content}
+      </div>
+    </div>
+  `;
+}
+
+// ============================================================
+// KITCHEN CONTENT
+// ============================================================
+function buildKitchenContent(room) {
+  const flooringHTML = room.flooring.map((f, i) => buildFlooringBlock(room.id, i, f, room.flooring.length > 1)).join('');
+  const categoriesHTML = KITCHEN_CATEGORIES.map(cat => buildCascadeCard(room.id, cat, room[cat])).join('');
+
+  return `
+    <div class="sub-section">
+      <div class="sub-section-label">Flooring</div>
+      <div id="${room.id}-flooring-list">${flooringHTML}</div>
+      <button class="add-btn" onclick="addFlooring('${room.id}')">+ Add Flooring</button>
+    </div>
+    ${categoriesHTML}
+  `;
+}
+
+// ============================================================
+// BATHROOM CONTENT
+// ============================================================
+function buildBathroomContent(room) {
+  const fixturesHTML = room.waterFixtures.map((f, i) =>
+    buildFixtureBlock(room.id, i, f, room.waterFixtures.length > 1)
+  ).join('');
+
+  // Determine if any fixture needs niche/tub deck sections
+  const anyTileFixture = room.waterFixtures.some(f => NICHE_TYPES.has(f.type));
+  const anyTubDeck = room.waterFixtures.some(f => f.type === TUB_DECK_TYPE);
+
+  const flooringHTML = room.flooring.map((f, i) => buildFlooringBlock(room.id, i, f, room.flooring.length > 1)).join('');
+
+  return `
+    <div class="sub-section">
+      <div class="sub-section-label">Water Fixtures</div>
+      <div id="${room.id}-fixtures-list">${fixturesHTML}</div>
+      <button class="add-btn" onclick="addFixture('${room.id}')">+ Add Water Fixture</button>
+    </div>
+
+    <div class="sub-section conditional-fields ${anyTileFixture ? 'visible' : ''}" id="${room.id}-niches-section">
+      <div class="sub-section-label">Niches &amp; Details</div>
+      <div class="field-row">
+        <div class="field-group">
+          <label>Niche Style</label>
+          <input type="text" value="${esc(room.niches.styleName)}" placeholder="e.g., Recessed, Built-In"
+                 oninput="syncField('${room.id}', 'niches.styleName', this.value)">
+        </div>
+        <div class="field-group">
+          <label>Shelf Material</label>
+          <input type="text" value="${esc(room.niches.shelfMaterial)}" placeholder="e.g., Marble, Quartz"
+                 oninput="syncField('${room.id}', 'niches.shelfMaterial', this.value)">
+        </div>
+      </div>
+      <div style="margin-bottom: 8px;">
+        <div class="cascade-label">Decorative Tile</div>
+        ${buildInlineCascade(room.id, 'niches.decorativeTile', room.niches.decorativeTile, 'backsplash')}
+      </div>
+      <div class="field-group" style="max-width: 200px;">
+        <label>Placement</label>
+        <select onchange="syncField('${room.id}', 'niches.placement', this.value)">
+          <option value="Back Wall" ${room.niches.placement === 'Back Wall' ? 'selected' : ''}>Back Wall</option>
+          <option value="Side Wall" ${room.niches.placement === 'Side Wall' ? 'selected' : ''}>Side Wall</option>
+          <option value="Shelf" ${room.niches.placement === 'Shelf' ? 'selected' : ''}>Shelf</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="sub-section">
+      <div class="sub-section-label">Accent Details</div>
+      <div class="field-group" style="max-width: 200px; margin-bottom: 8px;">
+        <label>Accent Type</label>
+        <select onchange="onAccentTypeChange('${room.id}', this.value)">
+          <option value="None" ${room.accents.type === 'None' ? 'selected' : ''}>None</option>
+          <option value="Linear" ${room.accents.type === 'Linear' ? 'selected' : ''}>Linear</option>
+          <option value="Picture Frame" ${room.accents.type === 'Picture Frame' ? 'selected' : ''}>Picture Frame</option>
+        </select>
+      </div>
+      <div class="conditional-fields ${room.accents.type === 'Linear' ? 'visible' : ''}" id="${room.id}-accent-linear">
+        <div class="field-row">
+          <div class="field-group">
+            <label>Orientation</label>
+            <select onchange="syncField('${room.id}', 'accents.orientation', this.value)">
+              <option value="Horizontal" ${room.accents.orientation === 'Horizontal' ? 'selected' : ''}>Horizontal</option>
+              <option value="Vertical" ${room.accents.orientation === 'Vertical' ? 'selected' : ''}>Vertical</option>
+            </select>
+          </div>
+          <div class="field-group">
+            <label>Width</label>
+            <input type="text" value="${esc(room.accents.width)}" placeholder="e.g., 4 inches"
+                   oninput="syncField('${room.id}', 'accents.width', this.value)">
+          </div>
+        </div>
+      </div>
+      <div class="conditional-fields ${room.accents.type === 'Picture Frame' ? 'visible' : ''}" id="${room.id}-accent-pf">
+        <div class="field-row">
+          <div class="field-group">
+            <label>Size</label>
+            <input type="text" value="${esc(room.accents.size)}" placeholder="e.g., 24x36"
+                   oninput="syncField('${room.id}', 'accents.size', this.value)">
+          </div>
+          <div class="field-group">
+            <label>Pencil Rail</label>
+            <select onchange="syncField('${room.id}', 'accents.pencilRail', this.value === 'true')">
+              <option value="false" ${!room.accents.pencilRail ? 'selected' : ''}>No</option>
+              <option value="true" ${room.accents.pencilRail ? 'selected' : ''}>Yes</option>
+            </select>
+          </div>
+        </div>
+        <div style="margin-top: 4px;">
+          <div class="cascade-label">Interior Tile</div>
+          ${buildInlineCascade(room.id, 'accents.interiorTile', room.accents.interiorTile, 'backsplash')}
+        </div>
+      </div>
+    </div>
+
+    <div class="sub-section conditional-fields ${anyTubDeck ? 'visible' : ''}" id="${room.id}-tubdeck-section">
+      <div class="sub-section-label">Tub Deck</div>
+      <div style="margin-bottom: 8px;">
+        <div class="cascade-label">Skirt Tile</div>
+        ${buildInlineCascade(room.id, 'tubDeck.skirtTile', room.tubDeck.skirtTile, 'backsplash')}
+      </div>
+      <div style="margin-bottom: 8px;">
+        <div class="cascade-label">Deck Tile</div>
+        ${buildInlineCascade(room.id, 'tubDeck.deckTile', room.tubDeck.deckTile, 'countertops')}
+      </div>
+      <div style="margin-bottom: 8px;">
+        <div class="cascade-label">Splash Tile</div>
+        ${buildInlineCascade(room.id, 'tubDeck.splashTile', room.tubDeck.splashTile, 'backsplash')}
+      </div>
+      <div class="field-group">
+        <label>Accent Band Notes</label>
+        <input type="text" value="${esc(room.tubDeck.accentBandNotes)}" placeholder="e.g., 2-inch mosaic band at chair rail height"
+               oninput="syncField('${room.id}', 'tubDeck.accentBandNotes', this.value)">
+      </div>
+    </div>
+
+    <div class="sub-section">
+      <div class="sub-section-label">Edge Protection</div>
+      <div class="field-group" style="max-width: 200px; margin-bottom: 8px;">
+        <label>Type</label>
+        <select onchange="onEdgeTypeChange('${room.id}', this.value)">
+          <option value="None" ${room.edgeProtection.type === 'None' ? 'selected' : ''}>None</option>
+          <option value="Tile Edge" ${room.edgeProtection.type === 'Tile Edge' ? 'selected' : ''}>Tile Edge</option>
+          <option value="Accessory" ${room.edgeProtection.type === 'Accessory' ? 'selected' : ''}>Accessory</option>
+        </select>
+      </div>
+      <div class="conditional-fields ${room.edgeProtection.type === 'Tile Edge' ? 'visible' : ''}" id="${room.id}-edge-tile">
+        <div class="cascade-label">Tile Edge Material</div>
+        ${buildInlineCascade(room.id, 'edgeProtection.tileEdge', room.edgeProtection.tileEdge, 'backsplash')}
+      </div>
+      <div class="conditional-fields ${room.edgeProtection.type === 'Accessory' ? 'visible' : ''}" id="${room.id}-edge-accessory">
+        <div class="field-group" style="max-width: 200px; margin-bottom: 8px;">
+          <label>Accessory Type</label>
+          <select onchange="syncField('${room.id}', 'edgeProtection.accessoryType', this.value)">
+            <option value="Schluter" ${room.edgeProtection.accessoryType === 'Schluter' ? 'selected' : ''}>Schluter</option>
+            <option value="Jolly" ${room.edgeProtection.accessoryType === 'Jolly' ? 'selected' : ''}>Jolly</option>
+            <option value="Pencil Rail" ${room.edgeProtection.accessoryType === 'Pencil Rail' ? 'selected' : ''}>Pencil Rail</option>
+          </select>
+        </div>
+        <div class="cascade-label">Accessory Material</div>
+        ${buildInlineCascade(room.id, 'edgeProtection.accessory', room.edgeProtection.accessory, 'hardware')}
+      </div>
+    </div>
+
+    <div class="sub-section">
+      <div class="sub-section-label">Flooring</div>
+      <div id="${room.id}-flooring-list">${flooringHTML}</div>
+      <button class="add-btn" onclick="addFlooring('${room.id}')">+ Add Flooring</button>
+    </div>
+
+    ${buildCascadeCard(room.id, 'paint', room.paint)}
+    ${buildCascadeCard(room.id, 'hardware', room.hardware)}
+  `;
+}
+
+// ============================================================
+// FLOORING BLOCK
+// ============================================================
+function buildFlooringBlock(roomId, idx, state, canRemove) {
+  const vendors = getVendorsForCategory('flooring', state.materialType);
+  const seriesList = state.vendor ? getSeriesForVendor('flooring', state.vendor, state.materialType) : [];
+  const colors = state.vendor && state.series ? getColorsForSeries('flooring', state.vendor, state.series, state.materialType) : [];
+
+  return `
+    <div class="flooring-block">
+      ${canRemove ? `<button class="remove-btn" onclick="removeFlooring('${roomId}', ${idx})">&#10005;</button>` : ''}
+      <div class="cascade-row-4">
+        <div>
+          <div class="cascade-label">Material Type</div>
+          <select onchange="onFlooringTypeChange('${roomId}', ${idx}, this.value)">
+            <option value="">Any type</option>
+            ${FLOORING_MATERIAL_TYPES.map(t => `<option value="${t}" ${state.materialType === t ? 'selected' : ''}>${t}</option>`).join('')}
+          </select>
+        </div>
+        <div>
+          <div class="cascade-label">Vendor</div>
+          <select onchange="onFlooringVendorChange('${roomId}', ${idx}, this.value)">
+            <option value="">Select vendor</option>
+            ${vendors.map(v => `<option value="${v}" ${state.vendor === v ? 'selected' : ''}>${v}</option>`).join('')}
+          </select>
+        </div>
+        <div>
+          <div class="cascade-label">Series</div>
+          <select onchange="onFlooringSeriesChange('${roomId}', ${idx}, this.value)" ${!state.vendor ? 'disabled' : ''}>
+            <option value="">${state.vendor ? 'Select series' : '--'}</option>
+            ${seriesList.map(s => `<option value="${s}" ${state.series === s ? 'selected' : ''}>${s}</option>`).join('')}
+          </select>
+        </div>
+        <div>
+          <div class="cascade-label">Color</div>
+          <select onchange="onFlooringColorChange('${roomId}', ${idx}, this.value)" ${!state.series ? 'disabled' : ''}>
+            <option value="">${state.series ? 'Select color' : '--'}</option>
+            ${colors.map(c => `<option value="${c}" ${state.color === c ? 'selected' : ''}>${c}</option>`).join('')}
+          </select>
+        </div>
+      </div>
+      ${state.material ? buildMaterialDisplay(state.material) : ''}
+      <input type="text" class="install-notes-input" value="${esc(state.installNotes)}"
+             placeholder="${INSTALL_PLACEHOLDERS.flooring}"
+             oninput="syncFlooringNotes('${roomId}', ${idx}, this.value)">
+    </div>
+  `;
+}
+
+function addFlooring(roomId) {
+  const room = getRoom(roomId);
+  room.flooring.push(createFlooringState());
+  renderRooms();
+  updatePreview();
+}
+
+function removeFlooring(roomId, idx) {
+  const room = getRoom(roomId);
+  room.flooring.splice(idx, 1);
+  renderRooms();
+  updatePreview();
+}
+
+function onFlooringTypeChange(roomId, idx, val) {
+  const room = getRoom(roomId);
+  const f = room.flooring[idx];
+  f.materialType = val;
+  f.vendor = '';
+  f.series = '';
+  f.color = '';
+  f.material = null;
+  renderRooms();
+  updatePreview();
+}
+
+function onFlooringVendorChange(roomId, idx, val) {
+  const room = getRoom(roomId);
+  const f = room.flooring[idx];
+  f.vendor = val;
+  f.series = '';
+  f.color = '';
+  f.material = null;
+
+  if (val) {
+    const seriesList = getSeriesForVendor('flooring', val, f.materialType);
+    if (seriesList.length === 1) {
+      f.series = seriesList[0];
+      const colors = getColorsForSeries('flooring', val, f.series, f.materialType);
+      if (colors.length === 1) {
+        f.color = colors[0];
+        f.material = findMaterial('flooring', val, f.series, f.color);
+      }
+    }
+  }
+
+  renderRooms();
+  updatePreview();
+}
+
+function onFlooringSeriesChange(roomId, idx, val) {
+  const room = getRoom(roomId);
+  const f = room.flooring[idx];
+  f.series = val;
+  f.color = '';
+  f.material = null;
+
+  if (val) {
+    const colors = getColorsForSeries('flooring', f.vendor, val, f.materialType);
+    if (colors.length === 1) {
+      f.color = colors[0];
+      f.material = findMaterial('flooring', f.vendor, val, f.color);
+    }
+  }
+
+  renderRooms();
+  updatePreview();
+}
+
+function onFlooringColorChange(roomId, idx, val) {
+  const room = getRoom(roomId);
+  const f = room.flooring[idx];
+  f.color = val;
+  f.material = val ? findMaterial('flooring', f.vendor, f.series, val) : null;
+  renderRooms();
+  updatePreview();
+}
+
+function syncFlooringNotes(roomId, idx, val) {
+  const room = getRoom(roomId);
+  room.flooring[idx].installNotes = val;
+  updatePreview();
+}
+
+// ============================================================
+// WATER FIXTURE BLOCK
+// ============================================================
+function buildFixtureBlock(roomId, idx, state, canRemove) {
+  const showSurround = TILE_SURROUND_TYPES.has(state.type);
+  const showFloorTile = MUD_PAN_TYPES.has(state.type);
+
+  return `
+    <div class="fixture-block">
+      ${canRemove ? `<button class="remove-btn" onclick="removeFixture('${roomId}', ${idx})">&#10005;</button>` : ''}
+      <div class="fixture-block-label">Fixture ${idx + 1}</div>
+      <div class="field-group" style="margin-bottom: 8px;">
+        <label>Type</label>
+        <select onchange="onFixtureTypeChange('${roomId}', ${idx}, this.value)">
+          <option value="">Select fixture type</option>
+          ${WATER_FIXTURE_TYPES.map(t => `<option value="${t}" ${state.type === t ? 'selected' : ''}>${t}</option>`).join('')}
+        </select>
+      </div>
+      <div class="conditional-fields ${showSurround ? 'visible' : ''}">
+        <div class="cascade-label">Surround Tile</div>
+        ${buildInlineCascade(roomId, `waterFixtures.${idx}.surroundTile`, state.surroundTile, 'backsplash')}
+      </div>
+      <div class="conditional-fields ${showFloorTile ? 'visible' : ''}">
+        <div class="cascade-label" style="margin-top: 6px;">Floor Tile</div>
+        ${buildInlineCascade(roomId, `waterFixtures.${idx}.floorTile`, state.floorTile, 'flooring')}
+      </div>
+    </div>
+  `;
+}
+
+function addFixture(roomId) {
+  const room = getRoom(roomId);
+  room.waterFixtures.push(createFixtureState());
+  renderRooms();
+  updatePreview();
+}
+
+function removeFixture(roomId, idx) {
+  const room = getRoom(roomId);
+  room.waterFixtures.splice(idx, 1);
+  renderRooms();
+  updatePreview();
+}
+
+function onFixtureTypeChange(roomId, idx, val) {
+  const room = getRoom(roomId);
+  room.waterFixtures[idx].type = val;
+  // Re-render to update conditional visibility of niches, tub deck, etc.
+  renderRooms();
+  updatePreview();
+}
+
+// ============================================================
+// MATERIAL CASCADE CARD (for simple categories)
+// ============================================================
+function buildCascadeCard(roomId, cat, state) {
+  const vendors = getVendorsForCategory(cat);
+  const seriesList = state.vendor ? getSeriesForVendor(cat, state.vendor) : [];
+  const colors = state.vendor && state.series ? getColorsForSeries(cat, state.vendor, state.series) : [];
+
+  return `
+    <div class="material-selector">
+      <div class="material-selector-category">${capitalize(cat)}</div>
+      <div class="cascade-row">
+        <div>
+          <div class="cascade-label">Vendor</div>
+          <select onchange="onCascadeVendor('${roomId}', '${cat}', this.value)">
+            <option value="">Select vendor</option>
+            ${vendors.map(v => `<option value="${v}" ${state.vendor === v ? 'selected' : ''}>${v}</option>`).join('')}
+          </select>
+        </div>
+        <div>
+          <div class="cascade-label">Series</div>
+          <select onchange="onCascadeSeries('${roomId}', '${cat}', this.value)" ${!state.vendor ? 'disabled' : ''}>
+            <option value="">${state.vendor ? 'Select series' : '--'}</option>
+            ${seriesList.map(s => `<option value="${s}" ${state.series === s ? 'selected' : ''}>${s}</option>`).join('')}
+          </select>
+        </div>
+        <div>
+          <div class="cascade-label">Color</div>
+          <select onchange="onCascadeColor('${roomId}', '${cat}', this.value)" ${!state.series ? 'disabled' : ''}>
+            <option value="">${state.series ? 'Select color' : '--'}</option>
+            ${colors.map(c => `<option value="${c}" ${state.color === c ? 'selected' : ''}>${c}</option>`).join('')}
+          </select>
+        </div>
+      </div>
+      ${state.material ? buildMaterialDisplay(state.material) : ''}
+      <input type="text" class="install-notes-input" value="${esc(state.installNotes)}"
+             placeholder="${INSTALL_PLACEHOLDERS[cat] || 'Installation notes'}"
+             oninput="syncCascadeNotes('${roomId}', '${cat}', this.value)">
+    </div>
+  `;
+}
+
+function onCascadeVendor(roomId, cat, val) {
+  const room = getRoom(roomId);
+  const state = room[cat];
+  state.vendor = val;
+  state.series = '';
+  state.color = '';
+  state.material = null;
+
+  if (val) {
+    const seriesList = getSeriesForVendor(cat, val);
+    if (seriesList.length === 1) {
+      state.series = seriesList[0];
+      const colors = getColorsForSeries(cat, val, state.series);
+      if (colors.length === 1) {
+        state.color = colors[0];
+        state.material = findMaterial(cat, val, state.series, state.color);
+      }
+    }
+  }
+
+  renderRooms();
+  updatePreview();
+}
+
+function onCascadeSeries(roomId, cat, val) {
+  const room = getRoom(roomId);
+  const state = room[cat];
+  state.series = val;
+  state.color = '';
+  state.material = null;
+
+  if (val) {
+    const colors = getColorsForSeries(cat, state.vendor, val);
+    if (colors.length === 1) {
+      state.color = colors[0];
+      state.material = findMaterial(cat, state.vendor, val, state.color);
+    }
+  }
+
+  renderRooms();
+  updatePreview();
+}
+
+function onCascadeColor(roomId, cat, val) {
+  const room = getRoom(roomId);
+  const state = room[cat];
+  state.color = val;
+  state.material = val ? findMaterial(cat, state.vendor, state.series, val) : null;
+  renderRooms();
+  updatePreview();
+}
+
+function syncCascadeNotes(roomId, cat, val) {
+  const room = getRoom(roomId);
+  room[cat].installNotes = val;
+  updatePreview();
+}
+
+// ============================================================
+// INLINE CASCADE (for nested paths like niches.decorativeTile)
+// ============================================================
+function buildInlineCascade(roomId, path, state, category) {
+  const vendors = getVendorsForCategory(category);
+  const seriesList = state.vendor ? getSeriesForVendor(category, state.vendor) : [];
+  const colors = state.vendor && state.series ? getColorsForSeries(category, state.vendor, state.series) : [];
+  const ep = esc(path);
+
+  return `
+    <div class="cascade-row">
+      <div>
+        <div class="cascade-label">Vendor</div>
+        <select onchange="onInlineCascadeVendor('${roomId}', '${ep}', '${category}', this.value)">
+          <option value="">Select vendor</option>
+          ${vendors.map(v => `<option value="${v}" ${state.vendor === v ? 'selected' : ''}>${v}</option>`).join('')}
+        </select>
+      </div>
+      <div>
+        <div class="cascade-label">Series</div>
+        <select onchange="onInlineCascadeSeries('${roomId}', '${ep}', '${category}', this.value)" ${!state.vendor ? 'disabled' : ''}>
+          <option value="">${state.vendor ? 'Select series' : '--'}</option>
+          ${seriesList.map(s => `<option value="${s}" ${state.series === s ? 'selected' : ''}>${s}</option>`).join('')}
+        </select>
+      </div>
+      <div>
+        <div class="cascade-label">Color</div>
+        <select onchange="onInlineCascadeColor('${roomId}', '${ep}', '${category}', this.value)" ${!state.series ? 'disabled' : ''}>
+          <option value="">${state.series ? 'Select color' : '--'}</option>
+          ${colors.map(c => `<option value="${c}" ${state.color === c ? 'selected' : ''}>${c}</option>`).join('')}
+        </select>
+      </div>
+    </div>
+    ${state.material ? buildMaterialDisplay(state.material) : ''}
+  `;
+}
+
+function resolveNestedState(roomId, path) {
+  const room = getRoom(roomId);
+  const parts = path.split('.');
+  let obj = room;
+  for (const p of parts) {
+    if (obj == null) return null;
+    // handle array index
+    if (/^\d+$/.test(p)) {
+      obj = obj[parseInt(p)];
+    } else {
+      obj = obj[p];
+    }
+  }
+  return obj;
+}
+
+function onInlineCascadeVendor(roomId, path, category, val) {
+  const state = resolveNestedState(roomId, path);
+  if (!state) return;
+  state.vendor = val;
+  state.series = '';
+  state.color = '';
+  state.material = null;
+
+  if (val) {
+    const seriesList = getSeriesForVendor(category, val);
+    if (seriesList.length === 1) {
+      state.series = seriesList[0];
+      const colors = getColorsForSeries(category, val, state.series);
+      if (colors.length === 1) {
+        state.color = colors[0];
+        state.material = findMaterial(category, val, state.series, state.color);
+      }
+    }
+  }
+
+  renderRooms();
+  updatePreview();
+}
+
+function onInlineCascadeSeries(roomId, path, category, val) {
+  const state = resolveNestedState(roomId, path);
+  if (!state) return;
+  state.series = val;
+  state.color = '';
+  state.material = null;
+
+  if (val) {
+    const colors = getColorsForSeries(category, state.vendor, val);
+    if (colors.length === 1) {
+      state.color = colors[0];
+      state.material = findMaterial(category, state.vendor, val, state.color);
+    }
+  }
+
+  renderRooms();
+  updatePreview();
+}
+
+function onInlineCascadeColor(roomId, path, category, val) {
+  const state = resolveNestedState(roomId, path);
+  if (!state) return;
+  state.color = val;
+  state.material = val ? findMaterial(category, state.vendor, state.series, val) : null;
+  renderRooms();
+  updatePreview();
+}
+
+// ============================================================
+// CONDITIONAL VISIBILITY HANDLERS
+// ============================================================
+function onAccentTypeChange(roomId, val) {
+  const room = getRoom(roomId);
+  room.accents.type = val;
+  renderRooms();
+  updatePreview();
+}
+
+function onEdgeTypeChange(roomId, val) {
+  const room = getRoom(roomId);
+  room.edgeProtection.type = val;
+  renderRooms();
+  updatePreview();
+}
+
+// ============================================================
+// GENERIC FIELD SYNC
+// ============================================================
+function syncField(roomId, path, val) {
+  const room = getRoom(roomId);
+  const parts = path.split('.');
+  let obj = room;
+  for (let i = 0; i < parts.length - 1; i++) {
+    obj = obj[parts[i]];
+  }
+  obj[parts[parts.length - 1]] = val;
+  updatePreview();
+}
+
+// ============================================================
+// MATERIAL DATA HELPERS
+// ============================================================
+function getVendorsForCategory(cat, materialType) {
+  const vendors = new Set();
+  allMaterials.filter(m => {
+    if (m.category !== cat) return false;
+    if (materialType && m.material_type && m.material_type !== materialType) return false;
+    return true;
+  }).forEach(m => {
+    if (m.vendor) vendors.add(m.vendor);
+  });
+  return [...vendors].sort();
+}
+
+function getSeriesForVendor(cat, vendor, materialType) {
+  const series = new Set();
+  allMaterials.filter(m => {
+    if (m.category !== cat || m.vendor !== vendor) return false;
+    if (materialType && m.material_type && m.material_type !== materialType) return false;
+    return true;
+  }).forEach(m => {
+    if (m.series) series.add(m.series);
+  });
+  return [...series].sort();
+}
+
+function getColorsForSeries(cat, vendor, series, materialType) {
+  return allMaterials
+    .filter(m => {
+      if (m.category !== cat || m.vendor !== vendor || m.series !== series) return false;
+      if (materialType && m.material_type && m.material_type !== materialType) return false;
+      return true;
+    })
+    .map(m => m.color)
+    .filter(Boolean)
+    .sort();
+}
+
+function findMaterial(cat, vendor, series, color) {
+  return allMaterials.find(m =>
+    m.category === cat && m.vendor === vendor && m.series === series && m.color === color
+  ) || null;
+}
+
+function buildMaterialDisplay(mat) {
+  if (!mat) return '';
+  return `
+    <div class="material-selected-display">
+      ${mat.image_url ? `<img src="${mat.image_url}" alt="${mat.name}">` : ''}
+      <div>
+        <div class="material-selected-name">${esc(mat.name)}<span class="tone-dot tone-${mat.tone}"></span></div>
+        <div class="material-selected-meta">${mat.tone || ''} ${mat.price_tier ? '&middot; ' + mat.price_tier : ''}</div>
+      </div>
+    </div>
+  `;
+}
+
+// ============================================================
+// MOOD BOARD
+// ============================================================
+function onMoodBoardUpload(event) {
+  const file = event.target.files[0];
+  if (!file) return;
+  const previewDiv = document.getElementById('mood-board-preview');
+  const img = document.getElementById('mood-board-thumb');
+  moodBoardUrl = URL.createObjectURL(file);
+  img.src = moodBoardUrl;
+  previewDiv.style.display = 'block';
+  updatePreview();
+}
+
+// ============================================================
+// RULE ENGINE
+// ============================================================
+function runRuleEngine() {
+  // Collect all material selections across all rooms for tone analysis
+  const flatSelections = {};
+  rooms.forEach(room => {
+    if (room.type === 'kitchen') {
+      KITCHEN_CATEGORIES.forEach(cat => {
+        if (room[cat].material) {
+          const key = `${room.label}-${cat}`;
+          flatSelections[key] = room[cat].material;
+        }
+      });
+    }
+    // Include flooring from any room
+    room.flooring.forEach((f, i) => {
+      if (f.material) {
+        flatSelections[`${room.label}-flooring-${i}`] = f.material;
+      }
+    });
+    // Bathroom paint/hardware
+    if (room.type === 'bathroom') {
+      if (room.paint.material) flatSelections[`${room.label}-paint`] = room.paint.material;
+      if (room.hardware.material) flatSelections[`${room.label}-hardware`] = room.hardware.material;
+    }
+  });
+
+  currentReport = evaluateSelections(flatSelections);
+
+  const dot = document.getElementById('status-dot');
+  const label = document.getElementById('status-label');
+  const score = document.getElementById('status-score');
+
+  dot.style.background = getStatusColor(currentReport.status);
+  label.textContent = getStatusLabel(currentReport.status);
+  score.textContent = currentReport.status !== 'incomplete' ? `${currentReport.overallScore}%` : '';
+
+  // Feedback
+  const feedbackEl = document.getElementById('feedback-list');
+  let html = '';
+  currentReport.warnings.forEach(w => {
+    html += `<div class="feedback-item feedback-warning"><span class="feedback-icon">&#9888;</span> ${w}</div>`;
+  });
+  currentReport.suggestions.forEach(s => {
+    html += `<div class="feedback-item feedback-suggestion"><span class="feedback-icon">&#10004;</span> ${s}</div>`;
+  });
+  feedbackEl.innerHTML = html;
+
+  // Enable generate if any materials selected
+  const hasAny = Object.keys(flatSelections).length > 0;
+  document.getElementById('generate-btn').disabled = !hasAny;
+}
+
+// ============================================================
+// LIVE PREVIEW
+// ============================================================
+function updatePreview() {
+  runRuleEngine();
+
+  const frame = document.getElementById('preview-frame');
+  const projectName = document.getElementById('project-name').value || 'Untitled Project';
+  const clientName = document.getElementById('client-name').value;
+  const builderName = document.getElementById('builder-name').value;
+  const date = new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+
+  // Cover
+  let html = `
+    <div class="preview-cover">
+      <div class="preview-cover-brand">Hill Country Home Concepts</div>
+      <h2>${esc(projectName)}</h2>
+      ${clientName ? `<p class="preview-cover-client">Prepared for ${esc(clientName)}</p>` : ''}
+      ${builderName ? `<p class="preview-cover-builder">Builder: ${esc(builderName)}</p>` : ''}
+      <p class="preview-cover-date">${date}</p>
+    </div>
+  `;
+
+  // Each room
+  rooms.forEach(room => {
+    if (room.type === 'kitchen') {
+      html += buildKitchenPreview(room);
+    } else {
+      html += buildBathroomPreview(room);
+    }
+  });
+
+  // Mood board
+  if (moodBoardUrl) {
+    html += `
+      <div class="preview-section">
+        <span class="preview-section-label">Mood Board</span>
+        <h3>Design Inspiration</h3>
+        <img class="preview-mood-img" src="${moodBoardUrl}" alt="Mood board">
+      </div>
+    `;
+  }
+
+  frame.innerHTML = html;
+}
+
+function buildKitchenPreview(room) {
+  const cards = [];
+
+  // Flooring
+  room.flooring.forEach((f, i) => {
+    if (f.material) {
+      cards.push(buildPreviewCard('Flooring' + (f.materialType ? ` (${f.materialType})` : ''), f.material, f.installNotes));
+    }
+  });
+
+  // Other categories
+  KITCHEN_CATEGORIES.forEach(cat => {
+    if (room[cat].material) {
+      cards.push(buildPreviewCard(capitalize(cat), room[cat].material, room[cat].installNotes));
+    }
+  });
+
+  if (cards.length === 0) return '';
+
+  return `
+    <div class="preview-section">
+      <span class="preview-section-label">${esc(room.label)}</span>
+      <h3>Material Selections</h3>
+      <div class="preview-materials-grid">${cards.join('')}</div>
+    </div>
+  `;
+}
+
+function buildBathroomPreview(room) {
+  let rows = '';
+
+  // Water fixtures
+  room.waterFixtures.forEach((f, i) => {
+    if (f.type) {
+      rows += `<tr><td>Fixture ${i + 1}</td><td>${esc(f.type)}</td></tr>`;
+      if (f.surroundTile.material) {
+        rows += `<tr><td style="padding-left: 20px;">Surround</td><td>${esc(f.surroundTile.material.name)}</td></tr>`;
+      }
+      if (f.floorTile.material) {
+        rows += `<tr><td style="padding-left: 20px;">Floor Tile</td><td>${esc(f.floorTile.material.name)}</td></tr>`;
+      }
+    }
+  });
+
+  // Niches
+  if (room.niches.styleName || room.niches.decorativeTile.material) {
+    rows += `<tr><td>Niche Style</td><td>${esc(room.niches.styleName)}${room.niches.shelfMaterial ? ' / ' + esc(room.niches.shelfMaterial) : ''}</td></tr>`;
+    if (room.niches.decorativeTile.material) {
+      rows += `<tr><td style="padding-left: 20px;">Decorative</td><td>${esc(room.niches.decorativeTile.material.name)}</td></tr>`;
+    }
+    rows += `<tr><td style="padding-left: 20px;">Placement</td><td>${esc(room.niches.placement)}</td></tr>`;
+  }
+
+  // Accents
+  if (room.accents.type !== 'None') {
+    let accentDesc = room.accents.type;
+    if (room.accents.type === 'Linear') {
+      accentDesc += ` (${room.accents.orientation}${room.accents.width ? ', ' + room.accents.width : ''})`;
+    } else if (room.accents.type === 'Picture Frame') {
+      accentDesc += `${room.accents.size ? ' ' + room.accents.size : ''}${room.accents.pencilRail ? ', pencil rail' : ''}`;
+    }
+    rows += `<tr><td>Accent</td><td>${esc(accentDesc)}</td></tr>`;
+    if (room.accents.interiorTile.material) {
+      rows += `<tr><td style="padding-left: 20px;">Interior Tile</td><td>${esc(room.accents.interiorTile.material.name)}</td></tr>`;
+    }
+  }
+
+  // Tub deck
+  if (room.tubDeck.skirtTile.material || room.tubDeck.deckTile.material || room.tubDeck.splashTile.material) {
+    if (room.tubDeck.skirtTile.material) rows += `<tr><td>Tub Skirt</td><td>${esc(room.tubDeck.skirtTile.material.name)}</td></tr>`;
+    if (room.tubDeck.deckTile.material) rows += `<tr><td>Tub Deck</td><td>${esc(room.tubDeck.deckTile.material.name)}</td></tr>`;
+    if (room.tubDeck.splashTile.material) rows += `<tr><td>Tub Splash</td><td>${esc(room.tubDeck.splashTile.material.name)}</td></tr>`;
+    if (room.tubDeck.accentBandNotes) rows += `<tr><td>Accent Band</td><td>${esc(room.tubDeck.accentBandNotes)}</td></tr>`;
+  }
+
+  // Edge protection
+  if (room.edgeProtection.type !== 'None') {
+    if (room.edgeProtection.type === 'Tile Edge' && room.edgeProtection.tileEdge.material) {
+      rows += `<tr><td>Edge (Tile)</td><td>${esc(room.edgeProtection.tileEdge.material.name)}</td></tr>`;
+    } else if (room.edgeProtection.type === 'Accessory') {
+      rows += `<tr><td>Edge (${esc(room.edgeProtection.accessoryType)})</td><td>${room.edgeProtection.accessory.material ? esc(room.edgeProtection.accessory.material.name) : ''}</td></tr>`;
+    }
+  }
+
+  // Flooring
+  room.flooring.forEach((f, i) => {
+    if (f.material) {
+      rows += `<tr><td>Flooring${f.materialType ? ' (' + esc(f.materialType) + ')' : ''}</td><td>${esc(f.material.name)}${f.installNotes ? ' <em>(' + esc(f.installNotes) + ')</em>' : ''}</td></tr>`;
+    }
+  });
+
+  // Paint / Hardware
+  if (room.paint.material) {
+    rows += `<tr><td>Paint</td><td>${esc(room.paint.material.name)}${room.paint.installNotes ? ' <em>(' + esc(room.paint.installNotes) + ')</em>' : ''}</td></tr>`;
+  }
+  if (room.hardware.material) {
+    rows += `<tr><td>Hardware</td><td>${esc(room.hardware.material.name)}${room.hardware.installNotes ? ' <em>(' + esc(room.hardware.installNotes) + ')</em>' : ''}</td></tr>`;
+  }
+
+  if (!rows) return '';
+
+  return `
+    <div class="preview-section">
+      <span class="preview-section-label">${esc(room.label)}</span>
+      <h3>Specifications</h3>
+      <table class="preview-spec-table">
+        <tr><th>Item</th><th>Selection</th></tr>
+        ${rows}
+      </table>
+    </div>
+  `;
+}
+
+function buildPreviewCard(label, mat, notes) {
+  return `
+    <div class="preview-mat-card">
+      <div class="preview-mat-img">
+        ${mat.image_url ? `<img src="${mat.image_url}" alt="${esc(mat.name)}">` : ''}
+      </div>
+      <div class="preview-mat-body">
+        <div class="preview-mat-cat">${esc(label)}</div>
+        <div class="preview-mat-name">${esc(mat.name)}</div>
+        ${notes ? `<div class="preview-mat-notes">${esc(notes)}</div>` : ''}
+      </div>
+    </div>
+  `;
+}
+
+// ============================================================
+// GENERATE
+// ============================================================
+function generatePresentation() {
+  const data = {
+    projectName: document.getElementById('project-name').value || 'Design Presentation',
+    clientName: document.getElementById('client-name').value,
+    builderName: document.getElementById('builder-name').value,
+    address: document.getElementById('address').value,
+    rooms: rooms,
+    moodBoardUrl: moodBoardUrl,
+    report: currentReport
+  };
+
+  const html = generatePresentationHTML(data);
+  const win = window.open('', '_blank');
+  win.document.write(html);
+  win.document.close();
+}
+
+// ============================================================
+// UTILITIES
+// ============================================================
+function capitalize(str) {
+  return str.charAt(0).toUpperCase() + str.slice(1);
+}
+
+function esc(str) {
+  if (!str) return '';
+  return String(str).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+}
+</script>
+
+</body>
+</html>
