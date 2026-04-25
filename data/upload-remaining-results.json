@@ -1,0 +1,435 @@
+{
+  "timestamp": "2026-04-25T15:12:55.226Z",
+  "results": [
+    {
+      "sku": "FTE02-00272",
+      "name": "Shaw Floorté Ignite WPC",
+      "status": "uploaded",
+      "size": "1114.6KB",
+      "publicUrl": "https://eqqllaiswgkoxrivgmig.supabase.co/storage/v1/object/public/material-images/FTE02-00272.jpg"
+    },
+    {
+      "sku": "509SA-01024",
+      "name": "Shaw Floorté Pro Paladin Plus",
+      "status": "uploaded",
+      "size": "16.6KB",
+      "publicUrl": "https://eqqllaiswgkoxrivgmig.supabase.co/storage/v1/object/public/material-images/509SA-01024.jpg"
+    },
+    {
+      "sku": "RRS33-02",
+      "name": "Mohawk RevWood Select Emberstone Ridge",
+      "status": "uploaded",
+      "size": "215.2KB",
+      "publicUrl": "https://eqqllaiswgkoxrivgmig.supabase.co/storage/v1/object/public/material-images/RRS33-02.png"
+    },
+    {
+      "sku": "WEK03-07",
+      "name": "Mohawk RevWood Plus Briarfield",
+      "status": "cdn-url-stored",
+      "error": "HTTP 404"
+    },
+    {
+      "sku": "RRP71-04",
+      "name": "Mohawk RevWood Premier Sawmill Ridge",
+      "status": "cdn-url-stored",
+      "error": "read ECONNRESET"
+    },
+    {
+      "sku": "EM03-0848",
+      "name": "Daltile Emerson Wood Porcelain Tile (Butter Pecan)",
+      "status": "cdn-url-stored",
+      "error": "HTTP 403"
+    },
+    {
+      "sku": "EM01-0648",
+      "name": "Daltile Emerson Wood Porcelain Tile (Ash White)",
+      "status": "cdn-url-stored",
+      "error": "HTTP 403"
+    },
+    {
+      "sku": "NOVE-BAYBLND",
+      "name": "MSI Nove Bayhill Blonde LVP",
+      "status": "cdn-url-stored",
+      "error": "read ECONNRESET"
+    },
+    {
+      "sku": "EWOAK-001",
+      "name": "European White Oak Hardwood",
+      "status": "cdn-url-stored",
+      "error": "HTTP 404"
+    },
+    {
+      "sku": "LVP-HO-42",
+      "name": "Luxury Vinyl Plank - Harvest Oak",
+      "status": "uploaded",
+      "size": "121.5KB",
+      "publicUrl": "https://eqqllaiswgkoxrivgmig.supabase.co/storage/v1/object/public/material-images/LVP-HO-42.jpg"
+    },
+    {
+      "sku": "LFC-24x48",
+      "name": "Large Format Concrete Tile",
+      "status": "cdn-url-stored",
+      "error": "HTTP 403"
+    },
+    {
+      "sku": "KM-PUTNAM-PRL",
+      "name": "KraftMaid Putnam Maple Shaker",
+      "status": "uploaded",
+      "size": "14.9KB",
+      "publicUrl": "https://eqqllaiswgkoxrivgmig.supabase.co/storage/v1/object/public/material-images/KM-PUTNAM-PRL.jpg"
+    },
+    {
+      "sku": "KM-PUTNAM-DW",
+      "name": "KraftMaid Putnam Maple Painted",
+      "status": "uploaded",
+      "size": "14.9KB",
+      "publicUrl": "https://eqqllaiswgkoxrivgmig.supabase.co/storage/v1/object/public/material-images/KM-PUTNAM-DW.jpg"
+    },
+    {
+      "sku": "KM-GARRISON-PPC",
+      "name": "KraftMaid Garrison Maple",
+      "status": "cdn-url-stored",
+      "error": "HTTP 404"
+    },
+    {
+      "sku": "WB-HENLOW-GLC",
+      "name": "Wellborn Premier Henlow Square",
+      "status": "cdn-url-stored",
+      "error": "HTTP 404"
+    },
+    {
+      "sku": "WB-PRAIRIE-DFT",
+      "name": "Wellborn Select Prairie",
+      "status": "cdn-url-stored",
+      "error": "HTTP 404"
+    },
+    {
+      "sku": "WB-SONOMA-SHD",
+      "name": "Wellborn Premier Sonoma",
+      "status": "cdn-url-stored",
+      "error": "HTTP 404"
+    },
+    {
+      "sku": "FAB-GALAXY-DOVE",
+      "name": "Fabuwood Allure Galaxy (Dove)",
+      "status": "uploaded",
+      "size": "37.0KB",
+      "publicUrl": "https://eqqllaiswgkoxrivgmig.supabase.co/storage/v1/object/public/material-images/FAB-GALAXY-DOVE.webp"
+    },
+    {
+      "sku": "FAB-FUSION-MCH",
+      "name": "Fabuwood Allure Fusion",
+      "status": "cdn-url-stored",
+      "error": "HTTP 404"
+    },
+    {
+      "sku": "SH-REESE-NM",
+      "name": "Shiloh Cabinetry Reese",
+      "status": "uploaded",
+      "size": "5.1KB",
+      "publicUrl": "https://eqqllaiswgkoxrivgmig.supabase.co/storage/v1/object/public/material-images/SH-REESE-NM.jpg"
+    },
+    {
+      "sku": "704.682.84",
+      "name": "IKEA AXSTAD",
+      "status": "uploaded",
+      "size": "23.6KB",
+      "publicUrl": "https://eqqllaiswgkoxrivgmig.supabase.co/storage/v1/object/public/material-images/704.682.84.jpg"
+    },
+    {
+      "sku": "302.210.53",
+      "name": "IKEA BODBYN",
+      "status": "uploaded",
+      "size": "22.3KB",
+      "publicUrl": "https://eqqllaiswgkoxrivgmig.supabase.co/storage/v1/object/public/material-images/302.210.53.jpg"
+    },
+    {
+      "sku": "CTG-SHKELITE-W",
+      "name": "Cabinets To Go Shaker Elite",
+      "status": "cdn-url-stored",
+      "error": "HTTP 404"
+    },
+    {
+      "sku": "CTG-TUSCANY-SDL",
+      "name": "Cabinets To Go Tuscany",
+      "status": "cdn-url-stored",
+      "error": "HTTP 404"
+    },
+    {
+      "sku": "KM-COLORCAST-SB",
+      "name": "KraftMaid ColorCast Cottage",
+      "status": "cdn-url-stored",
+      "error": "HTTP 404"
+    },
+    {
+      "sku": "WS-BASE-36",
+      "name": "White Shaker Cabinet",
+      "status": "uploaded",
+      "size": "14.9KB",
+      "publicUrl": "https://eqqllaiswgkoxrivgmig.supabase.co/storage/v1/object/public/material-images/WS-BASE-36.jpg"
+    },
+    {
+      "sku": "WFP-WAL-01",
+      "name": "Natural Walnut Flat Panel",
+      "status": "cdn-url-stored",
+      "error": "HTTP 404"
+    },
+    {
+      "sku": "VOXTORP-GRY",
+      "name": "Matte Grey Slab Door",
+      "status": "cdn-url-stored",
+      "error": "HTTP 404"
+    },
+    {
+      "sku": "Q-MSI-CALALT",
+      "name": "MSI Calacatta Alto",
+      "status": "cdn-url-stored",
+      "error": "HTTP 404"
+    },
+    {
+      "sku": "BQ8860",
+      "name": "Vicostone Taj Mahal",
+      "status": "cdn-url-stored",
+      "error": "HTTP 404"
+    },
+    {
+      "sku": "NQ30-FRWHT",
+      "name": "Daltile One Quartz Luminesce",
+      "status": "uploaded",
+      "size": "69.0KB",
+      "publicUrl": "https://eqqllaiswgkoxrivgmig.supabase.co/storage/v1/object/public/material-images/NQ30-FRWHT.jpg"
+    },
+    {
+      "sku": "HG-AB-3CM",
+      "name": "Honed Granite - Absolute Black",
+      "status": "cdn-url-stored",
+      "error": "HTTP 404"
+    },
+    {
+      "sku": "010036MOD1P4",
+      "name": "Daltile Rittenhouse Square Subway",
+      "status": "cdn-url-stored",
+      "error": "HTTP 403"
+    },
+    {
+      "sku": "DT-CNTP-WC",
+      "name": "Daltile Contempee Crackle Wall Tile",
+      "status": "cdn-url-stored",
+      "error": "HTTP 403"
+    },
+    {
+      "sku": "DT-ARTJWL-PB",
+      "name": "Daltile Artefino Jewel Mosaic",
+      "status": "cdn-url-stored",
+      "error": "HTTP 403"
+    },
+    {
+      "sku": "99433",
+      "name": "Jeffrey Court Bling Series Lamport",
+      "status": "cdn-url-stored",
+      "error": "HTTP 403"
+    },
+    {
+      "sku": "99788",
+      "name": "Jeffrey Court Classic Statuario Mosaic",
+      "status": "cdn-url-stored",
+      "error": "HTTP 403"
+    },
+    {
+      "sku": "97935",
+      "name": "Jeffrey Court European Countryside",
+      "status": "cdn-url-stored",
+      "error": "HTTP 403"
+    },
+    {
+      "sku": "DECCLOSWHT28G",
+      "name": "Bedrosians Cloe Ceramic Subway (White)",
+      "status": "uploaded",
+      "size": "99.4KB",
+      "publicUrl": "https://eqqllaiswgkoxrivgmig.supabase.co/storage/v1/object/public/material-images/DECCLOSWHT28G.jpg"
+    },
+    {
+      "sku": "DECCLOCRM28G",
+      "name": "Bedrosians Cloe Ceramic Subway (Creme)",
+      "status": "uploaded",
+      "size": "283.5KB",
+      "publicUrl": "https://eqqllaiswgkoxrivgmig.supabase.co/storage/v1/object/public/material-images/DECCLOCRM28G.jpg"
+    },
+    {
+      "sku": "DECCLOBLU28G",
+      "name": "Bedrosians Cloe Ceramic Subway (Baby Blue)",
+      "status": "uploaded",
+      "size": "187.9KB",
+      "publicUrl": "https://eqqllaiswgkoxrivgmig.supabase.co/storage/v1/object/public/material-images/DECCLOBLU28G.jpg"
+    },
+    {
+      "sku": "AMZ-M-00318",
+      "name": "MSI Antique White Beveled Subway",
+      "status": "cdn-url-stored",
+      "error": "HTTP 404"
+    },
+    {
+      "sku": "SMOT-ARA-WHT",
+      "name": "MSI Arabesque Bianco Ceramic",
+      "status": "cdn-url-stored",
+      "error": "read ECONNRESET"
+    },
+    {
+      "sku": "CLE-ZLG-MRCBLU",
+      "name": "Clé Tile Zellige (Moroccan Blue)",
+      "status": "cdn-url-stored",
+      "error": "HTTP 404"
+    },
+    {
+      "sku": "CW02-22PM1P",
+      "name": "Daltile Color Wheel Mosaic",
+      "status": "cdn-url-stored",
+      "error": "HTTP 403"
+    },
+    {
+      "sku": "WMS-3x6",
+      "name": "White Marble Subway Tile 3x6",
+      "status": "cdn-url-stored",
+      "error": "HTTP 403"
+    },
+    {
+      "sku": "MWLF-12x24",
+      "name": "Matte White Large Format Porcelain",
+      "status": "cdn-url-stored",
+      "error": "HTTP 403"
+    },
+    {
+      "sku": "BP53012CZ",
+      "name": "Amerock Ravino Knob",
+      "status": "cdn-url-stored",
+      "error": "HTTP 403"
+    },
+    {
+      "sku": "BP55275BBZ",
+      "name": "Amerock Blackrock Pull",
+      "status": "cdn-url-stored",
+      "error": "HTTP 403"
+    },
+    {
+      "sku": "BP36909BBZ",
+      "name": "Amerock Monument Pull",
+      "status": "cdn-url-stored",
+      "error": "HTTP 403"
+    },
+    {
+      "sku": "M1281",
+      "name": "Top Knobs Charlotte Bar Pull (Brushed Satin Nickel)",
+      "status": "cdn-url-stored",
+      "error": "HTTP 404"
+    },
+    {
+      "sku": "TK3000BLK",
+      "name": "Top Knobs Ellis Mushroom Knob",
+      "status": "uploaded",
+      "size": "1.7KB",
+      "publicUrl": "https://eqqllaiswgkoxrivgmig.supabase.co/storage/v1/object/public/material-images/TK3000BLK.jpg"
+    },
+    {
+      "sku": "EMT-ALEXANDER-6-FB",
+      "name": "Emtek Alexander Cabinet Pull",
+      "status": "uploaded",
+      "size": "1742.8KB",
+      "publicUrl": "https://eqqllaiswgkoxrivgmig.supabase.co/storage/v1/object/public/material-images/EMT-ALEXANDER-6-FB.jpg"
+    },
+    {
+      "sku": "BP734544CHBRZ",
+      "name": "Richelieu Expressions Modern Knob",
+      "status": "cdn-url-stored",
+      "error": "Parse Error: Header overflow"
+    },
+    {
+      "sku": "P29542Z-FB-B",
+      "name": "Liberty Lombard Round Knob",
+      "status": "cdn-url-stored",
+      "error": "HTTP 403"
+    },
+    {
+      "sku": "P17890V-VBR-C",
+      "name": "Franklin Brass Vignette Dual Mount Pull",
+      "status": "cdn-url-stored",
+      "error": "HTTP 403"
+    },
+    {
+      "sku": "BRN-GARRETT-BB",
+      "name": "Brainerd Garrett Knob",
+      "status": "cdn-url-stored",
+      "error": "HTTP 403"
+    },
+    {
+      "sku": "BP55355CZ",
+      "name": "Amerock Revitalize Pull",
+      "status": "cdn-url-stored",
+      "error": "HTTP 403"
+    },
+    {
+      "sku": "BP5016192195",
+      "name": "Richelieu Greenwich Pull",
+      "status": "cdn-url-stored",
+      "error": "Parse Error: Header overflow"
+    },
+    {
+      "sku": "BB-PULL-5",
+      "name": "Brushed Brass Pull - 5 inch",
+      "status": "cdn-url-stored",
+      "error": "HTTP 403"
+    },
+    {
+      "sku": "MB-BAR-6",
+      "name": "Matte Black Bar Pull - 6 inch",
+      "status": "cdn-url-stored",
+      "error": "HTTP 403"
+    },
+    {
+      "sku": "BN-KNOB-1",
+      "name": "Brushed Nickel Knob",
+      "status": "cdn-url-stored",
+      "error": "HTTP 403"
+    },
+    {
+      "sku": "DC-003",
+      "name": "Behr Blank Canvas",
+      "status": "uploaded",
+      "size": "3.1KB",
+      "publicUrl": "https://eqqllaiswgkoxrivgmig.supabase.co/storage/v1/object/public/material-images/DC-003.png"
+    },
+    {
+      "sku": "PPU4-13",
+      "name": "Behr Wheat Bread",
+      "status": "uploaded",
+      "size": "2.9KB",
+      "publicUrl": "https://eqqllaiswgkoxrivgmig.supabase.co/storage/v1/object/public/material-images/PPU4-13.png"
+    },
+    {
+      "sku": "PPU11-05",
+      "name": "Behr Urban Nature",
+      "status": "uploaded",
+      "size": "3.3KB",
+      "publicUrl": "https://eqqllaiswgkoxrivgmig.supabase.co/storage/v1/object/public/material-images/PPU11-05.png"
+    },
+    {
+      "sku": "PPU4-04",
+      "name": "Behr Even Better Beige",
+      "status": "uploaded",
+      "size": "3.3KB",
+      "publicUrl": "https://eqqllaiswgkoxrivgmig.supabase.co/storage/v1/object/public/material-images/PPU4-04.png"
+    },
+    {
+      "sku": "OC-65",
+      "name": "Benjamin Moore Chantilly Lace OC-65",
+      "status": "uploaded",
+      "size": "23.3KB",
+      "publicUrl": "https://eqqllaiswgkoxrivgmig.supabase.co/storage/v1/object/public/material-images/OC-65.jpg"
+    }
+  ],
+  "summary": {
+    "uploaded": 22,
+    "cdn_stored": 45,
+    "failed": 0,
+    "total": 67
+  }
+}
