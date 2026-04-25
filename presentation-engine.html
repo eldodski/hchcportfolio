@@ -556,7 +556,65 @@ body {
 
 .feedback-warning { background: #FFF3E0; color: #E65100; }
 .feedback-suggestion { background: #E8F5E9; color: #2E7D32; }
+.feedback-style { background: #FFF8E1; color: #F57F17; }
 .feedback-icon { flex-shrink: 0; }
+
+/* --- Style Recommendation Tags --- */
+.style-recommended-tag {
+  display: inline-block;
+  font-size: 0.58rem;
+  font-weight: 300;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--gold);
+  background: #FFF8E1;
+  padding: 1px 6px;
+  margin-left: 6px;
+  vertical-align: middle;
+}
+
+.style-select-group {
+  margin-bottom: 14px;
+}
+
+.style-select-group label {
+  display: block;
+  font-size: 0.72rem;
+  font-weight: 300;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--mocha);
+  margin-bottom: 4px;
+}
+
+.style-select-group select {
+  width: 100%;
+  font-family: var(--body);
+  font-weight: 300;
+  font-size: 0.88rem;
+  padding: 10px 12px;
+  border: 1px solid var(--sand);
+  background: #fff;
+  color: var(--espresso);
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.style-select-group select:focus { border-color: var(--navy); }
+
+.style-description {
+  font-size: 0.78rem;
+  font-style: italic;
+  color: var(--mocha);
+  line-height: 1.5;
+  margin-top: 6px;
+  padding: 8px 10px;
+  background: var(--ivory);
+  border-left: 3px solid var(--gold);
+  display: none;
+}
+
+.style-description.visible { display: block; }
 
 /* --- Generate Button --- */
 .generate-section {
@@ -820,6 +878,16 @@ body {
       <input type="text" id="address" placeholder="e.g., 1842 Clover Pass, Boerne TX" oninput="updatePreview()">
     </div>
 
+    <div class="section-label">Design Style</div>
+
+    <div class="style-select-group">
+      <label for="design-style">Style Filter</label>
+      <select id="design-style" onchange="onDesignStyleChange(this.value)">
+        <option value="">No Style Filter</option>
+      </select>
+      <div class="style-description" id="style-description"></div>
+    </div>
+
     <!-- Status Indicator -->
     <div class="status-bar" id="status-bar">
       <span class="status-dot" id="status-dot" style="background: #9E9E9E;"></span>
@@ -887,6 +955,8 @@ body {
 // STATE
 // ============================================================
 let allMaterials = [];
+let stylesData = [];
+let selectedStyle = null;
 let moodBoardUrl = null;
 let currentReport = null;
 let roomIdCounter = 0;
@@ -957,7 +1027,7 @@ const INSTALL_PLACEHOLDERS = {
 // INIT
 // ============================================================
 document.addEventListener('DOMContentLoaded', async () => {
-  await loadMaterials();
+  await Promise.all([loadMaterials(), loadStyles()]);
   // Default rooms: Kitchen + Owner's Bath
   addRoom('kitchen');
   addRoom('bathroom');
@@ -971,6 +1041,86 @@ async function loadMaterials() {
     console.error('Failed to load materials:', err);
     allMaterials = [];
   }
+}
+
+async function loadStyles() {
+  try {
+    const res = await fetch('data/styles.json');
+    const data = await res.json();
+    stylesData = data.styles || [];
+    populateStyleDropdown();
+  } catch (err) {
+    console.error('Failed to load styles:', err);
+    stylesData = [];
+  }
+}
+
+function populateStyleDropdown() {
+  const select = document.getElementById('design-style');
+  stylesData.forEach(style => {
+    const opt = document.createElement('option');
+    opt.value = style.id;
+    opt.textContent = style.name;
+    select.appendChild(opt);
+  });
+}
+
+function onDesignStyleChange(styleId) {
+  selectedStyle = stylesData.find(s => s.id === styleId) || null;
+  const descEl = document.getElementById('style-description');
+  if (selectedStyle) {
+    descEl.textContent = selectedStyle.description;
+    descEl.classList.add('visible');
+  } else {
+    descEl.textContent = '';
+    descEl.classList.remove('visible');
+  }
+  renderRooms();
+  updatePreview();
+}
+
+function materialMatchesStyle(material, category, style) {
+  if (!style || !material) return false;
+  const prefs = style.preferences[category];
+  if (!prefs) return false;
+
+  const toneMatch = prefs.tones && material.tone && prefs.tones.includes(material.tone);
+
+  const nameStr = ((material.name || '') + ' ' + (material.series || '') + ' ' + (material.material_type || '')).toLowerCase();
+  const keywordMatch = prefs.keywords && prefs.keywords.some(kw => nameStr.includes(kw.toLowerCase()));
+
+  return toneMatch || keywordMatch;
+}
+
+function materialViolatesStyle(material, category, style) {
+  if (!style || !material) return [];
+  const violations = [];
+  const restrictions = style.restrictions || [];
+  const nameStr = ((material.name || '') + ' ' + (material.series || '') + ' ' + (material.vendor || '')).toLowerCase();
+  const toneStr = (material.tone || '').toLowerCase();
+
+  restrictions.forEach(r => {
+    const rLower = r.toLowerCase();
+    // Check for tone-based restrictions
+    if (rLower.includes('cool') && rLower.includes('avoid') && toneStr === 'cool') {
+      violations.push(r);
+    }
+    if (rLower.includes('warm') && rLower.includes('avoid') && toneStr === 'warm') {
+      violations.push(r);
+    }
+    // Check for keyword-based restrictions
+    if (rLower.includes('high-gloss') && nameStr.includes('gloss')) {
+      violations.push(r);
+    }
+    if (rLower.includes('industrial') && nameStr.includes('industrial')) {
+      violations.push(r);
+    }
+    if (rLower.includes('ornate') && nameStr.includes('ornate')) {
+      violations.push(r);
+    }
+  });
+
+  return violations;
 }
 
 // ============================================================
@@ -1303,7 +1453,7 @@ function buildFlooringBlock(roomId, idx, state, canRemove) {
           </select>
         </div>
       </div>
-      ${state.material ? buildMaterialDisplay(state.material) : ''}
+      ${state.material ? buildMaterialDisplay(state.material, 'flooring') : ''}
       <input type="text" class="install-notes-input" value="${esc(state.installNotes)}"
              placeholder="${INSTALL_PLACEHOLDERS.flooring}"
              oninput="syncFlooringNotes('${roomId}', ${idx}, this.value)">
@@ -1481,7 +1631,7 @@ function buildCascadeCard(roomId, cat, state) {
           </select>
         </div>
       </div>
-      ${state.material ? buildMaterialDisplay(state.material) : ''}
+      ${state.material ? buildMaterialDisplay(state.material, cat) : ''}
       <input type="text" class="install-notes-input" value="${esc(state.installNotes)}"
              placeholder="${INSTALL_PLACEHOLDERS[cat] || 'Installation notes'}"
              oninput="syncCascadeNotes('${roomId}', '${cat}', this.value)">
@@ -1580,7 +1730,7 @@ function buildInlineCascade(roomId, path, state, category) {
         </select>
       </div>
     </div>
-    ${state.material ? buildMaterialDisplay(state.material) : ''}
+    ${state.material ? buildMaterialDisplay(state.material, category) : ''}
   `;
 }
 
@@ -1728,13 +1878,15 @@ function findMaterial(cat, vendor, series, color) {
   ) || null;
 }
 
-function buildMaterialDisplay(mat) {
+function buildMaterialDisplay(mat, category) {
   if (!mat) return '';
+  const isRecommended = selectedStyle && category && materialMatchesStyle(mat, category, selectedStyle);
+  const recTag = isRecommended ? '<span class="style-recommended-tag">Recommended</span>' : '';
   return `
     <div class="material-selected-display">
       ${mat.image_url ? `<img src="${mat.image_url}" alt="${mat.name}">` : ''}
       <div>
-        <div class="material-selected-name">${esc(mat.name)}<span class="tone-dot tone-${mat.tone}"></span></div>
+        <div class="material-selected-name">${esc(mat.name)}<span class="tone-dot tone-${mat.tone}"></span>${recTag}</div>
         <div class="material-selected-meta">${mat.tone || ''} ${mat.price_tier ? '&middot; ' + mat.price_tier : ''}</div>
       </div>
     </div>
@@ -1785,6 +1937,43 @@ function runRuleEngine() {
 
   currentReport = evaluateSelections(flatSelections);
 
+  // Style-based scoring adjustments
+  if (selectedStyle && currentReport.status !== 'incomplete') {
+    let styleBonus = 0;
+    let styleCount = 0;
+    const styleWarnings = [];
+
+    Object.entries(flatSelections).forEach(([key, mat]) => {
+      // Extract category from the key (e.g., "Kitchen-cabinetry" -> "cabinetry")
+      const parts = key.split('-');
+      const cat = parts[parts.length - 1].replace(/\d+$/, ''); // strip trailing numbers
+      if (selectedStyle.preferences[cat]) {
+        styleCount++;
+        if (materialMatchesStyle(mat, cat, selectedStyle)) {
+          styleBonus += 5;
+        }
+        const violations = materialViolatesStyle(mat, cat, selectedStyle);
+        violations.forEach(v => {
+          styleWarnings.push(`${esc(mat.name)} (${capitalize(cat)}): ${v}`);
+        });
+      }
+    });
+
+    if (styleCount > 0) {
+      const avgBonus = Math.round(styleBonus / styleCount);
+      currentReport.overallScore = Math.min(100, currentReport.overallScore + avgBonus);
+    }
+
+    styleWarnings.forEach(w => {
+      currentReport.warnings.push(w);
+    });
+
+    // Recalculate status after style adjustments
+    if (currentReport.overallScore >= 80) currentReport.status = 'good';
+    else if (currentReport.overallScore >= 60) currentReport.status = 'warning';
+    else currentReport.status = 'conflict';
+  }
+
   const dot = document.getElementById('status-dot');
   const label = document.getElementById('status-label');
   const score = document.getElementById('status-score');
@@ -1822,12 +2011,14 @@ function updatePreview() {
   const date = new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
 
   // Cover
+  const styleLine = selectedStyle ? `<p class="preview-cover-builder" style="color: var(--gold); margin-top: 8px;">Style: ${esc(selectedStyle.name)}</p>` : '';
   let html = `
     <div class="preview-cover">
       <div class="preview-cover-brand">Hill Country Home Concepts</div>
       <h2>${esc(projectName)}</h2>
       ${clientName ? `<p class="preview-cover-client">Prepared for ${esc(clientName)}</p>` : ''}
       ${builderName ? `<p class="preview-cover-builder">Builder: ${esc(builderName)}</p>` : ''}
+      ${styleLine}
       <p class="preview-cover-date">${date}</p>
     </div>
   `;
@@ -1994,7 +2185,8 @@ function generatePresentation() {
     address: document.getElementById('address').value,
     rooms: rooms,
     moodBoardUrl: moodBoardUrl,
-    report: currentReport
+    report: currentReport,
+    designStyle: selectedStyle
   };
 
   const html = generatePresentationHTML(data);

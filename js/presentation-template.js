@@ -2,7 +2,7 @@
 // Produces a clean, print-ready HTML document organized by room
 
 function generatePresentationHTML(data) {
-  const { projectName, clientName, builderName, address, rooms, moodBoardUrl, report } = data;
+  const { projectName, clientName, builderName, address, rooms, moodBoardUrl, report, designStyle } = data;
   const date = new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
 
   // Build room pages
@@ -349,6 +349,7 @@ function generatePresentationHTML(data) {
   <p class="cover-subtitle">${clientName ? `Prepared for ${escT(clientName)}` : 'Interior Design Selections'}</p>
   ${builderName ? `<p class="cover-builder">Builder: ${escT(builderName)}</p>` : ''}
   ${address ? `<p class="cover-subtitle" style="font-size: 0.88rem; color: var(--sand);">${escT(address)}</p>` : ''}
+  ${designStyle ? `<p class="cover-builder" style="color: var(--gold); margin-top: 8px;">Style: ${escT(designStyle.name)}</p>` : ''}
   <p class="cover-meta">${date}</p>
 </div>
 
