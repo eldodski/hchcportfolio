@@ -148,6 +148,10 @@ nav ul li a::after {
 nav ul li a:hover { color: var(--navy); }
 nav ul li a:hover::after { width: 100%; }
 
+#auth-nav-link.authenticated { color: var(--gold); font-weight: 400; }
+#auth-nav-link.authenticated::after { background: var(--gold); }
+#auth-nav-link.authenticated:hover { color: var(--navy); }
+
 .nav-toggle { display: none; background: none; border: none; cursor: pointer; padding: 8px; }
 .nav-toggle span { display: block; width: 22px; height: 1.5px; background: var(--espresso); margin: 5px 0; transition: 0.3s; }
 
@@ -746,6 +750,7 @@ footer .copyright {
       <li><a href="#about">About</a></li>
       <li><a href="#services">Services</a></li>
       <li><a href="#inquire">Inquire</a></li>
+      <li><a href="dashboard.html" id="auth-nav-link">Sign In</a></li>
     </ul>
   </div>
 </nav>
@@ -1037,6 +1042,29 @@ footer .copyright {
   </div>
   <p class="copyright">&copy; 2026 Hill Country Home Concepts. All rights reserved.</p>
 </footer>
+
+<!-- ========== CLERK AUTH (nav link state) ========== -->
+<script
+  data-clerk-publishable-key="pk_test_cmFwaWQtbWFja2VyZWwtMjguY2xlcmsuYWNjb3VudHMuZGV2JA"
+  src="https://cdn.jsdelivr.net/npm/@clerk/clerk-js@4/dist/clerk.browser.js"
+  async>
+</script>
+<script src="js/clerk-auth.js"></script>
+<script>
+(async function updateAuthNavLink() {
+  const link = document.getElementById('auth-nav-link');
+  if (!link) return;
+  const clerk = await initClerk();
+  if (clerk && clerk.user) {
+    link.textContent = 'Dashboard';
+    link.href = 'dashboard.html';
+    link.classList.add('authenticated');
+  } else {
+    link.textContent = 'Sign In';
+    link.href = 'dashboard.html';
+  }
+})();
+</script>
 
 <!-- ========== SCROLL ANIMATION ========== -->
 <script>
