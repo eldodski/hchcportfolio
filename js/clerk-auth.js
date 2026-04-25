@@ -37,6 +37,15 @@ function isSignedIn() {
   return !!_clerk.user;
 }
 
+// TODO [PRODUCTION SECURITY]: User roles are currently set via unsafeMetadata
+// during sign-up (see openSignUp below). unsafeMetadata is client-writable,
+// meaning any user could change their own role via browser devtools.
+//
+// For production, roles MUST be set via Clerk Backend API or a Clerk webhook
+// that writes to publicMetadata (which is read-only on the client). The
+// fallback chain below (publicMetadata -> unsafeMetadata -> default) is
+// structured so that once publicMetadata.role is set server-side, it takes
+// precedence. This is safe for development but must be hardened before launch.
 function getUserRole() {
   const user = getUser();
   if (!user) return null;
@@ -122,7 +131,7 @@ function openSignUp() {
       }
     },
     unsafeMetadata: {
-      role: 'builder' // Default, user selects during onboarding
+      role: 'builder' // TODO [PRODUCTION]: Move to server-side publicMetadata (see getUserRole comment)
     }
   });
 }

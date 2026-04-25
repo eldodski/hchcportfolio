@@ -716,9 +716,7 @@ function mode(arr) {
   return Object.keys(freq).reduce((a, b) => freq[a] >= freq[b] ? a : b);
 }
 
-function capitalize(str) {
-  return str.charAt(0).toUpperCase() + str.slice(1);
-}
+// capitalize() is defined in design-rules.js (loaded before this file)
 
 function escT(str) {
   if (!str) return '';
