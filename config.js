@@ -10,7 +10,6 @@ const HCHC_CONFIG = {
     anonKey: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVxcWxsYWlzd2drb3hyaXZnbWlnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzY0NjY5NjAsImV4cCI6MjA5MjA0Mjk2MH0.D8KuzcRktLom6lTL7QChPih8CmZaThEpjy5lGYl-ZAM'
   },
   gemini: {
-    apiKey: 'AIzaSyBpI93DyViybejX_sDrkfsplRB6get3Uys',
     model: 'gemini-2.5-flash-image'
   }
 };
