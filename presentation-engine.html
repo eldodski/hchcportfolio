@@ -2069,9 +2069,15 @@ async function enhanceMoodBoard(file) {
       }
     );
 
-    if (!response.ok) throw new Error(`Gemini API ${response.status}`);
-
     const result = await response.json();
+
+    if (!response.ok) {
+      const msg = result.error?.message || '';
+      if (msg.includes('quota') || msg.includes('RESOURCE_EXHAUSTED')) {
+        throw new Error('QUOTA');
+      }
+      throw new Error(`Gemini API ${response.status}: ${msg.substring(0, 100)}`);
+    }
 
     // Find image part in response
     const parts = result.candidates?.[0]?.content?.parts || [];
@@ -2087,7 +2093,11 @@ async function enhanceMoodBoard(file) {
     }
   } catch (err) {
     console.error('Gemini enhancement failed:', err);
-    showToast('AI enhancement failed — using original photo', 'info');
+    if (err.message === 'QUOTA') {
+      showToast('AI image generation requires Google billing — using original photo', 'info');
+    } else {
+      showToast('AI enhancement failed — using original photo', 'info');
+    }
   } finally {
     previewDiv.classList.remove('mood-board-loading');
     updatePreview();
