@@ -2047,7 +2047,7 @@ async function enhanceMoodBoard(file) {
     const base64 = await fileToBase64(file);
     const mimeType = file.type || 'image/jpeg';
 
-    const prompt = 'Transform this flat lay of material samples into a polished, editorial-quality interior design mood board photograph. Remove all labels, stickers, price tags, and text from every sample. Arrange the materials in a clean, balanced grid composition on a neutral surface. Add soft, even overhead lighting with gentle shadows. Style the scene with small design props like a pen, compass, or copper accents. The final image should look like a professional magazine photo shoot with soft balanced lighting and no text anywhere.';
+    const prompt = 'Edit this interior design material flat lay photo. CRITICAL: You must completely remove ALL text, labels, stickers, price tags, brand names, barcodes, and any writing visible on any surface or sample. Replace any area that had text with a clean continuation of the underlying material texture. Then enhance the image: even out the lighting to soft overhead studio lighting, clean up the background to a uniform neutral surface, and add subtle styling props (a pen, small compass, or copper ring). The result must contain absolutely zero readable or garbled text anywhere in the image.';
 
     const response = await fetch('/api/gemini', {
       method: 'POST',
