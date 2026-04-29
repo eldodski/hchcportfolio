@@ -994,7 +994,7 @@ body {
         <img id="mood-board-thumb" src="" alt="Mood board preview">
       </div>
       <div class="mood-board-prompt">
-        Boost this image into a cover worthy mood board for interior design. Keep the existing colors and materials consistent with the image, but remove all labels and text from the image.
+        Boost this image into a cover worthy mood board for an interior design magazine. Keep the existing colors and materials consistent with the image, but remove all labels and text from the image.
       </div>
     </div>
 
@@ -2047,7 +2047,7 @@ async function enhanceMoodBoard(file) {
     const base64 = await fileToBase64(file);
     const mimeType = file.type || 'image/jpeg';
 
-    const prompt = 'Edit this interior design material flat lay photo. CRITICAL: You must completely remove ALL text, labels, stickers, price tags, brand names, barcodes, and any writing visible on any surface or sample. Replace any area that had text with a clean continuation of the underlying material texture. Then enhance the image: even out the lighting to soft overhead studio lighting, clean up the background to a uniform neutral surface, and add subtle styling props (a pen, small compass, or copper ring). The result must contain absolutely zero readable or garbled text anywhere in the image.';
+    const prompt = 'Boost this image into a cover worthy mood board for an interior design magazine. Keep the existing colors and materials consistent with the image, but remove all labels and text from the image.';
 
     const response = await fetch('/api/gemini', {
       method: 'POST',
