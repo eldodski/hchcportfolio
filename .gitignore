@@ -4,6 +4,9 @@ node_modules/
 # Environment / secrets
 .env
 .env.local
+*API Key*
+*api*key*
+supabase-keys.json
 
 # OS files
 .DS_Store
