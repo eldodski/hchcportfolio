@@ -129,3 +129,29 @@ async function uploadProjectFile(file, projectId) {
   const { data: urlData } = sb.storage.from('uploads').getPublicUrl(filename);
   return urlData.publicUrl;
 }
+
+// ============ PRESENTATION SAVE/LOAD ============
+
+async function getProject(id) {
+  const sb = getSupabase();
+  const { data, error } = await sb.from('projects').select('*').eq('id', id).single();
+  if (error) { console.error('getProject error:', error); return null; }
+  return data;
+}
+
+async function uploadPresentation(projectId, htmlContent) {
+  const sb = getSupabase();
+  const filename = `${projectId}/${Date.now()}-presentation.html`;
+  const blob = new Blob([htmlContent], { type: 'text/html' });
+
+  const { error } = await sb.storage.from('presentations').upload(filename, blob, {
+    contentType: 'text/html',
+    cacheControl: '3600',
+    upsert: true
+  });
+
+  if (error) { console.error('uploadPresentation error:', error); throw error; }
+
+  const { data: urlData } = sb.storage.from('presentations').getPublicUrl(filename);
+  return urlData.publicUrl;
+}

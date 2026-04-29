@@ -526,8 +526,9 @@ function renderProjects(projects) {
   container.innerHTML = recent.map(p => {
     const date = new Date(p.created_at).toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
     const statusClass = (p.status || 'submitted').replace(/\s+/g, '-');
+    const link = `/presentation-engine.html?project=${p.id}`;
     return `
-      <div class="project-item">
+      <a href="${link}" class="project-item" style="text-decoration: none; color: inherit; cursor: pointer;">
         <div>
           <div class="project-name">${p.name}</div>
           ${p.client_name ? `<div class="project-client">${p.client_name}</div>` : ''}
@@ -536,7 +537,7 @@ function renderProjects(projects) {
           <span class="status-pill status-${statusClass}">${p.status || 'submitted'}</span>
           <div class="project-date">${date}</div>
         </div>
-      </div>`;
+      </a>`;
   }).join('');
 }
 

@@ -426,18 +426,19 @@ function buildMaterialCard(label, mat, notes) {
 // BATHROOM PAGE
 // ============================================================
 function buildBathroomPage(room) {
+  const photoCards = [];
   let specGroups = '';
 
-  // Water Fixtures
+  // Water Fixtures — spec rows for type, photo cards for tile materials
   const fixtureRows = [];
   room.waterFixtures.forEach((f, i) => {
     if (!f.type) return;
     fixtureRows.push(`<tr><td>Fixture ${i + 1}</td><td>${escT(f.type)}</td></tr>`);
     if (f.surroundTile && f.surroundTile.material) {
-      fixtureRows.push(`<tr><td style="padding-left: 24px;">Surround Tile</td><td>${formatMaterialCell(f.surroundTile)}</td></tr>`);
+      photoCards.push(buildMaterialCard('Surround Tile', f.surroundTile.material, ''));
     }
     if (f.floorTile && f.floorTile.material) {
-      fixtureRows.push(`<tr><td style="padding-left: 24px;">Floor Tile</td><td>${formatMaterialCell(f.floorTile)}</td></tr>`);
+      photoCards.push(buildMaterialCard('Floor Tile', f.floorTile.material, ''));
     }
   });
 
@@ -449,13 +450,15 @@ function buildBathroomPage(room) {
       </div>`;
   }
 
-  // Niches & Details
+  // Niches & Details — spec rows + photo card for decorative tile
   if (room.niches && (room.niches.styleName || room.niches.decorativeTile.material)) {
     const nicheRows = [];
     if (room.niches.styleName) nicheRows.push(`<tr><td>Niche Style</td><td>${escT(room.niches.styleName)}</td></tr>`);
     if (room.niches.shelfMaterial) nicheRows.push(`<tr><td>Shelf Material</td><td>${escT(room.niches.shelfMaterial)}</td></tr>`);
-    if (room.niches.decorativeTile.material) nicheRows.push(`<tr><td>Decorative Tile</td><td>${formatMaterialCell(room.niches.decorativeTile)}</td></tr>`);
     nicheRows.push(`<tr><td>Placement</td><td>${escT(room.niches.placement)}</td></tr>`);
+    if (room.niches.decorativeTile.material) {
+      photoCards.push(buildMaterialCard('Niche Deco Tile', room.niches.decorativeTile.material, ''));
+    }
 
     specGroups += `
       <div class="spec-group">
@@ -464,7 +467,7 @@ function buildBathroomPage(room) {
       </div>`;
   }
 
-  // Accents
+  // Accents — spec rows + photo card for interior tile
   if (room.accents && room.accents.type !== 'None') {
     const accentRows = [];
     accentRows.push(`<tr><td>Type</td><td>${escT(room.accents.type)}</td></tr>`);
@@ -475,7 +478,7 @@ function buildBathroomPage(room) {
       if (room.accents.size) accentRows.push(`<tr><td>Size</td><td>${escT(room.accents.size)}</td></tr>`);
       accentRows.push(`<tr><td>Pencil Rail</td><td>${room.accents.pencilRail ? 'Yes' : 'No'}</td></tr>`);
       if (room.accents.interiorTile.material) {
-        accentRows.push(`<tr><td>Interior Tile</td><td>${formatMaterialCell(room.accents.interiorTile)}</td></tr>`);
+        photoCards.push(buildMaterialCard('Accent Tile', room.accents.interiorTile.material, ''));
       }
     }
 
@@ -486,31 +489,33 @@ function buildBathroomPage(room) {
       </div>`;
   }
 
-  // Tub Deck
-  if (room.tubDeck && (room.tubDeck.skirtTile.material || room.tubDeck.deckTile.material || room.tubDeck.splashTile.material)) {
+  // Tub Deck — photo cards for tile materials
+  if (room.tubDeck) {
     const tubRows = [];
-    if (room.tubDeck.skirtTile.material) tubRows.push(`<tr><td>Skirt Tile</td><td>${formatMaterialCell(room.tubDeck.skirtTile)}</td></tr>`);
-    if (room.tubDeck.deckTile.material) tubRows.push(`<tr><td>Deck Tile</td><td>${formatMaterialCell(room.tubDeck.deckTile)}</td></tr>`);
-    if (room.tubDeck.splashTile.material) tubRows.push(`<tr><td>Splash Tile</td><td>${formatMaterialCell(room.tubDeck.splashTile)}</td></tr>`);
+    if (room.tubDeck.skirtTile.material) photoCards.push(buildMaterialCard('Tub Skirt', room.tubDeck.skirtTile.material, ''));
+    if (room.tubDeck.deckTile.material) photoCards.push(buildMaterialCard('Tub Deck', room.tubDeck.deckTile.material, ''));
+    if (room.tubDeck.splashTile.material) photoCards.push(buildMaterialCard('Tub Splash', room.tubDeck.splashTile.material, ''));
     if (room.tubDeck.accentBandNotes) tubRows.push(`<tr><td>Accent Band</td><td>${escT(room.tubDeck.accentBandNotes)}</td></tr>`);
 
-    specGroups += `
-      <div class="spec-group">
-        <div class="spec-group-title">Tub Deck</div>
-        <table class="spec-table">${tubRows.join('')}</table>
-      </div>`;
+    if (tubRows.length > 0) {
+      specGroups += `
+        <div class="spec-group">
+          <div class="spec-group-title">Tub Deck</div>
+          <table class="spec-table">${tubRows.join('')}</table>
+        </div>`;
+    }
   }
 
-  // Edge Protection
+  // Edge Protection — photo card for material
   if (room.edgeProtection && room.edgeProtection.type !== 'None') {
     const edgeRows = [];
     edgeRows.push(`<tr><td>Type</td><td>${escT(room.edgeProtection.type)}</td></tr>`);
     if (room.edgeProtection.type === 'Tile Edge' && room.edgeProtection.tileEdge.material) {
-      edgeRows.push(`<tr><td>Tile Edge</td><td>${formatMaterialCell(room.edgeProtection.tileEdge)}</td></tr>`);
+      photoCards.push(buildMaterialCard('Edge (Tile)', room.edgeProtection.tileEdge.material, ''));
     } else if (room.edgeProtection.type === 'Accessory') {
       edgeRows.push(`<tr><td>Accessory Type</td><td>${escT(room.edgeProtection.accessoryType)}</td></tr>`);
       if (room.edgeProtection.accessory.material) {
-        edgeRows.push(`<tr><td>Material</td><td>${formatMaterialCell(room.edgeProtection.accessory)}</td></tr>`);
+        photoCards.push(buildMaterialCard(`Edge (${room.edgeProtection.accessoryType})`, room.edgeProtection.accessory.material, ''));
       }
     }
 
@@ -521,27 +526,20 @@ function buildBathroomPage(room) {
       </div>`;
   }
 
-  // Flooring
-  const flooringRows = [];
+  // Flooring — photo cards
   room.flooring.forEach((f, i) => {
     if (!f.material) return;
     const label = 'Flooring' + (f.materialType ? ` (${f.materialType})` : '') + (room.flooring.length > 1 ? ` ${i + 1}` : '');
-    flooringRows.push(`<tr><td>${escT(label)}</td><td>${formatMaterialCell(f)}${f.installNotes ? `<span class="spec-notes">${escT(f.installNotes)}</span>` : ''}</td></tr>`);
+    photoCards.push(buildMaterialCard(label, f.material, f.installNotes));
   });
 
-  if (flooringRows.length > 0) {
-    specGroups += `
-      <div class="spec-group">
-        <div class="spec-group-title">Flooring</div>
-        <table class="spec-table">${flooringRows.join('')}</table>
-      </div>`;
+  // Paint — photo card
+  if (room.paint && room.paint.material) {
+    photoCards.push(buildMaterialCard('Paint', room.paint.material, room.paint.installNotes));
   }
 
-  // Paint & Hardware
+  // Hardware — spec row
   const finishRows = [];
-  if (room.paint && room.paint.material) {
-    finishRows.push(`<tr><td>Paint</td><td>${formatMaterialCell(room.paint)}${room.paint.installNotes ? `<span class="spec-notes">${escT(room.paint.installNotes)}</span>` : ''}</td></tr>`);
-  }
   if (room.hardware && room.hardware.material) {
     finishRows.push(`<tr><td>Hardware</td><td>${formatMaterialCell(room.hardware)}${room.hardware.installNotes ? `<span class="spec-notes">${escT(room.hardware.installNotes)}</span>` : ''}</td></tr>`);
   }
@@ -554,13 +552,20 @@ function buildBathroomPage(room) {
       </div>`;
   }
 
-  if (!specGroups) return '';
+  if (!specGroups && photoCards.length === 0) return '';
+
+  // Build page with photo cards grid + spec tables
+  const photoGridHTML = photoCards.length > 0 ? `
+    <div class="materials-grid" style="margin-bottom: 32px;">
+      ${photoCards.join('')}
+    </div>` : '';
 
   return `
   <div class="page">
     <span class="page-subheading">${escT(room.label)}<span class="room-type-badge">Bathroom</span></span>
-    <h2>Specification Sheet</h2>
+    <h2>Material Selections &amp; Specifications</h2>
     <div class="divider"></div>
+    ${photoGridHTML}
     ${specGroups}
   </div>`;
 }

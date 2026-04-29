@@ -8,5 +8,9 @@ const HCHC_CONFIG = {
   supabase: {
     url: 'https://eqqllaiswgkoxrivgmig.supabase.co',
     anonKey: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVxcWxsYWlzd2drb3hyaXZnbWlnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzY0NjY5NjAsImV4cCI6MjA5MjA0Mjk2MH0.D8KuzcRktLom6lTL7QChPih8CmZaThEpjy5lGYl-ZAM'
+  },
+  gemini: {
+    apiKey: 'AIzaSyCjRL0Ud6d1MxSKANSzzK40fC3OinKPmDs',
+    model: 'gemini-2.0-flash-exp'
   }
 };

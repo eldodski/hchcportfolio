@@ -809,6 +809,81 @@ body {
   width: 130px;
 }
 
+/* --- Toast Notifications --- */
+.toast-container {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.toast {
+  padding: 12px 20px;
+  font-family: var(--body);
+  font-size: 0.82rem;
+  font-weight: 300;
+  color: #fff;
+  border-radius: 2px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  animation: toastIn 0.3s ease, toastOut 0.3s ease 2.7s forwards;
+  max-width: 320px;
+}
+
+.toast-success { background: #2E7D32; }
+.toast-error { background: #C62828; }
+.toast-info { background: var(--navy); }
+
+@keyframes toastIn { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: none; } }
+@keyframes toastOut { from { opacity: 1; } to { opacity: 0; transform: translateY(-8px); } }
+
+/* --- Mood Board Loading Overlay --- */
+.mood-board-loading {
+  position: relative;
+  display: inline-block;
+}
+
+.mood-board-loading::after {
+  content: 'Enhancing with AI...';
+  position: absolute;
+  inset: 0;
+  background: rgba(27, 42, 74, 0.8);
+  color: var(--ivory);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.82rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+/* --- Save Buttons Row --- */
+.save-row {
+  display: flex;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.btn-secondary {
+  font-family: var(--body);
+  font-weight: 300;
+  font-size: 0.82rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 14px 28px;
+  border: 1px solid var(--navy);
+  background: #fff;
+  color: var(--navy);
+  cursor: pointer;
+  transition: all 0.2s;
+  flex: 1;
+}
+
+.btn-secondary:hover { background: var(--ivory); }
+.btn-secondary:disabled { border-color: var(--sand); color: var(--sand); cursor: default; }
+
 /* --- Responsive --- */
 @media (max-width: 900px) {
   .app-layout {
@@ -923,11 +998,16 @@ body {
       </div>
     </div>
 
-    <!-- Generate -->
+    <!-- Save & Generate -->
     <div class="generate-section">
-      <button class="btn btn-primary" id="generate-btn" onclick="generatePresentation()" disabled>
-        Generate Presentation
-      </button>
+      <div class="save-row">
+        <button class="btn-secondary" id="save-draft-btn" onclick="saveDraft()" disabled>
+          Save Draft
+        </button>
+        <button class="btn btn-primary" id="generate-btn" onclick="generateAndSave()" disabled style="flex: 1;">
+          Generate &amp; Save
+        </button>
+      </div>
     </div>
   </div>
 
@@ -1028,9 +1108,17 @@ const INSTALL_PLACEHOLDERS = {
 // ============================================================
 document.addEventListener('DOMContentLoaded', async () => {
   await Promise.all([loadMaterials(), loadStyles()]);
-  // Default rooms: Kitchen + Owner's Bath
-  addRoom('kitchen');
-  addRoom('bathroom');
+
+  // Check for ?project=UUID to load saved project
+  const params = new URLSearchParams(window.location.search);
+  if (params.get('project')) {
+    await loadFromURL();
+  } else {
+    // Default rooms: Kitchen + Owner's Bath
+    addRoom('kitchen');
+    addRoom('bathroom');
+  }
+
   updatePreview();
 });
 
@@ -1130,7 +1218,7 @@ function createRoomState(type) {
   const id = 'room-' + (roomIdCounter++);
   const label = getRoomLabel(type);
 
-  const base = { id, type, label };
+  const base = { id, type, label, collapsed: false };
 
   if (type === 'kitchen') {
     return {
@@ -1198,8 +1286,11 @@ function removeRoom(roomId) {
 }
 
 function toggleRoom(roomId) {
-  const el = document.getElementById(roomId);
-  if (el) el.classList.toggle('collapsed');
+  const room = getRoom(roomId);
+  if (room) {
+    room.collapsed = !room.collapsed;
+    renderRooms();
+  }
 }
 
 function getRoom(roomId) {
@@ -1220,7 +1311,7 @@ function buildRoomPanel(room) {
   const content = room.type === 'kitchen' ? buildKitchenContent(room) : buildBathroomContent(room);
 
   return `
-    <div class="room-section" id="${room.id}">
+    <div class="room-section${room.collapsed ? ' collapsed' : ''}" id="${room.id}">
       <div class="room-header" onclick="toggleRoom('${room.id}')">
         <div class="room-header-left">
           <span class="room-header-title">${esc(room.label)}</span>
@@ -1390,14 +1481,16 @@ function buildBathroomContent(room) {
       <div class="conditional-fields ${room.edgeProtection.type === 'Accessory' ? 'visible' : ''}" id="${room.id}-edge-accessory">
         <div class="field-group" style="max-width: 200px; margin-bottom: 8px;">
           <label>Accessory Type</label>
-          <select onchange="syncField('${room.id}', 'edgeProtection.accessoryType', this.value)">
+          <select onchange="onEdgeAccessoryTypeChange('${room.id}', this.value)">
             <option value="Schluter" ${room.edgeProtection.accessoryType === 'Schluter' ? 'selected' : ''}>Schluter</option>
-            <option value="Jolly" ${room.edgeProtection.accessoryType === 'Jolly' ? 'selected' : ''}>Jolly</option>
+            <option value="Emser" ${room.edgeProtection.accessoryType === 'Emser' ? 'selected' : ''}>Emser</option>
+            <option value="Bullnose" ${room.edgeProtection.accessoryType === 'Bullnose' ? 'selected' : ''}>Bullnose</option>
             <option value="Pencil Rail" ${room.edgeProtection.accessoryType === 'Pencil Rail' ? 'selected' : ''}>Pencil Rail</option>
+            <option value="Cigarro" ${room.edgeProtection.accessoryType === 'Cigarro' ? 'selected' : ''}>Cigarro</option>
           </select>
         </div>
         <div class="cascade-label">Accessory Material</div>
-        ${buildInlineCascade(room.id, 'edgeProtection.accessory', room.edgeProtection.accessory, 'hardware')}
+        ${buildEdgeAccessoryCascade(room)}
       </div>
     </div>
 
@@ -1565,11 +1658,11 @@ function buildFixtureBlock(roomId, idx, state, canRemove) {
       </div>
       <div class="conditional-fields ${showSurround ? 'visible' : ''}">
         <div class="cascade-label">Surround Tile</div>
-        ${buildInlineCascade(roomId, `waterFixtures.${idx}.surroundTile`, state.surroundTile, 'backsplash')}
+        ${buildInlineCascade(roomId, `waterFixtures.${idx}.surroundTile`, state.surroundTile, 'backsplash', 'Wall Tile')}
       </div>
       <div class="conditional-fields ${showFloorTile ? 'visible' : ''}">
         <div class="cascade-label" style="margin-top: 6px;">Floor Tile</div>
-        ${buildInlineCascade(roomId, `waterFixtures.${idx}.floorTile`, state.floorTile, 'flooring')}
+        ${buildInlineCascade(roomId, `waterFixtures.${idx}.floorTile`, state.floorTile, 'backsplash', 'Floor Tile')}
       </div>
     </div>
   `;
@@ -1700,31 +1793,32 @@ function syncCascadeNotes(roomId, cat, val) {
 // ============================================================
 // INLINE CASCADE (for nested paths like niches.decorativeTile)
 // ============================================================
-function buildInlineCascade(roomId, path, state, category) {
-  const vendors = getVendorsForCategory(category);
-  const seriesList = state.vendor ? getSeriesForVendor(category, state.vendor) : [];
-  const colors = state.vendor && state.series ? getColorsForSeries(category, state.vendor, state.series) : [];
+function buildInlineCascade(roomId, path, state, category, materialType) {
+  const vendors = getVendorsForCategory(category, materialType);
+  const seriesList = state.vendor ? getSeriesForVendor(category, state.vendor, materialType) : [];
+  const colors = state.vendor && state.series ? getColorsForSeries(category, state.vendor, state.series, materialType) : [];
   const ep = esc(path);
+  const mtAttr = materialType ? `, '${esc(materialType)}'` : '';
 
   return `
     <div class="cascade-row">
       <div>
         <div class="cascade-label">Vendor</div>
-        <select onchange="onInlineCascadeVendor('${roomId}', '${ep}', '${category}', this.value)">
+        <select onchange="onInlineCascadeVendor('${roomId}', '${ep}', '${category}', this.value${mtAttr})">
           <option value="">Select vendor</option>
           ${vendors.map(v => `<option value="${v}" ${state.vendor === v ? 'selected' : ''}>${v}</option>`).join('')}
         </select>
       </div>
       <div>
         <div class="cascade-label">Series</div>
-        <select onchange="onInlineCascadeSeries('${roomId}', '${ep}', '${category}', this.value)" ${!state.vendor ? 'disabled' : ''}>
+        <select onchange="onInlineCascadeSeries('${roomId}', '${ep}', '${category}', this.value${mtAttr})" ${!state.vendor ? 'disabled' : ''}>
           <option value="">${state.vendor ? 'Select series' : '--'}</option>
           ${seriesList.map(s => `<option value="${s}" ${state.series === s ? 'selected' : ''}>${s}</option>`).join('')}
         </select>
       </div>
       <div>
         <div class="cascade-label">Color</div>
-        <select onchange="onInlineCascadeColor('${roomId}', '${ep}', '${category}', this.value)" ${!state.series ? 'disabled' : ''}>
+        <select onchange="onInlineCascadeColor('${roomId}', '${ep}', '${category}', this.value${mtAttr})" ${!state.series ? 'disabled' : ''}>
           <option value="">${state.series ? 'Select color' : '--'}</option>
           ${colors.map(c => `<option value="${c}" ${state.color === c ? 'selected' : ''}>${c}</option>`).join('')}
         </select>
@@ -1750,7 +1844,7 @@ function resolveNestedState(roomId, path) {
   return obj;
 }
 
-function onInlineCascadeVendor(roomId, path, category, val) {
+function onInlineCascadeVendor(roomId, path, category, val, materialType) {
   const state = resolveNestedState(roomId, path);
   if (!state) return;
   state.vendor = val;
@@ -1759,10 +1853,10 @@ function onInlineCascadeVendor(roomId, path, category, val) {
   state.material = null;
 
   if (val) {
-    const seriesList = getSeriesForVendor(category, val);
+    const seriesList = getSeriesForVendor(category, val, materialType);
     if (seriesList.length === 1) {
       state.series = seriesList[0];
-      const colors = getColorsForSeries(category, val, state.series);
+      const colors = getColorsForSeries(category, val, state.series, materialType);
       if (colors.length === 1) {
         state.color = colors[0];
         state.material = findMaterial(category, val, state.series, state.color);
@@ -1774,7 +1868,7 @@ function onInlineCascadeVendor(roomId, path, category, val) {
   updatePreview();
 }
 
-function onInlineCascadeSeries(roomId, path, category, val) {
+function onInlineCascadeSeries(roomId, path, category, val, materialType) {
   const state = resolveNestedState(roomId, path);
   if (!state) return;
   state.series = val;
@@ -1782,7 +1876,7 @@ function onInlineCascadeSeries(roomId, path, category, val) {
   state.material = null;
 
   if (val) {
-    const colors = getColorsForSeries(category, state.vendor, val);
+    const colors = getColorsForSeries(category, state.vendor, val, materialType);
     if (colors.length === 1) {
       state.color = colors[0];
       state.material = findMaterial(category, state.vendor, val, state.color);
@@ -1793,7 +1887,7 @@ function onInlineCascadeSeries(roomId, path, category, val) {
   updatePreview();
 }
 
-function onInlineCascadeColor(roomId, path, category, val) {
+function onInlineCascadeColor(roomId, path, category, val, materialType) {
   const state = resolveNestedState(roomId, path);
   if (!state) return;
   state.color = val;
@@ -1819,6 +1913,29 @@ function onEdgeTypeChange(roomId, val) {
   updatePreview();
 }
 
+function onEdgeAccessoryTypeChange(roomId, val) {
+  const room = getRoom(roomId);
+  room.edgeProtection.accessoryType = val;
+  // Reset accessory selection when type changes
+  room.edgeProtection.accessory = createMaterialState();
+  renderRooms();
+  updatePreview();
+}
+
+// Map accessory type to material_type in edgeProtection category
+const EDGE_ACCESSORY_MATERIAL_TYPE = {
+  'Schluter': 'Metal Profile',
+  'Emser': 'Metal Profile',
+  'Bullnose': 'Bullnose',
+  'Pencil Rail': 'Pencil Rail',
+  'Cigarro': 'Cigarro'
+};
+
+function buildEdgeAccessoryCascade(room) {
+  const matType = EDGE_ACCESSORY_MATERIAL_TYPE[room.edgeProtection.accessoryType] || null;
+  return buildInlineCascade(room.id, 'edgeProtection.accessory', room.edgeProtection.accessory, 'edgeProtection', matType);
+}
+
 // ============================================================
 // GENERIC FIELD SYNC
 // ============================================================
@@ -1840,7 +1957,7 @@ function getVendorsForCategory(cat, materialType) {
   const vendors = new Set();
   allMaterials.filter(m => {
     if (m.category !== cat) return false;
-    if (materialType && m.material_type && m.material_type !== materialType) return false;
+    if (materialType && m.material_type !== materialType) return false;
     return true;
   }).forEach(m => {
     if (m.vendor) vendors.add(m.vendor);
@@ -1852,7 +1969,7 @@ function getSeriesForVendor(cat, vendor, materialType) {
   const series = new Set();
   allMaterials.filter(m => {
     if (m.category !== cat || m.vendor !== vendor) return false;
-    if (materialType && m.material_type && m.material_type !== materialType) return false;
+    if (materialType && m.material_type !== materialType) return false;
     return true;
   }).forEach(m => {
     if (m.series) series.add(m.series);
@@ -1864,7 +1981,7 @@ function getColorsForSeries(cat, vendor, series, materialType) {
   return allMaterials
     .filter(m => {
       if (m.category !== cat || m.vendor !== vendor || m.series !== series) return false;
-      if (materialType && m.material_type && m.material_type !== materialType) return false;
+      if (materialType && m.material_type !== materialType) return false;
       return true;
     })
     .map(m => m.color)
@@ -1894,17 +2011,96 @@ function buildMaterialDisplay(mat, category) {
 }
 
 // ============================================================
-// MOOD BOARD
+// MOOD BOARD (with Gemini AI enhancement)
 // ============================================================
+let moodBoardFile = null;
+
 function onMoodBoardUpload(event) {
   const file = event.target.files[0];
   if (!file) return;
+
+  moodBoardFile = file;
   const previewDiv = document.getElementById('mood-board-preview');
   const img = document.getElementById('mood-board-thumb');
+
+  // Show raw photo immediately
   moodBoardUrl = URL.createObjectURL(file);
   img.src = moodBoardUrl;
   previewDiv.style.display = 'block';
   updatePreview();
+
+  // Try Gemini AI enhancement
+  if (HCHC_CONFIG.gemini && HCHC_CONFIG.gemini.apiKey) {
+    enhanceMoodBoard(file);
+  }
+}
+
+async function enhanceMoodBoard(file) {
+  const previewDiv = document.getElementById('mood-board-preview');
+  const img = document.getElementById('mood-board-thumb');
+
+  try {
+    // Show loading overlay
+    previewDiv.classList.add('mood-board-loading');
+
+    // Convert to base64
+    const base64 = await fileToBase64(file);
+    const mimeType = file.type || 'image/jpeg';
+
+    const prompt = 'Boost this image into a cover worthy mood board for interior design. Keep the existing colors and materials consistent with the image, but remove all labels and text from the image. Return only the enhanced image.';
+
+    const response = await fetch(
+      `https://generativelanguage.googleapis.com/v1beta/models/${HCHC_CONFIG.gemini.model}:generateContent?key=${HCHC_CONFIG.gemini.apiKey}`,
+      {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          contents: [{
+            parts: [
+              { text: prompt },
+              { inlineData: { mimeType, data: base64 } }
+            ]
+          }],
+          generationConfig: {
+            responseModalities: ['IMAGE', 'TEXT'],
+            responseMimeType: 'image/png'
+          }
+        })
+      }
+    );
+
+    if (!response.ok) throw new Error(`Gemini API ${response.status}`);
+
+    const result = await response.json();
+
+    // Find image part in response
+    const parts = result.candidates?.[0]?.content?.parts || [];
+    const imgPart = parts.find(p => p.inlineData);
+
+    if (imgPart) {
+      const enhancedUrl = `data:${imgPart.inlineData.mimeType};base64,${imgPart.inlineData.data}`;
+      moodBoardUrl = enhancedUrl;
+      img.src = enhancedUrl;
+      showToast('Mood board enhanced with AI', 'success');
+    } else {
+      showToast('AI returned no image — using original', 'info');
+    }
+  } catch (err) {
+    console.error('Gemini enhancement failed:', err);
+    showToast('AI enhancement failed — using original photo', 'info');
+  } finally {
+    previewDiv.classList.remove('mood-board-loading');
+    updatePreview();
+  }
+}
+
+function fileToBase64(file) {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = () => resolve(reader.result.split(',')[1]);
+    reader.onerror = reject;
+    reader.readAsDataURL(file);
+  });
 }
 
 // ============================================================
@@ -1993,9 +2189,10 @@ function runRuleEngine() {
   });
   feedbackEl.innerHTML = html;
 
-  // Enable generate if any materials selected
+  // Enable generate/save if any materials selected
   const hasAny = Object.keys(flatSelections).length > 0;
   document.getElementById('generate-btn').disabled = !hasAny;
+  document.getElementById('save-draft-btn').disabled = !hasAny;
 }
 
 // ============================================================
@@ -2075,31 +2272,32 @@ function buildKitchenPreview(room) {
 }
 
 function buildBathroomPreview(room) {
+  const cards = [];
   let rows = '';
 
-  // Water fixtures
+  // Water fixtures — spec rows for type, photo cards for tile materials
   room.waterFixtures.forEach((f, i) => {
     if (f.type) {
       rows += `<tr><td>Fixture ${i + 1}</td><td>${esc(f.type)}</td></tr>`;
       if (f.surroundTile.material) {
-        rows += `<tr><td style="padding-left: 20px;">Surround</td><td>${esc(f.surroundTile.material.name)}</td></tr>`;
+        cards.push(buildPreviewCard('Surround Tile', f.surroundTile.material, ''));
       }
       if (f.floorTile.material) {
-        rows += `<tr><td style="padding-left: 20px;">Floor Tile</td><td>${esc(f.floorTile.material.name)}</td></tr>`;
+        cards.push(buildPreviewCard('Floor Tile', f.floorTile.material, ''));
       }
     }
   });
 
-  // Niches
+  // Niches — spec rows for style info, photo card for decorative tile
   if (room.niches.styleName || room.niches.decorativeTile.material) {
     rows += `<tr><td>Niche Style</td><td>${esc(room.niches.styleName)}${room.niches.shelfMaterial ? ' / ' + esc(room.niches.shelfMaterial) : ''}</td></tr>`;
+    rows += `<tr><td>Niche Placement</td><td>${esc(room.niches.placement)}</td></tr>`;
     if (room.niches.decorativeTile.material) {
-      rows += `<tr><td style="padding-left: 20px;">Decorative</td><td>${esc(room.niches.decorativeTile.material.name)}</td></tr>`;
+      cards.push(buildPreviewCard('Niche Deco Tile', room.niches.decorativeTile.material, ''));
     }
-    rows += `<tr><td style="padding-left: 20px;">Placement</td><td>${esc(room.niches.placement)}</td></tr>`;
   }
 
-  // Accents
+  // Accents — spec rows for config, photo card for interior tile
   if (room.accents.type !== 'None') {
     let accentDesc = room.accents.type;
     if (room.accents.type === 'Linear') {
@@ -2109,54 +2307,60 @@ function buildBathroomPreview(room) {
     }
     rows += `<tr><td>Accent</td><td>${esc(accentDesc)}</td></tr>`;
     if (room.accents.interiorTile.material) {
-      rows += `<tr><td style="padding-left: 20px;">Interior Tile</td><td>${esc(room.accents.interiorTile.material.name)}</td></tr>`;
+      cards.push(buildPreviewCard('Accent Tile', room.accents.interiorTile.material, ''));
     }
   }
 
-  // Tub deck
-  if (room.tubDeck.skirtTile.material || room.tubDeck.deckTile.material || room.tubDeck.splashTile.material) {
-    if (room.tubDeck.skirtTile.material) rows += `<tr><td>Tub Skirt</td><td>${esc(room.tubDeck.skirtTile.material.name)}</td></tr>`;
-    if (room.tubDeck.deckTile.material) rows += `<tr><td>Tub Deck</td><td>${esc(room.tubDeck.deckTile.material.name)}</td></tr>`;
-    if (room.tubDeck.splashTile.material) rows += `<tr><td>Tub Splash</td><td>${esc(room.tubDeck.splashTile.material.name)}</td></tr>`;
-    if (room.tubDeck.accentBandNotes) rows += `<tr><td>Accent Band</td><td>${esc(room.tubDeck.accentBandNotes)}</td></tr>`;
-  }
+  // Tub deck — photo cards for tile materials
+  if (room.tubDeck.skirtTile.material) cards.push(buildPreviewCard('Tub Skirt', room.tubDeck.skirtTile.material, ''));
+  if (room.tubDeck.deckTile.material) cards.push(buildPreviewCard('Tub Deck', room.tubDeck.deckTile.material, ''));
+  if (room.tubDeck.splashTile.material) cards.push(buildPreviewCard('Tub Splash', room.tubDeck.splashTile.material, ''));
+  if (room.tubDeck.accentBandNotes) rows += `<tr><td>Accent Band</td><td>${esc(room.tubDeck.accentBandNotes)}</td></tr>`;
 
-  // Edge protection
+  // Edge protection — photo card for material
   if (room.edgeProtection.type !== 'None') {
     if (room.edgeProtection.type === 'Tile Edge' && room.edgeProtection.tileEdge.material) {
-      rows += `<tr><td>Edge (Tile)</td><td>${esc(room.edgeProtection.tileEdge.material.name)}</td></tr>`;
-    } else if (room.edgeProtection.type === 'Accessory') {
-      rows += `<tr><td>Edge (${esc(room.edgeProtection.accessoryType)})</td><td>${room.edgeProtection.accessory.material ? esc(room.edgeProtection.accessory.material.name) : ''}</td></tr>`;
+      cards.push(buildPreviewCard('Edge (Tile)', room.edgeProtection.tileEdge.material, ''));
+    } else if (room.edgeProtection.type === 'Accessory' && room.edgeProtection.accessory.material) {
+      cards.push(buildPreviewCard(`Edge (${room.edgeProtection.accessoryType})`, room.edgeProtection.accessory.material, ''));
     }
   }
 
-  // Flooring
-  room.flooring.forEach((f, i) => {
+  // Flooring — photo cards
+  room.flooring.forEach(f => {
     if (f.material) {
-      rows += `<tr><td>Flooring${f.materialType ? ' (' + esc(f.materialType) + ')' : ''}</td><td>${esc(f.material.name)}${f.installNotes ? ' <em>(' + esc(f.installNotes) + ')</em>' : ''}</td></tr>`;
+      cards.push(buildPreviewCard('Flooring' + (f.materialType ? ` (${f.materialType})` : ''), f.material, f.installNotes));
     }
   });
 
-  // Paint / Hardware
+  // Paint — photo card
   if (room.paint.material) {
-    rows += `<tr><td>Paint</td><td>${esc(room.paint.material.name)}${room.paint.installNotes ? ' <em>(' + esc(room.paint.installNotes) + ')</em>' : ''}</td></tr>`;
+    cards.push(buildPreviewCard('Paint', room.paint.material, room.paint.installNotes));
   }
+
+  // Hardware — spec row (typically no photo)
   if (room.hardware.material) {
     rows += `<tr><td>Hardware</td><td>${esc(room.hardware.material.name)}${room.hardware.installNotes ? ' <em>(' + esc(room.hardware.installNotes) + ')</em>' : ''}</td></tr>`;
   }
 
-  if (!rows) return '';
+  if (!cards.length && !rows) return '';
 
-  return `
-    <div class="preview-section">
-      <span class="preview-section-label">${esc(room.label)}</span>
-      <h3>Specifications</h3>
+  let html = `<div class="preview-section"><span class="preview-section-label">${esc(room.label)}</span>`;
+
+  if (cards.length) {
+    html += `<h3>Material Selections</h3><div class="preview-materials-grid">${cards.join('')}</div>`;
+  }
+
+  if (rows) {
+    html += `<h3 style="margin-top: 20px;">Specifications</h3>
       <table class="preview-spec-table">
         <tr><th>Item</th><th>Selection</th></tr>
         ${rows}
-      </table>
-    </div>
-  `;
+      </table>`;
+  }
+
+  html += `</div>`;
+  return html;
 }
 
 function buildPreviewCard(label, mat, notes) {
@@ -2175,10 +2379,12 @@ function buildPreviewCard(label, mat, notes) {
 }
 
 // ============================================================
-// GENERATE
+// SAVE / LOAD / GENERATE
 // ============================================================
-function generatePresentation() {
-  const data = {
+let currentProjectId = null;
+
+function collectPresentationData() {
+  return {
     projectName: document.getElementById('project-name').value || 'Design Presentation',
     clientName: document.getElementById('client-name').value,
     builderName: document.getElementById('builder-name').value,
@@ -2188,11 +2394,171 @@ function generatePresentation() {
     report: currentReport,
     designStyle: selectedStyle
   };
+}
 
-  const html = generatePresentationHTML(data);
-  const win = window.open('', '_blank');
-  win.document.write(html);
-  win.document.close();
+function collectSelectionsJSON() {
+  return {
+    rooms: rooms,
+    designStyleId: selectedStyle ? selectedStyle.id : null,
+    moodBoardUrl: moodBoardUrl,
+    projectName: document.getElementById('project-name').value,
+    clientName: document.getElementById('client-name').value,
+    builderName: document.getElementById('builder-name').value,
+    address: document.getElementById('address').value
+  };
+}
+
+async function saveDraft() {
+  const btn = document.getElementById('save-draft-btn');
+  btn.disabled = true;
+  btn.textContent = 'Saving...';
+
+  try {
+    const selections = collectSelectionsJSON();
+    const projectName = document.getElementById('project-name').value || 'Untitled';
+
+    if (currentProjectId) {
+      await updateProject(currentProjectId, {
+        name: projectName,
+        status: 'in-progress',
+        selections_json: selections,
+        updated_at: new Date().toISOString()
+      });
+    } else {
+      const result = await createProject({
+        name: projectName,
+        status: 'in-progress',
+        selections_json: selections
+      });
+      currentProjectId = result.id;
+      // Update URL without reload
+      const url = new URL(window.location);
+      url.searchParams.set('project', currentProjectId);
+      window.history.replaceState({}, '', url);
+    }
+
+    showToast('Draft saved', 'success');
+  } catch (err) {
+    console.error('Save draft failed:', err);
+    showToast('Failed to save draft', 'error');
+  } finally {
+    btn.disabled = false;
+    btn.textContent = 'Save Draft';
+  }
+}
+
+async function generateAndSave() {
+  const btn = document.getElementById('generate-btn');
+  btn.disabled = true;
+  btn.textContent = 'Generating...';
+
+  try {
+    const data = collectPresentationData();
+    const html = generatePresentationHTML(data);
+
+    // Open in new window
+    const win = window.open('', '_blank');
+    win.document.write(html);
+    win.document.close();
+
+    // Save project + presentation to Supabase
+    const selections = collectSelectionsJSON();
+    const projectName = document.getElementById('project-name').value || 'Untitled';
+
+    let projectId = currentProjectId;
+
+    if (projectId) {
+      await updateProject(projectId, {
+        name: projectName,
+        status: 'completed',
+        selections_json: selections,
+        updated_at: new Date().toISOString()
+      });
+    } else {
+      const result = await createProject({
+        name: projectName,
+        status: 'completed',
+        selections_json: selections
+      });
+      projectId = result.id;
+      currentProjectId = projectId;
+    }
+
+    // Upload presentation HTML
+    try {
+      const presentationUrl = await uploadPresentation(projectId, html);
+      await updateProject(projectId, { presentation_url: presentationUrl });
+      showToast('Presentation generated and saved', 'success');
+    } catch (uploadErr) {
+      console.warn('Presentation upload failed (bucket may not exist):', uploadErr);
+      showToast('Generated (upload failed — create presentations bucket)', 'info');
+    }
+
+    // Update URL
+    const url = new URL(window.location);
+    url.searchParams.set('project', projectId);
+    window.history.replaceState({}, '', url);
+
+  } catch (err) {
+    console.error('Generate failed:', err);
+    showToast('Generation failed', 'error');
+  } finally {
+    btn.disabled = false;
+    btn.innerHTML = 'Generate &amp; Save';
+  }
+}
+
+// Load project from URL param
+async function loadFromURL() {
+  const params = new URLSearchParams(window.location.search);
+  const projectId = params.get('project');
+  if (!projectId) return;
+
+  try {
+    const project = await getProject(projectId);
+    if (!project || !project.selections_json) return;
+
+    currentProjectId = project.id;
+    const sel = project.selections_json;
+
+    // Restore form fields
+    if (sel.projectName) document.getElementById('project-name').value = sel.projectName;
+    if (sel.clientName) document.getElementById('client-name').value = sel.clientName;
+    if (sel.builderName) document.getElementById('builder-name').value = sel.builderName;
+    if (sel.address) document.getElementById('address').value = sel.address;
+
+    // Restore design style
+    if (sel.designStyleId) {
+      document.getElementById('design-style').value = sel.designStyleId;
+      onDesignStyleChange(sel.designStyleId);
+    }
+
+    // Restore mood board URL (if it was a data URL or external URL)
+    if (sel.moodBoardUrl && sel.moodBoardUrl.startsWith('data:')) {
+      moodBoardUrl = sel.moodBoardUrl;
+      const previewDiv = document.getElementById('mood-board-preview');
+      const img = document.getElementById('mood-board-thumb');
+      img.src = moodBoardUrl;
+      previewDiv.style.display = 'block';
+    }
+
+    // Restore rooms
+    if (sel.rooms && sel.rooms.length > 0) {
+      rooms = sel.rooms;
+      // Reassign roomIdCounter to avoid collisions
+      const maxId = rooms.reduce((max, r) => {
+        const num = parseInt(r.id.replace('room-', ''));
+        return num > max ? num : max;
+      }, 0);
+      roomIdCounter = maxId + 1;
+    }
+
+    renderRooms();
+    updatePreview();
+    showToast('Project loaded', 'info');
+  } catch (err) {
+    console.error('Load project failed:', err);
+  }
 }
 
 // ============================================================
@@ -2204,7 +2570,21 @@ function esc(str) {
   if (!str) return '';
   return String(str).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 }
+
+// ============================================================
+// TOAST NOTIFICATIONS
+// ============================================================
+function showToast(message, type = 'info') {
+  const container = document.getElementById('toast-container');
+  const toast = document.createElement('div');
+  toast.className = `toast toast-${type}`;
+  toast.textContent = message;
+  container.appendChild(toast);
+  setTimeout(() => toast.remove(), 3000);
+}
 </script>
+
+<div class="toast-container" id="toast-container"></div>
 
 </body>
 </html>
