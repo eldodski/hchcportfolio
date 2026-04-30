@@ -1,0 +1,199 @@
+{
+  "metadata": {
+    "updated": "2026-04-30",
+    "source": "Kitchen Inventory Update PDF",
+    "notes": "Real selections currently in use. Images stored locally to avoid hotlink issues."
+  },
+  "cabinetry": {
+    "vendors": [
+      {
+        "vendor": "Timberlake",
+        "website": "timberlake.com/cabinets",
+        "door_styles": [
+          {
+            "name": "Charleston",
+            "image_url": "images/cabinetry/charleston.png",
+            "paints": ["Linen", "Pewter Glaze", "Vanilla", "Biscotti Glaze", "Harbor", "Ember Glaze", "Stone", "Boulder", "Oat", "Sage", "Mist", "Navy", "Black"],
+            "maple_stains": ["Rye", "Almond", "Cider", "Latte", "Truffle", "Slate"],
+            "cherry_stains": ["Amber", "Clove"]
+          },
+          {
+            "name": "Sierra Vista",
+            "image_url": "images/cabinetry/sierra-vista.png",
+            "paints": ["Linen", "Pewter Glaze", "Vanilla", "Biscotti Glaze", "Harbor", "Ember Glaze", "Stone", "Boulder", "Oat", "Sage", "Mist", "Navy", "Black"],
+            "maple_stains": ["Rye", "Almond", "Cider", "Latte", "Truffle", "Slate"],
+            "cherry_stains": ["Amber", "Clove"]
+          },
+          {
+            "name": "New Haven",
+            "image_url": "images/cabinetry/new-haven.png",
+            "paints": ["Linen", "Vanilla", "Harbor", "Stone", "Boulder", "Oat", "Sage", "Mist", "Navy", "Black"],
+            "maple_stains": ["Rye", "Almond", "Cider", "Latte", "Truffle", "Slate"],
+            "cherry_stains": ["Amber", "Clove"]
+          },
+          {
+            "name": "Madera",
+            "image_url": "images/cabinetry/madera.png",
+            "paints": ["Linen", "Pewter Glaze", "Vanilla", "Biscotti Glaze", "Harbor", "Ember Glaze", "Stone", "Boulder", "Oat", "Sage", "Mist", "Navy", "Black"],
+            "maple_stains": ["Rye", "Almond", "Cider", "Latte", "Truffle", "Slate"]
+          },
+          {
+            "name": "Maddox",
+            "image_url": "images/cabinetry/maddox.png",
+            "paints": ["Linen", "Pewter Glaze", "Vanilla", "Biscotti Glaze", "Harbor", "Ember Glaze", "Stone", "Boulder", "Oat", "Sage", "Mist", "Navy", "Black"],
+            "maple_stains": ["Rye", "Almond", "Cider", "Latte", "Truffle", "Slate"]
+          },
+          {
+            "name": "Sonoma",
+            "image_url": "images/cabinetry/sonoma.png",
+            "paints": ["Linen", "Vanilla", "Harbor", "Stone", "Oat", "Sage", "Mist", "Navy", "Black"],
+            "maple_stains": ["Rye", "Almond", "Cider", "Latte", "Truffle", "Slate"],
+            "cherry_stains": ["Amber", "Clove"],
+            "duraform": ["Linen", "Harbor", "Stone", "Espresso"]
+          },
+          {
+            "name": "Barnett",
+            "image_url": "images/cabinetry/barnett.png",
+            "paints": ["Linen", "Vanilla", "Harbor", "Stone", "Oat", "Sage", "Mist", "Navy", "Black"],
+            "maple_stains": ["Rye", "Almond", "Cider", "Latte", "Truffle", "Slate"],
+            "duraform": ["Linen", "Harbor", "Stone", "Espresso"]
+          },
+          {
+            "name": "Downing",
+            "image_url": "images/cabinetry/downing.png",
+            "duraform": ["Linen", "Harbor", "Stone", "Espresso"]
+          },
+          {
+            "name": "Fairfield",
+            "image_url": "images/cabinetry/fairfield.png",
+            "hardwood_only": ["Rye", "Truffle"]
+          }
+        ],
+        "notes": "Hussain door style not found on timberlake.com - may be misspelled or from a different line"
+      },
+      {
+        "vendor": "Kentmore",
+        "website": "kmc.net/door-styles",
+        "door_styles": [
+          { "name": "American", "image_url": "images/cabinetry/kmc-doors/american.jpg" },
+          { "name": "American CNC", "image_url": "images/cabinetry/kmc-doors/american-cnc.jpg" },
+          { "name": "Contemporary", "image_url": "images/cabinetry/kmc-doors/contemporary.jpg" },
+          { "name": "Florence", "image_url": "images/cabinetry/kmc-doors/florence.png" },
+          { "name": "Groveland", "image_url": "images/cabinetry/kmc-doors/groveland.jpg" },
+          { "name": "Lexington", "image_url": "images/cabinetry/kmc-doors/lexington.jpg" },
+          { "name": "Mission", "image_url": "images/cabinetry/kmc-doors/mission.jpg" },
+          { "name": "Mission V-Groove", "image_url": "images/cabinetry/kmc-doors/mission-vgroove.jpg" },
+          { "name": "Sentinel", "image_url": "images/cabinetry/kmc-doors/sentinel.jpg" },
+          { "name": "Shelburne", "image_url": "images/cabinetry/kmc-doors/shelburne.jpg" },
+          { "name": "Strausmor", "image_url": "images/cabinetry/kmc-doors/strausmor.png" },
+          { "name": "Trenton", "image_url": "images/cabinetry/kmc-doors/trenton.jpg" },
+          { "name": "Tuscany", "image_url": "images/cabinetry/kmc-doors/tuscany.jpg" },
+          { "name": "Village", "image_url": "images/cabinetry/kmc-doors/village.jpg" },
+          { "name": "Windsor", "image_url": "images/cabinetry/kmc-doors/windsor.jpg" }
+        ],
+        "stain_finishes": ["Wheat", "Natural", "Honey", "Amber", "Cider", "Chestnut", "Fruitwood", "Espresso", "Coffee", "Bark", "Driftwood", "Knotty Alder Natural", "White Shoji", "Discerning Beige", "Ocean Obsidian"],
+        "paint_finishes": ["Pure White", "Antique White", "Linen", "Dove White", "Gray Mist", "Silver", "Graphite", "Sage", "Black", "Navy", "Slate Blue", "Agreeable Gray", "Simply White", "Cloud White", "Greige"],
+        "notes": "All 15 door styles available with all stain and paint finishes. Door images displayed in grayscale. Name corrections applied: Soji White→White Shoji, Durry Beige→Discerning Beige, Ocean+Obsidian→Ocean Obsidian. Royal Sapphire not found on kmc.net."
+      }
+    ]
+  },
+  "hardware": {
+    "vendor": "Timberlake",
+    "note": "Replace ALL existing hardware vendors with Timberlake only",
+    "pulls": [
+      { "name": "Tempo Pull", "image_url": "images/hardware/tempo-pull.jpg" },
+      { "name": "T-Bar Pull 5 5/16\"", "image_url": "images/hardware/tbar-pull-5.jpg" },
+      { "name": "T-Bar Pull 8 5/8\"", "image_url": "images/hardware/tbar-pull-8.jpg" },
+      { "name": "Marquise Pull 5 9/16\"", "image_url": "images/hardware/marquise-pull-5.jpg" },
+      { "name": "Marquise Pull 6 7/8\"", "image_url": "images/hardware/marquise-pull-6.jpg" },
+      { "name": "Rectangular Pull", "image_url": "images/hardware/rectangular-pull.jpg" },
+      { "name": "Radiant Pull", "image_url": "images/hardware/radiant-pull.jpg" },
+      { "name": "Classic Pull", "image_url": "images/hardware/classic-pull.jpg" },
+      { "name": "Beaded Pull", "image_url": "images/hardware/beaded-pull.jpg" }
+    ],
+    "knobs": [
+      { "name": "Rectangular Knob", "pairs_with": "Rectangular Pull", "image_url": "images/hardware/rectangular-knob.jpg" },
+      { "name": "Radiant Knob", "pairs_with": "Radiant Pull", "image_url": "images/hardware/radiant-knob.jpg" },
+      { "name": "Classic Knob", "pairs_with": "Classic Pull", "image_url": "images/hardware/classic-knob.jpg" },
+      { "name": "Halo Knob", "pairs_with": null, "image_url": "images/hardware/halo-knob.jpg" }
+    ]
+  },
+  "lighting": {
+    "note": "NEW CATEGORY - Kitchen pendant lights for islands",
+    "vendors": [
+      {
+        "vendor": "Kichler",
+        "series": [
+          {
+            "name": "Everly",
+            "finishes": [
+              { "name": "Black", "image_url": "images/lighting/everly-bk.jpg" },
+              { "name": "Chrome", "image_url": "images/lighting/everly-ch.jpg" },
+              { "name": "Natural Brass", "image_url": "images/lighting/everly-nbr.jpg" },
+              { "name": "Olde Bronze", "image_url": "images/lighting/everly-oz.jpg" }
+            ]
+          },
+          {
+            "name": "Crosby",
+            "finishes": [
+              { "name": "Black", "image_url": "images/lighting/crosby-bk.jpg" },
+              { "name": "Natural Brass", "image_url": "images/lighting/crosby-nbr.jpg" },
+              { "name": "Brushed Nickel", "image_url": "images/lighting/crosby-ni.jpg" },
+              { "name": "Olde Bronze", "image_url": "images/lighting/crosby-oz.jpg" }
+            ]
+          },
+          {
+            "name": "Winslow",
+            "finishes": [
+              { "name": "Black", "image_url": "images/lighting/winslow-bk.jpg" },
+              { "name": "Natural Brass", "image_url": "images/lighting/winslow-nbr.jpg" },
+              { "name": "Brushed Nickel", "image_url": "images/lighting/winslow-ni.jpg" }
+            ]
+          },
+          {
+            "name": "Shailene",
+            "finishes": [
+              { "name": "Black", "image_url": "images/lighting/shailene-bk.jpg" },
+              { "name": "Brushed Nickel", "image_url": "images/lighting/shailene-ni.jpg" },
+              { "name": "Olde Bronze", "image_url": "images/lighting/shailene-oz.jpg" }
+            ]
+          },
+          {
+            "name": "Larkin",
+            "finishes": [
+              { "name": "Black", "image_url": "images/lighting/larkin-bk.jpg" },
+              { "name": "Olde Bronze", "image_url": "images/lighting/larkin-oz.jpg" }
+            ]
+          },
+          {
+            "name": "Jolie",
+            "finishes": [
+              { "name": "Brushed Nickel", "image_url": "images/lighting/jolie-ni.jpg" },
+              { "name": "Olde Bronze", "image_url": "images/lighting/jolie-oz.jpg" }
+            ]
+          },
+          {
+            "name": "Kitner",
+            "finishes": [
+              { "name": "Natural Brass", "image_url": "images/lighting/kitner-nbr.jpg" },
+              { "name": "Polished Nickel", "image_url": "images/lighting/kitner-pn.jpg" }
+            ]
+          },
+          {
+            "name": "Zailey",
+            "finishes": [
+              { "name": "Black", "image_url": "images/lighting/zailey-bk.jpg" },
+              { "name": "Natural Brass", "image_url": "images/lighting/zailey-nbr.jpg" },
+              { "name": "White", "image_url": "images/lighting/zailey-wh.jpg" }
+            ]
+          }
+        ]
+      },
+      {
+        "vendor": "Allen+Roth",
+        "pendants": [],
+        "note": "2-3 pendant selections from Lowes. Lowes blocked automated scraping - data needs manual entry."
+      }
+    ]
+  }
+}

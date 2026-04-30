@@ -1092,7 +1092,7 @@ const NICHE_TYPES = new Set([
 
 const TUB_DECK_TYPE = 'Tile Deck with Drop-In Tub';
 
-const KITCHEN_CATEGORIES = ['cabinetry', 'countertops', 'backsplash', 'hardware', 'paint'];
+const KITCHEN_CATEGORIES = ['cabinetry', 'countertops', 'backsplash', 'hardware', 'lighting', 'paint'];
 
 const INSTALL_PLACEHOLDERS = {
   flooring: 'e.g., Herringbone, 50% Offset, Straight Lay',
@@ -1100,6 +1100,7 @@ const INSTALL_PLACEHOLDERS = {
   countertops: 'e.g., Mitered Edge, Eased, Ogee',
   backsplash: 'e.g., Vertical Stack, Straight, Herringbone',
   hardware: 'e.g., Center-to-Center 5", 128mm Spacing',
+  lighting: 'e.g., Over Island, 3-Light Cluster, 36" Drop',
   paint: 'e.g., Eggshell, Satin, Flat Ceiling'
 };
 
@@ -1228,6 +1229,7 @@ function createRoomState(type) {
       countertops: createMaterialState(),
       backsplash: createMaterialState(),
       hardware: createMaterialState(),
+      lighting: createMaterialState(),
       paint: createMaterialState()
     };
   }
@@ -2001,7 +2003,7 @@ function buildMaterialDisplay(mat, category) {
   const recTag = isRecommended ? '<span class="style-recommended-tag">Recommended</span>' : '';
   return `
     <div class="material-selected-display">
-      ${mat.image_url ? `<img src="${mat.image_url}" alt="${mat.name}">` : ''}
+      ${mat.image_url ? `<img src="${mat.image_url}" alt="${mat.name}" onerror="this.onerror=null;this.src='';this.style.display='none'">` : ''}
       <div>
         <div class="material-selected-name">${esc(mat.name)}<span class="tone-dot tone-${mat.tone}"></span>${recTag}</div>
         <div class="material-selected-meta">${mat.tone || ''} ${mat.price_tier ? '&middot; ' + mat.price_tier : ''}</div>
@@ -2374,7 +2376,7 @@ function buildPreviewCard(label, mat, notes) {
   return `
     <div class="preview-mat-card">
       <div class="preview-mat-img">
-        ${mat.image_url ? `<img src="${mat.image_url}" alt="${esc(mat.name)}">` : ''}
+        ${mat.image_url ? `<img src="${mat.image_url}" alt="${esc(mat.name)}" onerror="this.onerror=null;this.parentElement.innerHTML='<div style=\\'display:flex;align-items:center;justify-content:center;height:100%;background:var(--carrara);color:var(--mocha);font-size:11px;text-transform:uppercase;letter-spacing:0.1em\\'>No Image</div>'">` : ''}
       </div>
       <div class="preview-mat-body">
         <div class="preview-mat-cat">${esc(label)}</div>
@@ -2552,6 +2554,10 @@ async function loadFromURL() {
     // Restore rooms
     if (sel.rooms && sel.rooms.length > 0) {
       rooms = sel.rooms;
+      // Backfill lighting field for kitchen rooms saved before lighting was added
+      rooms.forEach(r => {
+        if (r.type === 'kitchen' && !r.lighting) r.lighting = createMaterialState();
+      });
       // Reassign roomIdCounter to avoid collisions
       const maxId = rooms.reduce((max, r) => {
         const num = parseInt(r.id.replace('room-', ''));
