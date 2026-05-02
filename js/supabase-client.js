@@ -130,6 +130,97 @@ async function uploadProjectFile(file, projectId) {
   return urlData.publicUrl;
 }
 
+// ============ SOCIAL POSTS CRUD ============
+
+async function getSocialPosts(filters = {}) {
+  const sb = getSupabase();
+  let query = sb.from('social_posts').select('*').order('created_at', { ascending: false });
+
+  if (filters.status) query = query.eq('status', filters.status);
+  if (filters.project_type) query = query.eq('project_type', filters.project_type);
+  if (filters.limit) query = query.limit(filters.limit);
+  if (filters.offset !== undefined) query = query.range(filters.offset, filters.offset + (filters.limit || 12) - 1);
+
+  const { data, error } = await query;
+  if (error) { console.error('getSocialPosts error:', error); return []; }
+  return data;
+}
+
+async function getPublishedPosts(filters = {}) {
+  const sb = getSupabase();
+  const limit = filters.limit || 12;
+  const offset = filters.offset || 0;
+
+  let query = sb.from('social_posts').select('*')
+    .eq('status', 'published')
+    .order('published_at', { ascending: false })
+    .range(offset, offset + limit - 1);
+
+  if (filters.project_type) query = query.eq('project_type', filters.project_type);
+
+  const { data, error } = await query;
+  if (error) { console.error('getPublishedPosts error:', error); return []; }
+  return data;
+}
+
+async function getPublishedPostCount(filters = {}) {
+  const sb = getSupabase();
+  let query = sb.from('social_posts').select('id', { count: 'exact', head: true })
+    .eq('status', 'published');
+  if (filters.project_type) query = query.eq('project_type', filters.project_type);
+  const { count, error } = await query;
+  if (error) { console.error('getPublishedPostCount error:', error); return 0; }
+  return count || 0;
+}
+
+async function createSocialPost(post) {
+  const sb = getSupabase();
+  const { data, error } = await sb.from('social_posts').insert([post]).select().single();
+  if (error) { console.error('createSocialPost error:', error); throw error; }
+  return data;
+}
+
+async function updateSocialPost(id, updates) {
+  const sb = getSupabase();
+  updates.updated_at = new Date().toISOString();
+  const { data, error } = await sb.from('social_posts').update(updates).eq('id', id).select().single();
+  if (error) { console.error('updateSocialPost error:', error); throw error; }
+  return data;
+}
+
+async function deleteSocialPost(id) {
+  const sb = getSupabase();
+  // Get the post first to clean up its image
+  const { data: post } = await sb.from('social_posts').select('image_path').eq('id', id).single();
+  if (post?.image_path) {
+    await sb.storage.from('social-images').remove([post.image_path]);
+  }
+  const { error } = await sb.from('social_posts').delete().eq('id', id);
+  if (error) { console.error('deleteSocialPost error:', error); throw error; }
+}
+
+async function uploadSocialImage(file) {
+  const sb = getSupabase();
+  const ext = file.name.split('.').pop();
+  const filename = `${crypto.randomUUID()}.${ext}`;
+
+  const { error } = await sb.storage.from('social-images').upload(filename, file, {
+    cacheControl: '3600',
+    upsert: false
+  });
+
+  if (error) { console.error('uploadSocialImage error:', error); throw error; }
+
+  const { data: urlData } = sb.storage.from('social-images').getPublicUrl(filename);
+  return { url: urlData.publicUrl, path: filename };
+}
+
+async function deleteSocialImage(path) {
+  if (!path) return;
+  const sb = getSupabase();
+  await sb.storage.from('social-images').remove([path]);
+}
+
 // ============ PRESENTATION SAVE/LOAD ============
 
 async function getProject(id) {

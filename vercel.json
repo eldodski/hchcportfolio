@@ -1,7 +1,11 @@
 {
   "rewrites": [
     { "source": "/dashboard", "destination": "/dashboard/index.html" },
-    { "source": "/dashboard/", "destination": "/dashboard/index.html" }
+    { "source": "/dashboard/", "destination": "/dashboard/index.html" },
+    { "source": "/social", "destination": "/social/index.html" },
+    { "source": "/social/", "destination": "/social/index.html" },
+    { "source": "/dashboard/social-queue", "destination": "/dashboard/social-queue.html" },
+    { "source": "/dashboard/social-queue/", "destination": "/dashboard/social-queue.html" }
   ],
   "functions": {
     "api/gemini.js": {

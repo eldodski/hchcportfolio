@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Our Work | Hill Country Home Concepts</title>
+<meta name="description" content="Browse our latest interior design projects in the Texas Hill Country. Kitchens, bathrooms, flooring, and full-home design by Hill Country Home Concepts.">
+
+<!-- Open Graph -->
+<meta property="og:title" content="Our Work | Hill Country Home Concepts">
+<meta property="og:description" content="Browse our latest interior design projects in the Texas Hill Country.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://hchcportfolio.vercel.app/social">
+<meta property="og:site_name" content="Hill Country Home Concepts">
+<meta property="og:image" content="https://hchcportfolio.vercel.app/pro_photos/navy-kitchen.webp">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Our Work | Hill Country Home Concepts">
+<meta name="twitter:description" content="Browse our latest interior design projects in the Texas Hill Country.">
+
+<!-- Canonical -->
+<link rel="canonical" href="https://hchcportfolio.vercel.app/social">
+
+<!-- JSON-LD Structured Data -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  "name": "Our Work",
+  "description": "Browse our latest interior design projects in the Texas Hill Country.",
+  "url": "https://hchcportfolio.vercel.app/social",
+  "publisher": {
+    "@type": "Organization",
+    "name": "Hill Country Home Concepts",
+    "url": "https://hchcportfolio.vercel.app"
+  },
+  "about": {
+    "@type": "Service",
+    "serviceType": "Interior Design",
+    "areaServed": {
+      "@type": "Place",
+      "name": "Texas Hill Country"
+    }
+  }
+}
+</script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Jost:ital,wght@0,200;0,300;0,400;1,200&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --ivory: #F5F0EB;
+  --navy: #1B2A4A;
+  --espresso: #3C2A21;
+  --sand: #D4C5B2;
+  --mocha: #A37762;
+  --carrara: #E8E4E0;
+  --gold: #C4A265;
+  --dusty-blue: #7B9BAE;
+  --sage: #8A9A7B;
+  --heading: 'Cormorant Garamond', Georgia, serif;
+  --body: 'Jost', 'Segoe UI', sans-serif;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: var(--body);
+  font-weight: 400;
+  font-size: 17px;
+  line-height: 1.7;
+  color: var(--espresso);
+  background: var(--ivory);
+  -webkit-font-smoothing: antialiased;
+}
+
+img { max-width: 100%; height: auto; display: block; }
+a { color: inherit; text-decoration: none; }
+
+/* --- Navigation --- */
+nav {
+  background: rgba(245, 240, 235, 0.95);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--sand);
+}
+
+nav .nav-inner {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 18px 40px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo {
+  font-family: var(--heading);
+  font-weight: 600;
+  font-size: 1.25rem;
+  color: var(--navy);
+  letter-spacing: 0.04em;
+}
+
+.logo span {
+  font-family: var(--body);
+  font-weight: 200;
+  font-size: 0.65rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  display: block;
+  color: var(--mocha);
+  margin-top: -2px;
+}
+
+nav ul {
+  list-style: none;
+  display: flex;
+  gap: 32px;
+}
+
+nav ul li a {
+  font-family: var(--body);
+  font-weight: 300;
+  font-size: 0.78rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--espresso);
+  transition: color 0.3s;
+}
+
+nav ul li a:hover { color: var(--navy); }
+nav ul li a.active { color: var(--navy); font-weight: 400; }
+
+.nav-toggle { display: none; background: none; border: none; cursor: pointer; padding: 8px; }
+.nav-toggle span { display: block; width: 22px; height: 1.5px; background: var(--espresso); margin: 5px 0; transition: 0.3s; }
+
+/* --- Page Header --- */
+.page-header {
+  text-align: center;
+  padding: 80px 40px 40px;
+  max-width: 1280px;
+  margin: 0 auto;
+}
+
+.page-header .subheading {
+  font-family: var(--body);
+  font-weight: 200;
+  font-size: 0.85rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--mocha);
+  margin-bottom: 8px;
+}
+
+.page-header h1 {
+  font-family: var(--heading);
+  font-weight: 600;
+  font-size: clamp(2rem, 4vw, 3rem);
+  color: var(--navy);
+  margin-bottom: 12px;
+}
+
+.divider {
+  width: 60px;
+  height: 1px;
+  background: var(--sand);
+  margin: 0 auto;
+}
+
+/* --- Filter Pills --- */
+.feed-filters {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  padding: 24px 40px 40px;
+  max-width: 1280px;
+  margin: 0 auto;
+}
+
+.feed-filter {
+  font-family: var(--body);
+  font-weight: 300;
+  font-size: 0.78rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 8px 20px;
+  border: 1px solid var(--sand);
+  background: #fff;
+  color: var(--espresso);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.feed-filter:hover { border-color: var(--navy); }
+
+.feed-filter.active {
+  background: var(--navy);
+  color: var(--ivory);
+  border-color: var(--navy);
+}
+
+/* --- Feed Grid --- */
+.feed-container {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 40px 60px;
+}
+
+#feed-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 20px;
+}
+
+/* --- Feed Card --- */
+.feed-card {
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+  background: #fff;
+  border: 1px solid var(--sand);
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.feed-card:hover {
+  border-color: var(--navy);
+  box-shadow: 0 4px 16px rgba(27, 42, 74, 0.08);
+}
+
+.feed-img {
+  width: 100%;
+  aspect-ratio: 1;
+  object-fit: cover;
+  transition: transform 0.6s;
+}
+
+.feed-card:hover .feed-img { transform: scale(1.03); }
+
+.feed-img.lazy {
+  background: var(--carrara);
+}
+
+.feed-img-empty {
+  width: 100%;
+  aspect-ratio: 1;
+  background: var(--carrara);
+}
+
+.feed-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 20px;
+  background: linear-gradient(to top, rgba(27, 42, 74, 0.75) 0%, transparent 100%);
+  opacity: 0;
+  transition: opacity 0.4s;
+}
+
+.feed-card:hover .feed-overlay { opacity: 1; }
+
+.feed-overlay-caption {
+  font-size: 0.88rem;
+  color: #fff;
+  line-height: 1.4;
+  margin-bottom: 4px;
+}
+
+.feed-overlay-date {
+  font-size: 0.72rem;
+  color: rgba(255,255,255,0.7);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+/* --- Load More --- */
+.load-more-container {
+  text-align: center;
+  padding: 40px;
+}
+
+#load-more {
+  font-family: var(--body);
+  font-weight: 300;
+  font-size: 0.85rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 14px 40px;
+  background: var(--navy);
+  color: var(--ivory);
+  border: none;
+  cursor: pointer;
+  transition: background 0.3s;
+  display: none;
+}
+
+#load-more:hover { background: var(--mocha); }
+
+/* --- Lightbox --- */
+.lightbox {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.85);
+  z-index: 200;
+  overflow-y: auto;
+  cursor: pointer;
+}
+
+.lightbox.open { display: flex; align-items: center; justify-content: center; }
+
+.lb-content {
+  max-width: 800px;
+  width: 90%;
+  background: #fff;
+  cursor: default;
+  position: relative;
+}
+
+.lb-close {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  background: rgba(0,0,0,0.5);
+  color: #fff;
+  border: none;
+  width: 40px;
+  height: 40px;
+  font-size: 1.4rem;
+  cursor: pointer;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.lb-close:hover { background: rgba(0,0,0,0.7); }
+
+#lb-img {
+  width: 100%;
+  display: block;
+}
+
+.lb-info {
+  padding: 24px;
+}
+
+#lb-caption {
+  font-size: 0.95rem;
+  color: var(--espresso);
+  line-height: 1.6;
+  margin-bottom: 8px;
+}
+
+#lb-hashtags {
+  font-size: 0.82rem;
+  color: var(--dusty-blue);
+  margin-bottom: 8px;
+}
+
+#lb-date {
+  font-size: 0.72rem;
+  color: var(--mocha);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+/* --- Empty & Loading --- */
+.feed-loading, .feed-empty {
+  text-align: center;
+  padding: 80px 24px;
+  grid-column: 1 / -1;
+  color: var(--mocha);
+}
+
+.feed-empty p { font-size: 0.95rem; margin: 0 auto; max-width: 400px; }
+
+/* --- Footer --- */
+footer {
+  background: var(--espresso);
+  padding: 60px 40px;
+  text-align: center;
+}
+
+footer .footer-logo {
+  font-family: var(--heading);
+  font-weight: 600;
+  font-size: 1.4rem;
+  color: var(--ivory);
+  margin-bottom: 4px;
+}
+
+footer .footer-tagline {
+  font-family: var(--body);
+  font-weight: 200;
+  font-size: 0.78rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--sand);
+  margin-bottom: 24px;
+}
+
+footer .social {
+  display: flex;
+  justify-content: center;
+  gap: 24px;
+  margin-bottom: 32px;
+}
+
+footer .social a {
+  font-family: var(--body);
+  font-weight: 200;
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--sand);
+  transition: color 0.3s;
+}
+
+footer .social a:hover { color: var(--ivory); }
+
+footer .copyright {
+  font-size: 0.75rem;
+  color: rgba(212, 197, 178, 0.5);
+}
+
+/* --- Responsive --- */
+@media (max-width: 768px) {
+  nav ul { display: none; }
+  nav ul.open {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: 100%; left: 0; right: 0;
+    background: var(--ivory);
+    padding: 24px 40px;
+    gap: 16px;
+    border-bottom: 1px solid var(--sand);
+    z-index: 10;
+  }
+  .nav-toggle { display: block; }
+
+  nav .nav-inner { padding: 14px 20px; }
+  .page-header { padding: 48px 20px 24px; }
+  .feed-filters { padding: 16px 20px 24px; }
+  .feed-container { padding: 0 16px 40px; }
+  #feed-grid { grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 12px; }
+  footer { padding: 40px 20px; }
+}
+
+@media (max-width: 480px) {
+  #feed-grid { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<!-- ========== NAVIGATION ========== -->
+<nav>
+  <div class="nav-inner">
+    <a href="/" class="logo">
+      Hill Country Home Concepts
+      <span>Interior Design</span>
+    </a>
+    <button class="nav-toggle" onclick="document.querySelector('nav ul').classList.toggle('open')" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+    <ul>
+      <li><a href="/#portfolio">Portfolio</a></li>
+      <li><a href="/social" class="active">Our Work</a></li>
+      <li><a href="/#about">About</a></li>
+      <li><a href="/#services">Services</a></li>
+      <li><a href="/#inquire">Inquire</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- ========== PAGE HEADER ========== -->
+<div class="page-header">
+  <div class="subheading">Latest Projects</div>
+  <h1>Our Work</h1>
+  <div class="divider"></div>
+</div>
+
+<!-- ========== FILTER PILLS ========== -->
+<div class="feed-filters">
+  <button class="feed-filter active" data-type="">All</button>
+  <button class="feed-filter" data-type="kitchen">Kitchens</button>
+  <button class="feed-filter" data-type="bathroom">Bathrooms</button>
+  <button class="feed-filter" data-type="flooring">Flooring</button>
+  <button class="feed-filter" data-type="tile">Tile</button>
+  <button class="feed-filter" data-type="moodboard">Mood Boards</button>
+</div>
+
+<!-- ========== FEED GRID ========== -->
+<div class="feed-container">
+  <div id="feed-grid">
+    <div class="feed-loading">Loading...</div>
+  </div>
+</div>
+
+<!-- Load More -->
+<div class="load-more-container">
+  <button id="load-more" onclick="loadFeed(false)">Load More</button>
+</div>
+
+<!-- ========== LIGHTBOX ========== -->
+<div class="lightbox" id="lightbox">
+  <div class="lb-content">
+    <button class="lb-close" onclick="closeLightbox()">&times;</button>
+    <img id="lb-img" src="" alt="">
+    <div class="lb-info">
+      <p id="lb-caption"></p>
+      <p id="lb-hashtags"></p>
+      <span id="lb-date"></span>
+    </div>
+  </div>
+</div>
+
+<!-- ========== FOOTER ========== -->
+<footer>
+  <div class="footer-logo">Hill Country Home Concepts</div>
+  <div class="footer-tagline">Warm by Design</div>
+  <div class="social">
+    <a href="#">Instagram</a>
+    <a href="#">Pinterest</a>
+  </div>
+  <p class="copyright">&copy; 2026 Hill Country Home Concepts. All rights reserved.</p>
+</footer>
+
+<!-- ========== SCRIPTS ========== -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="/config.js"></script>
+<script src="/js/supabase-client.js"></script>
+<script src="/js/social-feed.js"></script>
+
+</body>
+</html>
