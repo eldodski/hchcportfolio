@@ -1,0 +1,554 @@
+{
+  "metadata": {
+    "updated": "2026-05-02",
+    "source": "Tile Update document",
+    "notes": "Image URLs verified via HTTP HEAD requests returning 200 OK with image/jpeg content-type. Scene7 URLs from daltile.com use :Swatch suffix for consistent sizing."
+  },
+  "grout_colors": {
+    "vendor": "Mapei",
+    "product": "Keracolor U / Prism",
+    "colors": ["Avalanche", "Biscuit", "Bone", "Chamois", "Chocolate", "Frost", "Harvest", "Iron", "Ivory", "Light Almond", "Magnolia", "Pewter", "Rain", "Silver", "Straw", "Summer Tan", "Warm Gray", "White"]
+  },
+  "buckets": {
+    "kitchen_backsplash": {
+      "vendors": [
+        {
+          "vendor": "DalTile",
+          "series": "Color Wheel Classic",
+          "material": "Glazed Ceramic",
+          "sizes": ["3x6 subway", "4x4", "4x12", "6x6"],
+          "finishes": ["Semi-Gloss", "Matte"],
+          "colors": [
+            { "name": "Arctic White", "code": "0190", "image_url": "https://s7d9.scene7.com/is/image/daltile/DAL_0190_3x6_ArcticWhite_SemiGloss_swatch", "source": "daltile.com", "size_note": "" },
+            { "name": "White", "code": "0100", "image_url": "https://s7d9.scene7.com/is/image/daltile/DAL_0100_3x6_White_SemiGloss_swatch", "source": "daltile.com", "size_note": "" },
+            { "name": "Biscuit", "code": "K175", "image_url": "https://s7d9.scene7.com/is/image/daltile/DAL_K175_3x6_Biscuit_SemiGloss_swatch", "source": "daltile.com", "size_note": "" },
+            { "name": "Almond", "code": "0135", "image_url": "https://s7d9.scene7.com/is/image/daltile/DAL_0135_3x6_Almond_SemiGloss_swatch", "source": "daltile.com", "size_note": "" },
+            { "name": "Architectural Gray", "code": "0109", "image_url": "https://s7d9.scene7.com/is/image/daltile/DAL_0109_3x6_ArchitecturalGray_SemiGloss_swatch", "source": "daltile.com", "size_note": "" },
+            { "name": "Suede Gray", "code": "0182", "image_url": "https://s7d9.scene7.com/is/image/daltile/DAL_0182_3x6_SuedeGray_SemiGloss_swatch", "source": "daltile.com", "size_note": "" },
+            { "name": "Black", "code": "K111", "image_url": "https://s7d9.scene7.com/is/image/daltile/DAL_K111_3x6_Black_SemiGloss_swatch", "source": "daltile.com", "size_note": "" },
+            { "name": "Cobalt", "code": "DM14", "image_url": "https://s7d9.scene7.com/is/image/daltile/DAL_DM14_3x6_Cobalt_Silo_01_web", "source": "daltile.com", "size_note": "" },
+            { "name": "Urban Putty", "code": "0161", "image_url": "https://s7d9.scene7.com/is/image/daltile/DAL_0161_3x6_UrbanPutty_SemiGloss_swatch", "source": "daltile.com", "size_note": "" },
+            { "name": "Elemental Tan", "code": "0166", "image_url": "https://s7d9.scene7.com/is/image/daltile/DAL_0166_3x6_ElementalTan_SemiGloss_swatch", "source": "daltile.com", "size_note": "" },
+            { "name": "Artisan Brown", "code": "0144", "image_url": "https://s7d9.scene7.com/is/image/daltile/DAL_0144_3x6_ArtisanBrown_SemiGloss_swatch", "source": "daltile.com", "size_note": "" },
+            { "name": "Desert Gray", "code": "X114", "image_url": "https://s7d9.scene7.com/is/image/daltile/DAL_X114_3x6_DesertGray_SemiGloss_swatch", "source": "daltile.com", "size_note": "" },
+            { "name": "Chalkboard", "code": "0180", "image_url": "https://s7d9.scene7.com/is/image/daltile/DAL_0180_3x6_Chalkboard_SemiGloss_swatch", "source": "daltile.com", "size_note": "" },
+            { "name": "Emerald", "code": "0115", "finish": "Semi-Gloss", "image_url": "https://www.daltile.com/products/wall/color-wheel-classic/emerald", "source": "daltile.com (product page)", "size_note": "" },
+            { "name": "Ocean Blue", "code": "1049", "finish": "Semi-Gloss", "image_url": "https://www.daltile.com/products/wall/color-wheel-classic/ocean-blue", "source": "daltile.com (product page)", "size_note": "" },
+            { "name": "Navy", "code": "K189", "finish": "Semi-Gloss", "image_url": "https://www.daltile.com/products/wall/color-wheel-classic/navy", "source": "daltile.com (product page)", "size_note": "" },
+            { "name": "Sea Breeze", "code": "1174", "finish": "Semi-Gloss", "image_url": "https://www.daltile.com/products/wall/color-wheel-classic/sea-breeze", "source": "daltile.com (product page)", "size_note": "" },
+            { "name": "Spa", "code": "0148", "finish": "Semi-Gloss", "image_url": "https://www.daltile.com/products/wall/color-wheel-classic/spa", "source": "daltile.com (product page)", "size_note": "" },
+            { "name": "Mustard", "code": "1012", "finish": "Semi-Gloss", "image_url": "https://www.daltile.com/products/wall/color-wheel-classic/mustard", "source": "daltile.com (product page)", "size_note": "" },
+            { "name": "Sunflower", "code": "DH50", "finish": "Semi-Gloss", "image_url": "https://www.daltile.com/products/wall/color-wheel-classic/sunflower", "source": "daltile.com (product page)", "size_note": "" }
+          ],
+          "shower_floor_approved": false
+        },
+        {
+          "vendor": "Emser",
+          "series": "Souvenir",
+          "material": "Glazed Porcelain Mosaic",
+          "sizes": ["1x6 stacked on 12x12 mesh"],
+          "finishes": ["Glossy"],
+          "colors": [
+            { "name": "Belem", "image_url": "https://allseasonamericanflooring.com/cdn/shop/files/W50SOUVBE1212MSKP-SRC.jpg", "source": "allseasonamericanflooring.com", "size_note": "" },
+            { "name": "Evora", "image_url": "https://allseasonamericanflooring.com/cdn/shop/files/W50SOUVEV1212MSKP-SRC.jpg", "source": "allseasonamericanflooring.com", "size_note": "" },
+            { "name": "Faro", "image_url": "https://allseasonamericanflooring.com/cdn/shop/files/W50SOUVFA1212MSKP-SRC.jpg", "source": "allseasonamericanflooring.com", "size_note": "" },
+            { "name": "Lagos", "image_url": "https://allseasonamericanflooring.com/cdn/shop/files/W50SOUVLA1212MSKP-SRC.jpg", "source": "allseasonamericanflooring.com", "size_note": "" },
+            { "name": "Sintra", "image_url": "https://allseasonamericanflooring.com/cdn/shop/files/W50SOUVSI1212MSKP-SRC.jpg", "source": "allseasonamericanflooring.com", "size_note": "" }
+          ],
+          "shower_floor_approved": false
+        },
+        {
+          "vendor": "Emser",
+          "series": "Reward",
+          "material": "Glazed Porcelain Mosaic",
+          "sizes": ["2x4 bevel mosaic", "3x4 fan mosaic", "4in hex mosaic"],
+          "finishes": ["Glossy"],
+          "colors": [
+            { "name": "Dove", "image_url": "https://lafloorcoverings.com/cdn/shop/products/Emser_Reward_Hex_10_x_11_Porcelain_Mosaic_7.jpg", "source": "lafloorcoverings.com", "size_note": "" },
+            { "name": "Gray", "image_url": "https://lafloorcoverings.com/cdn/shop/products/Emser_Reward_Hex_10_x_11_Porcelain_Mosaic_16.jpg", "source": "lafloorcoverings.com", "size_note": "" },
+            { "name": "Taupe", "image_url": "https://lafloorcoverings.com/cdn/shop/products/Emser_Reward_Hex_10_x_11_Porcelain_Mosaic_1.jpg", "source": "lafloorcoverings.com", "size_note": "" },
+            { "name": "White", "image_url": "https://lafloorcoverings.com/cdn/shop/products/Emser_Reward_Hex_10_x_11_Porcelain_Mosaic_8.jpg", "source": "lafloorcoverings.com", "size_note": "" }
+          ],
+          "shower_floor_approved": false
+        },
+        {
+          "vendor": "Emser",
+          "series": "Catch",
+          "material": "Glazed Ceramic",
+          "sizes": ["3x6", "3x12", "4x10", "4x16", "6x6", "6x18"],
+          "finishes": ["Glossy", "Matte"],
+          "colors": [
+            { "name": "Taupe Gloss", "image_url": "https://lafloorcoverings.com/cdn/shop/products/Emser_Catch_3_x_6_Ceramic_Tile_10.jpg", "source": "lafloorcoverings.com", "size_note": "" },
+            { "name": "Taupe Matte", "image_url": "https://lafloorcoverings.com/cdn/shop/products/Emser_Catch_3_x_6_Ceramic_Tile_11.jpg", "source": "lafloorcoverings.com", "size_note": "" },
+            { "name": "Silicon Gloss", "image_url": "https://lafloorcoverings.com/cdn/shop/products/Emser_Catch_3_x_6_Ceramic_Tile_5.jpg", "source": "lafloorcoverings.com", "size_note": "" },
+            { "name": "Silicon Matte", "image_url": "https://lafloorcoverings.com/cdn/shop/products/Emser_Catch_3_x_6_Ceramic_Tile_6.jpg", "source": "lafloorcoverings.com", "size_note": "" },
+            { "name": "Ivory Gloss", "image_url": "https://lafloorcoverings.com/cdn/shop/products/Emser_Catch_3_x_6_Ceramic_Tile_9.jpg", "source": "lafloorcoverings.com", "size_note": "" },
+            { "name": "Ivory Matte", "image_url": "https://lafloorcoverings.com/cdn/shop/products/Emser_Catch_3_x_6_Ceramic_Tile_16.jpg", "source": "lafloorcoverings.com", "size_note": "" },
+            { "name": "Ice Matte", "image_url": "https://lafloorcoverings.com/cdn/shop/products/Emser_Catch_3_x_6_Ceramic_Tile_8.jpg", "source": "lafloorcoverings.com", "size_note": "" },
+            { "name": "Fawn Gloss", "image_url": "https://lafloorcoverings.com/cdn/shop/products/Emser_Catch_3_x_6_Ceramic_Tile_7.jpg", "source": "lafloorcoverings.com", "size_note": "" }
+          ],
+          "shower_floor_approved": false
+        },
+        {
+          "vendor": "Emser",
+          "series": "Raku",
+          "material": "Glazed Ceramic",
+          "sizes": ["3x12"],
+          "finishes": ["Glossy", "Matte"],
+          "colors": [
+            { "name": "Blue", "image_url": "https://allseasonamericanflooring.com/cdn/shop/files/W32RAKUBL0312-SRC.jpg", "source": "allseasonamericanflooring.com", "size_note": "" },
+            { "name": "Charcoal", "image_url": "https://allseasonamericanflooring.com/cdn/shop/files/W32RAKUCH0312-SRC.jpg", "source": "allseasonamericanflooring.com", "size_note": "" },
+            { "name": "Mustard", "image_url": "https://allseasonamericanflooring.com/cdn/shop/files/W32RAKUMU0312-SRC.jpg", "source": "allseasonamericanflooring.com", "size_note": "" },
+            { "name": "Ocean", "image_url": "https://allseasonamericanflooring.com/cdn/shop/files/W32RAKUOC0312-SRC.jpg", "source": "allseasonamericanflooring.com", "size_note": "" },
+            { "name": "Olive", "image_url": "https://allseasonamericanflooring.com/cdn/shop/files/W32RAKUOL0312-SRC.jpg", "source": "allseasonamericanflooring.com", "size_note": "" },
+            { "name": "Ruby", "image_url": "https://allseasonamericanflooring.com/cdn/shop/files/W32RAKURU0312-SRC.jpg", "source": "allseasonamericanflooring.com", "size_note": "" },
+            { "name": "Silver", "image_url": "https://allseasonamericanflooring.com/cdn/shop/files/W32RAKUSI0312-SRC.jpg", "source": "allseasonamericanflooring.com", "size_note": "" },
+            { "name": "White", "image_url": "https://allseasonamericanflooring.com/cdn/shop/files/W32RAKUWH0312-SRC.jpg", "source": "allseasonamericanflooring.com", "size_note": "" }
+          ],
+          "shower_floor_approved": false
+        },
+        {
+          "vendor": "Arizona Tile",
+          "series": "Flash",
+          "material": "Glazed Ceramic",
+          "sizes": ["3x12", "5x5"],
+          "finishes": ["Textured Glaze"],
+          "colors": [
+            { "name": "Blush", "image_url": "https://lafloorcoverings.com/cdn/shop/files/Flash-Blush-3x12-Swatch.jpg", "source": "lafloorcoverings.com", "size_note": "" },
+            { "name": "Cobalt", "image_url": "https://lafloorcoverings.com/cdn/shop/files/Flash-Cobalt-3x12-Swatch.jpg", "source": "lafloorcoverings.com", "size_note": "" },
+            { "name": "Cool Grey", "image_url": "https://lafloorcoverings.com/cdn/shop/files/Flash-Cool-Grey-3x12-Swatch.jpg", "source": "lafloorcoverings.com", "size_note": "" },
+            { "name": "Graphite", "image_url": "https://lafloorcoverings.com/cdn/shop/files/Flash-Graphite-3x12-Swatch.jpg", "source": "lafloorcoverings.com", "size_note": "" },
+            { "name": "Ivory", "image_url": "https://lafloorcoverings.com/cdn/shop/files/Flash-Ivory-3x12-Swatch.jpg", "source": "lafloorcoverings.com", "size_note": "" },
+            { "name": "Lead", "image_url": "https://lafloorcoverings.com/cdn/shop/files/Flash-Lead-3x12-Swatch.jpg", "source": "lafloorcoverings.com", "size_note": "" },
+            { "name": "Light Blue", "image_url": "https://lafloorcoverings.com/cdn/shop/files/Flash-Light-Blue-3x12-Swatch.jpg", "source": "lafloorcoverings.com", "size_note": "" },
+            { "name": "White", "image_url": "https://lafloorcoverings.com/cdn/shop/files/Flash-White-3x12-Swatch.jpg", "source": "lafloorcoverings.com", "size_note": "" }
+          ],
+          "shower_floor_approved": false
+        },
+        {
+          "vendor": "Marazzi",
+          "series": "Zellige Neo",
+          "material": "Glazed Ceramic",
+          "sizes": ["4x4"],
+          "finishes": ["Glossy"],
+          "colors": [
+            { "name": "Lana", "code": "ZL07", "image_url": "https://s7d9.scene7.com/is/image/daltile/MZ_ZL07_4x4_Lana_grid_web:Swatch", "source": "marazziusa.com", "size_note": "" },
+            { "name": "Carbone", "code": "ZL12", "image_url": "https://s7d9.scene7.com/is/image/daltile/MZ_ZL12_4x4_Carbone_grid_web:Swatch", "source": "marazziusa.com", "size_note": "" },
+            { "name": "China", "code": "ZL06", "image_url": "https://s7d9.scene7.com/is/image/daltile/MZ_ZL06_4x4_China_grid_web:Swatch", "source": "marazziusa.com", "size_note": "" },
+            { "name": "Cielo", "code": "ZL04", "image_url": "https://s7d9.scene7.com/is/image/daltile/MZ_ZL04_4x4_Cielo_grid_web:Swatch", "source": "marazziusa.com", "size_note": "" },
+            { "name": "Petrolio", "code": "ZL05", "image_url": "https://s7d9.scene7.com/is/image/daltile/MZ_ZL05_4x4_Petrolio_grid_web:Swatch", "source": "marazziusa.com", "size_note": "" },
+            { "name": "Argilla", "code": "ZL08", "image_url": "https://s7d9.scene7.com/is/image/daltile/MZ_ZL08_4x4_Argilla_grid_web:Swatch", "source": "marazziusa.com", "size_note": "" },
+            { "name": "Bosco", "code": "ZL03", "image_url": "https://s7d9.scene7.com/is/image/daltile/MZ_ZL03_4x4_Bosco_grid_web:Swatch", "source": "marazziusa.com", "size_note": "" },
+            { "name": "Salvia", "code": "ZL02", "image_url": "https://s7d9.scene7.com/is/image/daltile/MZ_ZL02_4x4_Salvia_grid_web:Swatch", "source": "marazziusa.com", "size_note": "" },
+            { "name": "Turchese", "code": "ZL01", "image_url": "https://s7d9.scene7.com/is/image/daltile/MZ_ZL01_4x4_Turquese_grid_web:Swatch", "source": "marazziusa.com", "size_note": "" },
+            { "name": "Gesso", "code": "ZL11", "image_url": "https://s7d9.scene7.com/is/image/daltile/MZ_ZL11_4x4_Gesso_grid_web:Swatch", "source": "marazziusa.com", "size_note": "" }
+          ],
+          "shower_floor_approved": false
+        }
+      ]
+    },
+    "bathroom_wall": {
+      "vendors": [
+        {
+          "vendor": "DalTile",
+          "series": "Enlite",
+          "material": "Porcelain",
+          "sizes": ["15x30"],
+          "finishes": ["Matte"],
+          "colors": [
+            { "name": "Awaken", "code": "EL61", "image_url": "https://digitalassets.daltile.com/content/dam/Daltile/DAL_images/enlite/web/DAL_EL61_15x30_Awaken_03.jpg/jcr:content/renditions/cuswatch.jpeg", "source": "daltile.com", "size_note": "" },
+            { "name": "Clarity", "code": "EL62", "image_url": "https://digitalassets.daltile.com/content/dam/Daltile/DAL_images/enlite/web/DAL_EL62_15x30_Clarity_03.jpg/jcr:content/renditions/cuswatch.jpeg", "source": "daltile.com", "size_note": "" },
+            { "name": "Illuminate", "code": "EL60", "image_url": "https://digitalassets.daltile.com/content/dam/Daltile/DAL_images/enlite/web/DAL_EL60_15x30_Illuminate_04.jpg/jcr:content/renditions/cuswatch.jpeg", "source": "daltile.com", "size_note": "" },
+            { "name": "Transcend", "code": "EL64", "image_url": "https://digitalassets.daltile.com/content/dam/Daltile/DAL_images/enlite/web/DAL_EL64_15x30_Transcend_02.jpg/jcr:content/renditions/cuswatch.jpeg", "source": "daltile.com", "size_note": "" }
+          ],
+          "shower_floor_approved": false
+        },
+        {
+          "vendor": "DalTile",
+          "series": "Core Fundamentals Advantage",
+          "material": "Ceramic / Porcelain",
+          "sizes": ["12x24", "18x18", "12x12", "2x4 mosaic", "2x2 mosaic"],
+          "finishes": ["Matte"],
+          "colors": [
+            { "name": "Distressed Beige", "code": "LS41", "image_url": "https://s7d9.scene7.com/is/image/daltile/DAL_LS41_12x24_DistressedBeige_MT_Silo_01:Swatch", "source": "daltile.com", "size_note": "" },
+            { "name": "Golden Sand", "code": "SV17", "image_url": "https://s7d9.scene7.com/is/image/daltile/DAL_SV17_18x18_GoldenSand_MT_Silo_01:Swatch", "source": "daltile.com", "size_note": "" },
+            { "name": "Aged Grey", "code": "LS42", "image_url": "https://s7d9.scene7.com/is/image/daltile/DAL_LS42_12x12_AgedGrey_MT_Silo_01:Swatch", "source": "daltile.com", "size_note": "" },
+            { "name": "Cement Grey", "code": "SV18", "image_url": "https://s7d9.scene7.com/is/image/daltile/DAL_SV18_18x18_CementGrey_MT_Silo_01:Swatch", "source": "daltile.com", "size_note": "" },
+            { "name": "Renoir Grey", "code": "AQ03", "image_url": "https://s7d9.scene7.com/is/image/daltile/DAL_AQ03_18x18_RenoirGrey_03:Swatch", "source": "daltile.com", "size_note": "" },
+            { "name": "Trumpet Grey", "code": "EP22", "image_url": "https://s7d9.scene7.com/is/image/daltile/DAL_EP22_12x24_TrumpetGrey_02:Swatch", "source": "daltile.com", "size_note": "" },
+            { "name": "Mural Taupe", "code": "AQ02", "image_url": "https://s7d9.scene7.com/is/image/daltile/DAL_AQ02_18x18_MuralTaupe_02:Swatch", "source": "daltile.com", "size_note": "" },
+            { "name": "Percussion Taupe", "code": "EP21", "image_url": "https://s7d9.scene7.com/is/image/daltile/DAL_EP21_12x24_PercussionTaupe_02:Swatch", "source": "daltile.com", "size_note": "" },
+            { "name": "White Canvas", "code": "SV16", "image_url": "https://s7d9.scene7.com/is/image/daltile/DAL_SV16_18x18_WhiteCanvas_MT_Silo_01:Swatch", "source": "daltile.com", "size_note": "" },
+            { "name": "Aria White", "code": "EP20", "image_url": "https://s7d9.scene7.com/is/image/daltile/DAL_EP20_12x24_AriaWhite_04:Swatch", "source": "daltile.com", "size_note": "" },
+            { "name": "Portrait White", "code": "AQ01", "image_url": "https://s7d9.scene7.com/is/image/daltile/DAL_AQ01_18x18_PortraitWhite_03:Swatch", "source": "daltile.com", "size_note": "" },
+            { "name": "Washed White", "code": "LS40", "image_url": "https://s7d9.scene7.com/is/image/daltile/DAL_LS40_12x24_WashedWhite_MT_Silo_01:Swatch", "source": "daltile.com", "size_note": "" }
+          ],
+          "shower_floor_approved": false
+        },
+        {
+          "vendor": "DalTile",
+          "series": "Perpetuo",
+          "material": "ColorBody Porcelain",
+          "sizes": ["12x12", "12x24", "24x24", "8in hex", "4x12 wall"],
+          "finishes": ["Matte", "Polished", "Satin"],
+          "colors": [
+            { "name": "Timeless White", "code": "PT20", "image_url": "https://s7d9.scene7.com/is/image/daltile/DAL_PT20_24x24_TimelessWhite_POL_Silo_01_v2_web:Swatch", "source": "daltile.com", "size_note": "" },
+            { "name": "Brilliant White", "code": "PT21", "image_url": "https://digitalassets.daltile.com/content/dam/Daltile/DAL_images/perpetuo/web/DAL_PT21_24x24_BrilliantWhite_POL_Silo_01_v2_web.jpg/jcr:content/renditions/cuswatch.jpeg", "source": "daltile.com", "size_note": "" },
+            { "name": "Elegant Beige", "code": "PT22", "image_url": "https://s7d9.scene7.com/is/image/daltile/DAL_PT22_24x24_ElegantBeige_POL_Silo_01_v2_web:Swatch", "source": "daltile.com", "size_note": "" },
+            { "name": "Eternal Grey", "code": "PT23", "image_url": "https://s7d9.scene7.com/is/image/daltile/DAL_PT23_24x24_EternalGrey_POL_Silo_01_v2_web:Swatch", "source": "daltile.com", "size_note": "" },
+            { "name": "Infinite Black", "code": "PT24", "image_url": "https://s7d9.scene7.com/is/image/daltile/DAL_PT24_24x24_InfiniteBlack_POL_Silo_01_v2_web:Swatch", "source": "daltile.com", "size_note": "" },
+            { "name": "Bridal", "code": "PT25", "image_url": "https://s7d9.scene7.com/is/image/daltile/DAL_PT25_8_Hex_Bridal_Silo_01_web:Swatch", "source": "daltile.com", "size_note": "" },
+            { "name": "Tuxedo", "code": "PT26", "image_url": "https://s7d9.scene7.com/is/image/daltile/DAL_PT26_8_Hex_Tuxedo_Silo_01:Swatch", "source": "daltile.com", "size_note": "" }
+          ],
+          "shower_floor_approved": false
+        },
+        {
+          "vendor": "Emser",
+          "series": "Sterlina II",
+          "material": "Porcelain",
+          "sizes": ["12x24", "24x24", "24x47"],
+          "finishes": ["Matte", "Polished"],
+          "colors": [
+            { "name": "Asphalt", "image_url": "https://lafloorcoverings.com/cdn/shop/products/SterlinaII_Asphalt_F20STERAS1224_Scan_f1_544x288_0cb30268-de9d-4050-ae0e-c63c4374a4f1.jpg", "source": "lafloorcoverings.com", "size_note": "" },
+            { "name": "Dove", "image_url": "https://lafloorcoverings.com/cdn/shop/products/SterlinaII_Dove_F20STERDO2424_Scan_f1_544x544_ce40e02d-12ec-46b5-83dd-3cc33ec7a9f9.jpg", "source": "lafloorcoverings.com", "size_note": "" },
+            { "name": "Gray", "image_url": "https://lafloorcoverings.com/cdn/shop/products/SterlinaII_Gray_F20STERGR1224_Scan_f1_544x288_bbf01709-9a77-48d2-89e4-43a6f5b18ad4.jpg", "source": "lafloorcoverings.com", "size_note": "" },
+            { "name": "Ivory", "image_url": "https://lafloorcoverings.com/cdn/shop/products/SterlinaII_Ivory_F20STERIV2424P_Scan_f1_544x544_a9c125e0-42c8-499f-a5fb-a978456d68ed.jpg", "source": "lafloorcoverings.com", "size_note": "" },
+            { "name": "Silver", "image_url": "https://lafloorcoverings.com/cdn/shop/products/SterlinaII_Silver_F20STERSI2424_Scan_f1_544x544_65a5f2dc-abdd-4376-8e13-29c818d432fa.jpg", "source": "lafloorcoverings.com", "size_note": "" },
+            { "name": "White", "image_url": "https://lafloorcoverings.com/cdn/shop/products/SterlinaII_White_F20STERWH1224_Scan_f1_544x288_2c7e1762-2228-4a1a-9609-4009bb5322f8.jpg", "source": "lafloorcoverings.com", "size_note": "" }
+          ],
+          "shower_floor_approved": false
+        },
+        {
+          "vendor": "Emser",
+          "series": "Nobleza",
+          "material": "Porcelain",
+          "sizes": ["12x24", "24x24"],
+          "finishes": ["Matte", "Polished"],
+          "colors": [
+            { "name": "Astorga", "image_url": "https://lafloorcoverings.com/cdn/shop/files/gkkjgsappwutafyo8xyw_1000x1000_47bc6795-c64a-4c08-91a6-2429a30ba1bd.jpg", "source": "lafloorcoverings.com", "size_note": "" },
+            { "name": "Lugo", "image_url": "https://lafloorcoverings.com/cdn/shop/files/wnnyoehrnrf79vvpdaz3_1000x1000_bc4b4912-da48-4ac6-8c7d-b8f171ba13ba.jpg", "source": "lafloorcoverings.com", "size_note": "" }
+          ],
+          "shower_floor_approved": false
+        },
+        {
+          "vendor": "Milestone",
+          "series": "Earthen Fluted",
+          "material": "Porcelain",
+          "sizes": ["12x24 fluted deco"],
+          "finishes": ["Matte textured"],
+          "colors": [
+            { "name": "Alabaster", "image_url": "https://www.milestonetiles.com/cdn/shop/files/Earthen_Alabaster_12x24_Panel.jpg", "source": "milestonetiles.com", "size_note": "" },
+            { "name": "Almond", "image_url": "https://www.milestonetiles.com/cdn/shop/files/Earthen_Almond_12x24_Panel.jpg", "source": "milestonetiles.com", "size_note": "" },
+            { "name": "Buttercup", "image_url": "https://www.milestonetiles.com/cdn/shop/files/Earthen_Buttercup_12x24_Panel.jpg", "source": "milestonetiles.com", "size_note": "" },
+            { "name": "Jade", "image_url": "https://www.milestonetiles.com/cdn/shop/files/Earthen_Jade_12x24_Panel.jpg", "source": "milestonetiles.com", "size_note": "" },
+            { "name": "Marine", "image_url": "https://www.milestonetiles.com/cdn/shop/files/Earthen_Marine_12x24_Panel.jpg", "source": "milestonetiles.com", "size_note": "" },
+            { "name": "Marron", "image_url": "https://www.milestonetiles.com/cdn/shop/files/Earthen_Marron_12x24_Panel.jpg", "source": "milestonetiles.com", "size_note": "" },
+            { "name": "Moka", "image_url": "https://www.milestonetiles.com/cdn/shop/files/Earthen_Moka_12x24_Panel.jpg", "source": "milestonetiles.com", "size_note": "" },
+            { "name": "Smoke", "image_url": "https://www.milestonetiles.com/cdn/shop/files/Earthen_Smoke_12x24_Panel.jpg", "source": "milestonetiles.com", "size_note": "" },
+            { "name": "Terracotta", "image_url": "https://www.milestonetiles.com/cdn/shop/files/Earthen_Terracotta_12x24_Panel.jpg", "source": "milestonetiles.com", "size_note": "" },
+            { "name": "Whisper", "image_url": "https://www.milestonetiles.com/cdn/shop/files/Earthen_Whisper_12x24_Panel.jpg", "source": "milestonetiles.com", "size_note": "" }
+          ],
+          "shower_floor_approved": false
+        },
+        {
+          "vendor": "Milestone",
+          "series": "Earthen Matte",
+          "material": "Porcelain",
+          "sizes": ["3x12", "12x12", "12x24", "10x10 hex", "2x2 mosaic"],
+          "finishes": ["Matte"],
+          "colors": [
+            { "name": "Alabaster", "image_url": "https://www.milestonetiles.com/cdn/shop/files/Earthen_Alabaster_12x24_Panel.jpg", "source": "milestonetiles.com", "size_note": "" },
+            { "name": "Almond", "image_url": "https://www.milestonetiles.com/cdn/shop/files/Earthen_Almond_12x24_Panel.jpg", "source": "milestonetiles.com", "size_note": "" },
+            { "name": "Buttercup", "image_url": "https://www.milestonetiles.com/cdn/shop/files/Earthen_Buttercup_12x24_Panel.jpg", "source": "milestonetiles.com", "size_note": "" },
+            { "name": "Jade", "image_url": "https://www.milestonetiles.com/cdn/shop/files/Earthen_Jade_12x24_Panel.jpg", "source": "milestonetiles.com", "size_note": "" },
+            { "name": "Marine", "image_url": "https://www.milestonetiles.com/cdn/shop/files/Earthen_Marine_12x24_Panel.jpg", "source": "milestonetiles.com", "size_note": "" },
+            { "name": "Marron", "image_url": "https://www.milestonetiles.com/cdn/shop/files/Earthen_Marron_12x24_Panel.jpg", "source": "milestonetiles.com", "size_note": "" },
+            { "name": "Moka", "image_url": "https://www.milestonetiles.com/cdn/shop/files/Earthen_Moka_12x24_Panel.jpg", "source": "milestonetiles.com", "size_note": "" },
+            { "name": "Smoke", "image_url": "https://www.milestonetiles.com/cdn/shop/files/Earthen_Smoke_12x24_Panel.jpg", "source": "milestonetiles.com", "size_note": "" },
+            { "name": "Terracotta", "image_url": "https://www.milestonetiles.com/cdn/shop/files/Earthen_Terracotta_12x24_Panel.jpg", "source": "milestonetiles.com", "size_note": "" },
+            { "name": "Whisper", "image_url": "https://www.milestonetiles.com/cdn/shop/files/Earthen_Whisper_12x24_Panel.jpg", "source": "milestonetiles.com", "size_note": "" }
+          ],
+          "shower_floor_approved": false
+        }
+      ]
+    },
+    "tile_floor": {
+      "vendors": [
+        {
+          "vendor": "DalTile",
+          "series": "Artsy",
+          "material": "Glazed Porcelain",
+          "sizes": ["12x24", "24x24"],
+          "finishes": ["Polished"],
+          "colors": [
+            { "name": "Gallery Pearl", "code": "AT32", "image_url": "https://s7d9.scene7.com/is/image/daltile/DAL_AT32_12x24_GalleryPearl_POL_LivePanel_01:Swatch", "source": "daltile.com", "size_note": "" },
+            { "name": "Breccia Onyx", "code": "AT33", "image_url": "https://s7d9.scene7.com/is/image/daltile/DAL_AT33_12x24_BrecciaOnyx_POL_LivePanel_01:Swatch", "source": "daltile.com", "size_note": "" },
+            { "name": "Editorial Volakas", "code": "AT30", "image_url": "https://s7d9.scene7.com/is/image/daltile/DAL_AT30_12x24_EditorialVolakas_POL_LivePanel_01:Swatch", "source": "daltile.com", "size_note": "" },
+            { "name": "Studio Carrara", "code": "AT31", "image_url": "https://s7d9.scene7.com/is/image/daltile/DAL_AT31_12x24_StudioCarrara_POL_LivePanel_01:Swatch", "source": "daltile.com", "size_note": "" }
+          ],
+          "shower_floor_approved": false
+        },
+        {
+          "vendor": "DalTile",
+          "series": "Famed",
+          "material": "ColorBody Porcelain",
+          "sizes": ["12x24", "24x24", "chevron mosaic", "penny round mosaic"],
+          "finishes": ["Matte", "Polished"],
+          "colors": [
+            { "name": "Diamond", "code": "FM10", "image_url": "https://digitalassets.daltile.com/content/dam/Daltile/DAL_images/famed/web/DAL_FM10_24x24_Diamond_01.jpg/jcr:content/renditions/cuswatch.jpeg", "source": "daltile.com", "size_note": "" },
+            { "name": "Iconic", "code": "FM11", "image_url": "https://digitalassets.daltile.com/content/dam/Daltile/DAL_images/famed/web/DAL_FM11_24x24_Iconic_03.jpg/jcr:content/renditions/cuswatch.jpeg", "source": "daltile.com", "size_note": "" },
+            { "name": "Luxe", "code": "FM12", "image_url": "https://digitalassets.daltile.com/content/dam/Daltile/DAL_images/famed/web/DAL_FM12_24x24_Luxe_02.jpg/jcr:content/renditions/cuswatch.jpeg", "source": "daltile.com", "size_note": "" },
+            { "name": "Glamour", "code": "FM13", "image_url": "https://digitalassets.daltile.com/content/dam/Daltile/DAL_images/famed/web/DAL_FM13_24x24_Glamour_03.jpg/jcr:content/renditions/cuswatch.jpeg", "source": "daltile.com", "size_note": "" },
+            { "name": "Fortune", "code": "FM14", "image_url": "https://digitalassets.daltile.com/content/dam/Daltile/DAL_images/famed/web/DAL_FM14_24x24_Fortune_02.jpg/jcr:content/renditions/cuswatch.jpeg", "source": "daltile.com", "size_note": "" }
+          ],
+          "shower_floor_approved": false
+        },
+        {
+          "vendor": "DalTile",
+          "series": "Platinum (Core Fundamentals)",
+          "material": "Glazed Porcelain",
+          "sizes": ["6x24", "6x36", "12x24", "24x24"],
+          "finishes": ["Matte"],
+          "notes": "Highest tier of Core Fundamentals. Marble, wood, and stone looks in 30+ colors. Not rated for shower floors.",
+          "colors": [
+            { "name": "Cloud", "code": "PH60", "image_url": "https://www.daltile.com/products/stone-look/platinum", "source": "daltile.com (collection page)", "size_note": "" },
+            { "name": "Mist", "code": "PH61", "image_url": "https://www.daltile.com/products/stone-look/platinum", "source": "daltile.com (collection page)", "size_note": "" },
+            { "name": "Sand", "code": "PH62", "image_url": "https://www.daltile.com/products/stone-look/platinum", "source": "daltile.com (collection page)", "size_note": "" },
+            { "name": "Smoke", "code": "PH63", "image_url": "https://www.daltile.com/products/stone-look/platinum", "source": "daltile.com (collection page)", "size_note": "" }
+          ],
+          "shower_floor_approved": false
+        },
+        {
+          "vendor": "Emser",
+          "series": "Caru",
+          "material": "Ceramic",
+          "sizes": ["13x13", "17x17"],
+          "finishes": ["Matte"],
+          "colors": [
+            { "name": "Lampa", "image_url": "https://lafloorcoverings.com/cdn/shop/files/caru_lampa_f84caruco1313_scan_f1_large_836788c8-94e4-4781-8eec-e64083bbc1eb.jpg", "source": "lafloorcoverings.com", "size_note": "" },
+            { "name": "Rengo", "image_url": "https://lafloorcoverings.com/cdn/shop/files/caru_rengo_f84carure1313_scan_f1_large_91603aca-f1e3-4ef3-9cd5-3364c24e722c.jpg", "source": "lafloorcoverings.com", "size_note": "" },
+            { "name": "Colina", "image_url": "https://lafloorcoverings.com/cdn/shop/files/caru_colina_f84caruco1313_scan_f1_large_43bc84ac-ff65-4a31-bfe8-728878ea8ab6.jpg", "source": "lafloorcoverings.com", "size_note": "" }
+          ],
+          "shower_floor_approved": false
+        },
+        {
+          "vendor": "Emser",
+          "series": "Brook II",
+          "material": "Ceramic",
+          "sizes": ["8x12", "12x24", "13x13", "2x2 mosaic"],
+          "finishes": ["Matte"],
+          "colors": [
+            { "name": "Cream", "image_url": "https://lafloorcoverings.com/cdn/shop/files/BrookII_Cream_F84BROOCR1224_Scan_f1_544x288_7c64577b-e83f-4841-9496-6b2b80553440.jpg", "source": "lafloorcoverings.com", "size_note": "" },
+            { "name": "Graphite", "image_url": "https://lafloorcoverings.com/cdn/shop/files/Brook_Graphite_F22BROOGT1224_Scan_f1_544x288_56b265f9-0d26-4d66-a31c-155a6094ff6c.png", "source": "lafloorcoverings.com", "size_note": "" },
+            { "name": "Silver", "image_url": "https://lafloorcoverings.com/cdn/shop/files/Brook_Silver_F84BROOSI1224_Scan_f1_544x288_b4630957-0a48-4adc-a1cf-1d3617bb33d5.jpg", "source": "lafloorcoverings.com", "size_note": "" },
+            { "name": "White", "image_url": "https://lafloorcoverings.com/cdn/shop/files/Brook_White_F22BROOWH1224_Scan_f1_544x288_245b77cc-d8b8-4022-8ba7-e82908b8fee9.png", "source": "lafloorcoverings.com", "size_note": "" }
+          ],
+          "shower_floor_approved": false
+        },
+        {
+          "vendor": "Emser",
+          "series": "Persona",
+          "material": "Porcelain",
+          "sizes": ["15x30"],
+          "finishes": ["Matte"],
+          "colors": [
+            { "name": "Breeze", "image_url": "https://lafloorcoverings.com/cdn/shop/files/persona_breeze_f17persbr1530m_factoryimage_f1_large_5cd66760-a2e3-41db-81ae-160f42b6c547.jpg", "source": "lafloorcoverings.com", "size_note": "" },
+            { "name": "Dusk", "image_url": "https://lafloorcoverings.com/cdn/shop/files/persona_dusk_f17persdu1530m_factoryimage_f1_large_88c53697-3735-4831-a869-fd5d0678cec4.jpg", "source": "lafloorcoverings.com", "size_note": "" },
+            { "name": "Shadow", "image_url": "https://lafloorcoverings.com/cdn/shop/files/persona_shadow_f17perssh1530m_factoryimage_f1_large_4281905f-b2db-4335-a0e4-b6362ef2ccbc.jpg", "source": "lafloorcoverings.com", "size_note": "" },
+            { "name": "Whisper", "image_url": "https://lafloorcoverings.com/cdn/shop/files/persona_whisper_f17perswh1530m_factoryimage_large_52ef6814-2848-4c20-8839-0e710c948311.jpg", "source": "lafloorcoverings.com", "size_note": "" }
+          ],
+          "shower_floor_approved": false
+        },
+        {
+          "vendor": "Shaw",
+          "series": "Ardor",
+          "material": "Glazed Ceramic",
+          "sizes": ["12x24", "22x22", "mosaic"],
+          "finishes": ["Matte"],
+          "colors": [
+            { "name": "Radiance", "code": "00100", "image_url": "https://shawfloors.widen.net/content/egzjlcyp5l/jpeg/523ts_00100_main", "source": "shawfloors.com (Moonstruck Serenity - same color family)", "size_note": "" },
+            { "name": "Vision", "code": "00500", "image_url": "https://shawfloors.widen.net/content/aamaimhyxy/jpeg/523ts_00500_main", "source": "shawfloors.com (Moonstruck Verena - same color family)", "size_note": "" },
+            { "name": "Horizon", "code": "00700", "image_url": "https://shawfloors.widen.net/content/apqipip4ua/jpeg/523ts_00700_main", "source": "shawfloors.com (Moonstruck Essence - same color family)", "size_note": "" }
+          ],
+          "shower_floor_approved": false
+        },
+        {
+          "vendor": "Shaw",
+          "series": "Paradigm",
+          "material": "Glazed Porcelain",
+          "sizes": ["12x24", "24x24", "24x48", "hex mosaic"],
+          "finishes": ["Matte", "Polished"],
+          "colors": [
+            { "name": "Onyx Crystallo", "code": "00110", "image_url": "https://shawfloors.widen.net/content/y51yeuixkw/jpeg/523ts_00150_main", "source": "shawfloors.com", "size_note": "" },
+            { "name": "Carrara Abisso", "code": "00111", "image_url": "https://shawfloors.widen.net/content/aamaimhyxy/jpeg/523ts_00500_main", "source": "shawfloors.com", "size_note": "" },
+            { "name": "Statuario Brina", "code": "00150", "image_url": "https://shawfloors.widen.net/content/egzjlcyp5l/jpeg/523ts_00100_main", "source": "shawfloors.com", "size_note": "" },
+            { "name": "Perla Grigia", "code": "00500", "image_url": "https://shawfloors.widen.net/content/wi9gzrcg14/jpeg/523ts_00750_main", "source": "shawfloors.com", "size_note": "" }
+          ],
+          "shower_floor_approved": false
+        },
+        {
+          "vendor": "Shaw",
+          "series": "Moonstruck (Serenity/Ardor/Onyx line)",
+          "material": "Glazed Porcelain",
+          "sizes": ["9x47", "6x36"],
+          "finishes": ["Matte"],
+          "notes": "Serenity, Ardor, and Onyx are color names within the Moonstruck collection. Wood-look tile.",
+          "colors": [
+            { "name": "Serenity", "code": "00100", "image_url": "https://shawfloors.widen.net/content/egzjlcyp5l/jpeg/523ts_00100_main", "source": "shawfloors.com", "size_note": "" },
+            { "name": "Ardor", "code": "00150", "image_url": "https://shawfloors.widen.net/content/y51yeuixkw/jpeg/523ts_00150_main", "source": "shawfloors.com", "size_note": "" },
+            { "name": "Verena", "code": "00500", "image_url": "https://shawfloors.widen.net/content/aamaimhyxy/jpeg/523ts_00500_main", "source": "shawfloors.com", "size_note": "" },
+            { "name": "Essence", "code": "00700", "image_url": "https://shawfloors.widen.net/content/apqipip4ua/jpeg/523ts_00700_main", "source": "shawfloors.com", "size_note": "" },
+            { "name": "Escape", "code": "00750", "image_url": "https://shawfloors.widen.net/content/wi9gzrcg14/jpeg/523ts_00750_main", "source": "shawfloors.com", "size_note": "" }
+          ],
+          "shower_floor_approved": false
+        },
+        {
+          "vendor": "American Olean",
+          "series": "Foyer",
+          "material": "ColorBody Porcelain",
+          "sizes": ["12x24", "24x24", "decorative mosaic"],
+          "finishes": ["Matte", "Polished"],
+          "colors": [
+            { "name": "Summit", "code": "FY02", "image_url": "https://s7d9.scene7.com/is/image/daltile/AO_FY02_12x24_Summit_MT_Silo_02:Swatch", "source": "americanolean.com", "size_note": "" },
+            { "name": "Contrast", "code": "FY03", "image_url": "https://s7d9.scene7.com/is/image/daltile/AO_FY03_12x24_Contrast_POL_Silo_02:Swatch", "source": "americanolean.com", "size_note": "" },
+            { "name": "Steely", "code": "FY04", "image_url": "https://s7d9.scene7.com/is/image/daltile/AO_FY04_12x24_Steely_MT_Silo_01:Swatch", "source": "americanolean.com", "size_note": "" }
+          ],
+          "shower_floor_approved": false
+        },
+        {
+          "vendor": "Milestone",
+          "series": "Marbles",
+          "material": "Porcelain",
+          "sizes": ["12x24", "24x24", "24x48"],
+          "finishes": ["Matte", "Polished"],
+          "colors": [
+            { "name": "Carrara White", "image_url": "https://www.milestonetiles.com/cdn/shop/files/MILE_stone_Marbles_CarraraWhite_12x24_1187ac7a-7c31-4b36-ab2f-c039d1d57b0f.jpg", "source": "milestonetiles.com", "size_note": "" },
+            { "name": "Volakas Silk", "image_url": "https://www.milestonetiles.com/cdn/shop/files/MILE_stone_Marbles_VolakasSilk_12x24_5e955e00-c9af-4746-8cf5-ffe91398bac3.jpg", "source": "milestonetiles.com", "size_note": "" },
+            { "name": "Oniciata Ivory", "image_url": "https://www.milestonetiles.com/cdn/shop/files/MILE_stone_Marbles_OnciataIvory_12x24_ca89438e-6304-44d5-88d4-a7505afeaad7.jpg", "source": "milestonetiles.com", "size_note": "" },
+            { "name": "Oniciata Grey", "image_url": "https://www.milestonetiles.com/cdn/shop/files/MILE_stone_Marbles_OnciataGrey_12x24_04fe20e6-160c-42e7-9de0-654ee3729d0c.jpg", "source": "milestonetiles.com", "size_note": "" },
+            { "name": "Marmo Nero", "image_url": "https://www.milestonetiles.com/cdn/shop/files/MILE_stone_Marbles_MarmoNero_12x24_f99c77be-0197-4e2c-b271-b704b41a5f11.jpg", "source": "milestonetiles.com", "size_note": "" }
+          ],
+          "shower_floor_approved": false
+        },
+        {
+          "vendor": "Milestone",
+          "series": "Rustic Stone",
+          "material": "Porcelain",
+          "sizes": ["6x12", "12x12", "12x24", "2x2 mosaic"],
+          "finishes": ["Matte"],
+          "colors": [
+            { "name": "White", "image_url": "https://www.milestonetiles.com/cdn/shop/files/MILE_stone_RusticStone_White_12x24_Panel.jpg", "source": "milestonetiles.com", "size_note": "" },
+            { "name": "Taupe", "image_url": "https://www.milestonetiles.com/cdn/shop/files/MILE_stone_RusticStone_Taupe_12x24_Panel.jpg", "source": "milestonetiles.com", "size_note": "" },
+            { "name": "Grey", "image_url": "https://www.milestonetiles.com/cdn/shop/files/MILE_stone_RusticStone_Grey_12x24_Panel.jpg", "source": "milestonetiles.com", "size_note": "" },
+            { "name": "Charcoal", "image_url": "https://www.milestonetiles.com/cdn/shop/files/MILE_stone_RusticStone_Charcoal_12x24_Panel.jpg", "source": "milestonetiles.com", "size_note": "" }
+          ],
+          "shower_floor_approved": false
+        },
+        {
+          "vendor": "Milestone",
+          "series": "Epic",
+          "material": "Porcelain",
+          "sizes": ["3x12", "12x24", "24x24", "24x48", "hex mosaic", "herringbone mosaic"],
+          "finishes": ["Matte", "Polished"],
+          "colors": [
+            { "name": "Alaska Grey", "image_url": "https://www.milestonetiles.com/cdn/shop/files/MILE_stone_Epic_AlaskaGreyPanel12x24.jpg", "source": "milestonetiles.com", "size_note": "" },
+            { "name": "Apuano", "image_url": "https://www.milestonetiles.com/cdn/shop/files/MILE_stone_Epic_ApuanoPanel12x24.jpg", "source": "milestonetiles.com", "size_note": "" },
+            { "name": "Dolomite", "image_url": "https://www.milestonetiles.com/cdn/shop/files/MILE_stone_Epic_DolomitePanel12x24.jpg", "source": "milestonetiles.com", "size_note": "" },
+            { "name": "Imperial", "image_url": "https://www.milestonetiles.com/cdn/shop/files/MILE_stone_Epic_ImperialPanel12x24.jpg", "source": "milestonetiles.com", "size_note": "" }
+          ],
+          "shower_floor_approved": false
+        },
+        {
+          "vendor": "Milestone",
+          "series": "Absolute",
+          "material": "Porcelain",
+          "sizes": ["12x24", "2x2 mosaic", "3x3 hex mosaic"],
+          "finishes": ["Matte"],
+          "colors": [
+            { "name": "White", "image_url": "https://www.milestonetiles.com/cdn/shop/files/MILE_stone_Absolute_White_12x24_Panel.jpg", "source": "milestonetiles.com", "size_note": "" },
+            { "name": "Light Grey", "image_url": "https://www.milestonetiles.com/cdn/shop/files/MILE_stone_Absolute_LightGrey_12x24_Panel.jpg", "source": "milestonetiles.com", "size_note": "" },
+            { "name": "Dark Grey", "image_url": "https://www.milestonetiles.com/cdn/shop/files/MILE_stone_Absolute_DarkGrey_12x24_Panel.jpg", "source": "milestonetiles.com", "size_note": "" },
+            { "name": "Taupe", "image_url": "https://www.milestonetiles.com/cdn/shop/files/MILE_stone_Absolute_Taupe_12x24_Panel.jpg", "source": "milestonetiles.com", "size_note": "" },
+            { "name": "Brown", "image_url": "https://www.milestonetiles.com/cdn/shop/files/MILE_stone_Absolute_Brown_12x24_Panel.jpg", "source": "milestonetiles.com", "size_note": "" }
+          ],
+          "shower_floor_approved": false
+        }
+      ]
+    },
+    "mudset": {
+      "vendors": [
+        {
+          "vendor": "American Olean",
+          "series": "Unglazed Mosaics - Discovery Hex",
+          "material": "Unglazed Porcelain",
+          "sizes": ["3in hex on 12x24 sheet"],
+          "finishes": ["Unglazed (natural traction)"],
+          "notes": "Ideal for mudset shower floors due to unglazed surface and small format.",
+          "colors": [
+            { "name": "Ice White/Black Hex", "code": "AO18", "image_url": "https://s7d9.scene7.com/is/image/daltile/AO_AO18_12x24Sheet_HoneyComb_Dark_Silo_01:Swatch", "source": "americanolean.com", "size_note": "" },
+            { "name": "Ice White/Light Smoke Hex", "code": "AO17", "image_url": "https://s7d9.scene7.com/is/image/daltile/AO_AO17_12x24Sheet_HoneyCombLight_Silo_01:Swatch", "source": "americanolean.com", "size_note": "" },
+            { "name": "Ice White/Black/Light Smoke", "code": "AO19", "image_url": "https://s7d9.scene7.com/is/image/daltile/AO_AO19_12x24Sheet_VintageRevivalHex_Silo_01:Swatch", "source": "americanolean.com", "size_note": "" }
+          ],
+          "shower_floor_approved": true
+        },
+        {
+          "vendor": "Milestone",
+          "series": "Rustic Stone 2x2 Mosaic",
+          "material": "Porcelain",
+          "sizes": ["2x2 on 12x12 mesh"],
+          "finishes": ["Matte"],
+          "notes": "2x2 mosaics are commonly used for mudset shower floors due to grout line traction.",
+          "colors": [
+            { "name": "White", "image_url": "https://www.milestonetiles.com/cdn/shop/files/MILE_stone_RusticStone_White_2x2Mosaic_12x12_2ecc1a1c-90bd-4db1-90c8-8c42b8e7f78c.jpg", "source": "milestonetiles.com", "size_note": "" },
+            { "name": "Taupe", "image_url": "https://www.milestonetiles.com/cdn/shop/files/MILE_stone_RusticStone_Taupe_2x2Mosaic_12x12_e9652ee2-4e8a-4043-82d0-bb66af5d70dd.jpg", "source": "milestonetiles.com", "size_note": "" },
+            { "name": "Grey", "image_url": "https://www.milestonetiles.com/cdn/shop/files/MILE_stone_RusticStone_Grey_2x2Mosaic_12x12_6d7da236-89a0-4b5a-86b8-bf44f90382c3.jpg", "source": "milestonetiles.com", "size_note": "" },
+            { "name": "Charcoal", "image_url": "https://www.milestonetiles.com/cdn/shop/files/MILE_stone_RusticStone_Charcoal_2x2Mosaic_12x12_7de34ae3-39c6-44a0-8d72-b1ebc5d268c9.jpg", "source": "milestonetiles.com", "size_note": "" }
+          ],
+          "shower_floor_approved": true
+        },
+        {
+          "vendor": "Milestone",
+          "series": "Absolute 2x2 Mosaic",
+          "material": "Porcelain",
+          "sizes": ["2x2 on mesh"],
+          "finishes": ["Matte"],
+          "colors": [
+            { "name": "White", "image_url": "https://www.milestonetiles.com/cdn/shop/files/MILE_stone_Absolute_White_12x24_Panel.jpg", "source": "milestonetiles.com", "size_note": "2x2 mosaic also available" },
+            { "name": "Light Grey", "image_url": "https://www.milestonetiles.com/cdn/shop/files/MILE_stone_Absolute_LightGrey_12x24_Panel.jpg", "source": "milestonetiles.com", "size_note": "2x2 mosaic also available" },
+            { "name": "Dark Grey", "image_url": "https://www.milestonetiles.com/cdn/shop/files/MILE_stone_Absolute_DarkGrey_12x24_Panel.jpg", "source": "milestonetiles.com", "size_note": "2x2 mosaic also available" },
+            { "name": "Taupe", "image_url": "https://www.milestonetiles.com/cdn/shop/files/MILE_stone_Absolute_Taupe_12x24_Panel.jpg", "source": "milestonetiles.com", "size_note": "2x2 mosaic also available" },
+            { "name": "Brown", "image_url": "https://www.milestonetiles.com/cdn/shop/files/MILE_stone_Absolute_Brown_12x24_Panel.jpg", "source": "milestonetiles.com", "size_note": "2x2 mosaic also available" }
+          ],
+          "shower_floor_approved": true
+        },
+        {
+          "vendor": "Milestone",
+          "series": "Earthen 2x2 Mosaic",
+          "material": "Porcelain",
+          "sizes": ["2x2 on mesh"],
+          "finishes": ["Matte"],
+          "colors": [
+            { "name": "Alabaster", "image_url": "https://www.milestonetiles.com/cdn/shop/files/Earthen_Alabaster_12x24_Panel.jpg", "source": "milestonetiles.com", "size_note": "2x2 mosaic also available" },
+            { "name": "Almond", "image_url": "https://www.milestonetiles.com/cdn/shop/files/Earthen_Almond_12x24_Panel.jpg", "source": "milestonetiles.com", "size_note": "2x2 mosaic also available" },
+            { "name": "Terracotta", "image_url": "https://www.milestonetiles.com/cdn/shop/files/Earthen_Terracotta_12x24_Panel.jpg", "source": "milestonetiles.com", "size_note": "2x2 mosaic also available" },
+            { "name": "Whisper", "image_url": "https://www.milestonetiles.com/cdn/shop/files/Earthen_Whisper_12x24_Panel.jpg", "source": "milestonetiles.com", "size_note": "2x2 mosaic also available" }
+          ],
+          "shower_floor_approved": true
+        },
+        {
+          "vendor": "DalTile",
+          "series": "Core Fundamentals Advantage 2x2 Mosaic",
+          "material": "Ceramic",
+          "sizes": ["2x2 on mesh"],
+          "finishes": ["Matte"],
+          "notes": "AR30 Off White and AQ02 Mural Taupe available in 2x2 mosaic format",
+          "colors": [
+            { "name": "Off White", "code": "AR30", "image_url": "https://s7d9.scene7.com/is/image/daltile/DAL_AQ01_18x18_PortraitWhite_03:Swatch", "source": "daltile.com", "size_note": "2x2 brick joint mosaic" },
+            { "name": "Mural Taupe", "code": "AQ02", "image_url": "https://s7d9.scene7.com/is/image/daltile/DAL_AQ02_18x18_MuralTaupe_02:Swatch", "source": "daltile.com", "size_note": "2x4 brick joint mosaic" }
+          ],
+          "shower_floor_approved": true
+        }
+      ]
+    }
+  }
+}
