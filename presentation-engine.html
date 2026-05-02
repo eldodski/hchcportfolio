@@ -1008,6 +1008,11 @@ body {
           Generate &amp; Save
         </button>
       </div>
+      <div class="save-row" style="margin-top: 4px;">
+        <button class="btn-secondary" id="download-pdf-btn" onclick="downloadPDF()" disabled style="flex: 1;">
+          Download PDF
+        </button>
+      </div>
     </div>
   </div>
 
@@ -1024,6 +1029,7 @@ body {
 </div>
 
 <!-- Scripts -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="config.js"></script>
 <script src="js/supabase-client.js"></script>
@@ -1092,12 +1098,36 @@ const NICHE_TYPES = new Set([
 
 const TUB_DECK_TYPE = 'Tile Deck with Drop-In Tub';
 
-const KITCHEN_CATEGORIES = ['cabinetry', 'countertops', 'backsplash', 'hardware', 'lighting', 'paint'];
+const KITCHEN_CATEGORIES = ['cabinetry', 'countertops', 'kitchen_backsplash', 'hardware', 'lighting', 'paint'];
+
+// Display labels for categories
+const CATEGORY_LABELS = {
+  cabinetry: 'Cabinetry',
+  countertops: 'Countertops',
+  kitchen_backsplash: 'Backsplash',
+  hardware: 'Hardware',
+  lighting: 'Lighting',
+  paint: 'Paint',
+  bathroom_wall: 'Wall Tile',
+  tile_floor: 'Floor Tile',
+  mudset: 'Mudset Tile',
+  edgeProtection: 'Edge Protection'
+};
+
+// Mapei Prism / Keracolor grout color chart
+const GROUT_COLORS = [
+  'Avalanche', 'Biscuit', 'Bone', 'Bright White', 'Chamois', 'Charcoal',
+  'Chocolate', 'Desert Khaki', 'Driftwood', 'Frost', 'Harvest', 'Iron',
+  'Ivory', 'Light Almond', 'Magnolia', 'Mocha', 'Pale Umber', 'Pearl Gray',
+  'Pewter', 'Rain', 'Sand', 'Silver', 'Slate', 'Straw', 'Summer Tan',
+  'Warm Gray', 'White'
+];
 
 const INSTALL_PLACEHOLDERS = {
   flooring: 'e.g., Herringbone, 50% Offset, Straight Lay',
   cabinetry: 'e.g., Overlay, Inset, Full Access',
   countertops: 'e.g., Mitered Edge, Eased, Ogee',
+  kitchen_backsplash: 'e.g., Vertical Stack, Straight, Herringbone',
   backsplash: 'e.g., Vertical Stack, Straight, Herringbone',
   hardware: 'e.g., Center-to-Center 5", 128mm Spacing',
   lighting: 'e.g., Over Island, 3-Light Cluster, 36" Drop',
@@ -1227,7 +1257,7 @@ function createRoomState(type) {
       flooring: [createFlooringState()],
       cabinetry: createMaterialState(),
       countertops: createMaterialState(),
-      backsplash: createMaterialState(),
+      kitchen_backsplash: createMaterialState(),
       hardware: createMaterialState(),
       lighting: createMaterialState(),
       paint: createMaterialState()
@@ -1238,7 +1268,7 @@ function createRoomState(type) {
   return {
     ...base,
     waterFixtures: [createFixtureState()],
-    niches: { styleName: '', shelfMaterial: '', decorativeTile: createMaterialState(), placement: 'Back Wall' },
+    niches: { styleName: '', shelfMaterial: '', decorativeTile: createMaterialState(), nicheMudset: 'match', nicheMudsetTile: createMaterialState(), placement: 'Back Wall' },
     accents: { type: 'None', orientation: 'Horizontal', width: '', size: '', pencilRail: false, interiorTile: createMaterialState() },
     tubDeck: { skirtTile: createMaterialState(), deckTile: createMaterialState(), splashTile: createMaterialState(), accentBandNotes: '' },
     edgeProtection: { type: 'None', tileEdge: createMaterialState(), accessoryType: 'Schluter', accessory: createMaterialState() },
@@ -1253,14 +1283,21 @@ function createMaterialState() {
 }
 
 function createFlooringState() {
-  return { materialType: '', vendor: '', series: '', color: '', installNotes: '', material: null };
+  return { materialType: '', vendor: '', series: '', color: '', installNotes: '', material: null, groutColor: '', tileSize: '' };
 }
 
 function createFixtureState() {
   return {
     type: '',
     surroundTile: createMaterialState(),
-    floorTile: createMaterialState()
+    surroundGrout: '',
+    surroundTileSize: '',
+    floorTile: createMaterialState(),
+    floorGrout: '',
+    floorTileSize: '',
+    mudsetTile: createMaterialState(),
+    mudsetGrout: '',
+    mudsetTileSize: ''
   };
 }
 
@@ -1385,15 +1422,28 @@ function buildBathroomContent(room) {
       </div>
       <div style="margin-bottom: 8px;">
         <div class="cascade-label">Decorative Tile</div>
-        ${buildInlineCascade(room.id, 'niches.decorativeTile', room.niches.decorativeTile, 'backsplash')}
+        ${buildInlineCascade(room.id, 'niches.decorativeTile', room.niches.decorativeTile, 'kitchen_backsplash')}
       </div>
-      <div class="field-group" style="max-width: 200px;">
-        <label>Placement</label>
-        <select onchange="syncField('${room.id}', 'niches.placement', this.value)">
-          <option value="Back Wall" ${room.niches.placement === 'Back Wall' ? 'selected' : ''}>Back Wall</option>
-          <option value="Side Wall" ${room.niches.placement === 'Side Wall' ? 'selected' : ''}>Side Wall</option>
-          <option value="Shelf" ${room.niches.placement === 'Shelf' ? 'selected' : ''}>Shelf</option>
-        </select>
+      <div class="field-row" style="margin-bottom: 8px;">
+        <div class="field-group">
+          <label>Placement</label>
+          <select onchange="syncField('${room.id}', 'niches.placement', this.value)">
+            <option value="Back Wall" ${room.niches.placement === 'Back Wall' ? 'selected' : ''}>Back Wall</option>
+            <option value="Side Wall" ${room.niches.placement === 'Side Wall' ? 'selected' : ''}>Side Wall</option>
+            <option value="Shelf" ${room.niches.placement === 'Shelf' ? 'selected' : ''}>Shelf</option>
+          </select>
+        </div>
+        <div class="field-group">
+          <label>Niche Floor Tile</label>
+          <select onchange="onNicheMudsetChange('${room.id}', this.value)">
+            <option value="match" ${room.niches.nicheMudset === 'match' ? 'selected' : ''}>Match Tile Surround</option>
+            <option value="custom" ${room.niches.nicheMudset === 'custom' ? 'selected' : ''}>Custom Selection</option>
+          </select>
+        </div>
+      </div>
+      <div class="conditional-fields ${room.niches.nicheMudset === 'custom' ? 'visible' : ''}" id="${room.id}-niche-mudset">
+        <div class="cascade-label">Niche Mudset Tile</div>
+        ${buildInlineCascade(room.id, 'niches.nicheMudsetTile', room.niches.nicheMudsetTile, 'mudset')}
       </div>
     </div>
 
@@ -1440,7 +1490,7 @@ function buildBathroomContent(room) {
         </div>
         <div style="margin-top: 4px;">
           <div class="cascade-label">Interior Tile</div>
-          ${buildInlineCascade(room.id, 'accents.interiorTile', room.accents.interiorTile, 'backsplash')}
+          ${buildInlineCascade(room.id, 'accents.interiorTile', room.accents.interiorTile, 'kitchen_backsplash')}
         </div>
       </div>
     </div>
@@ -1449,7 +1499,7 @@ function buildBathroomContent(room) {
       <div class="sub-section-label">Tub Deck</div>
       <div style="margin-bottom: 8px;">
         <div class="cascade-label">Skirt Tile</div>
-        ${buildInlineCascade(room.id, 'tubDeck.skirtTile', room.tubDeck.skirtTile, 'backsplash')}
+        ${buildInlineCascade(room.id, 'tubDeck.skirtTile', room.tubDeck.skirtTile, 'bathroom_wall')}
       </div>
       <div style="margin-bottom: 8px;">
         <div class="cascade-label">Deck Tile</div>
@@ -1457,7 +1507,7 @@ function buildBathroomContent(room) {
       </div>
       <div style="margin-bottom: 8px;">
         <div class="cascade-label">Splash Tile</div>
-        ${buildInlineCascade(room.id, 'tubDeck.splashTile', room.tubDeck.splashTile, 'backsplash')}
+        ${buildInlineCascade(room.id, 'tubDeck.splashTile', room.tubDeck.splashTile, 'bathroom_wall')}
       </div>
       <div class="field-group">
         <label>Accent Band Notes</label>
@@ -1478,7 +1528,7 @@ function buildBathroomContent(room) {
       </div>
       <div class="conditional-fields ${room.edgeProtection.type === 'Tile Edge' ? 'visible' : ''}" id="${room.id}-edge-tile">
         <div class="cascade-label">Tile Edge Material</div>
-        ${buildInlineCascade(room.id, 'edgeProtection.tileEdge', room.edgeProtection.tileEdge, 'backsplash')}
+        ${buildInlineCascade(room.id, 'edgeProtection.tileEdge', room.edgeProtection.tileEdge, 'bathroom_wall')}
       </div>
       <div class="conditional-fields ${room.edgeProtection.type === 'Accessory' ? 'visible' : ''}" id="${room.id}-edge-accessory">
         <div class="field-group" style="max-width: 200px; margin-bottom: 8px;">
@@ -1511,9 +1561,12 @@ function buildBathroomContent(room) {
 // FLOORING BLOCK
 // ============================================================
 function buildFlooringBlock(roomId, idx, state, canRemove) {
-  const vendors = getVendorsForCategory('flooring', state.materialType);
-  const seriesList = state.vendor ? getSeriesForVendor('flooring', state.vendor, state.materialType) : [];
-  const colors = state.vendor && state.series ? getColorsForSeries('flooring', state.vendor, state.series, state.materialType) : [];
+  // When Tile is selected as flooring type, pull from tile_floor category
+  const flooringCat = state.materialType === 'Tile' ? 'tile_floor' : 'flooring';
+  const flooringMT = state.materialType === 'Tile' ? null : state.materialType;
+  const vendors = getVendorsForCategory(flooringCat, flooringMT);
+  const seriesList = state.vendor ? getSeriesForVendor(flooringCat, state.vendor, flooringMT) : [];
+  const colors = state.vendor && state.series ? getColorsForSeries(flooringCat, state.vendor, state.series, flooringMT) : [];
 
   return `
     <div class="flooring-block">
@@ -1549,6 +1602,21 @@ function buildFlooringBlock(roomId, idx, state, canRemove) {
         </div>
       </div>
       ${state.material ? buildMaterialDisplay(state.material, 'flooring') : ''}
+      ${state.materialType === 'Tile' ? `
+      <div class="field-row" style="margin-top: 4px;">
+        <div class="field-group">
+          <label>Tile Size</label>
+          <input type="text" value="${esc(state.tileSize || '')}" placeholder="e.g., 12x24, 6x24"
+                 oninput="syncFlooringField('${roomId}', ${idx}, 'tileSize', this.value)">
+        </div>
+        <div class="field-group">
+          <label>Grout Color</label>
+          <select onchange="syncFlooringField('${roomId}', ${idx}, 'groutColor', this.value)">
+            <option value="">Select grout</option>
+            ${GROUT_COLORS.map(g => `<option value="${g}" ${state.groutColor === g ? 'selected' : ''}>${g}</option>`).join('')}
+          </select>
+        </div>
+      </div>` : ''}
       <input type="text" class="install-notes-input" value="${esc(state.installNotes)}"
              placeholder="${INSTALL_PLACEHOLDERS.flooring}"
              oninput="syncFlooringNotes('${roomId}', ${idx}, this.value)">
@@ -1590,14 +1658,17 @@ function onFlooringVendorChange(roomId, idx, val) {
   f.color = '';
   f.material = null;
 
+  const cat = f.materialType === 'Tile' ? 'tile_floor' : 'flooring';
+  const mt = f.materialType === 'Tile' ? null : f.materialType;
+
   if (val) {
-    const seriesList = getSeriesForVendor('flooring', val, f.materialType);
+    const seriesList = getSeriesForVendor(cat, val, mt);
     if (seriesList.length === 1) {
       f.series = seriesList[0];
-      const colors = getColorsForSeries('flooring', val, f.series, f.materialType);
+      const colors = getColorsForSeries(cat, val, f.series, mt);
       if (colors.length === 1) {
         f.color = colors[0];
-        f.material = findMaterial('flooring', val, f.series, f.color);
+        f.material = findMaterial(cat, val, f.series, f.color);
       }
     }
   }
@@ -1613,11 +1684,14 @@ function onFlooringSeriesChange(roomId, idx, val) {
   f.color = '';
   f.material = null;
 
+  const cat = f.materialType === 'Tile' ? 'tile_floor' : 'flooring';
+  const mt = f.materialType === 'Tile' ? null : f.materialType;
+
   if (val) {
-    const colors = getColorsForSeries('flooring', f.vendor, val, f.materialType);
+    const colors = getColorsForSeries(cat, f.vendor, val, mt);
     if (colors.length === 1) {
       f.color = colors[0];
-      f.material = findMaterial('flooring', f.vendor, val, f.color);
+      f.material = findMaterial(cat, f.vendor, val, f.color);
     }
   }
 
@@ -1629,7 +1703,8 @@ function onFlooringColorChange(roomId, idx, val) {
   const room = getRoom(roomId);
   const f = room.flooring[idx];
   f.color = val;
-  f.material = val ? findMaterial('flooring', f.vendor, f.series, val) : null;
+  const cat = f.materialType === 'Tile' ? 'tile_floor' : 'flooring';
+  f.material = val ? findMaterial(cat, f.vendor, f.series, val) : null;
   renderRooms();
   updatePreview();
 }
@@ -1637,6 +1712,12 @@ function onFlooringColorChange(roomId, idx, val) {
 function syncFlooringNotes(roomId, idx, val) {
   const room = getRoom(roomId);
   room.flooring[idx].installNotes = val;
+  updatePreview();
+}
+
+function syncFlooringField(roomId, idx, field, val) {
+  const room = getRoom(roomId);
+  room.flooring[idx][field] = val;
   updatePreview();
 }
 
@@ -1660,11 +1741,57 @@ function buildFixtureBlock(roomId, idx, state, canRemove) {
       </div>
       <div class="conditional-fields ${showSurround ? 'visible' : ''}">
         <div class="cascade-label">Surround Tile</div>
-        ${buildInlineCascade(roomId, `waterFixtures.${idx}.surroundTile`, state.surroundTile, 'backsplash', 'Wall Tile')}
+        ${buildInlineCascade(roomId, `waterFixtures.${idx}.surroundTile`, state.surroundTile, 'bathroom_wall')}
+        <div class="field-row" style="margin-top: 4px;">
+          <div class="field-group">
+            <label>Tile Size</label>
+            <input type="text" value="${esc(state.surroundTileSize || '')}" placeholder="e.g., 12x24, 4x12"
+                   oninput="syncField('${roomId}', 'waterFixtures.${idx}.surroundTileSize', this.value)">
+          </div>
+          <div class="field-group">
+            <label>Grout Color</label>
+            <select onchange="syncField('${roomId}', 'waterFixtures.${idx}.surroundGrout', this.value)">
+              <option value="">Select grout</option>
+              ${GROUT_COLORS.map(g => `<option value="${g}" ${state.surroundGrout === g ? 'selected' : ''}>${g}</option>`).join('')}
+            </select>
+          </div>
+        </div>
       </div>
       <div class="conditional-fields ${showFloorTile ? 'visible' : ''}">
-        <div class="cascade-label" style="margin-top: 6px;">Floor Tile</div>
-        ${buildInlineCascade(roomId, `waterFixtures.${idx}.floorTile`, state.floorTile, 'backsplash', 'Floor Tile')}
+        <div class="cascade-label" style="margin-top: 6px;">Shower Floor Tile (Mudset)</div>
+        ${buildInlineCascade(roomId, `waterFixtures.${idx}.mudsetTile`, state.mudsetTile, 'mudset')}
+        <div class="field-row" style="margin-top: 4px;">
+          <div class="field-group">
+            <label>Tile Size</label>
+            <input type="text" value="${esc(state.mudsetTileSize || '')}" placeholder="e.g., 2x2, Penny Round"
+                   oninput="syncField('${roomId}', 'waterFixtures.${idx}.mudsetTileSize', this.value)">
+          </div>
+          <div class="field-group">
+            <label>Grout Color</label>
+            <select onchange="syncField('${roomId}', 'waterFixtures.${idx}.mudsetGrout', this.value)">
+              <option value="">Select grout</option>
+              ${GROUT_COLORS.map(g => `<option value="${g}" ${state.mudsetGrout === g ? 'selected' : ''}>${g}</option>`).join('')}
+            </select>
+          </div>
+        </div>
+      </div>
+      <div class="conditional-fields ${showFloorTile ? 'visible' : ''}">
+        <div class="cascade-label" style="margin-top: 6px;">Bathroom Floor Tile</div>
+        ${buildInlineCascade(roomId, `waterFixtures.${idx}.floorTile`, state.floorTile, 'tile_floor')}
+        <div class="field-row" style="margin-top: 4px;">
+          <div class="field-group">
+            <label>Tile Size</label>
+            <input type="text" value="${esc(state.floorTileSize || '')}" placeholder="e.g., 12x12, 12x24"
+                   oninput="syncField('${roomId}', 'waterFixtures.${idx}.floorTileSize', this.value)">
+          </div>
+          <div class="field-group">
+            <label>Grout Color</label>
+            <select onchange="syncField('${roomId}', 'waterFixtures.${idx}.floorGrout', this.value)">
+              <option value="">Select grout</option>
+              ${GROUT_COLORS.map(g => `<option value="${g}" ${state.floorGrout === g ? 'selected' : ''}>${g}</option>`).join('')}
+            </select>
+          </div>
+        </div>
       </div>
     </div>
   `;
@@ -1702,7 +1829,7 @@ function buildCascadeCard(roomId, cat, state) {
 
   return `
     <div class="material-selector">
-      <div class="material-selector-category">${capitalize(cat)}</div>
+      <div class="material-selector-category">${CATEGORY_LABELS[cat] || capitalize(cat)}</div>
       <div class="cascade-row">
         <div>
           <div class="cascade-label">Vendor</div>
@@ -1904,6 +2031,16 @@ function onInlineCascadeColor(roomId, path, category, val, materialType) {
 function onAccentTypeChange(roomId, val) {
   const room = getRoom(roomId);
   room.accents.type = val;
+  renderRooms();
+  updatePreview();
+}
+
+function onNicheMudsetChange(roomId, val) {
+  const room = getRoom(roomId);
+  room.niches.nicheMudset = val;
+  if (val === 'match') {
+    room.niches.nicheMudsetTile = createMaterialState();
+  }
   renderRooms();
   updatePreview();
 }
@@ -2121,7 +2258,7 @@ function runRuleEngine() {
   rooms.forEach(room => {
     if (room.type === 'kitchen') {
       KITCHEN_CATEGORIES.forEach(cat => {
-        if (room[cat].material) {
+        if (room[cat] && room[cat].material) {
           const key = `${room.label}-${cat}`;
           flatSelections[key] = room[cat].material;
         }
@@ -2198,10 +2335,11 @@ function runRuleEngine() {
   });
   feedbackEl.innerHTML = html;
 
-  // Enable generate/save if any materials selected
+  // Enable generate/save/pdf if any materials selected
   const hasAny = Object.keys(flatSelections).length > 0;
   document.getElementById('generate-btn').disabled = !hasAny;
   document.getElementById('save-draft-btn').disabled = !hasAny;
+  document.getElementById('download-pdf-btn').disabled = !hasAny;
 }
 
 // ============================================================
@@ -2264,8 +2402,8 @@ function buildKitchenPreview(room) {
 
   // Other categories
   KITCHEN_CATEGORIES.forEach(cat => {
-    if (room[cat].material) {
-      cards.push(buildPreviewCard(capitalize(cat), room[cat].material, room[cat].installNotes));
+    if (room[cat] && room[cat].material) {
+      cards.push(buildPreviewCard(CATEGORY_LABELS[cat] || capitalize(cat), room[cat].material, room[cat].installNotes));
     }
   });
 
@@ -2554,9 +2692,40 @@ async function loadFromURL() {
     // Restore rooms
     if (sel.rooms && sel.rooms.length > 0) {
       rooms = sel.rooms;
-      // Backfill lighting field for kitchen rooms saved before lighting was added
+      // Backfill fields for kitchen rooms saved before updates
       rooms.forEach(r => {
-        if (r.type === 'kitchen' && !r.lighting) r.lighting = createMaterialState();
+        if (r.type === 'kitchen') {
+          if (!r.lighting) r.lighting = createMaterialState();
+          // Migrate backsplash -> kitchen_backsplash
+          if (r.backsplash && !r.kitchen_backsplash) {
+            r.kitchen_backsplash = r.backsplash;
+            delete r.backsplash;
+          }
+          if (!r.kitchen_backsplash) r.kitchen_backsplash = createMaterialState();
+        }
+        // Backfill fixture grout/size/mudset fields
+        if (r.type === 'bathroom' && r.waterFixtures) {
+          r.waterFixtures.forEach(f => {
+            if (!f.surroundGrout) f.surroundGrout = '';
+            if (!f.surroundTileSize) f.surroundTileSize = '';
+            if (!f.floorGrout) f.floorGrout = '';
+            if (!f.floorTileSize) f.floorTileSize = '';
+            if (!f.mudsetTile) f.mudsetTile = createMaterialState();
+            if (!f.mudsetGrout) f.mudsetGrout = '';
+            if (!f.mudsetTileSize) f.mudsetTileSize = '';
+          });
+          if (r.niches && !r.niches.nicheMudset) {
+            r.niches.nicheMudset = 'match';
+            r.niches.nicheMudsetTile = createMaterialState();
+          }
+        }
+        // Backfill flooring grout/size
+        if (r.flooring) {
+          r.flooring.forEach(f => {
+            if (!f.groutColor) f.groutColor = '';
+            if (!f.tileSize) f.tileSize = '';
+          });
+        }
       });
       // Reassign roomIdCounter to avoid collisions
       const maxId = rooms.reduce((max, r) => {
@@ -2594,6 +2763,51 @@ function showToast(message, type = 'info') {
   toast.textContent = message;
   container.appendChild(toast);
   setTimeout(() => toast.remove(), 3000);
+}
+
+// ============================================================
+// PDF DOWNLOAD
+// ============================================================
+async function downloadPDF() {
+  const btn = document.getElementById('download-pdf-btn');
+  btn.disabled = true;
+  btn.textContent = 'Generating PDF...';
+
+  try {
+    const data = collectPresentationData();
+    const html = generatePresentationHTML(data);
+
+    // Create a temporary container
+    const container = document.createElement('div');
+    container.innerHTML = html;
+    container.style.position = 'absolute';
+    container.style.left = '-9999px';
+    container.style.top = '0';
+    document.body.appendChild(container);
+
+    const projectName = data.projectName || 'Design-Presentation';
+    const clientName = data.clientName || '';
+    const filename = `${projectName.replace(/[^a-zA-Z0-9]/g, '_')}${clientName ? '_' + clientName.replace(/[^a-zA-Z0-9]/g, '_') : ''}.pdf`;
+
+    const opt = {
+      margin: 0,
+      filename: filename,
+      image: { type: 'jpeg', quality: 0.95 },
+      html2canvas: { scale: 2, useCORS: true, allowTaint: true },
+      jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' },
+      pagebreak: { mode: ['css', 'legacy'], before: '.page' }
+    };
+
+    await html2pdf().set(opt).from(container).save();
+    document.body.removeChild(container);
+    showToast('PDF downloaded', 'success');
+  } catch (err) {
+    console.error('PDF generation failed:', err);
+    showToast('PDF generation failed', 'error');
+  } finally {
+    btn.disabled = false;
+    btn.textContent = 'Download PDF';
+  }
 }
 </script>
 

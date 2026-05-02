@@ -89,7 +89,10 @@
           { "name": "Trenton", "image_url": "images/cabinetry/kmc-doors/trenton.jpg" },
           { "name": "Tuscany", "image_url": "images/cabinetry/kmc-doors/tuscany.jpg" },
           { "name": "Village", "image_url": "images/cabinetry/kmc-doors/village.jpg" },
-          { "name": "Windsor", "image_url": "images/cabinetry/kmc-doors/windsor.jpg" }
+          { "name": "Windsor", "image_url": "images/cabinetry/kmc-doors/windsor.jpg" },
+          { "name": "Torino", "image_url": "images/cabinetry/kmc-doors/torino.jpg" },
+          { "name": "Lexington Edge 18", "image_url": "images/cabinetry/kmc-doors/lexington-edge18.jpg" },
+          { "name": "Strathmore Flat Panel", "image_url": "images/cabinetry/kmc-doors/strathmore-fp.jpg" }
         ],
         "stain_finishes": ["Wheat", "Natural", "Honey", "Amber", "Cider", "Chestnut", "Fruitwood", "Espresso", "Coffee", "Bark", "Driftwood", "Knotty Alder Natural", "White Shoji", "Discerning Beige", "Ocean Obsidian"],
         "paint_finishes": ["Pure White", "Antique White", "Linen", "Dove White", "Gray Mist", "Silver", "Graphite", "Sage", "Black", "Navy", "Slate Blue", "Agreeable Gray", "Simply White", "Cloud White", "Greige"],
@@ -191,8 +194,34 @@
       },
       {
         "vendor": "Allen+Roth",
-        "pendants": [],
-        "note": "2-3 pendant selections from Lowes. Lowes blocked automated scraping - data needs manual entry."
+        "note": "Top 3 best-selling series from Lowes. Market analysis: Bristow is the flagship line, Vallymede is a top seller for transitional kitchens, Lane is the modern bestseller.",
+        "series": [
+          {
+            "name": "Bristow",
+            "description": "Mission bronze industrial clear glass globe pendant. Classic retro style.",
+            "finishes": [
+              { "name": "Mission Bronze", "image_url": "images/lighting/ar-bristow-mb.jpg" },
+              { "name": "Specialty Bronze", "image_url": "images/lighting/ar-bristow-sb.jpg" },
+              { "name": "Oil Rubbed Bronze", "image_url": "images/lighting/ar-bristow-orb.jpg" }
+            ]
+          },
+          {
+            "name": "Vallymede",
+            "description": "Aged bronze rustic glass pendant. Transitional style, pairs well with farmhouse kitchens.",
+            "finishes": [
+              { "name": "Aged Bronze", "image_url": "images/lighting/ar-vallymede-ab.jpg" },
+              { "name": "Olde Bronze", "image_url": "images/lighting/ar-vallymede-ob.jpg" }
+            ]
+          },
+          {
+            "name": "Lane",
+            "description": "5-light matte black linear cage pendant. Modern transitional style for longer islands.",
+            "finishes": [
+              { "name": "Matte Black", "image_url": "images/lighting/ar-lane-bk.jpg" }
+            ]
+          }
+        ],
+        "image_note": "Lowes blocks automated image scraping. Download product images manually from lowes.com and save to images/lighting/ folder with the filenames above."
       }
     ]
   }

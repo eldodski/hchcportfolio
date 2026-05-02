@@ -7,7 +7,7 @@ const TONE_COMPATIBILITY = {
   cool:    { warm: 0.3, neutral: 0.8, cool: 1.0 }
 };
 
-const CATEGORY_ORDER = ['flooring', 'cabinetry', 'countertops', 'backsplash', 'hardware', 'paint'];
+const CATEGORY_ORDER = ['flooring', 'cabinetry', 'countertops', 'kitchen_backsplash', 'hardware', 'lighting', 'paint'];
 
 // Evaluate all selections and return a report
 function evaluateSelections(selections) {

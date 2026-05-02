@@ -385,10 +385,11 @@ function buildKitchenPage(room) {
     }
   });
 
-  const cats = ['cabinetry', 'countertops', 'backsplash', 'hardware', 'paint'];
+  const cats = ['cabinetry', 'countertops', 'kitchen_backsplash', 'hardware', 'lighting', 'paint'];
+  const catLabels = { cabinetry: 'Cabinetry', countertops: 'Countertops', kitchen_backsplash: 'Backsplash', hardware: 'Hardware', lighting: 'Lighting', paint: 'Paint' };
   cats.forEach(cat => {
     if (room[cat] && room[cat].material) {
-      cards.push(buildMaterialCard(capitalize(cat), room[cat].material, room[cat].installNotes));
+      cards.push(buildMaterialCard(catLabels[cat] || capitalize(cat), room[cat].material, room[cat].installNotes));
     }
   });
 
@@ -401,6 +402,10 @@ function buildKitchenPage(room) {
     <div class="divider"></div>
     <div class="materials-grid">
       ${cards.join('')}
+    </div>
+    <div style="margin-top: 32px; display: flex; align-items: center; gap: 12px;">
+      <span style="font-size: 0.75rem; font-weight: 400; color: var(--navy); text-transform: uppercase; letter-spacing: 0.1em;">Initials:</span>
+      <span style="border-bottom: 1px solid var(--espresso); width: 80px; display: inline-block;">&nbsp;</span>
     </div>
   </div>`;
 }
@@ -435,10 +440,19 @@ function buildBathroomPage(room) {
     if (!f.type) return;
     fixtureRows.push(`<tr><td>Fixture ${i + 1}</td><td>${escT(f.type)}</td></tr>`);
     if (f.surroundTile && f.surroundTile.material) {
-      photoCards.push(buildMaterialCard('Surround Tile', f.surroundTile.material, ''));
+      const sizeNote = f.surroundTileSize ? ` (${escT(f.surroundTileSize)})` : '';
+      const groutNote = f.surroundGrout ? `Grout: ${escT(f.surroundGrout)}` : '';
+      photoCards.push(buildMaterialCard('Surround Tile' + sizeNote, f.surroundTile.material, groutNote));
+    }
+    if (f.mudsetTile && f.mudsetTile.material) {
+      const sizeNote = f.mudsetTileSize ? ` (${escT(f.mudsetTileSize)})` : '';
+      const groutNote = f.mudsetGrout ? `Grout: ${escT(f.mudsetGrout)}` : '';
+      photoCards.push(buildMaterialCard('Shower Floor' + sizeNote, f.mudsetTile.material, groutNote));
     }
     if (f.floorTile && f.floorTile.material) {
-      photoCards.push(buildMaterialCard('Floor Tile', f.floorTile.material, ''));
+      const sizeNote = f.floorTileSize ? ` (${escT(f.floorTileSize)})` : '';
+      const groutNote = f.floorGrout ? `Grout: ${escT(f.floorGrout)}` : '';
+      photoCards.push(buildMaterialCard('Floor Tile' + sizeNote, f.floorTile.material, groutNote));
     }
   });
 
@@ -567,6 +581,10 @@ function buildBathroomPage(room) {
     <div class="divider"></div>
     ${photoGridHTML}
     ${specGroups}
+    <div style="margin-top: 32px; display: flex; align-items: center; gap: 12px;">
+      <span style="font-size: 0.75rem; font-weight: 400; color: var(--navy); text-transform: uppercase; letter-spacing: 0.1em;">Initials:</span>
+      <span style="border-bottom: 1px solid var(--espresso); width: 80px; display: inline-block;">&nbsp;</span>
+    </div>
   </div>`;
 }
 
@@ -596,9 +614,10 @@ function buildSummaryPage(rooms, report) {
       room.flooring.forEach(f => {
         if (f.material) items.push({ label: 'Flooring' + (f.materialType ? ` (${f.materialType})` : ''), name: f.material.name, notes: f.installNotes });
       });
-      ['cabinetry', 'countertops', 'backsplash', 'hardware', 'paint'].forEach(cat => {
+      ['cabinetry', 'countertops', 'kitchen_backsplash', 'hardware', 'lighting', 'paint'].forEach(cat => {
+        const label = { cabinetry: 'Cabinetry', countertops: 'Countertops', kitchen_backsplash: 'Backsplash', hardware: 'Hardware', lighting: 'Lighting', paint: 'Paint' }[cat] || capitalize(cat);
         if (room[cat] && room[cat].material) {
-          items.push({ label: capitalize(cat), name: room[cat].material.name, notes: room[cat].installNotes });
+          items.push({ label, name: room[cat].material.name, notes: room[cat].installNotes });
         }
       });
     } else {
@@ -659,6 +678,64 @@ function buildSummaryPage(rooms, report) {
     <div class="presentation-footer">
       Hill Country Home Concepts &middot; Warm by Design &middot; hillcountryhomeconcepts.com
     </div>
+  </div>
+
+  <!-- Sign-Off Page -->
+  <div class="page">
+    <span class="page-subheading">Approval</span>
+    <h2>Selection Sign-Off</h2>
+    <div class="divider"></div>
+    <div style="margin-top: 24px; font-size: 0.9rem; line-height: 2.4;">
+      <p style="margin-bottom: 24px;">By initialing below, I confirm that the selections presented in this document reflect my design choices for the project described above.</p>
+      <table style="width: 100%; border-collapse: collapse; font-size: 0.88rem;">
+        <tr style="border-bottom: 1px solid var(--sand);">
+          <td style="padding: 12px 0; font-weight: 400; color: var(--navy); width: 200px;">Client Name</td>
+          <td style="padding: 12px 0;">${escT(clientName) || '________________________'}</td>
+        </tr>
+        <tr style="border-bottom: 1px solid var(--sand);">
+          <td style="padding: 12px 0; font-weight: 400; color: var(--navy);">Builder</td>
+          <td style="padding: 12px 0;">${escT(builderName) || '________________________'}</td>
+        </tr>
+        <tr style="border-bottom: 1px solid var(--sand);">
+          <td style="padding: 12px 0; font-weight: 400; color: var(--navy);">Address</td>
+          <td style="padding: 12px 0;">${escT(address) || '________________________'}</td>
+        </tr>
+        <tr style="border-bottom: 1px solid var(--sand);">
+          <td style="padding: 12px 0; font-weight: 400; color: var(--navy);">Date</td>
+          <td style="padding: 12px 0;">${date}</td>
+        </tr>
+      </table>
+      <div style="margin-top: 48px;">
+        <div style="display: flex; justify-content: space-between; gap: 40px;">
+          <div style="flex: 1;">
+            <div style="border-bottom: 1px solid var(--espresso); padding-bottom: 4px; margin-bottom: 4px;">&nbsp;</div>
+            <div style="font-size: 0.72rem; color: var(--mocha); text-transform: uppercase; letter-spacing: 0.1em;">Client Signature</div>
+          </div>
+          <div style="width: 120px;">
+            <div style="border-bottom: 1px solid var(--espresso); padding-bottom: 4px; margin-bottom: 4px;">&nbsp;</div>
+            <div style="font-size: 0.72rem; color: var(--mocha); text-transform: uppercase; letter-spacing: 0.1em;">Initials</div>
+          </div>
+          <div style="width: 140px;">
+            <div style="border-bottom: 1px solid var(--espresso); padding-bottom: 4px; margin-bottom: 4px;">&nbsp;</div>
+            <div style="font-size: 0.72rem; color: var(--mocha); text-transform: uppercase; letter-spacing: 0.1em;">Date</div>
+          </div>
+        </div>
+        <div style="display: flex; justify-content: space-between; gap: 40px; margin-top: 32px;">
+          <div style="flex: 1;">
+            <div style="border-bottom: 1px solid var(--espresso); padding-bottom: 4px; margin-bottom: 4px;">&nbsp;</div>
+            <div style="font-size: 0.72rem; color: var(--mocha); text-transform: uppercase; letter-spacing: 0.1em;">Designer Signature</div>
+          </div>
+          <div style="width: 120px;">
+            <div style="border-bottom: 1px solid var(--espresso); padding-bottom: 4px; margin-bottom: 4px;">&nbsp;</div>
+            <div style="font-size: 0.72rem; color: var(--mocha); text-transform: uppercase; letter-spacing: 0.1em;">Initials</div>
+          </div>
+          <div style="width: 140px;">
+            <div style="border-bottom: 1px solid var(--espresso); padding-bottom: 4px; margin-bottom: 4px;">&nbsp;</div>
+            <div style="font-size: 0.72rem; color: var(--mocha); text-transform: uppercase; letter-spacing: 0.1em;">Date</div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>`;
 }
 
@@ -671,7 +748,7 @@ function generateConceptText(rooms) {
   rooms.forEach(room => {
     if (room.type === 'kitchen') {
       room.flooring.forEach(f => { if (f.material) allMats.push(f.material); });
-      ['cabinetry', 'countertops', 'backsplash', 'hardware', 'paint'].forEach(cat => {
+      ['cabinetry', 'countertops', 'kitchen_backsplash', 'hardware', 'lighting', 'paint'].forEach(cat => {
         if (room[cat] && room[cat].material) allMats.push(room[cat].material);
       });
     } else {
