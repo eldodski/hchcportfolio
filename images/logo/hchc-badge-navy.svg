@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="400" height="400">
+  <defs>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&amp;family=Jost:wght@200;300&amp;display=swap');
+    </style>
+  </defs>
+  <!-- Navy circle background -->
+  <circle cx="200" cy="200" r="200" fill="#1B2A4A"/>
+  <!-- Thin gold ring inset -->
+  <circle cx="200" cy="200" r="172" fill="none" stroke="#C4A265" stroke-width="0.75"/>
+  <!-- HCHC monogram -->
+  <text x="200" y="195" text-anchor="middle" dominant-baseline="central"
+        font-family="'Cormorant Garamond', Georgia, serif" font-weight="600"
+        font-size="96" fill="#F5F0EB" letter-spacing="12">HCHC</text>
+  <!-- Divider line -->
+  <line x1="140" y1="232" x2="260" y2="232" stroke="#C4A265" stroke-width="0.75"/>
+  <!-- Subtitle -->
+  <text x="200" y="260" text-anchor="middle"
+        font-family="'Jost', sans-serif" font-weight="200"
+        font-size="18" fill="#D4C5B2" letter-spacing="6">INTERIOR DESIGN</text>
+</svg>

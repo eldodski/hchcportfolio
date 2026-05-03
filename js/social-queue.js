@@ -163,12 +163,60 @@ async function rejectPost(id) {
 }
 
 async function markPublished(id) {
-  await updateSocialPost(id, {
-    status: 'published',
-    published_at: new Date().toISOString()
-  });
+  // Get post data for publishing
+  const posts = await getSocialPosts();
+  const post = posts.find(p => p.id === id);
+  if (!post) return;
+
+  const platforms = post.platforms || [];
+  const hasConnectedPlatforms = platforms.includes('pinterest');
+
+  if (hasConnectedPlatforms) {
+    showToast('Publishing to platforms...');
+    try {
+      const res = await fetch('/api/publish', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          postId: id,
+          platforms,
+          imageUrl: post.image_url,
+          caption: post.caption,
+          hashtags: post.hashtags,
+          altText: post.alt_text,
+          projectType: post.project_type
+        })
+      });
+      const result = await res.json();
+      const pinterestResult = result.results?.find(r => r.platform === 'pinterest');
+      if (pinterestResult?.status === 'success') {
+        showToast('Published to Pinterest!');
+      } else if (pinterestResult?.status === 'error') {
+        showToast('Pinterest error: ' + pinterestResult.message);
+      }
+      // Store publish results in meta
+      await updateSocialPost(id, {
+        status: 'published',
+        published_at: new Date().toISOString(),
+        meta: { publish_results: result.results }
+      });
+    } catch (err) {
+      console.error('Publish error:', err);
+      showToast('Error publishing. Marked as published locally.');
+      await updateSocialPost(id, {
+        status: 'published',
+        published_at: new Date().toISOString()
+      });
+    }
+  } else {
+    await updateSocialPost(id, {
+      status: 'published',
+      published_at: new Date().toISOString()
+    });
+    showToast('Post marked as published (no connected platforms)');
+  }
+
   await loadPosts();
-  showToast('Post marked as published');
 }
 
 async function confirmDelete(id) {

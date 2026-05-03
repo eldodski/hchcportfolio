@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 200" width="600" height="200">
+  <defs>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600&amp;family=Jost:wght@200&amp;display=swap');
+    </style>
+  </defs>
+  <!-- For use on dark backgrounds -->
+  <text x="300" y="90" text-anchor="middle"
+        font-family="'Cormorant Garamond', Georgia, serif" font-weight="600"
+        font-size="42" fill="#F5F0EB" letter-spacing="3">Hill Country</text>
+  <text x="300" y="138" text-anchor="middle"
+        font-family="'Cormorant Garamond', Georgia, serif" font-weight="600"
+        font-size="42" fill="#F5F0EB" letter-spacing="3">Home Concepts</text>
+  <line x1="220" y1="155" x2="380" y2="155" stroke="#C4A265" stroke-width="0.75"/>
+  <text x="300" y="178" text-anchor="middle"
+        font-family="'Jost', sans-serif" font-weight="200"
+        font-size="14" fill="#D4C5B2" letter-spacing="8">INTERIOR DESIGN</text>
+</svg>
