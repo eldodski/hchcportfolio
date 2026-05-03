@@ -5,7 +5,9 @@
     { "source": "/social", "destination": "/social/index.html" },
     { "source": "/social/", "destination": "/social/index.html" },
     { "source": "/dashboard/social-queue", "destination": "/dashboard/social-queue.html" },
-    { "source": "/dashboard/social-queue/", "destination": "/dashboard/social-queue.html" }
+    { "source": "/dashboard/social-queue/", "destination": "/dashboard/social-queue.html" },
+    { "source": "/privacy", "destination": "/privacy.html" },
+    { "source": "/privacy/", "destination": "/privacy.html" }
   ],
   "functions": {
     "api/gemini.js": {
