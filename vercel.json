@@ -7,7 +7,9 @@
     { "source": "/dashboard/social-queue", "destination": "/dashboard/social-queue.html" },
     { "source": "/dashboard/social-queue/", "destination": "/dashboard/social-queue.html" },
     { "source": "/privacy", "destination": "/privacy.html" },
-    { "source": "/privacy/", "destination": "/privacy.html" }
+    { "source": "/privacy/", "destination": "/privacy.html" },
+    { "source": "/hill-country-home-concepts-privacy", "destination": "/privacy.html" },
+    { "source": "/hill-country-home-concepts-privacy/", "destination": "/privacy.html" }
   ],
   "functions": {
     "api/gemini.js": {
