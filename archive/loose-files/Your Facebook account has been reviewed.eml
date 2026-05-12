@@ -1,0 +1,254 @@
+Delivered-To: ena.dodski@hillcountryhomeconcepts.com
+Received: by 2002:a05:6020:31ec:b0:768:e620:9b69 with SMTP id s12csp908744wdg;
+        Sat, 2 May 2026 20:39:09 -0700 (PDT)
+X-Received: by 2002:a05:6000:2f8a:b0:44a:6d15:15b9 with SMTP id ffacd0b85a97d-44bb6ca0303mr7125189f8f.43.1777779548804;
+        Sat, 02 May 2026 20:39:08 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1777779548; cv=none;
+        d=google.com; s=arc-20240605;
+        b=Va6A+1LgdO1qGz9gJXqan/rRrFV/xQ4bwEn42CWes++BGTfBNKJ61/rOUI3U2X7HLr
+         0AWJi/q4y/2TyqXRZOJp7VHwntrv0KE1l4gerF+WdicIHd7yd9s+idB3V9vKKKPEYxgY
+         X2+4AKycQALVRml51aNx83Pfwj5yOo6Ag0mmzaWrpwiTid66HOoCj3eZTo6HrOKbBcGx
+         6bTRYKOBxiNB6S+9DEwhM4ADkDkY7YHL4ZLWMCBPpu3BYQmzwqEKgyEHNraEoJ2pB8lC
+         o/PQzH3rhA34t0APfuPru13ATWCVbjDGYmu2KHFuI7xPGayH/+rk1oYvrWdkN7d80+Dm
+         eziQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
+        h=message-id:mime-version:require-recipient-valid-since:feedback-id
+         :bimi-selector:errors-to:reply-to:from:subject:to:date
+         :dkim-signature;
+        bh=tnFSdOomgp/6FW7hTTpV7dIU26mbU7RnrjPcO0hVB/U=;
+        fh=hTT5LbEHbXF5tAHNyPMZslCizKtDTmFVzUuGU2pwphU=;
+        b=UwkjUvkjgsELzn9O8ZJvfOB8A05g2601+HLCQiI5GHdITvHwk1mvGqprQ2JIakNqdH
+         tMM8LRxtvYl6eiycits5ckRJMTurpZoMaWDx5IO3MaLVpIe59tjILaMn4qToDXdqQNjb
+         TOqUsyEj9oNc6Zq3SJyQPbxwVW85g2MHJQecJj0VrP2E9QxSMT6Y/rcl5eAI9tqfbSbq
+         wrqgjgkw9mm0hv3xIJb1/g7CX0S0Jjx3uHbRaHoUfOYPkw4m9OpKEc8B+KW0poBVU15j
+         cJxQt9BOdJawgj5WksSx1D83bAwbEU/GnHa4F0T/QaHkOrMSmOovwQpjUpMQ/u61cWlK
+         oPWQ==;
+        dara=google.com
+ARC-Authentication-Results: i=1; mx.google.com;
+       dkim=pass header.i=@support.facebook.com header.s=s1024-2013-q3 header.b=Qbm9M7dG;
+       spf=pass (google.com: domain of noreply@support.facebook.com designates 66.220.155.144 as permitted sender) smtp.mailfrom=noreply@support.facebook.com;
+       dmarc=pass (p=REJECT sp=REJECT dis=NONE) header.from=support.facebook.com
+Return-Path: <noreply@support.facebook.com>
+Received: from 66-220-155-144.mail-mail.facebook.com (66-220-155-144.mail-mail.facebook.com. [66.220.155.144])
+        by mx.google.com with ESMTPS id ffacd0b85a97d-44a99a11e71si11548822f8f.464.2026.05.02.20.39.08
+        for <ena.dodski@hillcountryhomeconcepts.com>
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 02 May 2026 20:39:08 -0700 (PDT)
+Received-SPF: pass (google.com: domain of noreply@support.facebook.com designates 66.220.155.144 as permitted sender) client-ip=66.220.155.144;
+Authentication-Results: mx.google.com;
+       dkim=pass header.i=@support.facebook.com header.s=s1024-2013-q3 header.b=Qbm9M7dG;
+       spf=pass (google.com: domain of noreply@support.facebook.com designates 66.220.155.144 as permitted sender) smtp.mailfrom=noreply@support.facebook.com;
+       dmarc=pass (p=REJECT sp=REJECT dis=NONE) header.from=support.facebook.com
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=support.facebook.com;
+	s=s1024-2013-q3; t=1777779548;
+	bh=tnFSdOomgp/6FW7hTTpV7dIU26mbU7RnrjPcO0hVB/U=;
+	h=Date:To:Subject:From:MIME-Version:Content-Type;
+	b=Qbm9M7dGI1dU3rkGiOVuxHFrGkolOk+xqTaWcS9v/8xGeAKRKRmHT/5I+dOn94fo2
+	 6kaUmbif9dqf59KFvm/+X2Rgrw8Gk4OAk2sbWU8l7bRBa0Zq0V8staCBmWBu887eLp
+	 d/HEEoSxABLKgmPtaVoVu5WxGu6ZVdGRWqF3mwmw=
+X-Facebook: from 2803:6081:8bc:6528:ed0:c0f9:1439:a00 ([MTI3LjAuMC4x]) 
+	by thrift.internalfb.com with HTTPS (ZuckMail);
+Date: Sat, 2 May 2026 20:39:07 -0700
+To: Ena Dodski <ena.dodski@hillcountryhomeconcepts.com>
+Subject: Your Facebook account has been reviewed
+X-Priority: 3
+X-Mailer: ZuckMail [version 1.00]
+Return-Path: noreply@support.facebook.com
+From: "Meta Support" <noreply@support.facebook.com>
+Reply-to: noreply <noreply@facebookmail.com>
+Errors-To: noreply+mwumd73mij3m@support.facebook.com
+X-Facebook-Notify: ufac_disable_decision_engine_notification; mailid=U1U650e1449086a9G3803e738664bG650e18e26897bGac3c
+X-FB-Internal-Notiftype: ufac_disable_decision_engine_notification
+BIMI-Selector: v=BIMI1; s=bizcomms2024v1;
+Feedback-ID: ufac_disable_decision_engine_notification:Facebook
+X-FB-Internal-MID: U1U650e1449086a9G3803e738664bG650e18e26897bGac3c
+X-FB-Internal-NotifID: 1777779543017851
+X-FB-Internal-RecipID: 61589415290443
+X-FACEBOOK-PRIORITY: 0
+X-Auto-Response-Suppress: All
+Require-Recipient-Valid-Since: ena.dodski@hillcountryhomeconcepts.com; Sunday,  3 May 2026 02:36:20 +0000
+MIME-Version: 1.0
+Content-Type: multipart/alternative;
+	boundary="b1_e0ed540c7b56003ed2baef8faea2ce48"
+Message-ID: <71a139cf-0379-4270-a904-2ca7d34e6dce@support.facebook.com>
+
+
+--b1_e0ed540c7b56003ed2baef8faea2ce48
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+Hi Ena,
+
+Your review was unsuccessful
+
+Hi Ena,Your Facebook account has been permanently disabled.You requested a =
+review of this decision, but we still found that your account, or activity =
+on it, didn=E2=80=99t follow our Community Standards. You can=E2=80=99t =
+request another review.Learn more about why we disable accounts by =
+visiting the Community Standards.
+
+[https://www.facebook.com/login/]=20
+
+Ena Dodski
+
+Thanks,The Facebook team
+
+Thanks,
+The Facebook team
+
+
+
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+This message was sent to ena.dodski@hillcountryhomeconcepts.com at your =
+request.
+Meta Platforms, Inc., Attention: Community Support, 1 Meta Way, Menlo =
+Park, CA 94025
+
+
+--b1_e0ed540c7b56003ed2baef8faea2ce48
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional =
+//EN"><html><head><title>Facebook</title><meta http-equiv=3D"Content-Type" =
+content=3D"text/html; charset=3Dutf-8" /><style nonce=3D"n76jcwKK">@media =
+all and (max-width: 480px){*[class].ib_t{min-width:100%!important}*[class]=
+.ib_row{display:block!important}*[class].ib_ext{display:block!important;pa=
+dding:10px 0 5px;vertical-align:top!important;width:100%!important}*[class=
+].ib_img,*[class].ib_mid{vertical-align:top!important}*[class].mb_blk{disp=
+lay:block!important;padding-bottom:10px;width:100%!important}*[class].mb_h=
+ide{display:none!important}*[class].mb_inl{display:inline!important}*[clas=
+s].d_mb_flex{display:block!important}}.d_mb_show{display:none}.d_mb_flex{d=
+isplay:flex}@media only screen and (max-device-width: =
+480px){.d_mb_hide{display:none!important}.d_mb_show,.d_mb_flex{display:blo=
+ck!important}}.mb_text h1,.mb_text h2,.mb_text h3,.mb_text h4,.mb_text =
+h5,.mb_text h6{line-height:normal}.mb_work_text =
+h1{font-size:18px;line-height:normal;margin-top:4px}.mb_work_text =
+h2,.mb_work_text =
+h3{font-size:16px;line-height:normal;margin-top:4px}.mb_work_text =
+h4,.mb_work_text h5,.mb_work_text =
+h6{font-size:14px;line-height:normal}.mb_work_text =
+a{color:#1270e9}.mb_work_text p{margin-top:4px}
+</style></head><table border=3D"0" width=3D"100%" cellspacing=3D"0" =
+cellpadding=3D"0" style=3D"border-collapse:collapse;"><tr><td =
+width=3D"100%" align=3D"center" style=3D""><table border=3D"0" =
+cellspacing=3D"0" cellpadding=3D"0" align=3D"center" =
+style=3D"border-collapse:collapse;"><tr><td width=3D"840" align=3D"center" =
+style=3D""><body style=3D"max-width:420px;margin:0 auto;" dir=3D"ltr" =
+bgcolor=3D"#ffffff"><table border=3D"0" cellspacing=3D"0" =
+cellpadding=3D"0" align=3D"center" id=3D"email_table" =
+style=3D"border-collapse:collapse;max-width:420px;margin:0 auto;"><tr><td =
+id=3D"email_content" style=3D"font-family:Helvetica Neue,Helvetica,Lucida =
+Grande,tahoma,verdana,arial,sans-serif;background:#ffffff;"><table =
+border=3D"0" width=3D"100%" cellspacing=3D"0" cellpadding=3D"0" =
+style=3D"border-collapse:collapse;"><tr style=3D""><td height=3D"20" =
+style=3D"line-height:20px;" colspan=3D"3">&nbsp;</td></tr><tr><td =
+height=3D"1" colspan=3D"3" style=3D"line-height:1px;"></td></tr><tr><td =
+width=3D"15" =
+style=3D"display:block;width:15px;">&nbsp;&nbsp;&nbsp;</td><td =
+style=3D""><table border=3D"0" width=3D"100%" cellspacing=3D"0" =
+cellpadding=3D"0" style=3D"border-collapse:collapse;"><tr style=3D""><td =
+style=3D"line-height:0;font-size:0;padding-top:15px;" =
+colspan=3D"3">&nbsp;</td></tr><tr><td width=3D"32" align=3D"left" =
+valign=3D"middle" style=3D"height:32;line-height:0px;"><img width=3D"32" =
+src=3D"https://static.xx.fbcdn.net/rsrc.php/v4/yA/r/kX-NgGrUL6n.png" =
+height=3D"32" style=3D"border:0;" /></td><td width=3D"15" =
+style=3D"display:block;width:15px;">&nbsp;&nbsp;&nbsp;</td><td =
+width=3D"100%" style=3D""><span></span></td></tr><tr =
+style=3D"border-bottom:solid 1px #E8EAEE;"><td =
+style=3D"line-height:0;font-size:0;padding-top:15px;" =
+colspan=3D"100">&nbsp;</td></tr></table></td><td width=3D"15" =
+style=3D"display:block;width:15px;">&nbsp;&nbsp;&nbsp;</td></tr><tr><td =
+width=3D"15" =
+style=3D"display:block;width:15px;">&nbsp;&nbsp;&nbsp;</td><td =
+style=3D""><table border=3D"0" width=3D"100%" cellspacing=3D"0" =
+cellpadding=3D"0" style=3D"border-collapse:collapse;"><tr style=3D""><td =
+height=3D"20" style=3D"line-height:20px;">&nbsp;</td></tr><tr><td =
+style=3D""><span class=3D"mb_text" style=3D"font-family:Helvetica =
+Neue,Helvetica,Lucida Grande,tahoma,verdana,arial,sans-serif;font-size:16p=
+x;line-height:21px;font-weight:bold;color:#141823;"><font size=3D"4">Your =
+review was unsuccessful</font></span></td></tr><tr style=3D""><td =
+height=3D"15" style=3D"line-height:15px;">&nbsp;</td></tr><tr><td =
+style=3D""><span class=3D"mb_text" style=3D"font-family:Helvetica =
+Neue,Helvetica,Lucida Grande,tahoma,verdana,arial,sans-serif;font-size:16p=
+x;line-height:21px;color:#141823;">Hi Ena,<p>Your Facebook account has =
+been permanently disabled.</p><p>You requested a review of this decision, =
+but we still found that your account, or activity on it, didn=E2=80=99t =
+follow our Community Standards. You can=E2=80=99t request another =
+review.</p><p>Learn more about why we disable accounts by visiting the <a =
+href=3D"https://facebook.com/communitystandards/" =
+target=3D"_blank">Community Standards</a>.</p></span></td></tr><tr =
+style=3D""><td height=3D"15" =
+style=3D"line-height:15px;">&nbsp;</td></tr><tr><td style=3D""><table =
+border=3D"0" width=3D"100%" cellspacing=3D"0" cellpadding=3D"0" =
+style=3D"border-collapse:collapse;"><tr><td style=3D""><table border=3D"0" =
+width=3D"100%" cellspacing=3D"0" cellpadding=3D"0" =
+style=3D"border-collapse:collapse;"><tr><td style=3D"font-size:11px;font-f=
+amily:LucidaGrande,tahoma,verdana,arial,sans-serif;background:#FFFFFF;bord=
+er:solid 1px #E5E5E5;border-radius:4px;padding:15px 15px 15px =
+15px;display:block;"><table border=3D"0" cellspacing=3D"0" =
+cellpadding=3D"0" style=3D"border-collapse:collapse;"><tr><td =
+valign=3D"top" style=3D""><a href=3D"https://www.facebook.com/login/" =
+style=3D"color:#1b74e4;text-decoration:none;"><img width=3D"64" =
+src=3D"https://scontent.faus1-1.fna.fbcdn.net/v/t1.30497-1/453178253_47150=
+6465671661_2781666950760530985_n.png?stp=3Ddst-png_s100x100&amp;_nc_cat=3D=
+1&amp;ccb=3D1-7&amp;_nc_sid=3Dda5fd6&amp;_nc_ohc=3DmhF6wkWxegUQ7kNvwFK91t7=
+&amp;_nc_oc=3DAdrH0eWe5lSBXudW_yN3XP1VP--v9cblfFUaBpzG5OrjVk8ornCz25gVvDBr=
+3QZ83Cttyb9y12LqTbWdNkRYfM2-&amp;_nc_ad=3Dz-m&amp;_nc_cid=3D0&amp;_nc_zt=
+=3D24&amp;_nc_ht=3Dscontent.faus1-1.fna&amp;_nc_ss=3D7a22e&amp;oh=3D00_Af6=
+jjI4ugYmYNJ-eJN5gdeaVowzQFlJo36uWgfN8LqN3fA&amp;oe=3D6A1E29BA" =
+height=3D"64" style=3D"border:solid 1px =
+rgba(0,0,0,0.15);border-radius:50%;" /></a></td><td width=3D"12" =
+style=3D"display:block;width:12px;">&nbsp;&nbsp;&nbsp;</td><td =
+style=3D""><span class=3D"mb_text" style=3D"font-family:Helvetica =
+Neue,Helvetica,Lucida Grande,tahoma,verdana,arial,sans-serif;font-size:16p=
+x;line-height:21px;font-weight:bold;color:#141823;">Ena =
+Dodski</span></td></tr></table></td></tr></table></td></tr><tr =
+style=3D""><td height=3D"36" =
+style=3D"line-height:36px;">&nbsp;</td></tr><tr><td align=3D"center" =
+style=3D""><a href=3D"https://www.facebook.com/login/" =
+style=3D"color:#1b74e4;text-decoration:none;display:block;width:100%;"><sp=
+an style=3D"border-radius:6px;padding:11px 0px 11px =
+0px;text-align:center;font-family:Helvetica Neue,Helvetica,Lucida =
+Grande,tahoma,verdana,arial,sans-serif;display:inline-block;color:#FFFFFF;=
+background-color:#3578E5;font-weight:500;width:100%;font-size:13px;"><span =
+style=3D"font-size: 16px;">Log into =
+Facebook</span></span></a></td></tr></table></td></tr><tr style=3D""><td =
+height=3D"15" style=3D"line-height:15px;">&nbsp;</td></tr><tr><td =
+style=3D""><span class=3D"mb_text" style=3D"font-family:Helvetica =
+Neue,Helvetica,Lucida Grande,tahoma,verdana,arial,sans-serif;font-size:16p=
+x;line-height:21px;color:#141823;"></span></td></tr><tr style=3D""><td =
+height=3D"15" style=3D"line-height:15px;">&nbsp;</td></tr><tr><td =
+style=3D""><span class=3D"mb_text" style=3D"font-family:Helvetica =
+Neue,Helvetica,Lucida Grande,tahoma,verdana,arial,sans-serif;font-size:16p=
+x;line-height:21px;color:#141823;"><p>Thanks,<br />The Facebook =
+team</p></span></td></tr><tr style=3D""><td height=3D"15" =
+style=3D"line-height:15px;">&nbsp;</td></tr></table></td><td width=3D"15" =
+style=3D"display:block;width:15px;">&nbsp;&nbsp;&nbsp;</td></tr><tr><td =
+width=3D"15" =
+style=3D"display:block;width:15px;">&nbsp;&nbsp;&nbsp;</td><td =
+style=3D""><table border=3D"0" width=3D"100%" cellspacing=3D"0" =
+cellpadding=3D"0" align=3D"left" style=3D"border-collapse:collapse;"><tr =
+style=3D"border-top:solid 1px #e5e5e5;"><td height=3D"19" =
+style=3D"line-height:19px;">&nbsp;</td></tr><tr><td =
+style=3D"font-family:Helvetica Neue,Helvetica,Lucida Grande,tahoma,verdana=
+,arial,sans-serif;font-size:11px;color:#aaaaaa;line-height:16px;">This =
+message was sent to <a =
+href=3D"mailto:ena.dodski&#064;hillcountryhomeconcepts.com" =
+style=3D"color:#3b5998;text-decoration:none;">ena.dodski&#064;hillcountryh=
+omeconcepts.com</a> at your request.<br />Meta Platforms, Inc., Attention: =
+Community Support, 1 Meta Way, Menlo Park, CA =
+94025</td></tr></table></td><td width=3D"15" =
+style=3D"display:block;width:15px;">&nbsp;&nbsp;&nbsp;</td></tr><tr =
+style=3D""><td height=3D"20" style=3D"line-height:20px;" =
+colspan=3D"3">&nbsp;</td></tr></table><span style=3D""><img =
+src=3D"https://www.facebook.com/email_open_log_pic.php?mid=3D650e1449086a9=
+G3803e738664bG650e18e26897bGac3c" style=3D"border:0;width:1px;height:1px;" =
+/></span></td></tr></table></body></td></tr></table></td></tr></table></ht=
+ml>
+
+
+
+--b1_e0ed540c7b56003ed2baef8faea2ce48--
+

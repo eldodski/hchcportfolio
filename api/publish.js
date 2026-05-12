@@ -1,5 +1,5 @@
 // Social Post Publishing API
-// Publishes posts to Pinterest (and Instagram when Meta approves)
+// Publishes posts to Pinterest and Instagram (when new Meta Business account is connected)
 
 export default async function handler(req, res) {
   if (req.method !== 'POST') {
@@ -20,18 +20,25 @@ export default async function handler(req, res) {
         case 'pinterest':
           results.push(await publishToPinterest({ imageUrl, caption, hashtags, altText, projectType }));
           break;
-        case 'instagram':
-          results.push({
-            platform: 'instagram',
-            status: 'pending',
-            message: 'Instagram API pending Meta approval. Post manually for now.'
-          });
+        case 'instagram': {
+          const igToken = process.env.INSTAGRAM_ACCESS_TOKEN;
+          const igAccountId = process.env.INSTAGRAM_BUSINESS_ACCOUNT_ID;
+          if (!igToken || !igAccountId) {
+            results.push({
+              platform: 'instagram',
+              status: 'pending',
+              message: 'Instagram not connected yet. Set INSTAGRAM_ACCESS_TOKEN and INSTAGRAM_BUSINESS_ACCOUNT_ID in Vercel env vars.'
+            });
+          } else {
+            results.push(await publishToInstagram({ igToken, igAccountId, imageUrl, caption, hashtags }));
+          }
           break;
+        }
         case 'facebook':
           results.push({
             platform: 'facebook',
             status: 'pending',
-            message: 'Facebook API not connected yet. Post manually for now.'
+            message: 'Facebook publishing not connected. Post manually for now.'
           });
           break;
         default:
@@ -147,4 +154,60 @@ async function getOrCreateBoard(token, projectType) {
 
   const board = await createRes.json();
   return board.id;
+}
+
+// ============ INSTAGRAM ============
+
+async function publishToInstagram({ igToken, igAccountId, imageUrl, caption, hashtags }) {
+  // Step 1: Create media container
+  let fullCaption = caption || '';
+  if (hashtags && hashtags.length > 0) {
+    fullCaption += '\n\n' + hashtags.map(h => `#${h.replace(/^#/, '')}`).join(' ');
+  }
+
+  const containerRes = await fetch(
+    `https://graph.facebook.com/v21.0/${igAccountId}/media`,
+    {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        image_url: imageUrl,
+        caption: fullCaption.substring(0, 2200),
+        access_token: igToken
+      })
+    }
+  );
+
+  if (!containerRes.ok) {
+    const err = await containerRes.text();
+    return { platform: 'instagram', status: 'error', message: `Instagram container error: ${err}` };
+  }
+
+  const container = await containerRes.json();
+
+  // Step 2: Publish the container
+  const publishRes = await fetch(
+    `https://graph.facebook.com/v21.0/${igAccountId}/media_publish`,
+    {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        creation_id: container.id,
+        access_token: igToken
+      })
+    }
+  );
+
+  if (!publishRes.ok) {
+    const err = await publishRes.text();
+    return { platform: 'instagram', status: 'error', message: `Instagram publish error: ${err}` };
+  }
+
+  const published = await publishRes.json();
+  return {
+    platform: 'instagram',
+    status: 'success',
+    mediaId: published.id,
+    message: 'Published to Instagram'
+  };
 }

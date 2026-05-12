@@ -31,3 +31,7 @@ Repositioning*.docx
 
 # GSD planning (don't deploy)
 .planning/
+.vercel
+
+# Scripts with credentials
+scripts/run-migrations.js

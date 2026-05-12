@@ -1,14 +1,3 @@
-/**
- * Upload remaining product images to Supabase storage.
- *
- * Targets only the 67 materials that were updated from vendor page URLs
- * to direct CDN URLs (identified by having an `original_page_url` field).
- *
- * Uses the same upload pattern as upload-images.js:
- * 1. Download image from CDN URL
- * 2. Upload to Supabase material-images bucket
- * 3. Update the materials table image_url via REST API
- */
 const fs = require('fs');
 const path = require('path');
 const https = require('https');
@@ -19,31 +8,44 @@ const SUPABASE_URL = 'https://eqqllaiswgkoxrivgmig.supabase.co';
 const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVxcWxsYWlzd2drb3hyaXZnbWlnIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc3NjQ2Njk2MCwiZXhwIjoyMDkyMDQyOTYwfQ.CWsC6YZAzxi7U6yg9gPt1uymoN_KiuQgcjItY62TUpM';
 const BUCKET = 'material-images';
 const BATCH_SIZE = 5;
+const MAX_IMAGE_SIZE = 500 * 1024; // 500KB limit
 
 const DATA_PATH = path.join(__dirname, '..', 'data', 'material-image-urls.json');
 
 // ── Helpers ─────────────────────────────────────────────────────────────
 
-function sanitizeFilename(sku) {
-  return sku.replace(/[^a-zA-Z0-9._-]/g, '_');
+function isDirectImageUrl(url) {
+  const lower = url.toLowerCase();
+  // Check for image file extensions
+  if (/\.(jpg|jpeg|png|webp|gif)(\?|$)/i.test(lower)) return true;
+  // Known CDN patterns that serve images directly
+  if (lower.includes('/cdn/shop/') && (lower.includes('products/') || lower.includes('files/'))) return true;
+  if (lower.includes('bigcommerce.com')) return true;
+  if (lower.includes('marble.com/uploads/')) return true;
+  if (lower.includes('hardwarehut.com/images/')) return true;
+  return false;
 }
 
 function getContentType(url) {
   const lower = url.toLowerCase();
-  if (lower.includes('.png') || lower.includes('PNGServlet')) return 'image/png';
+  if (lower.includes('.png')) return 'image/png';
   if (lower.includes('.webp')) return 'image/webp';
   if (lower.includes('.gif')) return 'image/gif';
-  return 'image/jpeg';
+  return 'image/jpeg'; // default
 }
 
 function getExtension(url, contentType) {
   const lower = url.toLowerCase();
-  if (lower.includes('.png') || lower.includes('PNGServlet')) return '.png';
+  if (lower.includes('.png')) return '.png';
   if (lower.includes('.webp')) return '.webp';
   if (lower.includes('.gif')) return '.gif';
   if (contentType && contentType.includes('png')) return '.png';
   if (contentType && contentType.includes('webp')) return '.webp';
   return '.jpg';
+}
+
+function sanitizeFilename(sku) {
+  return sku.replace(/[^a-zA-Z0-9._-]/g, '_');
 }
 
 function downloadImage(url, maxRedirects = 5) {
@@ -53,18 +55,18 @@ function downloadImage(url, maxRedirects = 5) {
     const client = url.startsWith('https') ? https : http;
     const req = client.get(url, {
       headers: {
-        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36',
         'Accept': 'image/*,*/*'
       },
-      timeout: 20000
+      timeout: 15000
     }, (res) => {
+      // Handle redirects
       if (res.statusCode >= 300 && res.statusCode < 400 && res.headers.location) {
         let redirectUrl = res.headers.location;
         if (redirectUrl.startsWith('/')) {
           const parsed = new URL(url);
           redirectUrl = `${parsed.protocol}//${parsed.host}${redirectUrl}`;
         }
-        res.resume();
         return downloadImage(redirectUrl, maxRedirects - 1).then(resolve).catch(reject);
       }
 
@@ -74,12 +76,17 @@ function downloadImage(url, maxRedirects = 5) {
       }
 
       const contentType = res.headers['content-type'] || '';
+      if (!contentType.includes('image') && !contentType.includes('octet-stream')) {
+        res.resume();
+        return reject(new Error(`Not an image: ${contentType}`));
+      }
+
       const chunks = [];
       let totalSize = 0;
 
       res.on('data', (chunk) => {
         totalSize += chunk.length;
-        if (totalSize > 2 * 1024 * 1024) {
+        if (totalSize > 2 * 1024 * 1024) { // 2MB hard limit
           res.destroy();
           reject(new Error('Image too large (>2MB)'));
           return;
@@ -99,9 +106,9 @@ function downloadImage(url, maxRedirects = 5) {
   });
 }
 
-function supabaseRequest(method, reqPath, body, contentType = 'application/json') {
+function supabaseRequest(method, path, body, contentType = 'application/json') {
   return new Promise((resolve, reject) => {
-    const url = new URL(reqPath, SUPABASE_URL);
+    const url = new URL(path, SUPABASE_URL);
     const options = {
       hostname: url.hostname,
       path: url.pathname + url.search,
@@ -149,6 +156,7 @@ async function uploadToStorage(filename, buffer, contentType) {
     contentType
   );
 
+  // If file exists, try upsert
   if (res.status === 400 && res.body.includes('already exists')) {
     const res2 = await supabaseRequest(
       'PUT',
@@ -185,108 +193,117 @@ async function updateMaterialImageUrl(sku, imageUrl) {
   }
 }
 
-function sleep(ms) {
+async function sleep(ms) {
   return new Promise(r => setTimeout(r, ms));
 }
 
-// ── Main ────────────────────────────────────────────────────────────────
+async function processBatch(items, batchNum, totalBatches) {
+  const results = await Promise.allSettled(items.map(async (item) => {
+    const { sku, image_url, name } = item;
+    const isDirect = isDirectImageUrl(image_url);
 
-async function main() {
-  console.log('Reading material image URL data...');
-  const data = JSON.parse(fs.readFileSync(DATA_PATH, 'utf8'));
-
-  // Target only items with original_page_url (the 67 we just updated)
-  const targetItems = data.images.filter(i => i.original_page_url);
-  console.log(`Found ${targetItems.length} materials with updated image URLs to upload\n`);
-
-  const allResults = [];
-  const totalBatches = Math.ceil(targetItems.length / BATCH_SIZE);
-
-  for (let i = 0; i < targetItems.length; i += BATCH_SIZE) {
-    const batch = targetItems.slice(i, i + BATCH_SIZE);
-    const batchNum = Math.floor(i / BATCH_SIZE) + 1;
-    console.log(`\nBatch ${batchNum}/${totalBatches}`);
-
-    const results = await Promise.allSettled(batch.map(async (item) => {
-      const { sku, image_url, name } = item;
-      console.log(`  Downloading: ${name} (${sku})`);
-
+    if (isDirect) {
       try {
         const { buffer, contentType } = await downloadImage(image_url);
         const ext = getExtension(image_url, contentType);
         const filename = `${sanitizeFilename(sku)}${ext}`;
         const uploadContentType = getContentType(image_url);
 
-        console.log(`  Uploading: ${filename} (${(buffer.length / 1024).toFixed(1)}KB)`);
         await uploadToStorage(filename, buffer, uploadContentType);
-
         const publicUrl = getPublicUrl(filename);
         await updateMaterialImageUrl(sku, publicUrl);
 
-        return { sku, name, status: 'uploaded', size: `${(buffer.length / 1024).toFixed(1)}KB`, publicUrl };
+        const sizeKB = (buffer.length / 1024).toFixed(1);
+        return { sku, status: 'uploaded', size: `${sizeKB}KB`, name };
       } catch (err) {
-        // Fallback: store the CDN URL directly in the database
-        console.log(`  Download failed (${err.message}), storing CDN URL directly`);
+        // Fallback: store original URL
         try {
           await updateMaterialImageUrl(sku, image_url);
-          return { sku, name, status: 'cdn-url-stored', error: err.message };
+          return { sku, status: 'fallback-original', error: err.message, name };
         } catch (dbErr) {
-          return { sku, name, status: 'failed', error: `${err.message} + DB: ${dbErr.message}` };
+          return { sku, status: 'failed', error: `${err.message} + DB: ${dbErr.message}`, name };
         }
       }
-    }));
-
-    for (const r of results) {
-      allResults.push(r.status === 'fulfilled' ? r.value : { status: 'error', error: r.reason?.message });
+    } else {
+      // Product page URL -- store as-is
+      try {
+        await updateMaterialImageUrl(sku, image_url);
+        return { sku, status: 'page-url', name };
+      } catch (err) {
+        return { sku, status: 'failed', error: err.message, name };
+      }
     }
+  }));
 
-    if (i + BATCH_SIZE < targetItems.length) {
-      await sleep(500);
+  return results.map(r => r.status === 'fulfilled' ? r.value : { status: 'error', error: r.reason?.message });
+}
+
+// ── Main ────────────────────────────────────────────────────────────────
+
+async function main() {
+  console.log('Reading image URL data...');
+  const data = JSON.parse(fs.readFileSync(DATA_PATH, 'utf8'));
+  const items = data.images;
+
+  console.log(`Total materials: ${items.length}`);
+
+  const directItems = items.filter(i => isDirectImageUrl(i.image_url));
+  const pageItems = items.filter(i => !isDirectImageUrl(i.image_url));
+
+  console.log(`Direct CDN images: ${directItems.length}`);
+  console.log(`Product page URLs: ${pageItems.length}`);
+  console.log('');
+
+  const allItems = [...directItems, ...pageItems];
+  const allResults = [];
+
+  const totalBatches = Math.ceil(allItems.length / BATCH_SIZE);
+
+  for (let i = 0; i < allItems.length; i += BATCH_SIZE) {
+    const batch = allItems.slice(i, i + BATCH_SIZE);
+    const batchNum = Math.floor(i / BATCH_SIZE) + 1;
+
+    console.log(`Batch ${batchNum}/${totalBatches} (${batch.map(b => b.sku).join(', ')})`);
+
+    const results = await processBatch(batch, batchNum, totalBatches);
+    allResults.push(...results);
+
+    // Brief pause between batches to be nice to APIs
+    if (i + BATCH_SIZE < allItems.length) {
+      await sleep(300);
     }
   }
 
   // Summary
-  console.log('\n' + '='.repeat(60));
-  console.log('UPLOAD RESULTS SUMMARY');
-  console.log('='.repeat(60));
+  console.log('\n═══════════════════════════════════════');
+  console.log('RESULTS SUMMARY');
+  console.log('═══════════════════════════════════════');
 
   const uploaded = allResults.filter(r => r.status === 'uploaded');
-  const cdnStored = allResults.filter(r => r.status === 'cdn-url-stored');
+  const pageUrls = allResults.filter(r => r.status === 'page-url');
+  const fallbacks = allResults.filter(r => r.status === 'fallback-original');
   const failed = allResults.filter(r => r.status === 'failed' || r.status === 'error');
 
-  console.log(`Uploaded to Supabase storage: ${uploaded.length}`);
-  console.log(`CDN URL stored in DB:         ${cdnStored.length}`);
-  console.log(`Failed:                       ${failed.length}`);
-  console.log(`Total processed:              ${allResults.length}`);
+  console.log(`Uploaded to storage:   ${uploaded.length}`);
+  console.log(`Page URLs stored:      ${pageUrls.length}`);
+  console.log(`Fallback (orig URL):   ${fallbacks.length}`);
+  console.log(`Failed:                ${failed.length}`);
+  console.log(`Total processed:       ${allResults.length}`);
 
   if (uploaded.length > 0) {
-    console.log('\n-- Uploaded --');
-    uploaded.forEach(r => console.log(`  OK  ${r.sku} (${r.size}) - ${r.name}`));
+    console.log('\n── Uploaded Images ──');
+    uploaded.forEach(r => console.log(`  ✓ ${r.sku} (${r.size}) - ${r.name}`));
   }
 
-  if (cdnStored.length > 0) {
-    console.log('\n-- CDN URL Stored (download failed, using CDN URL directly) --');
-    cdnStored.forEach(r => console.log(`  ~   ${r.sku}: ${r.error} - ${r.name}`));
+  if (fallbacks.length > 0) {
+    console.log('\n── Fallbacks (download failed, stored original URL) ──');
+    fallbacks.forEach(r => console.log(`  ~ ${r.sku}: ${r.error}`));
   }
 
   if (failed.length > 0) {
-    console.log('\n-- Failed --');
-    failed.forEach(r => console.log(`  X   ${r.sku}: ${r.error}`));
+    console.log('\n── Failed ──');
+    failed.forEach(r => console.log(`  ✗ ${r.sku}: ${r.error}`));
   }
-
-  // Write results log
-  const logPath = path.join(__dirname, '..', 'data', 'upload-remaining-results.json');
-  fs.writeFileSync(logPath, JSON.stringify({
-    timestamp: new Date().toISOString(),
-    results: allResults,
-    summary: {
-      uploaded: uploaded.length,
-      cdn_stored: cdnStored.length,
-      failed: failed.length,
-      total: allResults.length
-    }
-  }, null, 2));
-  console.log(`\nResults log saved to: ${logPath}`);
 }
 
 main().catch(err => {
