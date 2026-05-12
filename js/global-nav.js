@@ -10,34 +10,29 @@
       label: 'Main Site',
       links: [
         { name: 'Home', href: '/' },
-        { name: 'Portfolio (B2B)', href: '/PORTFOLIO_B2B.html' },
+        { name: 'B2B Portfolio', href: '/PORTFOLIO_B2B.html' },
         { name: 'Privacy Policy', href: '/privacy.html' }
       ]
     },
     {
-      label: 'Tools',
+      label: 'HCHC Platform',
       links: [
-        { name: 'Dashboard', href: '/dashboard.html' },
-        { name: 'Materials', href: '/materials.html' },
-        { name: 'Presentation Engine', href: '/presentation-engine.html' }
-      ]
-    },
-    {
-      label: 'Social',
-      links: [
+        { name: 'Admin Dashboard', href: '/dashboard.html' },
+        { name: 'Material Library', href: '/materials.html' },
+        { name: 'Presentation Engine', href: '/presentation-engine.html' },
         { name: 'Social Feed', href: '/social/' },
         { name: 'Social Queue', href: '/dashboard/social-queue.html' }
       ]
     },
     {
-      label: 'SelectFlow',
+      label: 'HC Finishing (SelectFlow)',
       links: [
-        { name: 'HC Finishing Home', href: '/hc-finishing/' },
-        { name: 'Dashboard', href: '/hc-finishing/dashboard.html' },
-        { name: 'Upload', href: '/hc-finishing/upload.html' },
-        { name: 'Review', href: '/hc-finishing/review.html' },
-        { name: 'Materials', href: '/hc-finishing/materials.html' },
-        { name: 'Presentations', href: '/hc-finishing/presentation.html' }
+        { name: 'SelectFlow Home', href: '/hc-finishing/' },
+        { name: 'SelectFlow Dashboard', href: '/hc-finishing/dashboard.html' },
+        { name: 'Order Upload', href: '/hc-finishing/upload.html' },
+        { name: 'Order Review', href: '/hc-finishing/review.html' },
+        { name: 'Finish Materials', href: '/hc-finishing/materials.html' },
+        { name: 'Finish Presentations', href: '/hc-finishing/presentation.html' }
       ]
     }
   ];
