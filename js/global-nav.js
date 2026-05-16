@@ -497,6 +497,7 @@
       links: [
         { name: 'Material Library', href: '/materials.html', icon: '\u{1F3A8}' },
         { name: 'Presentation Engine', href: '/presentation-engine.html', icon: '\u{1F4CA}' },
+        { name: 'Platform Settings', href: '/admin/settings.html', icon: '\u2699' },
       ]
     },
   ];
