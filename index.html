@@ -100,7 +100,7 @@ p { max-width: 680px; }
 
 .btn-accent {
   background: var(--gold);
-  color: #fff;
+  color: var(--navy);
 }
 .btn-accent:hover { background: var(--mocha); }
 
@@ -242,9 +242,9 @@ p { max-width: 680px; }
   inset: 0;
   background: linear-gradient(
     135deg,
-    rgba(27, 42, 74, 0.55) 0%,
-    rgba(27, 42, 74, 0.30) 50%,
-    rgba(27, 42, 74, 0.15) 100%
+    rgba(27, 42, 74, 0.50) 0%,
+    rgba(27, 42, 74, 0.25) 50%,
+    rgba(27, 42, 74, 0.10) 100%
   );
 }
 
@@ -416,6 +416,59 @@ p { max-width: 680px; }
   transition: color 0.3s ease;
 }
 .audience-col .audience-cta:hover { color: var(--mocha); }
+
+/* ========== MEET OUR TEAM ========== */
+.team-section {
+  padding: 100px 40px;
+  background: var(--carrara);
+}
+.team-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+}
+.team-header {
+  text-align: center;
+  margin-bottom: 56px;
+}
+.team-grid {
+  display: grid;
+  grid-template-columns: 1fr 1.5fr;
+  gap: 56px;
+  align-items: center;
+}
+.team-photo img {
+  width: 100%;
+  aspect-ratio: 4/5;
+  object-fit: cover;
+  object-position: center top;
+  border: 1px solid var(--sand);
+}
+.team-bio h3 {
+  font-family: var(--heading);
+  font-weight: 600;
+  font-size: 1.6rem;
+  color: var(--navy);
+  margin-bottom: 4px;
+}
+.team-role {
+  font-family: var(--body);
+  font-weight: 200;
+  font-size: 0.82rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--mocha);
+  margin-bottom: 20px;
+}
+.team-bio p {
+  font-size: 0.92rem;
+  line-height: 1.7;
+  color: var(--espresso);
+  margin-bottom: 16px;
+  max-width: none;
+}
+.team-bio .btn {
+  margin-top: 12px;
+}
 
 /* ========== SECTION 4 — LATEST ========== */
 .latest-section {
@@ -1037,7 +1090,9 @@ footer {
 
   /* Services */
   .services-section, .audience-section, .latest-section,
-  .tools-section, .process-section, .closing-section { padding: 64px 24px; }
+  .tools-section, .process-section, .closing-section, .team-section { padding: 64px 24px; }
+  .team-grid { grid-template-columns: 1fr; gap: 32px; }
+  .team-photo img { max-width: 320px; margin: 0 auto; }
 
   .services-grid { grid-template-columns: 1fr; }
 
@@ -1171,14 +1226,14 @@ footer {
 
 <!-- ========== SECTION 1 — HERO ========== -->
 <section class="hero" id="hero">
-  <img src="pro_photos/navy-backsplash-wall.webp" alt="Navy blue kitchen with marble backsplash in Texas Hill Country home" class="hero-bg">
+  <img src="pro_photos/new-hero.png" alt="Modern bathroom with freestanding tub and glass shower in Texas Hill Country home" class="hero-bg">
   <div class="hero-overlay"></div>
   <div class="hero-content fade-in">
     <h1>Design that sells. Systems that scale.</h1>
     <p class="hero-tagline">Interior design strategy for builders, developers, and discerning homeowners across the Texas Hill Country.</p>
     <div class="hero-buttons">
       <a href="#audience" class="btn btn-primary">I Work in Building &amp; Design</a>
-      <a href="#audience" class="btn btn-ghost">I'm a Homeowner</a>
+      <a href="#homeowners" class="btn btn-ghost">I'm a Homeowner</a>
     </div>
     <p class="hero-note">Currently accepting new clients and professional partnerships.</p>
   </div>
@@ -1197,25 +1252,25 @@ footer {
         <img src="pro_photos/living-open-concept.webp" alt="Full-service residential interior design" class="service-tile-img" loading="lazy">
         <div class="service-tile-body">
           <h3>Design Consultation</h3>
-          <p>Full-service interior design for new builds and renovations. Selections, presentations, and client-ready packages from start to finish.</p>
+          <p>Warm by Design. Thoughtful design consultation for new homes and renovations that balances beauty, comfort, and practicality. Make smarter decisions and create a home that truly feels like yours.</p>
           <a href="#tools" class="service-tile-link">Learn More &rarr;</a>
         </div>
       </div>
 
       <div class="service-tile fade-in">
-        <img src="pro_photos/client-presentation.webp" alt="Finish selections and material presentations" class="service-tile-img" loading="lazy">
+        <img src="pro_photos/hc-finishing-tile.png" alt="HC Finishing Tools material flatlay" class="service-tile-img" loading="lazy">
         <div class="service-tile-body">
-          <h3>Finish Selections &amp; Presentations</h3>
-          <p>Submit your plans. Receive a complete, client-ready design presentation within 72 hours. Human-reviewed. Accurate. Deliverable.</p>
+          <h3>HC Finishing Tools</h3>
+          <p>Hill Country Home Concepts equips builders and interior designers with AI-powered tools that transform ideas into accurate visuals, finish presentations, and construction-ready documentation in a fraction of the usual time. Streamline collaboration, reduce costly revisions, and move projects from concept to completion faster and with greater confidence.</p>
           <a href="#tools" class="service-tile-link">Learn More &rarr;</a>
         </div>
       </div>
 
       <div class="service-tile fade-in">
-        <img src="pro_photos/styled-office.webp" alt="AI-assisted presentation engine for designers" class="service-tile-img" loading="lazy">
+        <img src="pro_photos/smart-design.png" alt="Smart design kitchen with white cabinets and blue island" class="service-tile-img" loading="lazy">
         <div class="service-tile-body">
-          <h3>Presentation Engine</h3>
-          <p>A subscription tool for designers and builders. AI-assisted presentations generated at the touch of a button, with human review before every delivery.</p>
+          <h3>Creating Smart Design Experiences</h3>
+          <p>Partnering with builders to deliver a design system that combines thoughtful, human-centered design with powerful AI tools to create a personalized experience for every homebuyer. From photorealistic visuals to streamlined selections and precise documentation, we help builders delight clients, reduce decision fatigue, and move projects to construction faster.</p>
           <a href="#tools" class="service-tile-link">Learn More &rarr;</a>
         </div>
       </div>
@@ -1246,11 +1301,33 @@ footer {
         <a href="#tools" class="audience-cta">Explore Our Tools &rarr;</a>
       </div>
 
-      <div class="audience-col fade-in">
+      <div class="audience-col fade-in" id="homeowners">
         <h3>Homeowners</h3>
         <p>Building or renovating a home is one of the most significant investments you will make. We help you make selections with confidence and deliver a finished plan your contractor can actually execute.</p>
         <p class="delivers">What we deliver: personalized design consultation, curated finish selections, and a presentation you will be proud to sign.</p>
         <a href="#contact" class="audience-cta">Get in Touch &rarr;</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ========== MEET OUR TEAM ========== -->
+<div class="team-section" id="team">
+  <div class="team-inner">
+    <div class="team-header fade-in">
+      <div class="section-label">About</div>
+      <h2>Meet Our Team</h2>
+    </div>
+    <div class="team-grid fade-in">
+      <div class="team-photo">
+        <img src="pro_photos/headshot.jpg" alt="Ena Dodski, Founder of Hill Country Home Concepts" loading="lazy">
+      </div>
+      <div class="team-bio">
+        <h3>Ena Dodski</h3>
+        <p class="team-role">Founder</p>
+        <p>I am a design leader with over ten years of experience in high-volume production and semi-custom residential interiors across the Texas Hill Country market. I have guided hundreds of homeowners through the selection process at production scale and know how to translate a half-formed vision into a cohesive, buildable design, on budget and on schedule.</p>
+        <p>Builders partner with me because I keep selections on schedule, presentations professional, and homeowners confident in their choices. I develop scalable design systems that drive upgrade revenue, reduce decision fatigue, and keep builds on timeline.</p>
+        <a href="#contact" class="btn btn-primary">Work With Me &rarr;</a>
       </div>
     </div>
   </div>
@@ -1274,7 +1351,7 @@ footer {
     <!-- Static placeholder cards — will be replaced by Supabase feed -->
     <div class="latest-grid fade-in">
       <div class="latest-card" data-tag="projects">
-        <img src="pro_photos/navy-kitchen.webp" alt="Navy kitchen island with copper pendants" loading="lazy">
+        <img src="pro_photos/new-navy-kitchen.png" alt="Navy kitchen island with copper pendants" loading="lazy">
         <div class="latest-card-body">
           <div class="latest-card-tag">Projects</div>
           <div class="latest-card-title">The Navy Kitchen</div>
@@ -1292,7 +1369,7 @@ footer {
       </div>
 
       <div class="latest-card" data-tag="projects">
-        <img src="pro_photos/master-bath-spa.webp" alt="Primary bathroom spa retreat" loading="lazy">
+        <img src="pro_photos/new-hero.png" alt="Primary bathroom spa retreat" loading="lazy">
         <div class="latest-card-body">
           <div class="latest-card-tag">Projects</div>
           <div class="latest-card-title">The Primary Bath Retreat</div>
@@ -1344,19 +1421,19 @@ footer {
       <h2>We built the tools we wished existed.</h2>
     </div>
 
-    <p class="tools-subtext fade-in">The HCHC platform gives designers and builders access to AI-assisted presentation generation and photorealistic rendering, with human review before every deliverable. Not fully automated. That is intentional.</p>
+    <p class="tools-subtext fade-in">The HCHC platform gives designers and builders access to AI-assisted presentation generation and photorealistic renderings, all guided by expert human review to ensure every deliverable is accurate, thoughtful, and client-ready. By combining advanced technology with professional design oversight, we help you work faster, communicate more clearly, and deliver a highly personalized experience without sacrificing quality.</p>
 
     <div class="tools-grid">
       <div class="tool-block fade-in">
-        <img src="pro_photos/client-presentation.webp" alt="Presentation Engine dashboard preview" class="tool-block-img" loading="lazy">
-        <h3>Presentation Engine</h3>
+        <img src="pro_photos/client-presentation.webp" alt="HC Finishing Tool dashboard preview" class="tool-block-img" loading="lazy">
+        <h3>HC Finishing Tool</h3>
         <p>Generate complete, client-ready design presentations from a change order or selections list. Materials are matched against our curated library, installation diagrams are pre-populated, and your finished draft is ready for review, then download for client signature.</p>
         <ul class="tool-bullets">
           <li>AI-assisted, human-approved</li>
           <li>Supports installation diagrams and material specs</li>
           <li>Download-ready for client signature</li>
         </ul>
-        <div class="tool-pricing">$300/month <span style="font-family:var(--body);font-weight:300;font-size:0.82rem;color:var(--espresso);">includes 3 render credits annually</span></div>
+        <div class="tool-pricing">$300/month <span style="font-family:var(--body);font-weight:300;font-size:0.82rem;color:var(--espresso);">includes 1 render credit per month</span></div>
         <a href="dashboard.html" class="btn btn-primary">Start Your Subscription &rarr;</a>
       </div>
 
@@ -1399,22 +1476,22 @@ footer {
       <div class="process-step">
         <div class="step-number">1</div>
         <h3>Connect</h3>
-        <p>Tell us about your project. Schedule a call or submit your files. We will confirm scope and timeline before anything starts.</p>
+        <p>Schedule a complimentary 30-minute call to discuss your project, workflow, and goals. We will recommend the products, tools, or services that best fit your needs.</p>
       </div>
       <div class="process-step">
         <div class="step-number">2</div>
-        <h3>Design</h3>
-        <p>We work through selections, materials, and presentation structure, guided by our design system and your project requirements.</p>
+        <h3>Submit Your Files</h3>
+        <p>Upload your plans, images, selections, change orders, or 3D models. Once we receive your materials, we confirm scope, pricing, and delivery timeline.</p>
       </div>
       <div class="process-step">
         <div class="step-number">3</div>
-        <h3>Review</h3>
-        <p>Every deliverable goes through human review before it reaches you. You see a finished draft, make edits, and approve.</p>
+        <h3>We Create</h3>
+        <p>Using our design system and AI-assisted tools, we produce editable presentations, photorealistic renderings, and supporting documentation. Every deliverable is reviewed by a design professional to ensure accuracy and quality.</p>
       </div>
       <div class="process-step">
         <div class="step-number">4</div>
-        <h3>Deliver</h3>
-        <p>Download your presentation, share it with your client or contractor, and get to work. Clean, complete, ready to sign.</p>
+        <h3>Deliver &amp; Present</h3>
+        <p>Receive polished, client-ready presentations and signable documents that make approvals simple and keep your project moving forward with confidence.</p>
       </div>
     </div>
   </div>
@@ -1435,9 +1512,9 @@ footer {
     <div class="closing-panel active" id="panel-tiers">
       <div class="tier-grid">
         <div class="tier-card">
-          <div class="tier-name">Consultation</div>
+          <div class="tier-name">For Homeowners</div>
           <div class="tier-price">$250</div>
-          <div class="tier-period">one-time</div>
+          <div class="tier-period">single home consultation</div>
           <ul class="tier-features">
             <li>90-minute design session</li>
             <li>Actionable design direction</li>
@@ -1447,26 +1524,26 @@ footer {
           <a href="dashboard.html?plan=consultation" class="btn btn-ghost">Select &rarr;</a>
         </div>
         <div class="tier-card featured">
-          <div class="tier-name">Presentation Engine</div>
+          <div class="tier-name">HC Finishing Tool</div>
           <div class="tier-price">$300</div>
           <div class="tier-period">per month</div>
           <ul class="tier-features">
             <li>AI-assisted presentations</li>
             <li>Material library access</li>
             <li>Installation diagrams</li>
-            <li>3 render credits annually</li>
+            <li>1 render credit per month</li>
             <li>Human review on every deliverable</li>
           </ul>
           <a href="dashboard.html?plan=engine" class="btn btn-accent">Select &rarr;</a>
         </div>
         <div class="tier-card">
           <div class="tier-name">Full-Service Design</div>
-          <div class="tier-price">Custom</div>
+          <div class="tier-price">Use Our Team</div>
           <div class="tier-period">project-based</div>
           <ul class="tier-features">
             <li>Complete design management</li>
-            <li>Selections and presentations</li>
-            <li>Contractor coordination</li>
+            <li>Full-access to our web tools</li>
+            <li>Dedicated human support</li>
             <li>Photorealistic renders</li>
             <li>Dedicated project timeline</li>
           </ul>
@@ -1497,7 +1574,7 @@ footer {
             <option>Full-Service Design</option>
             <option>Room Refresh</option>
             <option>Design Consultation</option>
-            <option>Presentation Engine</option>
+            <option>HC Finishing Tool</option>
             <option>Photorealistic Renders</option>
             <option>Other</option>
           </select>
