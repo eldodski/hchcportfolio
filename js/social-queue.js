@@ -329,7 +329,7 @@ async function handlePostSubmit(e) {
       await updateSocialPost(editingPostId, postData);
       showToast('Post updated');
     } else {
-      postData.created_by = getUserId();
+      postData.created_by = HCHCAuth.getUser()?.id;
       postData.status = 'draft';
       await createSocialPost(postData);
       showToast('Post created as draft');
@@ -390,7 +390,7 @@ async function submitForReview() {
       platforms,
       scheduled_at: scheduleVal ? new Date(scheduleVal).toISOString() : null,
       status: 'pending',
-      created_by: getUserId()
+      created_by: HCHCAuth.getUser()?.id
     };
 
     if (image_url) {
