@@ -98,9 +98,27 @@ const HCHCAuth = (function () {
     _profile = _profileFromClerkMetadata();
   }
 
+  // Known admin Clerk IDs — bypasses Supabase profile lookup failures
+  const ADMIN_IDS = ['user_3CrNXd96VPw20vqdr9pZGwDLu9S'];
+
   function _profileFromClerkMetadata() {
     const user = _clerk?.user;
     if (!user) return null;
+
+    // Hardcoded admin override — ensures admin access even if Supabase JWT fails
+    if (ADMIN_IDS.includes(user.id)) {
+      return {
+        clerk_user_id: user.id,
+        email: user.emailAddresses?.[0]?.emailAddress || '',
+        first_name: user.firstName || '',
+        last_name: user.lastName || '',
+        role: 'admin',
+        tier: 'tier_3',
+        status: 'active',
+        company_name: null,
+      };
+    }
+
     return {
       clerk_user_id: user.id,
       email: user.emailAddresses?.[0]?.emailAddress || '',

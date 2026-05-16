@@ -437,6 +437,7 @@
   const currentPath = window.location.pathname;
 
   function isActive(href) {
+    if (href.startsWith('/#')) return false; // hash links on index page — never highlight
     if (href === '/' && currentPath === '/') return true;
     if (href === '/' && currentPath !== '/') return false;
     return currentPath.startsWith(href);
@@ -445,10 +446,10 @@
   // ---- NAV LINK DEFINITIONS ----
 
   const PUBLIC_LINKS = [
-    { name: 'Latest', href: '/social/' },
-    { name: 'Services', href: '/services' },
-    { name: 'For Professionals', href: '/plans.html' },
-    { name: 'Contact', href: '/contact' },
+    { name: 'Latest', href: '/#latest' },
+    { name: 'Services', href: '/#services' },
+    { name: 'For Professionals', href: '/#tools' },
+    { name: 'Contact', href: '/#contact' },
   ];
 
   const DESIGNER_LINKS = [
