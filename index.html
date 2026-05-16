@@ -1082,6 +1082,86 @@ footer {
   .fade-in { opacity: 1 !important; transform: none !important; }
   body { font-size: 11pt; }
 }
+
+/* ---- Before / After Comparison Slider ---- */
+.comparison-slider {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  border-radius: 8px;
+  cursor: col-resize;
+  user-select: none;
+  -webkit-user-select: none;
+  background: var(--carrara);
+}
+.comparison-slider .comp-img {
+  display: block;
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  pointer-events: none;
+}
+/* The "after" image sits on top, clipped — both images stay fixed */
+.comparison-slider .comp-clip {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 50%;
+  height: 100%;
+  overflow: hidden;
+}
+.comparison-slider .comp-clip .comp-img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  /* width set by JS to match container */
+}
+/* Hide the second base img (only used for sizing) */
+.comparison-slider > .comp-img:nth-child(2) { display: none; }
+.comparison-slider .comp-handle {
+  position: absolute;
+  top: 0;
+  width: 4px;
+  height: 100%;
+  background: #fff;
+  transform: translateX(-50%);
+  z-index: 3;
+  box-shadow: 0 0 6px rgba(0,0,0,0.35);
+}
+.comparison-slider .comp-handle::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 40px;
+  height: 40px;
+  background: #fff;
+  border-radius: 50%;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' fill='none' stroke='%231B2A4A' stroke-width='2.5' stroke-linecap='round'%3E%3Cpath d='M8 4l-6 8 6 8M16 4l6 8-6 8'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 22px;
+}
+.comparison-slider .comp-label {
+  position: absolute;
+  bottom: 12px;
+  padding: 4px 14px;
+  background: rgba(27,42,74,0.75);
+  color: #fff;
+  font-family: var(--body);
+  font-size: 0.78rem;
+  font-weight: 300;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  border-radius: 4px;
+  z-index: 4;
+  pointer-events: none;
+}
+.comparison-slider .comp-label-before { left: 12px; }
+.comparison-slider .comp-label-after  { right: 12px; }
 </style>
 </head>
 <body>
@@ -1281,7 +1361,16 @@ footer {
       </div>
 
       <div class="tool-block fade-in">
-        <img src="pro_photos/urban-organic.webp" alt="Photorealistic render example" class="tool-block-img" loading="lazy">
+        <div class="comparison-slider" id="compSlider">
+          <img src="9pghm0qi.jpg" alt="3D model before rendering" class="comp-img" draggable="false">
+          <img src="1778930314577.png" alt="Photorealistic render after" class="comp-img" draggable="false">
+          <div class="comp-clip" style="width:50%;">
+            <img src="1778930314577.png" alt="Photorealistic render after" class="comp-img" draggable="false">
+          </div>
+          <div class="comp-handle" style="left:50%;"></div>
+          <span class="comp-label comp-label-before">3D Model</span>
+          <span class="comp-label comp-label-after">Render</span>
+        </div>
         <h3>Photorealistic Renders</h3>
         <p>Submit your Revit, Rhino, or SketchUp files. We deliver photorealistic images of your spaces, interior or exterior, within 72 hours. One scoping call. Human review. Flat fee.</p>
         <ul class="tool-bullets">
@@ -1525,5 +1614,44 @@ footer {
 <script src="/js/route-guard.js"></script>
 <script src="/js/global-nav.js"></script>
 <script src="/js/page-init.js"></script>
+<script>
+(function() {
+  var slider = document.getElementById('compSlider');
+  if (!slider) return;
+  var clip = slider.querySelector('.comp-clip');
+  var clipImg = clip.querySelector('.comp-img');
+  var handle = slider.querySelector('.comp-handle');
+  var active = false;
+
+  function syncSize() {
+    // Make the clipped "after" image exactly the same size as the container
+    clipImg.style.width = slider.offsetWidth + 'px';
+  }
+
+  function setPos(x) {
+    var rect = slider.getBoundingClientRect();
+    var pct = (x - rect.left) / rect.width;
+    pct = Math.max(0.01, Math.min(0.99, pct));
+    // Clip reveals the "after" image from the LEFT side up to pct
+    clip.style.left = '0';
+    clip.style.right = 'auto';
+    clip.style.width = (pct * 100) + '%';
+    handle.style.left = (pct * 100) + '%';
+  }
+
+  slider.addEventListener('mousedown', function(e) { active = true; setPos(e.clientX); });
+  window.addEventListener('mousemove', function(e) { if (active) { e.preventDefault(); setPos(e.clientX); }});
+  window.addEventListener('mouseup', function() { active = false; });
+  slider.addEventListener('touchstart', function(e) { active = true; setPos(e.touches[0].clientX); }, {passive:true});
+  window.addEventListener('touchmove', function(e) { if (active) setPos(e.touches[0].clientX); }, {passive:true});
+  window.addEventListener('touchend', function() { active = false; });
+
+  syncSize();
+  window.addEventListener('resize', syncSize);
+  // Also sync once images load
+  var imgs = slider.querySelectorAll('.comp-img');
+  imgs.forEach(function(img) { img.addEventListener('load', syncSize); });
+})();
+</script>
 </body>
 </html>
