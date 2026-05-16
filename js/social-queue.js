@@ -7,18 +7,17 @@ let editingPostId = null;
 // ============ INITIALIZATION ============
 
 async function initSocialQueue() {
-  await HCHCAuth.init();
+  const role = HCHCAuth.getRole();
   if (!HCHCAuth.isSignedIn()) {
     document.getElementById('queue-content').innerHTML = `
       <div style="text-align:center; padding:80px 24px;">
         <h2 style="font-family:var(--heading); color:var(--navy); margin-bottom:12px;">Sign In Required</h2>
         <p style="color:var(--mocha); margin-bottom:24px;">You need to sign in to access the social queue.</p>
-        <button class="btn btn-primary" onclick="HCHCAuth.openSignIn()">Sign In</button>
+        <a href="/login.html" class="btn btn-primary">Sign In</a>
       </div>`;
     return;
   }
 
-  const role = HCHCAuth.getRole();
   if (role !== 'admin' && role !== 'interior_designer') {
     document.getElementById('queue-content').innerHTML = `
       <div style="text-align:center; padding:80px 24px;">
@@ -28,7 +27,7 @@ async function initSocialQueue() {
     return;
   }
 
-  const name = clerk.user.firstName || clerk.user.emailAddresses?.[0]?.emailAddress?.split('@')[0] || 'User';
+  const name = HCHCAuth.getFirstName() || 'User';
   document.getElementById('user-display').textContent = name;
   document.getElementById('signout-btn').style.display = 'block';
 
@@ -472,4 +471,4 @@ function showToast(message) {
 
 // ============ INIT ============
 
-document.addEventListener('DOMContentLoaded', initSocialQueue);
+HCHCAuth.onReady(initSocialQueue);
