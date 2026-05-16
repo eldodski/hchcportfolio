@@ -1086,23 +1086,8 @@ footer {
 </head>
 <body>
 
-<!-- ========== NAVIGATION ========== -->
-<nav class="site-nav" id="site-nav">
-  <div class="nav-inner">
-    <a href="/" class="nav-logo">Hill Country Home Concepts</a>
-    <button class="nav-toggle" aria-label="Menu" onclick="document.querySelector('.nav-links').classList.toggle('open')">
-      <span></span><span></span><span></span>
-    </button>
-    <ul class="nav-links">
-      <li><a href="#latest">Latest</a></li>
-      <li><a href="#services">Services</a></li>
-      <li><a href="#tools">For Professionals</a></li>
-      <li><a href="#contact">Contact</a></li>
-      <li><a href="dashboard.html" class="nav-signin" id="auth-nav-link">Sign In</a></li>
-      <li><a href="dashboard.html" class="nav-cta">Get Started</a></li>
-    </ul>
-  </div>
-</nav>
+<!-- Old static nav replaced by auth-aware global-nav.js -->
+<!-- Nav is now rendered dynamically by /js/global-nav.js based on auth state -->
 
 <!-- ========== SECTION 1 — HERO ========== -->
 <section class="hero" id="hero">
@@ -1481,43 +1466,9 @@ footer {
   </div>
 </footer>
 
-<!-- ========== CLERK AUTH ========== -->
-<script
-  data-clerk-publishable-key="pk_test_cmFwaWQtbWFja2VyZWwtMjguY2xlcmsuYWNjb3VudHMuZGV2JA"
-  src="https://cdn.jsdelivr.net/npm/@clerk/clerk-js@4/dist/clerk.browser.js"
-  async>
-</script>
-<script src="js/clerk-auth.js"></script>
-<script>
-(async function updateAuthNavLink() {
-  const link = document.getElementById('auth-nav-link');
-  if (!link) return;
-  const clerk = await initClerk();
-  if (clerk && clerk.user) {
-    link.textContent = 'Dashboard';
-    link.href = 'dashboard.html';
-  } else {
-    link.textContent = 'Sign In';
-    link.href = 'dashboard.html';
-  }
-})();
-</script>
-
-<!-- ========== NAV SCROLL + ANIMATIONS ========== -->
+<!-- ========== ANIMATIONS ========== -->
 <script>
 (function() {
-  // Nav: transparent → solid on scroll
-  var nav = document.getElementById('site-nav');
-  function checkScroll() {
-    if (window.scrollY > 60) {
-      nav.classList.add('scrolled');
-    } else {
-      nav.classList.remove('scrolled');
-    }
-  }
-  window.addEventListener('scroll', checkScroll, { passive: true });
-  checkScroll();
-
   // Fade-in on scroll
   var observer = new IntersectionObserver(function(entries) {
     entries.forEach(function(entry) {
@@ -1561,6 +1512,18 @@ footer {
 })();
 </script>
 
+<!-- ========== AUTH SYSTEM ========== -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2" async></script>
+<script
+  data-clerk-publishable-key="pk_test_cmFwaWQtbWFja2VyZWwtMjguY2xlcmsuYWNjb3VudHMuZGV2JA"
+  src="https://cdn.jsdelivr.net/npm/@clerk/clerk-js@4/dist/clerk.browser.js"
+  async>
+</script>
+<script src="/config.js"></script>
+<script src="/js/supabase-client.js"></script>
+<script src="/js/clerk-auth.js"></script>
+<script src="/js/route-guard.js"></script>
 <script src="/js/global-nav.js"></script>
+<script src="/js/page-init.js"></script>
 </body>
 </html>

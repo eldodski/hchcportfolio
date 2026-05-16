@@ -1,0 +1,755 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>User Approvals | HCHC Admin</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Jost:ital,wght@0,200;0,300;0,400;1,200&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --ivory: #F5F0EB;
+  --navy: #1B2A4A;
+  --espresso: #3C2A21;
+  --sand: #D4C5B2;
+  --mocha: #A37762;
+  --carrara: #E8E4E0;
+  --gold: #C4A265;
+  --dusty-blue: #7B9BAE;
+  --sage: #8A9A7B;
+  --heading: 'Cormorant Garamond', Georgia, serif;
+  --body: 'Jost', 'Segoe UI', sans-serif;
+}
+
+body {
+  font-family: var(--body);
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 1.6;
+  color: var(--espresso);
+  background: var(--ivory);
+}
+
+.admin-page { padding: 40px 48px; max-width: 1200px; }
+
+.admin-page h1 {
+  font-family: var(--heading);
+  font-weight: 600;
+  font-size: 2rem;
+  color: var(--navy);
+  margin-bottom: 8px;
+}
+
+.admin-page .subtitle {
+  font-size: 0.9rem;
+  color: var(--mocha);
+  font-weight: 300;
+  margin-bottom: 28px;
+}
+
+/* --- Tab Filters --- */
+.tab-filters {
+  display: flex;
+  gap: 0;
+  border-bottom: 2px solid var(--sand);
+  margin-bottom: 28px;
+}
+
+.tab-filters button {
+  font-family: var(--body);
+  font-size: 0.82rem;
+  font-weight: 300;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 12px 24px;
+  background: none;
+  border: none;
+  border-bottom: 2px solid transparent;
+  margin-bottom: -2px;
+  cursor: pointer;
+  color: var(--mocha);
+  transition: color 0.2s, border-color 0.2s;
+}
+
+.tab-filters button:hover { color: var(--navy); }
+
+.tab-filters button.active {
+  color: var(--navy);
+  border-bottom-color: var(--gold);
+  font-weight: 400;
+}
+
+.tab-count {
+  font-size: 0.7rem;
+  background: var(--carrara);
+  color: var(--mocha);
+  padding: 2px 8px;
+  border-radius: 10px;
+  margin-left: 6px;
+}
+
+.tab-count.highlight {
+  background: var(--gold);
+  color: var(--navy);
+}
+
+/* --- Request Cards --- */
+.requests-list { margin-bottom: 40px; }
+
+.request-card {
+  background: #fff;
+  border: 1px solid var(--sand);
+  padding: 24px;
+  margin-bottom: 12px;
+  transition: border-color 0.2s;
+}
+
+.request-card:hover { border-color: var(--dusty-blue); }
+
+.request-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 12px;
+  gap: 16px;
+}
+
+.request-card-info { flex: 1; }
+
+.request-card-name {
+  font-family: var(--heading);
+  font-weight: 600;
+  font-size: 1.2rem;
+  color: var(--navy);
+}
+
+.request-card-email {
+  font-size: 0.85rem;
+  color: var(--mocha);
+  font-weight: 300;
+}
+
+.request-card-meta {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+  margin-bottom: 16px;
+}
+
+.request-card-meta .meta-item {
+  font-size: 0.8rem;
+  font-weight: 300;
+}
+
+.meta-item .meta-label {
+  font-weight: 400;
+  color: var(--navy);
+  text-transform: uppercase;
+  font-size: 0.68rem;
+  letter-spacing: 0.1em;
+  display: block;
+  margin-bottom: 2px;
+}
+
+/* --- Status Badges --- */
+.status-badge {
+  display: inline-block;
+  font-size: 0.72rem;
+  font-weight: 400;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 4px 14px;
+  border-radius: 2px;
+}
+
+.status-badge.pending {
+  background: #FFF3CD;
+  color: #856404;
+  border: 1px solid #FFEEBA;
+}
+
+.status-badge.approved {
+  background: #D4EDDA;
+  color: #155724;
+  border: 1px solid #C3E6CB;
+}
+
+.status-badge.rejected {
+  background: #F8D7DA;
+  color: #721C24;
+  border: 1px solid #F5C6CB;
+}
+
+/* --- Action Buttons --- */
+.request-card-actions {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.action-btn {
+  font-family: var(--body);
+  font-size: 0.78rem;
+  font-weight: 400;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 10px 22px;
+  border: none;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+}
+
+.action-btn.approve {
+  background: #28a745;
+  color: #fff;
+}
+
+.action-btn.approve:hover { background: #218838; }
+
+.action-btn.approve:disabled {
+  background: #94d3a2;
+  cursor: not-allowed;
+}
+
+.action-btn.reject {
+  background: #dc3545;
+  color: #fff;
+}
+
+.action-btn.reject:hover { background: #c82333; }
+
+.action-btn.reject:disabled {
+  background: #e4868e;
+  cursor: not-allowed;
+}
+
+.action-btn.view {
+  background: none;
+  border: 1px solid var(--navy);
+  color: var(--navy);
+}
+
+.action-btn.view:hover {
+  background: var(--navy);
+  color: var(--ivory);
+}
+
+/* --- Toast Notifications --- */
+.toast-container {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 10000;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.toast {
+  padding: 14px 24px;
+  font-family: var(--body);
+  font-size: 0.85rem;
+  font-weight: 300;
+  color: #fff;
+  min-width: 280px;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+  animation: toastIn 0.3s ease;
+}
+
+.toast.success { background: #28a745; }
+.toast.error { background: #dc3545; }
+.toast.info { background: var(--navy); }
+
+@keyframes toastIn {
+  from { opacity: 0; transform: translateX(40px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+/* --- Reject Modal --- */
+.modal-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(27, 42, 74, 0.6);
+  z-index: 9999;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal-overlay.open { display: flex; }
+
+.modal {
+  background: #fff;
+  width: 90%;
+  max-width: 480px;
+  padding: 36px;
+}
+
+.modal h3 {
+  font-family: var(--heading);
+  font-weight: 600;
+  font-size: 1.3rem;
+  color: var(--navy);
+  margin-bottom: 16px;
+}
+
+.modal label {
+  display: block;
+  font-size: 0.8rem;
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--mocha);
+  margin-bottom: 8px;
+}
+
+.modal textarea {
+  width: 100%;
+  min-height: 100px;
+  font-family: var(--body);
+  font-size: 0.9rem;
+  padding: 12px;
+  border: 1px solid var(--sand);
+  background: var(--ivory);
+  color: var(--espresso);
+  resize: vertical;
+}
+
+.modal textarea:focus {
+  outline: none;
+  border-color: var(--dusty-blue);
+}
+
+.modal-actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 20px;
+  justify-content: flex-end;
+}
+
+.modal-actions .action-btn.cancel {
+  background: none;
+  border: 1px solid var(--sand);
+  color: var(--espresso);
+}
+
+.modal-actions .action-btn.cancel:hover {
+  border-color: var(--espresso);
+}
+
+/* --- Profile Details Panel --- */
+.profile-panel {
+  display: none;
+  background: var(--carrara);
+  padding: 20px 24px;
+  margin-top: 12px;
+  border: 1px solid var(--sand);
+}
+
+.profile-panel.open { display: block; }
+
+.profile-panel .profile-row {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 8px;
+  font-size: 0.85rem;
+}
+
+.profile-panel .profile-row .profile-label {
+  font-weight: 400;
+  color: var(--navy);
+  min-width: 120px;
+}
+
+.profile-panel .profile-row .profile-value {
+  font-weight: 300;
+  color: var(--espresso);
+}
+
+/* --- Empty State --- */
+.empty-state {
+  text-align: center;
+  padding: 60px 20px;
+  color: var(--mocha);
+}
+
+.empty-state .empty-icon {
+  font-size: 3rem;
+  margin-bottom: 16px;
+}
+
+.empty-state p {
+  font-size: 0.95rem;
+  font-weight: 300;
+  margin: 0 auto;
+}
+
+/* --- Loading --- */
+.loading-spinner {
+  text-align: center;
+  padding: 40px;
+  color: var(--mocha);
+  font-weight: 300;
+  font-size: 0.9rem;
+}
+
+@media (max-width: 767px) {
+  .admin-page { padding: 24px 16px; }
+  .request-card { padding: 16px; }
+  .request-card-header { flex-direction: column; }
+  .request-card-meta { gap: 12px; }
+  .tab-filters { overflow-x: auto; }
+  .tab-filters button { padding: 10px 16px; font-size: 0.75rem; white-space: nowrap; }
+}
+</style>
+</head>
+<body>
+
+<div class="admin-page">
+  <h1>User Approvals</h1>
+  <p class="subtitle">Review and manage signup requests</p>
+
+  <div class="tab-filters" id="tab-filters">
+    <button class="active" data-filter="all">All <span class="tab-count" id="count-all">0</span></button>
+    <button data-filter="pending">Pending <span class="tab-count highlight" id="count-pending">0</span></button>
+    <button data-filter="approved">Approved <span class="tab-count" id="count-approved">0</span></button>
+    <button data-filter="rejected">Rejected <span class="tab-count" id="count-rejected">0</span></button>
+  </div>
+
+  <div class="requests-list" id="requests-list">
+    <div class="loading-spinner">Loading signup requests...</div>
+  </div>
+</div>
+
+<!-- Reject Modal -->
+<div class="modal-overlay" id="reject-modal">
+  <div class="modal">
+    <h3>Reject Signup Request</h3>
+    <p style="font-size: 0.85rem; font-weight: 300; color: var(--espresso); margin-bottom: 16px;">
+      Rejecting <strong id="reject-modal-name"></strong>. Provide a reason (optional).
+    </p>
+    <label for="reject-reason">Admin Notes</label>
+    <textarea id="reject-reason" placeholder="Reason for rejection..."></textarea>
+    <div class="modal-actions">
+      <button class="action-btn cancel" onclick="closeRejectModal()">Cancel</button>
+      <button class="action-btn reject" id="reject-confirm-btn" onclick="confirmReject()">Reject</button>
+    </div>
+  </div>
+</div>
+
+<!-- Toast Container -->
+<div class="toast-container" id="toast-container"></div>
+
+<script>
+var _allRequests = [];
+var _currentFilter = 'all';
+var _rejectTargetId = null;
+
+// --- Toast System ---
+function showToast(message, type) {
+  type = type || 'info';
+  var container = document.getElementById('toast-container');
+  var toast = document.createElement('div');
+  toast.className = 'toast ' + type;
+  toast.textContent = message;
+  container.appendChild(toast);
+  setTimeout(function() {
+    toast.style.opacity = '0';
+    toast.style.transition = 'opacity 0.3s';
+    setTimeout(function() { toast.remove(); }, 300);
+  }, 4000);
+}
+
+// --- Tab Filters ---
+document.getElementById('tab-filters').addEventListener('click', function(e) {
+  var btn = e.target.closest('button');
+  if (!btn) return;
+  document.querySelectorAll('#tab-filters button').forEach(function(b) { b.classList.remove('active'); });
+  btn.classList.add('active');
+  _currentFilter = btn.getAttribute('data-filter');
+  renderRequests();
+});
+
+// --- Load Requests ---
+HCHCAuth.onReady(async function() {
+  if (!HCHCAuth.isAdmin()) return;
+  await loadRequests();
+});
+
+async function loadRequests() {
+  var sb = await HCHCAuth.getAuthClient();
+  if (!sb) {
+    document.getElementById('requests-list').innerHTML = '<div class="empty-state"><p>Unable to connect to database</p></div>';
+    return;
+  }
+
+  try {
+    var result = await sb.from('signup_requests').select('*').order('created_at', { ascending: false });
+
+    if (result.error) {
+      console.error('Error loading requests:', result.error);
+      document.getElementById('requests-list').innerHTML = '<div class="empty-state"><p>Error loading requests</p></div>';
+      return;
+    }
+
+    _allRequests = result.data || [];
+    updateCounts();
+    renderRequests();
+  } catch (e) {
+    console.error('Failed to load requests:', e);
+    document.getElementById('requests-list').innerHTML = '<div class="empty-state"><p>Failed to load requests</p></div>';
+  }
+}
+
+function updateCounts() {
+  var counts = { all: 0, pending: 0, approved: 0, rejected: 0 };
+  _allRequests.forEach(function(r) {
+    counts.all++;
+    if (r.status === 'pending') counts.pending++;
+    else if (r.status === 'approved') counts.approved++;
+    else if (r.status === 'rejected') counts.rejected++;
+  });
+  document.getElementById('count-all').textContent = counts.all;
+  document.getElementById('count-pending').textContent = counts.pending;
+  document.getElementById('count-approved').textContent = counts.approved;
+  document.getElementById('count-rejected').textContent = counts.rejected;
+
+  // Highlight pending count if > 0
+  var pendingBadge = document.getElementById('count-pending');
+  if (counts.pending > 0) {
+    pendingBadge.classList.add('highlight');
+  } else {
+    pendingBadge.classList.remove('highlight');
+  }
+}
+
+function renderRequests() {
+  var container = document.getElementById('requests-list');
+  var filtered = _allRequests;
+
+  if (_currentFilter !== 'all') {
+    filtered = _allRequests.filter(function(r) { return r.status === _currentFilter; });
+  }
+
+  if (filtered.length === 0) {
+    container.innerHTML = '<div class="empty-state"><div class="empty-icon">' +
+      (_currentFilter === 'pending' ? '&#10003;' : '&#128196;') +
+      '</div><p>' +
+      (_currentFilter === 'pending' ? 'No pending requests. All caught up.' : 'No ' + _currentFilter + ' requests found.') +
+      '</p></div>';
+    return;
+  }
+
+  var html = '';
+  filtered.forEach(function(req) {
+    var name = ((req.first_name || '') + ' ' + (req.last_name || '')).trim() || 'Unknown';
+    var email = req.email || 'No email';
+    var role = req.requested_role || req.role || 'Not specified';
+    var company = req.company_name || '--';
+    var submitted = req.created_at ? new Date(req.created_at).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' }) : '--';
+    var statusClass = req.status || 'pending';
+
+    html += '<div class="request-card" data-id="' + req.id + '">';
+    html += '  <div class="request-card-header">';
+    html += '    <div class="request-card-info">';
+    html += '      <div class="request-card-name">' + _esc(name) + '</div>';
+    html += '      <div class="request-card-email">' + _esc(email) + '</div>';
+    html += '    </div>';
+    html += '    <span class="status-badge ' + statusClass + '">' + _esc(req.status || 'pending') + '</span>';
+    html += '  </div>';
+    html += '  <div class="request-card-meta">';
+    html += '    <div class="meta-item"><span class="meta-label">Role</span>' + _formatRole(role) + '</div>';
+    html += '    <div class="meta-item"><span class="meta-label">Company</span>' + _esc(company) + '</div>';
+    html += '    <div class="meta-item"><span class="meta-label">Submitted</span>' + submitted + '</div>';
+    html += '  </div>';
+
+    if (req.status === 'pending') {
+      html += '  <div class="request-card-actions">';
+      html += '    <button class="action-btn approve" onclick="approveRequest(\'' + req.id + '\')">Approve</button>';
+      html += '    <button class="action-btn reject" onclick="openRejectModal(\'' + req.id + '\', \'' + _esc(name) + '\')">Reject</button>';
+      html += '    <button class="action-btn view" onclick="toggleProfile(\'' + req.id + '\')">View Profile</button>';
+      html += '  </div>';
+    } else {
+      html += '  <div class="request-card-actions">';
+      html += '    <button class="action-btn view" onclick="toggleProfile(\'' + req.id + '\')">View Details</button>';
+      html += '  </div>';
+    }
+
+    // Profile detail panel (hidden by default)
+    html += '  <div class="profile-panel" id="profile-' + req.id + '">';
+    html += '    <div class="profile-row"><span class="profile-label">Clerk User ID</span><span class="profile-value">' + _esc(req.clerk_user_id || '--') + '</span></div>';
+    html += '    <div class="profile-row"><span class="profile-label">Email</span><span class="profile-value">' + _esc(email) + '</span></div>';
+    html += '    <div class="profile-row"><span class="profile-label">Role Requested</span><span class="profile-value">' + _formatRole(role) + '</span></div>';
+    html += '    <div class="profile-row"><span class="profile-label">Company</span><span class="profile-value">' + _esc(company) + '</span></div>';
+    if (req.admin_notes) {
+      html += '    <div class="profile-row"><span class="profile-label">Admin Notes</span><span class="profile-value">' + _esc(req.admin_notes) + '</span></div>';
+    }
+    if (req.reviewed_at) {
+      html += '    <div class="profile-row"><span class="profile-label">Reviewed At</span><span class="profile-value">' + new Date(req.reviewed_at).toLocaleString() + '</span></div>';
+    }
+    html += '  </div>';
+
+    html += '</div>';
+  });
+
+  container.innerHTML = html;
+}
+
+// --- Approve ---
+async function approveRequest(requestId) {
+  var card = document.querySelector('.request-card[data-id="' + requestId + '"]');
+  var btns = card ? card.querySelectorAll('.action-btn') : [];
+  btns.forEach(function(b) { b.disabled = true; });
+
+  var sb = await HCHCAuth.getAuthClient();
+  if (!sb) { showToast('Auth client unavailable', 'error'); return; }
+
+  try {
+    // 1. Update signup_requests status to approved
+    var updateReq = await sb.from('signup_requests')
+      .update({ status: 'approved', reviewed_at: new Date().toISOString() })
+      .eq('id', requestId)
+      .select()
+      .single();
+
+    if (updateReq.error) {
+      showToast('Failed to update request: ' + updateReq.error.message, 'error');
+      btns.forEach(function(b) { b.disabled = false; });
+      return;
+    }
+
+    // 2. Update user_profiles status to active
+    if (updateReq.data && updateReq.data.clerk_user_id) {
+      var profileUpdate = await sb.from('user_profiles')
+        .update({ status: 'active' })
+        .eq('clerk_user_id', updateReq.data.clerk_user_id);
+
+      if (profileUpdate.error) {
+        console.warn('Profile update failed (may not exist yet):', profileUpdate.error);
+      }
+    }
+
+    // 3. Log notification for welcome email
+    try {
+      await sb.from('notifications').insert({
+        type: 'welcome_email',
+        recipient_clerk_id: updateReq.data.clerk_user_id,
+        recipient_email: updateReq.data.email,
+        status: 'pending',
+        payload: { name: (updateReq.data.first_name || '') + ' ' + (updateReq.data.last_name || ''), role: updateReq.data.requested_role || updateReq.data.role }
+      });
+    } catch (notifErr) {
+      console.warn('Notification log failed (table may not exist):', notifErr);
+    }
+
+    showToast('Approved: ' + ((updateReq.data.first_name || '') + ' ' + (updateReq.data.last_name || '')).trim(), 'success');
+
+    // Refresh the list
+    await loadRequests();
+  } catch (e) {
+    console.error('Approve failed:', e);
+    showToast('Approval failed. Check console.', 'error');
+    btns.forEach(function(b) { b.disabled = false; });
+  }
+}
+
+// --- Reject Modal ---
+function openRejectModal(requestId, name) {
+  _rejectTargetId = requestId;
+  document.getElementById('reject-modal-name').textContent = name;
+  document.getElementById('reject-reason').value = '';
+  document.getElementById('reject-modal').classList.add('open');
+}
+
+function closeRejectModal() {
+  _rejectTargetId = null;
+  document.getElementById('reject-modal').classList.remove('open');
+}
+
+async function confirmReject() {
+  if (!_rejectTargetId) return;
+
+  var reason = document.getElementById('reject-reason').value.trim();
+  var confirmBtn = document.getElementById('reject-confirm-btn');
+  confirmBtn.disabled = true;
+
+  var sb = await HCHCAuth.getAuthClient();
+  if (!sb) { showToast('Auth client unavailable', 'error'); confirmBtn.disabled = false; return; }
+
+  try {
+    var updateData = {
+      status: 'rejected',
+      reviewed_at: new Date().toISOString()
+    };
+    if (reason) updateData.admin_notes = reason;
+
+    var result = await sb.from('signup_requests')
+      .update(updateData)
+      .eq('id', _rejectTargetId)
+      .select()
+      .single();
+
+    if (result.error) {
+      showToast('Rejection failed: ' + result.error.message, 'error');
+      confirmBtn.disabled = false;
+      return;
+    }
+
+    var name = ((result.data.first_name || '') + ' ' + (result.data.last_name || '')).trim();
+    showToast('Rejected: ' + name, 'info');
+    closeRejectModal();
+    await loadRequests();
+  } catch (e) {
+    console.error('Reject failed:', e);
+    showToast('Rejection failed. Check console.', 'error');
+    confirmBtn.disabled = false;
+  }
+}
+
+// Close modal on overlay click
+document.getElementById('reject-modal').addEventListener('click', function(e) {
+  if (e.target === this) closeRejectModal();
+});
+
+// --- View Profile Toggle ---
+function toggleProfile(requestId) {
+  var panel = document.getElementById('profile-' + requestId);
+  if (panel) panel.classList.toggle('open');
+}
+
+// --- Helpers ---
+function _esc(str) {
+  var d = document.createElement('div');
+  d.textContent = str || '';
+  return d.innerHTML;
+}
+
+function _formatRole(role) {
+  var map = {
+    'homeowner': 'Homeowner',
+    'builder': 'Builder',
+    'interior_designer': 'Interior Designer',
+    'admin': 'Admin'
+  };
+  return map[role] || role || 'Not specified';
+}
+</script>
+
+<!-- Auth System -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2" async></script>
+<script
+  data-clerk-publishable-key="pk_test_cmFwaWQtbWFja2VyZWwtMjguY2xlcmsuYWNjb3VudHMuZGV2JA"
+  src="https://cdn.jsdelivr.net/npm/@clerk/clerk-js@4/dist/clerk.browser.js"
+  async>
+</script>
+<script src="/config.js"></script>
+<script src="/js/supabase-client.js"></script>
+<script src="/js/clerk-auth.js"></script>
+<script src="/js/route-guard.js"></script>
+<script src="/js/global-nav.js"></script>
+<script src="/js/page-init.js"></script>
+</body>
+</html>

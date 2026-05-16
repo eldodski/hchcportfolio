@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin Dashboard | HCHC</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Jost:ital,wght@0,200;0,300;0,400;1,200&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --ivory: #F5F0EB;
+  --navy: #1B2A4A;
+  --espresso: #3C2A21;
+  --sand: #D4C5B2;
+  --mocha: #A37762;
+  --carrara: #E8E4E0;
+  --gold: #C4A265;
+  --dusty-blue: #7B9BAE;
+  --sage: #8A9A7B;
+  --heading: 'Cormorant Garamond', Georgia, serif;
+  --body: 'Jost', 'Segoe UI', sans-serif;
+}
+
+body {
+  font-family: var(--body);
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 1.6;
+  color: var(--espresso);
+  background: var(--ivory);
+}
+
+.admin-page { padding: 40px 48px; max-width: 1200px; }
+
+.admin-page h1 {
+  font-family: var(--heading);
+  font-weight: 600;
+  font-size: 2rem;
+  color: var(--navy);
+  margin-bottom: 8px;
+}
+
+.admin-page .subtitle {
+  font-size: 0.9rem;
+  color: var(--mocha);
+  font-weight: 300;
+  margin-bottom: 36px;
+}
+
+/* --- Stat Cards --- */
+.stat-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 24px;
+  margin-bottom: 48px;
+}
+
+.stat-card {
+  background: #fff;
+  border: 1px solid var(--sand);
+  padding: 28px 24px;
+  text-decoration: none;
+  color: var(--espresso);
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.stat-card:hover {
+  border-color: var(--gold);
+  box-shadow: 0 2px 12px rgba(27, 42, 74, 0.08);
+}
+
+.stat-card .stat-label {
+  font-size: 0.75rem;
+  font-weight: 300;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--mocha);
+  margin-bottom: 8px;
+}
+
+.stat-card .stat-value {
+  font-family: var(--heading);
+  font-size: 2.4rem;
+  font-weight: 600;
+  color: var(--navy);
+  line-height: 1;
+}
+
+.stat-card .stat-value.loading {
+  color: var(--sand);
+}
+
+.stat-card .stat-footer {
+  font-size: 0.78rem;
+  color: var(--dusty-blue);
+  margin-top: 12px;
+  font-weight: 300;
+}
+
+/* --- Recent Activity --- */
+.section-heading {
+  font-family: var(--heading);
+  font-weight: 600;
+  font-size: 1.4rem;
+  color: var(--navy);
+  margin-bottom: 20px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--sand);
+}
+
+.activity-list {
+  list-style: none;
+}
+
+.activity-list li {
+  padding: 14px 0;
+  border-bottom: 1px solid var(--carrara);
+  font-size: 0.9rem;
+  font-weight: 300;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.activity-list .activity-text { flex: 1; }
+
+.activity-list .activity-time {
+  font-size: 0.78rem;
+  color: var(--mocha);
+  flex-shrink: 0;
+  margin-left: 16px;
+}
+
+.activity-placeholder {
+  color: var(--sand);
+  font-style: italic;
+  font-size: 0.9rem;
+  padding: 20px 0;
+}
+
+/* --- Quick Actions --- */
+.quick-actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 32px;
+  flex-wrap: wrap;
+}
+
+.quick-action-btn {
+  display: inline-block;
+  font-family: var(--body);
+  font-weight: 300;
+  font-size: 0.8rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 12px 28px;
+  border: 1px solid var(--navy);
+  background: none;
+  color: var(--navy);
+  text-decoration: none;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+}
+
+.quick-action-btn:hover {
+  background: var(--navy);
+  color: var(--ivory);
+}
+
+.quick-action-btn.primary {
+  background: var(--gold);
+  border-color: var(--gold);
+  color: var(--navy);
+}
+
+.quick-action-btn.primary:hover {
+  background: var(--navy);
+  border-color: var(--navy);
+  color: var(--ivory);
+}
+
+@media (max-width: 767px) {
+  .admin-page { padding: 24px 16px; }
+  .stat-grid { grid-template-columns: 1fr 1fr; gap: 12px; }
+  .stat-card { padding: 20px 16px; }
+  .stat-card .stat-value { font-size: 1.8rem; }
+}
+</style>
+</head>
+<body>
+
+<div class="admin-page">
+  <h1>Admin Dashboard</h1>
+  <p class="subtitle">Platform overview and quick actions</p>
+
+  <div class="stat-grid">
+    <a href="/admin/user-approvals.html" class="stat-card">
+      <div class="stat-label">Pending Approvals</div>
+      <div class="stat-value loading" id="pending-count">--</div>
+      <div class="stat-footer">Awaiting review</div>
+    </a>
+
+    <a href="/admin/user-management.html" class="stat-card">
+      <div class="stat-label">Active Users</div>
+      <div class="stat-value loading" id="active-count">--</div>
+      <div class="stat-footer">Approved accounts</div>
+    </a>
+
+    <a href="/admin/project-review.html" class="stat-card">
+      <div class="stat-label">Total Projects</div>
+      <div class="stat-value loading" id="project-count">--</div>
+      <div class="stat-footer">All projects</div>
+    </a>
+
+    <a href="/materials.html" class="stat-card">
+      <div class="stat-label">Total Materials</div>
+      <div class="stat-value loading" id="material-count">--</div>
+      <div class="stat-footer">In library</div>
+    </a>
+  </div>
+
+  <h2 class="section-heading">Recent Activity</h2>
+  <ul class="activity-list" id="activity-list">
+    <li class="activity-placeholder">Loading activity...</li>
+  </ul>
+
+  <div class="quick-actions">
+    <a href="/admin/user-approvals.html" class="quick-action-btn primary">Review Approvals</a>
+    <a href="/admin/user-management.html" class="quick-action-btn">Manage Users</a>
+    <a href="/materials.html" class="quick-action-btn">Material Library</a>
+    <a href="/presentation-engine.html" class="quick-action-btn">Presentation Engine</a>
+  </div>
+</div>
+
+<script>
+// Admin dashboard data loader
+HCHCAuth.onReady(async function() {
+  if (!HCHCAuth.isAdmin()) return;
+
+  var sb = await HCHCAuth.getAuthClient();
+  if (!sb) return;
+
+  // Fetch pending approvals count
+  try {
+    var pendingResult = await sb.from('signup_requests').select('*', { count: 'exact', head: true }).eq('status', 'pending');
+    var el = document.getElementById('pending-count');
+    el.textContent = pendingResult.count || 0;
+    el.classList.remove('loading');
+  } catch (e) {
+    console.warn('Failed to fetch pending count:', e);
+    document.getElementById('pending-count').textContent = '?';
+  }
+
+  // Fetch active users count
+  try {
+    var activeResult = await sb.from('user_profiles').select('*', { count: 'exact', head: true }).eq('status', 'active');
+    var el2 = document.getElementById('active-count');
+    el2.textContent = activeResult.count || 0;
+    el2.classList.remove('loading');
+  } catch (e) {
+    console.warn('Failed to fetch active count:', e);
+    document.getElementById('active-count').textContent = '?';
+  }
+
+  // Fetch project count
+  try {
+    var projectResult = await sb.from('projects').select('*', { count: 'exact', head: true });
+    var el3 = document.getElementById('project-count');
+    el3.textContent = projectResult.count || 0;
+    el3.classList.remove('loading');
+  } catch (e) {
+    console.warn('Failed to fetch project count:', e);
+    document.getElementById('project-count').textContent = '0';
+  }
+
+  // Fetch material count
+  try {
+    var materialResult = await sb.from('materials').select('*', { count: 'exact', head: true });
+    var el4 = document.getElementById('material-count');
+    el4.textContent = materialResult.count || 0;
+    el4.classList.remove('loading');
+  } catch (e) {
+    console.warn('Failed to fetch material count:', e);
+    document.getElementById('material-count').textContent = '0';
+  }
+
+  // Fetch recent activity (recent signup requests + recent profile changes)
+  try {
+    var recentSignups = await sb.from('signup_requests').select('first_name, last_name, status, created_at').order('created_at', { ascending: false }).limit(10);
+    var activityList = document.getElementById('activity-list');
+    activityList.innerHTML = '';
+
+    if (recentSignups.data && recentSignups.data.length > 0) {
+      recentSignups.data.forEach(function(item) {
+        var li = document.createElement('li');
+        var statusLabel = item.status === 'pending' ? 'New signup' : item.status === 'approved' ? 'Approved' : item.status === 'rejected' ? 'Rejected' : item.status;
+        var name = (item.first_name || '') + ' ' + (item.last_name || '');
+        name = name.trim() || 'Unknown';
+        var timeAgo = _formatTimeAgo(new Date(item.created_at));
+
+        li.innerHTML = '<span class="activity-text"><strong>' + _escHtml(statusLabel) + '</strong> &mdash; ' + _escHtml(name) + '</span><span class="activity-time">' + timeAgo + '</span>';
+        activityList.appendChild(li);
+      });
+    } else {
+      activityList.innerHTML = '<li class="activity-placeholder">No recent activity</li>';
+    }
+  } catch (e) {
+    console.warn('Failed to fetch activity:', e);
+    document.getElementById('activity-list').innerHTML = '<li class="activity-placeholder">Unable to load activity</li>';
+  }
+});
+
+function _formatTimeAgo(date) {
+  var seconds = Math.floor((new Date() - date) / 1000);
+  if (seconds < 60) return 'just now';
+  var minutes = Math.floor(seconds / 60);
+  if (minutes < 60) return minutes + 'm ago';
+  var hours = Math.floor(minutes / 60);
+  if (hours < 24) return hours + 'h ago';
+  var days = Math.floor(hours / 24);
+  if (days < 30) return days + 'd ago';
+  return date.toLocaleDateString();
+}
+
+function _escHtml(str) {
+  var d = document.createElement('div');
+  d.textContent = str;
+  return d.innerHTML;
+}
+</script>
+
+<!-- Auth System -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2" async></script>
+<script
+  data-clerk-publishable-key="pk_test_cmFwaWQtbWFja2VyZWwtMjguY2xlcmsuYWNjb3VudHMuZGV2JA"
+  src="https://cdn.jsdelivr.net/npm/@clerk/clerk-js@4/dist/clerk.browser.js"
+  async>
+</script>
+<script src="/config.js"></script>
+<script src="/js/supabase-client.js"></script>
+<script src="/js/clerk-auth.js"></script>
+<script src="/js/route-guard.js"></script>
+<script src="/js/global-nav.js"></script>
+<script src="/js/page-init.js"></script>
+</body>
+</html>

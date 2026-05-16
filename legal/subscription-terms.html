@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Subscription Terms | Hill Country Home Concepts</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Jost:ital,wght@0,200;0,300;0,400;1,200&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --ivory: #F5F0EB;
+  --navy: #1B2A4A;
+  --espresso: #3C2A21;
+  --sand: #D4C5B2;
+  --mocha: #A37762;
+  --carrara: #E8E4E0;
+  --gold: #C4A265;
+  --dusty-blue: #7B9BAE;
+  --heading: 'Cormorant Garamond', Georgia, serif;
+  --body: 'Jost', 'Segoe UI', sans-serif;
+}
+
+body {
+  font-family: var(--body);
+  font-weight: 300;
+  font-size: 17px;
+  line-height: 1.8;
+  color: var(--espresso);
+  background: var(--ivory);
+}
+
+.legal-nav {
+  background: var(--navy);
+  padding: 16px 32px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.legal-nav a {
+  font-family: var(--heading);
+  font-weight: 600;
+  font-size: 1.15rem;
+  color: var(--ivory);
+  text-decoration: none;
+}
+
+.legal-nav a:hover { color: var(--gold); }
+
+.legal-nav .back-link {
+  font-family: var(--body);
+  font-size: 0.8rem;
+  font-weight: 300;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--sand);
+}
+
+.legal-nav .back-link:hover { color: var(--ivory); }
+
+.legal-container {
+  max-width: 780px;
+  margin: 0 auto;
+  padding: 60px 32px 80px;
+}
+
+.legal-container h1 {
+  font-family: var(--heading);
+  font-weight: 600;
+  font-size: 2.4rem;
+  color: var(--navy);
+  margin-bottom: 8px;
+  line-height: 1.2;
+}
+
+.legal-meta {
+  font-size: 0.85rem;
+  color: var(--mocha);
+  font-weight: 300;
+  margin-bottom: 40px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid var(--sand);
+}
+
+.legal-container h2 {
+  font-family: var(--heading);
+  font-weight: 600;
+  font-size: 1.5rem;
+  color: var(--navy);
+  margin-top: 40px;
+  margin-bottom: 12px;
+}
+
+.legal-container h3 {
+  font-family: var(--heading);
+  font-weight: 600;
+  font-size: 1.2rem;
+  color: var(--navy);
+  margin-top: 28px;
+  margin-bottom: 8px;
+}
+
+.legal-container p {
+  margin-bottom: 16px;
+  max-width: 100%;
+}
+
+.legal-container ul, .legal-container ol {
+  margin-bottom: 16px;
+  padding-left: 24px;
+}
+
+.legal-container li {
+  margin-bottom: 8px;
+}
+
+.legal-container strong {
+  font-weight: 400;
+  color: var(--navy);
+}
+
+/* Tier cards */
+.tier-summary {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 20px;
+  margin: 24px 0 32px;
+}
+
+.tier-card {
+  background: #fff;
+  border: 1px solid var(--sand);
+  padding: 24px;
+}
+
+.tier-card h4 {
+  font-family: var(--heading);
+  font-weight: 600;
+  font-size: 1.1rem;
+  color: var(--navy);
+  margin-bottom: 4px;
+}
+
+.tier-card .tier-price {
+  font-size: 1.3rem;
+  font-weight: 400;
+  color: var(--gold);
+  margin-bottom: 12px;
+}
+
+.tier-card .tier-price span {
+  font-size: 0.8rem;
+  color: var(--mocha);
+  font-weight: 300;
+}
+
+.tier-card ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.tier-card li {
+  font-size: 0.85rem;
+  padding: 4px 0;
+  border-bottom: 1px solid var(--carrara);
+}
+
+.tier-card li:last-child { border-bottom: none; }
+
+.highlight-box {
+  background: var(--carrara);
+  border-left: 3px solid var(--gold);
+  padding: 16px 20px;
+  margin: 20px 0;
+  font-size: 0.95rem;
+}
+
+.legal-footer {
+  margin-top: 60px;
+  padding-top: 24px;
+  border-top: 1px solid var(--sand);
+  font-size: 0.85rem;
+  color: var(--mocha);
+}
+
+.legal-footer a {
+  color: var(--dusty-blue);
+  text-decoration: underline;
+}
+
+@media (max-width: 767px) {
+  .legal-container { padding: 32px 16px 60px; }
+  .legal-container h1 { font-size: 1.8rem; }
+  .tier-summary { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<nav class="legal-nav">
+  <a href="/">Hill Country Home Concepts</a>
+  <a href="/" class="back-link">Back to Site</a>
+</nav>
+
+<div class="legal-container">
+  <h1>Subscription Terms</h1>
+  <p class="legal-meta">Last Updated: May 2026 | Version 1.0 | DRAFT - Subject to Review</p>
+
+  <p>These Subscription Terms supplement our <a href="/legal/terms-of-service.html">Terms of Service</a> and govern the billing, subscription, and payment aspects of the Hill Country Home Concepts platform. By subscribing to any paid service tier, you agree to these terms.</p>
+
+  <h2>1. Service Tiers</h2>
+  <p>Hill Country Home Concepts offers three service tiers for professional users. Each tier provides access to different features and capabilities on the platform.</p>
+
+  <div class="tier-summary">
+    <div class="tier-card">
+      <h4>Tier 1</h4>
+      <div class="tier-price">$1,000 <span>per room</span></div>
+      <ul>
+        <li>Flat fee, no subscription</li>
+        <li>$250 per additional iteration</li>
+        <li>Full design consultation</li>
+        <li>Presentation delivery</li>
+      </ul>
+    </div>
+
+    <div class="tier-card">
+      <h4>Tier 2</h4>
+      <div class="tier-price">Monthly <span>subscription</span></div>
+      <ul>
+        <li>Billed monthly</li>
+        <li>3 render credits per year</li>
+        <li>Credits do not roll over</li>
+        <li>Presentation Engine access</li>
+        <li>Material Library access</li>
+      </ul>
+    </div>
+
+    <div class="tier-card">
+      <h4>Tier 3</h4>
+      <div class="tier-price">Monthly <span>subscription</span></div>
+      <ul>
+        <li>Billed monthly</li>
+        <li>Full platform access</li>
+        <li>Priority support</li>
+        <li>Advanced features</li>
+      </ul>
+    </div>
+  </div>
+
+  <h2>2. Billing and Payment</h2>
+
+  <h3>2.1 Tier 1 (Flat Fee)</h3>
+  <p>Tier 1 services are billed on a per-project basis. The fee is <strong>$1,000 per room</strong> for a full design consultation and presentation. Additional iterations beyond the initial delivery are billed at <strong>$250 per iteration</strong>. Tier 1 is not a recurring subscription. Payment is due upon project initiation or as otherwise agreed in writing.</p>
+
+  <h3>2.2 Tier 2 and Tier 3 (Monthly Subscriptions)</h3>
+  <p>Tier 2 and Tier 3 subscriptions are <strong>billed monthly</strong> on a recurring basis. Your subscription will automatically renew each month unless you cancel before the next billing date.</p>
+
+  <div class="highlight-box">
+    <strong>Tier 2 Render Credits:</strong> Tier 2 subscriptions include <strong>3 render credits annually</strong>. Render credits reset on your subscription anniversary date. Unused render credits <strong>do not roll over</strong> to the next year and carry no cash value.
+  </div>
+
+  <h2>3. Cancellation and Downgrade Policy</h2>
+  <p>You may cancel or downgrade your subscription at any time through your account settings or by contacting us directly.</p>
+
+  <div class="highlight-box">
+    <strong>Access After Cancellation or Downgrade:</strong> When you cancel or downgrade your subscription, you will <strong>retain full access to all features through the end of your current billing cycle</strong>. No prorated refunds will be issued for partial billing periods.
+  </div>
+
+  <p>After your billing cycle ends following a cancellation or downgrade:</p>
+  <ul>
+    <li><strong>Download access will be revoked.</strong> You will no longer be able to download presentations, renders, or other deliverables from the platform.</li>
+    <li><strong>Records remain visible.</strong> Your project history, presentations, and associated data will remain viewable on the platform in a read-only state.</li>
+    <li>You may resubscribe at any time to restore full access, including download capabilities.</li>
+  </ul>
+
+  <h2>4. Refund Policy</h2>
+  <p>Monthly subscription fees are non-refundable once the billing cycle has begun. For Tier 1 flat-fee services, refund eligibility will be determined on a case-by-case basis and must be requested in writing within 14 days of payment.</p>
+
+  <h2>5. Price Changes</h2>
+  <p>We reserve the right to modify subscription pricing at any time. If we change the price of your subscription, we will provide at least 30 days advance notice before the new price takes effect. Your continued subscription after the price change constitutes acceptance of the new pricing. If you do not agree with the new pricing, you may cancel your subscription before the new rate applies.</p>
+
+  <h2>6. Payment Methods</h2>
+  <p>We accept payment via the methods made available on the platform. You are responsible for keeping your payment information current and accurate. If a payment fails, we may suspend your access until the outstanding balance is resolved.</p>
+
+  <h2>7. Free Trial</h2>
+  <p>We may offer free trial periods at our discretion. At the end of a free trial, your subscription will automatically convert to a paid subscription unless you cancel before the trial period ends. We will notify you before any charges are applied.</p>
+
+  <h2>8. Account Suspension for Non-Payment</h2>
+  <p>If payment for a subscription renewal is not received within 7 days of the billing date, we reserve the right to suspend your account. Suspended accounts will not have access to platform features until payment is received. After 30 days of non-payment, we may terminate the account.</p>
+
+  <h2>9. Contact</h2>
+  <p>For billing inquiries, subscription changes, or refund requests, please contact:</p>
+  <p>
+    <strong>Hill Country Home Concepts</strong><br>
+    Email: <a href="mailto:ena.dodski@hillcountryhomeconcepts.com">ena.dodski@hillcountryhomeconcepts.com</a>
+  </p>
+
+  <div class="legal-footer">
+    <p>Related policies: <a href="/legal/terms-of-service.html">Terms of Service</a> | <a href="/legal/privacy-policy.html">Privacy Policy</a></p>
+  </div>
+</div>
+
+</body>
+</html>

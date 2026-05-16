@@ -912,17 +912,7 @@ body {
 <body>
 
 <!-- Top Bar -->
-<div class="topbar">
-  <a href="/" class="topbar-logo">
-    Hill Country Home Concepts
-    <span>Presentation Engine</span>
-  </a>
-  <div class="topbar-nav">
-    <a href="/materials.html">Materials</a>
-    <a href="/dashboard.html">Dashboard</a>
-    <a href="/">Home</a>
-  </div>
-</div>
+<!-- Nav rendered dynamically by global-nav.js -->
 
 <!-- Split Layout -->
 <div class="app-layout">
@@ -1013,6 +1003,11 @@ body {
           Download PDF
         </button>
       </div>
+      <div class="save-row" style="margin-top: 4px;">
+        <button class="btn-secondary" id="download-signoff-btn" onclick="downloadSignoffPDF()" disabled style="flex: 1; background: var(--navy); color: var(--ivory); border-color: var(--navy);">
+          Download Sign-Off PDF
+        </button>
+      </div>
     </div>
   </div>
 
@@ -1031,10 +1026,24 @@ body {
 <!-- Scripts -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script src="config.js"></script>
-<script src="js/supabase-client.js"></script>
-<script src="js/design-rules.js"></script>
-<script src="js/presentation-template.js"></script>
+<script
+  data-clerk-publishable-key="pk_test_cmFwaWQtbWFja2VyZWwtMjguY2xlcmsuYWNjb3VudHMuZGV2JA"
+  src="https://cdn.jsdelivr.net/npm/@clerk/clerk-js@4/dist/clerk.browser.js"
+  async>
+</script>
+<script src="/config.js"></script>
+<script src="/js/supabase-client.js"></script>
+<script src="/js/clerk-auth.js"></script>
+<script src="/js/route-guard.js"></script>
+<script src="/js/global-nav.js"></script>
+<script src="/js/page-init.js"></script>
+<script src="/js/design-rules.js"></script>
+<script src="/js/presentation-template.js"></script>
+<script src="/js/contract-parser.js"></script>
+<script src="/js/material-fetch.js"></script>
+<script src="/js/diagram-suggest.js"></script>
+<script src="/js/mood-board.js"></script>
+<script src="/js/pdf-signoff.js"></script>
 
 <script>
 // ============================================================
@@ -1139,6 +1148,11 @@ const INSTALL_PLACEHOLDERS = {
 // ============================================================
 document.addEventListener('DOMContentLoaded', async () => {
   await Promise.all([loadMaterials(), loadStyles()]);
+
+  // Initialize new Prompt 2 modules
+  if (typeof ContractParser !== 'undefined') ContractParser.init();
+  if (typeof DiagramSuggest !== 'undefined') await DiagramSuggest.init();
+  if (typeof MoodBoard !== 'undefined') MoodBoard.init();
 
   // Check for ?project=UUID to load saved project
   const params = new URLSearchParams(window.location.search);
@@ -2766,7 +2780,7 @@ function showToast(message, type = 'info') {
 }
 
 // ============================================================
-// PDF DOWNLOAD
+// PDF DOWNLOAD — Design Presentation (original format)
 // ============================================================
 async function downloadPDF() {
   const btn = document.getElementById('download-pdf-btn');
@@ -2777,7 +2791,6 @@ async function downloadPDF() {
     const data = collectPresentationData();
     const html = generatePresentationHTML(data);
 
-    // Create a temporary container
     const container = document.createElement('div');
     container.innerHTML = html;
     container.style.position = 'absolute';
@@ -2809,10 +2822,71 @@ async function downloadPDF() {
     btn.textContent = 'Download PDF';
   }
 }
+
+// ============================================================
+// PDF DOWNLOAD — Installation Sign-Off (new format)
+// ============================================================
+async function downloadSignoffPDF() {
+  const btn = document.getElementById('download-signoff-btn');
+  if (btn) { btn.disabled = true; btn.textContent = 'Generating Sign-Off PDF...'; }
+
+  try {
+    const presentationData = collectPresentationData();
+    const parsedData = typeof ContractParser !== 'undefined' ? ContractParser.getLastParsedData() : null;
+
+    // Build buyer record from parsed data or manual inputs
+    const buyerRecord = parsedData ? parsedData.buyerRecord : {
+      builder: presentationData.builderName || '',
+      community: '',
+      lot: '',
+      streetAddress: presentationData.address || '',
+      buyer1Name: presentationData.clientName || '',
+      buyer2Name: '',
+      changeOrderDate: new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }),
+    };
+
+    // Collect diagram selections
+    const diagramSelections = {};
+    if (typeof DiagramSuggest !== 'undefined') {
+      presentationData.rooms.forEach(room => {
+        if (!room.selections) return;
+        Object.entries(room.selections).forEach(([cat, sel]) => {
+          if (sel && sel.material) {
+            const diag = DiagramSuggest.getSelectedDiagram(sel.material.name || sel.productName);
+            if (diag) diagramSelections[sel.material.name || sel.productName] = diag;
+          }
+        });
+      });
+    }
+
+    // Collect installation items
+    const installationItems = PDFSignoff.collectInstallItems(presentationData.rooms, diagramSelections);
+
+    // Get mood board image
+    const moodBoardImage = (typeof MoodBoard !== 'undefined' && MoodBoard.isGenerated())
+      ? MoodBoard.getImage()
+      : moodBoardUrl || null;
+
+    const success = await PDFSignoff.downloadSignoffPDF({
+      buyerRecord,
+      installationItems,
+      moodBoardImage,
+    });
+
+    if (success) {
+      showToast('Sign-off PDF downloaded', 'success');
+    } else {
+      showToast('PDF generation failed', 'error');
+    }
+  } catch (err) {
+    console.error('Sign-off PDF generation failed:', err);
+    showToast('PDF generation failed', 'error');
+  } finally {
+    if (btn) { btn.disabled = false; btn.textContent = 'Download Sign-Off PDF'; }
+  }
+}
 </script>
 
 <div class="toast-container" id="toast-container"></div>
-
-<script src="/js/global-nav.js"></script>
 </body>
 </html>

@@ -1,0 +1,304 @@
+{
+  "version": "1.0",
+  "basePath": "/images/diagrams/",
+  "diagrams": [
+    {
+      "file": "3X12_OR_4X16_HORIZONTAL_CORRIDOR_STRIPES.png",
+      "category": "wall",
+      "pattern": "corridor_stripes",
+      "tileSize": ["3x12", "4x16"],
+      "defaultOrientation": "horizontal",
+      "tags": ["horizontal", "corridor", "stripes", "linear"]
+    },
+    {
+      "file": "3X12_OR_4X16_HORIZONTAL_STACK.jpg",
+      "category": "wall",
+      "pattern": "straight_lay",
+      "tileSize": ["3x12", "4x16"],
+      "defaultOrientation": "horizontal",
+      "tags": ["horizontal", "stack", "straight"]
+    },
+    {
+      "file": "3X12_OR_4X16_HORIZONTAL_THIRD_OFFSET.jpg",
+      "category": "wall",
+      "pattern": "running_bond",
+      "tileSize": ["3x12", "4x16"],
+      "defaultOrientation": "horizontal",
+      "tags": ["horizontal", "third", "offset", "running bond"]
+    },
+    {
+      "file": "3X12_OR_4X16_POINTS_VERTICAL_CHEVRON.jpg",
+      "category": "wall",
+      "pattern": "chevron",
+      "tileSize": ["3x12", "4x16"],
+      "defaultOrientation": "vertical",
+      "tags": ["vertical", "chevron", "points"]
+    },
+    {
+      "file": "3X12_OR_4X16_POINTS_VERTICAL_HERRINGBONE.jpg",
+      "category": "wall",
+      "pattern": "herringbone",
+      "tileSize": ["3x12", "4x16"],
+      "defaultOrientation": "vertical",
+      "tags": ["vertical", "herringbone", "points"]
+    },
+    {
+      "file": "3X12_OR_4X16_VERTICAL STACK.jpg",
+      "category": "wall",
+      "pattern": "straight_lay",
+      "tileSize": ["3x12", "4x16"],
+      "defaultOrientation": "vertical",
+      "tags": ["vertical", "stack", "straight"]
+    },
+    {
+      "file": "3X12_OR_4X16_VERTICAL_STAGGERED.jpg",
+      "category": "wall",
+      "pattern": "running_bond",
+      "tileSize": ["3x12", "4x16"],
+      "defaultOrientation": "vertical",
+      "tags": ["vertical", "staggered", "offset"]
+    },
+    {
+      "file": "3X6_12X24_HALF_OFFSET.png",
+      "category": "floor",
+      "pattern": "running_bond",
+      "tileSize": ["3x6", "12x24"],
+      "defaultOrientation": "horizontal",
+      "tags": ["half offset", "brick", "running bond"]
+    },
+    {
+      "file": "3X6_12X24_POINTS_HORIZONTAL_HERRINGONE.png",
+      "category": "floor",
+      "pattern": "herringbone",
+      "tileSize": ["3x6", "12x24"],
+      "defaultOrientation": "horizontal",
+      "tags": ["horizontal", "herringbone", "points"]
+    },
+    {
+      "file": "3X6_12X24_POINTS_VERTICAL_HERRINGONE.png",
+      "category": "floor",
+      "pattern": "herringbone",
+      "tileSize": ["3x6", "12x24"],
+      "defaultOrientation": "vertical",
+      "tags": ["vertical", "herringbone", "points"]
+    },
+    {
+      "file": "3X6_12X24_THIRD_OFFSET_HORIZONTAL.png",
+      "category": "floor",
+      "pattern": "running_bond",
+      "tileSize": ["3x6", "12x24"],
+      "defaultOrientation": "horizontal",
+      "tags": ["horizontal", "third", "offset"]
+    },
+    {
+      "file": "3X6_12X24_THIRD_OFFSET_VERT.png",
+      "category": "floor",
+      "pattern": "running_bond",
+      "tileSize": ["3x6", "12x24"],
+      "defaultOrientation": "vertical",
+      "tags": ["vertical", "third", "offset"]
+    },
+    {
+      "file": "3X6_12X24_THIRD_STRAIGHT_HORIZONTAL.png",
+      "category": "floor",
+      "pattern": "straight_lay",
+      "tileSize": ["3x6", "12x24"],
+      "defaultOrientation": "horizontal",
+      "tags": ["horizontal", "third", "straight"]
+    },
+    {
+      "file": "3X6_12X24_THIRD_STRAIGHT_VERTICAL.png",
+      "category": "floor",
+      "pattern": "straight_lay",
+      "tileSize": ["3x6", "12x24"],
+      "defaultOrientation": "vertical",
+      "tags": ["vertical", "third", "straight"]
+    },
+    {
+      "file": "CHECKERBOARD_ON_45.png",
+      "category": "floor",
+      "pattern": "checkerboard",
+      "tileSize": ["square"],
+      "defaultOrientation": "diagonal",
+      "tags": ["checkerboard", "45", "diagonal", "diamond"]
+    },
+    {
+      "file": "HEX_POINTS_HORIZONTAL.jpg",
+      "category": "floor",
+      "pattern": "hexagon",
+      "tileSize": ["hex"],
+      "defaultOrientation": "horizontal",
+      "tags": ["hex", "hexagon", "horizontal", "points"]
+    },
+    {
+      "file": "HEX_POINTS_VERTICAL.jpg",
+      "category": "floor",
+      "pattern": "hexagon",
+      "tileSize": ["hex"],
+      "defaultOrientation": "vertical",
+      "tags": ["hex", "hexagon", "vertical", "points"]
+    },
+    {
+      "file": "KBS_1X3_1X6_HORIZONTAL.png",
+      "category": "kitchen",
+      "pattern": "straight_lay",
+      "tileSize": ["1x3", "1x6"],
+      "defaultOrientation": "horizontal",
+      "tags": ["kitchen", "backsplash", "horizontal", "subway"]
+    },
+    {
+      "file": "KBS_1X3_1X6_VERTICAL.png",
+      "category": "kitchen",
+      "pattern": "straight_lay",
+      "tileSize": ["1x3", "1x6"],
+      "defaultOrientation": "vertical",
+      "tags": ["kitchen", "backsplash", "vertical", "subway"]
+    },
+    {
+      "file": "KBS_ARABESQUE_POINTS_HORIZONTAL.png",
+      "category": "kitchen",
+      "pattern": "arabesque",
+      "tileSize": ["arabesque"],
+      "defaultOrientation": "horizontal",
+      "tags": ["kitchen", "backsplash", "arabesque", "horizontal"]
+    },
+    {
+      "file": "KBS_ARABESQUE_POINTS_VERTICAL.png",
+      "category": "kitchen",
+      "pattern": "arabesque",
+      "tileSize": ["arabesque"],
+      "defaultOrientation": "vertical",
+      "tags": ["kitchen", "backsplash", "arabesque", "vertical"]
+    },
+    {
+      "file": "KBS_LONG_HEX_HORIZONTAL.png",
+      "category": "kitchen",
+      "pattern": "hexagon",
+      "tileSize": ["long_hex"],
+      "defaultOrientation": "horizontal",
+      "tags": ["kitchen", "backsplash", "hex", "long hex", "horizontal"]
+    },
+    {
+      "file": "KBS_LONG_HEX_VERITICAL.png",
+      "category": "kitchen",
+      "pattern": "hexagon",
+      "tileSize": ["long_hex"],
+      "defaultOrientation": "vertical",
+      "tags": ["kitchen", "backsplash", "hex", "long hex", "vertical"]
+    },
+    {
+      "file": "KBS_PICKET_POINTS_VERTICAL.png",
+      "category": "kitchen",
+      "pattern": "picket",
+      "tileSize": ["picket"],
+      "defaultOrientation": "vertical",
+      "tags": ["kitchen", "backsplash", "picket", "vertical"]
+    },
+    {
+      "file": "KBS_SQUARE_DIAMOND.png",
+      "category": "kitchen",
+      "pattern": "diamond",
+      "tileSize": ["square"],
+      "defaultOrientation": "diagonal",
+      "tags": ["kitchen", "backsplash", "square", "diamond", "diagonal"]
+    },
+    {
+      "file": "KBS_SQUARE_DIAMOND_WITH_LINER.png",
+      "category": "kitchen",
+      "pattern": "diamond",
+      "tileSize": ["square"],
+      "defaultOrientation": "diagonal",
+      "accentAccommodations": "liner",
+      "tags": ["kitchen", "backsplash", "square", "diamond", "liner", "accent"]
+    },
+    {
+      "file": "KBS_SQUARE_STRAIGHT_WITH_LINER.png",
+      "category": "kitchen",
+      "pattern": "straight_lay",
+      "tileSize": ["square"],
+      "defaultOrientation": "straight",
+      "accentAccommodations": "liner",
+      "tags": ["kitchen", "backsplash", "square", "straight", "liner", "accent"]
+    },
+    {
+      "file": "LVP_HARDWOOD_FRONT_TO_BACK.png",
+      "category": "floor",
+      "pattern": "plank",
+      "tileSize": ["plank"],
+      "defaultOrientation": "front_to_back",
+      "tags": ["lvp", "hardwood", "plank", "front to back", "flooring"]
+    },
+    {
+      "file": "LVP_HARDWOOD_SIDE_TO_SIDE.png",
+      "category": "floor",
+      "pattern": "plank",
+      "tileSize": ["plank"],
+      "defaultOrientation": "side_to_side",
+      "tags": ["lvp", "hardwood", "plank", "side to side", "flooring"]
+    },
+    {
+      "file": "MULTI_TILE_VERSAILLES.png",
+      "category": "floor",
+      "pattern": "versailles",
+      "tileSize": ["multi"],
+      "defaultOrientation": "neutral",
+      "tags": ["versailles", "multi", "pattern", "french"]
+    },
+    {
+      "file": "SQUARE_ STRAIGHT.jpg",
+      "category": "floor",
+      "pattern": "straight_lay",
+      "tileSize": ["square"],
+      "defaultOrientation": "straight",
+      "tags": ["square", "straight", "grid"]
+    },
+    {
+      "file": "SQUARE_DIAMOND.jpg",
+      "category": "floor",
+      "pattern": "diamond",
+      "tileSize": ["square"],
+      "defaultOrientation": "diagonal",
+      "tags": ["square", "diamond", "diagonal", "45"]
+    },
+    {
+      "file": "SQUARE_HALF OFFSET.jpg",
+      "category": "floor",
+      "pattern": "running_bond",
+      "tileSize": ["square"],
+      "defaultOrientation": "horizontal",
+      "tags": ["square", "half offset", "brick", "running bond"]
+    },
+    {
+      "file": "SQUARE_HALF_OFFSET_ON_45.png",
+      "category": "floor",
+      "pattern": "running_bond",
+      "tileSize": ["square"],
+      "defaultOrientation": "diagonal",
+      "tags": ["square", "half offset", "45", "diagonal"]
+    },
+    {
+      "file": "SQUARE_THIRD_OFFSET_HORIZONTAL.png",
+      "category": "floor",
+      "pattern": "running_bond",
+      "tileSize": ["square"],
+      "defaultOrientation": "horizontal",
+      "tags": ["square", "third", "offset", "horizontal"]
+    },
+    {
+      "file": "SQUARE_THIRD_OFFSET_VERTICAL.png",
+      "category": "floor",
+      "pattern": "running_bond",
+      "tileSize": ["square"],
+      "defaultOrientation": "vertical",
+      "tags": ["square", "third", "offset", "vertical"]
+    },
+    {
+      "file": "WOOD_LOOK_TILE_FRONT_TO_BACK.png",
+      "category": "floor",
+      "pattern": "plank",
+      "tileSize": ["plank"],
+      "defaultOrientation": "front_to_back",
+      "tags": ["wood look", "tile", "plank", "front to back", "flooring"]
+    }
+  ]
+}

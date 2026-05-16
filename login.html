@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sign In | HCHC Platform</title>
+<link rel="icon" type="image/png" sizes="32x32" href="/images/logo/favicon-32.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Jost:ital,wght@0,200;0,300;0,400;1,200&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --ivory: #F5F0EB;
+  --navy: #1B2A4A;
+  --espresso: #3C2A21;
+  --sand: #D4C5B2;
+  --mocha: #A37762;
+  --carrara: #E8E4E0;
+  --gold: #C4A265;
+  --heading: 'Cormorant Garamond', Georgia, serif;
+  --body: 'Jost', 'Segoe UI', sans-serif;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: var(--body);
+  font-weight: 400;
+  font-size: 17px;
+  line-height: 1.7;
+  color: var(--espresso);
+  background: var(--ivory);
+  -webkit-font-smoothing: antialiased;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+a { color: inherit; text-decoration: none; }
+
+h1, h2 {
+  font-family: var(--heading);
+  font-weight: 600;
+  color: var(--navy);
+  line-height: 1.2;
+}
+
+.login-card {
+  background: #fff;
+  border: 1px solid var(--carrara);
+  padding: 48px 40px;
+  max-width: 460px;
+  width: 90%;
+  text-align: center;
+}
+
+.login-card .wordmark {
+  display: block;
+  margin: 0 auto 32px;
+  height: 36px;
+}
+
+.login-card h1 {
+  font-size: 1.6rem;
+  margin-bottom: 8px;
+}
+
+.login-card .subtitle {
+  font-weight: 200;
+  font-size: 0.85rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--mocha);
+  margin-bottom: 32px;
+}
+
+#clerk-sign-in {
+  min-height: 300px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.signup-link {
+  margin-top: 28px;
+  font-size: 0.9rem;
+  color: var(--espresso);
+}
+
+.signup-link a {
+  color: var(--navy);
+  font-weight: 400;
+  border-bottom: 1px solid var(--gold);
+  transition: color 0.3s ease;
+}
+
+.signup-link a:hover {
+  color: var(--mocha);
+}
+</style>
+</head>
+<body>
+
+<div class="login-card">
+  <img src="/images/logo/hchc-wordmark-navy.svg" alt="Hill Country Home Concepts" class="wordmark">
+  <h1>Sign In</h1>
+  <p class="subtitle">Access Your Account</p>
+  <div id="clerk-sign-in"></div>
+  <p class="signup-link">Don't have an account? <a href="/signup/">Get Started</a></p>
+</div>
+
+<!-- Auth System -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2" async></script>
+<script
+  data-clerk-publishable-key="pk_test_cmFwaWQtbWFja2VyZWwtMjguY2xlcmsuYWNjb3VudHMuZGV2JA"
+  src="https://cdn.jsdelivr.net/npm/@clerk/clerk-js@4/dist/clerk.browser.js"
+  async>
+</script>
+<script src="/config.js"></script>
+<script src="/js/supabase-client.js"></script>
+<script src="/js/clerk-auth.js"></script>
+<script src="/js/route-guard.js"></script>
+<script src="/js/global-nav.js"></script>
+<script src="/js/page-init.js"></script>
+<script>
+HCHCAuth.onReady(function() {
+  if (HCHCAuth.isSignedIn()) {
+    var params = new URLSearchParams(window.location.search);
+    window.location.href = params.get('returnUrl') || '/dashboard/';
+    return;
+  }
+  var el = document.getElementById('clerk-sign-in');
+  if (window.Clerk && el) {
+    window.Clerk.mountSignIn(el, {
+      appearance: {
+        variables: { colorPrimary: '#1B2A4A', colorText: '#3C2A21', fontFamily: 'Jost, sans-serif', borderRadius: '0px' }
+      }
+    });
+  }
+});
+</script>
+</body>
+</html>

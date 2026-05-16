@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Account Settings | HCHC Platform</title>
+<link rel="icon" type="image/png" sizes="32x32" href="/images/logo/favicon-32.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Jost:ital,wght@0,200;0,300;0,400;1,200&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --ivory: #F5F0EB;
+  --navy: #1B2A4A;
+  --espresso: #3C2A21;
+  --sand: #D4C5B2;
+  --mocha: #A37762;
+  --carrara: #E8E4E0;
+  --gold: #C4A265;
+  --heading: 'Cormorant Garamond', Georgia, serif;
+  --body: 'Jost', 'Segoe UI', sans-serif;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: var(--body);
+  font-weight: 400;
+  font-size: 17px;
+  line-height: 1.7;
+  color: var(--espresso);
+  background: var(--ivory);
+  -webkit-font-smoothing: antialiased;
+  min-height: 100vh;
+}
+
+a { color: inherit; text-decoration: none; }
+
+h1, h2 {
+  font-family: var(--heading);
+  font-weight: 600;
+  color: var(--navy);
+  line-height: 1.2;
+}
+
+.page-shell {
+  max-width: 680px;
+  margin: 0 auto;
+  padding: 80px 24px 60px;
+}
+
+.page-shell .wordmark {
+  display: block;
+  height: 28px;
+  margin-bottom: 48px;
+}
+
+.page-shell h1 {
+  font-size: clamp(1.8rem, 3.5vw, 2.4rem);
+  margin-bottom: 8px;
+}
+
+.page-subtitle {
+  font-weight: 200;
+  font-size: 0.85rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--mocha);
+  margin-bottom: 40px;
+}
+
+.settings-section {
+  background: #fff;
+  border: 1px solid var(--carrara);
+  padding: 36px 32px;
+  margin-bottom: 24px;
+}
+
+.settings-section h2 {
+  font-size: 1.2rem;
+  margin-bottom: 24px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--carrara);
+}
+
+.field-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--carrara);
+}
+
+.field-row:last-child {
+  border-bottom: none;
+}
+
+.field-label {
+  font-weight: 300;
+  font-size: 0.82rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--mocha);
+  flex-shrink: 0;
+  min-width: 120px;
+}
+
+.field-value {
+  font-size: 0.95rem;
+  color: var(--espresso);
+  text-align: right;
+}
+
+.field-value .badge {
+  display: inline-block;
+  font-size: 0.75rem;
+  font-weight: 300;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 4px 12px;
+  background: var(--ivory);
+  border: 1px solid var(--carrara);
+  color: var(--navy);
+}
+
+.actions {
+  display: flex;
+  gap: 16px;
+  margin-top: 36px;
+}
+
+.btn {
+  display: inline-block;
+  font-family: var(--body);
+  font-weight: 300;
+  font-size: 0.85rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 15px 36px;
+  border: none;
+  cursor: pointer;
+  transition: background 0.3s ease, color 0.3s ease;
+  text-decoration: none;
+}
+
+.btn-primary {
+  background: var(--navy);
+  color: var(--ivory);
+}
+
+.btn-primary:hover { background: var(--mocha); }
+
+.btn-outline {
+  background: transparent;
+  color: var(--navy);
+  border: 1px solid var(--navy);
+}
+
+.btn-outline:hover {
+  background: var(--navy);
+  color: var(--ivory);
+}
+
+.placeholder-section {
+  text-align: center;
+  padding: 32px;
+  color: var(--sand);
+  font-size: 0.9rem;
+  font-weight: 300;
+}
+
+@media (max-width: 520px) {
+  .field-row {
+    flex-direction: column;
+    gap: 4px;
+  }
+  .field-value {
+    text-align: left;
+  }
+  .actions {
+    flex-direction: column;
+  }
+  .btn {
+    text-align: center;
+  }
+}
+</style>
+</head>
+<body>
+
+<div class="page-shell">
+  <a href="/dashboard/"><img src="/images/logo/hchc-wordmark-navy.svg" alt="Hill Country Home Concepts" class="wordmark"></a>
+  <h1>Account Settings</h1>
+  <p class="page-subtitle">Manage your profile</p>
+
+  <div class="settings-section">
+    <h2>Profile</h2>
+    <div class="field-row">
+      <span class="field-label">Name</span>
+      <span class="field-value" id="field-name">Loading...</span>
+    </div>
+    <div class="field-row">
+      <span class="field-label">Email</span>
+      <span class="field-value" id="field-email">Loading...</span>
+    </div>
+    <div class="field-row">
+      <span class="field-label">Role</span>
+      <span class="field-value" id="field-role">Loading...</span>
+    </div>
+    <div class="field-row">
+      <span class="field-label">Tier</span>
+      <span class="field-value" id="field-tier">Loading...</span>
+    </div>
+    <div class="field-row" id="company-row" style="display:none;">
+      <span class="field-label">Company</span>
+      <span class="field-value" id="field-company"></span>
+    </div>
+  </div>
+
+  <div class="settings-section">
+    <h2>Preferences</h2>
+    <p class="placeholder-section">Additional settings will appear here in a future update.</p>
+  </div>
+
+  <div class="actions">
+    <a href="/dashboard/" class="btn btn-primary">Back to Dashboard</a>
+    <button class="btn btn-outline" id="sign-out-btn" onclick="HCHCAuth.signOut()">Sign Out</button>
+  </div>
+</div>
+
+<!-- Auth System -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2" async></script>
+<script
+  data-clerk-publishable-key="pk_test_cmFwaWQtbWFja2VyZWwtMjguY2xlcmsuYWNjb3VudHMuZGV2JA"
+  src="https://cdn.jsdelivr.net/npm/@clerk/clerk-js@4/dist/clerk.browser.js"
+  async>
+</script>
+<script src="/config.js"></script>
+<script src="/js/supabase-client.js"></script>
+<script src="/js/clerk-auth.js"></script>
+<script src="/js/route-guard.js"></script>
+<script src="/js/global-nav.js"></script>
+<script src="/js/page-init.js"></script>
+<script>
+function formatRole(role) {
+  if (!role) return 'Not set';
+  return role.replace(/_/g, ' ').replace(/\b\w/g, function(c) { return c.toUpperCase(); });
+}
+
+HCHCAuth.onReady(function() {
+  if (!HCHCAuth.isSignedIn()) {
+    window.location.href = '/login.html?returnUrl=' + encodeURIComponent(window.location.pathname);
+    return;
+  }
+
+  var profile = HCHCAuth.getProfile();
+  var user = window.Clerk ? window.Clerk.user : null;
+
+  // Name
+  var nameEl = document.getElementById('field-name');
+  if (profile && profile.name) {
+    nameEl.textContent = profile.name;
+  } else if (user) {
+    nameEl.textContent = (user.firstName || '') + ' ' + (user.lastName || '');
+  } else {
+    nameEl.textContent = 'Not available';
+  }
+
+  // Email
+  var emailEl = document.getElementById('field-email');
+  if (profile && profile.email) {
+    emailEl.textContent = profile.email;
+  } else if (user && user.primaryEmailAddress) {
+    emailEl.textContent = user.primaryEmailAddress.emailAddress;
+  } else {
+    emailEl.textContent = 'Not available';
+  }
+
+  // Role
+  var roleEl = document.getElementById('field-role');
+  var role = (profile && profile.role) || (user && user.unsafeMetadata && user.unsafeMetadata.role) || null;
+  roleEl.innerHTML = '<span class="badge">' + formatRole(role) + '</span>';
+
+  // Tier
+  var tierEl = document.getElementById('field-tier');
+  var tier = (profile && profile.tier) || 'free';
+  tierEl.innerHTML = '<span class="badge">' + tier.charAt(0).toUpperCase() + tier.slice(1) + '</span>';
+
+  // Company (show for builders)
+  var company = (profile && profile.company) || (user && user.unsafeMetadata && user.unsafeMetadata.company) || null;
+  if (company) {
+    document.getElementById('company-row').style.display = 'flex';
+    document.getElementById('field-company').textContent = company;
+  }
+});
+</script>
+</body>
+</html>

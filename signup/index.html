@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Get Started | HCHC Platform</title>
+<link rel="icon" type="image/png" sizes="32x32" href="/images/logo/favicon-32.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Jost:ital,wght@0,200;0,300;0,400;1,200&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --ivory: #F5F0EB;
+  --navy: #1B2A4A;
+  --espresso: #3C2A21;
+  --sand: #D4C5B2;
+  --mocha: #A37762;
+  --carrara: #E8E4E0;
+  --gold: #C4A265;
+  --heading: 'Cormorant Garamond', Georgia, serif;
+  --body: 'Jost', 'Segoe UI', sans-serif;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: var(--body);
+  font-weight: 400;
+  font-size: 17px;
+  line-height: 1.7;
+  color: var(--espresso);
+  background: var(--ivory);
+  -webkit-font-smoothing: antialiased;
+  min-height: 100vh;
+}
+
+a { color: inherit; text-decoration: none; }
+
+h1, h2 {
+  font-family: var(--heading);
+  font-weight: 600;
+  color: var(--navy);
+  line-height: 1.2;
+}
+
+.page-header {
+  text-align: center;
+  padding: 80px 24px 48px;
+}
+
+.page-header .wordmark {
+  display: block;
+  margin: 0 auto 32px;
+  height: 36px;
+}
+
+.page-header h1 {
+  font-size: clamp(2rem, 4vw, 2.8rem);
+  margin-bottom: 12px;
+}
+
+.page-header .subtitle {
+  font-weight: 200;
+  font-size: 0.85rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--mocha);
+}
+
+.cards {
+  display: flex;
+  gap: 28px;
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 0 24px 80px;
+  justify-content: center;
+}
+
+.role-card {
+  background: #fff;
+  border: 1px solid var(--carrara);
+  padding: 44px 32px 40px;
+  flex: 1;
+  max-width: 300px;
+  text-align: center;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.role-card:hover {
+  border-color: var(--gold);
+  box-shadow: 0 8px 32px rgba(27, 42, 74, 0.08);
+}
+
+.role-card .icon {
+  width: 48px;
+  height: 48px;
+  margin: 0 auto 24px;
+  background: var(--ivory);
+  border: 1px solid var(--carrara);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.4rem;
+}
+
+.role-card h2 {
+  font-size: 1.4rem;
+  margin-bottom: 12px;
+}
+
+.role-card p {
+  font-size: 0.95rem;
+  color: var(--espresso);
+  margin-bottom: 28px;
+  max-width: none;
+}
+
+.role-card .features {
+  list-style: none;
+  text-align: left;
+  margin-bottom: 32px;
+  font-size: 0.88rem;
+}
+
+.role-card .features li {
+  padding: 6px 0;
+  border-bottom: 1px solid var(--carrara);
+  padding-left: 18px;
+  position: relative;
+}
+
+.role-card .features li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 13px;
+  width: 6px;
+  height: 6px;
+  background: var(--gold);
+}
+
+.btn {
+  display: inline-block;
+  font-family: var(--body);
+  font-weight: 300;
+  font-size: 0.85rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 15px 36px;
+  border: none;
+  cursor: pointer;
+  transition: background 0.3s ease, color 0.3s ease;
+  text-decoration: none;
+}
+
+.btn-primary {
+  background: var(--navy);
+  color: var(--ivory);
+}
+
+.btn-primary:hover { background: var(--mocha); }
+
+.signin-link {
+  text-align: center;
+  padding-bottom: 60px;
+  font-size: 0.9rem;
+  color: var(--espresso);
+}
+
+.signin-link a {
+  color: var(--navy);
+  font-weight: 400;
+  border-bottom: 1px solid var(--gold);
+  transition: color 0.3s ease;
+}
+
+.signin-link a:hover { color: var(--mocha); }
+
+@media (max-width: 720px) {
+  .cards {
+    flex-direction: column;
+    align-items: center;
+  }
+  .role-card {
+    max-width: 400px;
+    width: 100%;
+  }
+}
+</style>
+</head>
+<body>
+
+<div class="page-header">
+  <img src="/images/logo/hchc-wordmark-navy.svg" alt="Hill Country Home Concepts" class="wordmark">
+  <h1>Choose Your Account Type</h1>
+  <p class="subtitle">Select the option that best describes you</p>
+</div>
+
+<div class="cards">
+
+  <div class="role-card">
+    <div class="icon">&#8962;</div>
+    <h2>Homeowner</h2>
+    <p>Design consultation and project management for your home.</p>
+    <ul class="features">
+      <li>Personalized design consultations</li>
+      <li>Project timeline and updates</li>
+      <li>Material selections review</li>
+      <li>Direct designer communication</li>
+    </ul>
+    <a href="/signup/homeowner.html" class="btn btn-primary">Get Started</a>
+  </div>
+
+  <div class="role-card">
+    <div class="icon">&#9998;</div>
+    <h2>Interior Designer</h2>
+    <p>Presentation engine and project tools for your practice.</p>
+    <ul class="features">
+      <li>AI-powered presentation engine</li>
+      <li>Client project management</li>
+      <li>Material and finish library</li>
+      <li>Branded deliverables</li>
+    </ul>
+    <a href="/signup/designer.html" class="btn btn-primary">Get Started</a>
+  </div>
+
+  <div class="role-card">
+    <div class="icon">&#9878;</div>
+    <h2>Builder</h2>
+    <p>Full-service design and presentation tools for your builds.</p>
+    <ul class="features">
+      <li>Complete presentation suite</li>
+      <li>Finish selection management</li>
+      <li>Multi-project dashboard</li>
+      <li>Team collaboration tools</li>
+    </ul>
+    <a href="/signup/builder.html" class="btn btn-primary">Get Started</a>
+  </div>
+
+</div>
+
+<p class="signin-link">Already have an account? <a href="/login.html">Sign In</a></p>
+
+<!-- Auth System -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2" async></script>
+<script
+  data-clerk-publishable-key="pk_test_cmFwaWQtbWFja2VyZWwtMjguY2xlcmsuYWNjb3VudHMuZGV2JA"
+  src="https://cdn.jsdelivr.net/npm/@clerk/clerk-js@4/dist/clerk.browser.js"
+  async>
+</script>
+<script src="/config.js"></script>
+<script src="/js/supabase-client.js"></script>
+<script src="/js/clerk-auth.js"></script>
+<script src="/js/route-guard.js"></script>
+<script src="/js/global-nav.js"></script>
+<script src="/js/page-init.js"></script>
+</body>
+</html>

@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>User Management | HCHC Admin</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Jost:ital,wght@0,200;0,300;0,400;1,200&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --ivory: #F5F0EB;
+  --navy: #1B2A4A;
+  --espresso: #3C2A21;
+  --sand: #D4C5B2;
+  --mocha: #A37762;
+  --carrara: #E8E4E0;
+  --gold: #C4A265;
+  --dusty-blue: #7B9BAE;
+  --sage: #8A9A7B;
+  --heading: 'Cormorant Garamond', Georgia, serif;
+  --body: 'Jost', 'Segoe UI', sans-serif;
+}
+
+body {
+  font-family: var(--body);
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 1.6;
+  color: var(--espresso);
+  background: var(--ivory);
+}
+
+.admin-page { padding: 40px 48px; max-width: 1200px; }
+
+.admin-page h1 {
+  font-family: var(--heading);
+  font-weight: 600;
+  font-size: 2rem;
+  color: var(--navy);
+  margin-bottom: 8px;
+}
+
+.admin-page .subtitle {
+  font-size: 0.9rem;
+  color: var(--mocha);
+  font-weight: 300;
+  margin-bottom: 28px;
+}
+
+/* --- Search Bar --- */
+.search-bar {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 24px;
+  align-items: center;
+}
+
+.search-bar input {
+  flex: 1;
+  max-width: 400px;
+  font-family: var(--body);
+  font-size: 0.9rem;
+  font-weight: 300;
+  padding: 10px 16px;
+  border: 1px solid var(--sand);
+  background: #fff;
+  color: var(--espresso);
+}
+
+.search-bar input:focus {
+  outline: none;
+  border-color: var(--dusty-blue);
+}
+
+.search-bar select {
+  font-family: var(--body);
+  font-size: 0.85rem;
+  font-weight: 300;
+  padding: 10px 16px;
+  border: 1px solid var(--sand);
+  background: #fff;
+  color: var(--espresso);
+  cursor: pointer;
+}
+
+.user-count {
+  font-size: 0.85rem;
+  color: var(--mocha);
+  font-weight: 300;
+  margin-left: auto;
+}
+
+/* --- User Table --- */
+.user-table-container {
+  overflow-x: auto;
+  margin-bottom: 40px;
+}
+
+.user-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+}
+
+.user-table thead th {
+  font-size: 0.72rem;
+  font-weight: 400;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--mocha);
+  padding: 12px 16px;
+  text-align: left;
+  border-bottom: 2px solid var(--sand);
+  white-space: nowrap;
+}
+
+.user-table tbody tr {
+  border-bottom: 1px solid var(--carrara);
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.user-table tbody tr:hover {
+  background: rgba(196, 162, 101, 0.05);
+}
+
+.user-table tbody td {
+  padding: 14px 16px;
+  font-weight: 300;
+  vertical-align: middle;
+}
+
+.user-table .name-cell {
+  font-weight: 400;
+  color: var(--navy);
+}
+
+/* --- Status & Role Badges --- */
+.badge {
+  display: inline-block;
+  font-size: 0.7rem;
+  font-weight: 400;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 3px 10px;
+  border-radius: 2px;
+}
+
+.badge.active { background: #D4EDDA; color: #155724; }
+.badge.pending { background: #FFF3CD; color: #856404; }
+.badge.suspended { background: #F8D7DA; color: #721C24; }
+
+/* --- Inline Edit Row --- */
+.edit-row {
+  display: none;
+}
+
+.edit-row.open {
+  display: table-row;
+}
+
+.edit-row td {
+  padding: 20px 16px;
+  background: var(--carrara);
+  border-bottom: 1px solid var(--sand);
+}
+
+.edit-panel {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+  align-items: flex-end;
+}
+
+.edit-field {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.edit-field label {
+  font-size: 0.7rem;
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--mocha);
+}
+
+.edit-field select {
+  font-family: var(--body);
+  font-size: 0.85rem;
+  font-weight: 300;
+  padding: 8px 12px;
+  border: 1px solid var(--sand);
+  background: #fff;
+  color: var(--espresso);
+  min-width: 160px;
+}
+
+.save-btn {
+  font-family: var(--body);
+  font-size: 0.78rem;
+  font-weight: 400;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 10px 24px;
+  background: var(--gold);
+  border: none;
+  color: var(--navy);
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.save-btn:hover { background: var(--navy); color: var(--ivory); }
+
+.save-btn:disabled {
+  background: var(--sand);
+  color: var(--mocha);
+  cursor: not-allowed;
+}
+
+.cancel-edit-btn {
+  font-family: var(--body);
+  font-size: 0.78rem;
+  font-weight: 300;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 10px 24px;
+  background: none;
+  border: 1px solid var(--sand);
+  color: var(--espresso);
+  cursor: pointer;
+}
+
+.cancel-edit-btn:hover { border-color: var(--espresso); }
+
+/* --- Toast --- */
+.toast-container {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 10000;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.toast {
+  padding: 14px 24px;
+  font-family: var(--body);
+  font-size: 0.85rem;
+  font-weight: 300;
+  color: #fff;
+  min-width: 280px;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+  animation: toastIn 0.3s ease;
+}
+
+.toast.success { background: #28a745; }
+.toast.error { background: #dc3545; }
+.toast.info { background: var(--navy); }
+
+@keyframes toastIn {
+  from { opacity: 0; transform: translateX(40px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+.empty-state {
+  text-align: center;
+  padding: 60px 20px;
+  color: var(--mocha);
+  font-weight: 300;
+}
+
+.loading-spinner {
+  text-align: center;
+  padding: 40px;
+  color: var(--mocha);
+  font-weight: 300;
+  font-size: 0.9rem;
+}
+
+@media (max-width: 767px) {
+  .admin-page { padding: 24px 16px; }
+  .search-bar { flex-direction: column; }
+  .search-bar input { max-width: 100%; }
+  .user-table { font-size: 0.82rem; }
+  .user-table thead th, .user-table tbody td { padding: 10px 8px; }
+  .edit-panel { flex-direction: column; gap: 12px; }
+}
+</style>
+</head>
+<body>
+
+<div class="admin-page">
+  <h1>User Management</h1>
+  <p class="subtitle">View and manage all platform users</p>
+
+  <div class="search-bar">
+    <input type="text" id="search-input" placeholder="Search by name or email..." oninput="filterUsers()">
+    <select id="filter-role" onchange="filterUsers()">
+      <option value="">All Roles</option>
+      <option value="homeowner">Homeowner</option>
+      <option value="builder">Builder</option>
+      <option value="interior_designer">Interior Designer</option>
+      <option value="admin">Admin</option>
+    </select>
+    <select id="filter-status" onchange="filterUsers()">
+      <option value="">All Statuses</option>
+      <option value="active">Active</option>
+      <option value="pending">Pending</option>
+      <option value="suspended">Suspended</option>
+    </select>
+    <span class="user-count" id="user-count"></span>
+  </div>
+
+  <div class="user-table-container">
+    <table class="user-table" id="user-table">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Email</th>
+          <th>Role</th>
+          <th>Tier</th>
+          <th>Status</th>
+          <th>Created</th>
+        </tr>
+      </thead>
+      <tbody id="user-tbody">
+        <tr><td colspan="6" class="loading-spinner">Loading users...</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<div class="toast-container" id="toast-container"></div>
+
+<script>
+var _allUsers = [];
+var _openEditId = null;
+
+function showToast(message, type) {
+  type = type || 'info';
+  var container = document.getElementById('toast-container');
+  var toast = document.createElement('div');
+  toast.className = 'toast ' + type;
+  toast.textContent = message;
+  container.appendChild(toast);
+  setTimeout(function() {
+    toast.style.opacity = '0';
+    toast.style.transition = 'opacity 0.3s';
+    setTimeout(function() { toast.remove(); }, 300);
+  }, 4000);
+}
+
+HCHCAuth.onReady(async function() {
+  if (!HCHCAuth.isAdmin()) return;
+  await loadUsers();
+});
+
+async function loadUsers() {
+  var sb = await HCHCAuth.getAuthClient();
+  if (!sb) {
+    document.getElementById('user-tbody').innerHTML = '<tr><td colspan="6" class="empty-state">Unable to connect</td></tr>';
+    return;
+  }
+
+  try {
+    var result = await sb.from('user_profiles').select('*').order('created_at', { ascending: false });
+
+    if (result.error) {
+      console.error('Error loading users:', result.error);
+      document.getElementById('user-tbody').innerHTML = '<tr><td colspan="6" class="empty-state">Error loading users</td></tr>';
+      return;
+    }
+
+    _allUsers = result.data || [];
+    renderUsers(_allUsers);
+  } catch (e) {
+    console.error('Failed to load users:', e);
+    document.getElementById('user-tbody').innerHTML = '<tr><td colspan="6" class="empty-state">Failed to load users</td></tr>';
+  }
+}
+
+function filterUsers() {
+  var query = document.getElementById('search-input').value.toLowerCase().trim();
+  var roleFilter = document.getElementById('filter-role').value;
+  var statusFilter = document.getElementById('filter-status').value;
+
+  var filtered = _allUsers.filter(function(u) {
+    var nameMatch = true;
+    if (query) {
+      var fullName = ((u.first_name || '') + ' ' + (u.last_name || '') + ' ' + (u.email || '')).toLowerCase();
+      nameMatch = fullName.indexOf(query) !== -1;
+    }
+    var roleMatch = !roleFilter || u.role === roleFilter;
+    var statusMatch = !statusFilter || u.status === statusFilter;
+    return nameMatch && roleMatch && statusMatch;
+  });
+
+  renderUsers(filtered);
+}
+
+function renderUsers(users) {
+  var tbody = document.getElementById('user-tbody');
+  document.getElementById('user-count').textContent = users.length + ' user' + (users.length !== 1 ? 's' : '');
+
+  if (users.length === 0) {
+    tbody.innerHTML = '<tr><td colspan="6" class="empty-state">No users found</td></tr>';
+    return;
+  }
+
+  var html = '';
+  users.forEach(function(user) {
+    var name = ((user.first_name || '') + ' ' + (user.last_name || '')).trim() || 'Unnamed';
+    var email = user.email || '--';
+    var role = _formatRole(user.role);
+    var tier = _formatTier(user.tier);
+    var status = user.status || 'pending';
+    var created = user.created_at ? new Date(user.created_at).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' }) : '--';
+    var uid = user.id || user.clerk_user_id;
+
+    html += '<tr onclick="toggleEditRow(\'' + uid + '\')" data-uid="' + uid + '">';
+    html += '  <td class="name-cell">' + _esc(name) + '</td>';
+    html += '  <td>' + _esc(email) + '</td>';
+    html += '  <td>' + role + '</td>';
+    html += '  <td>' + tier + '</td>';
+    html += '  <td><span class="badge ' + status + '">' + status + '</span></td>';
+    html += '  <td>' + created + '</td>';
+    html += '</tr>';
+
+    // Edit row
+    html += '<tr class="edit-row" id="edit-' + uid + '">';
+    html += '  <td colspan="6">';
+    html += '    <div class="edit-panel">';
+    html += '      <div class="edit-field">';
+    html += '        <label>Role</label>';
+    html += '        <select id="role-' + uid + '">';
+    html += '          <option value="homeowner"' + (user.role === 'homeowner' ? ' selected' : '') + '>Homeowner</option>';
+    html += '          <option value="builder"' + (user.role === 'builder' ? ' selected' : '') + '>Builder</option>';
+    html += '          <option value="interior_designer"' + (user.role === 'interior_designer' ? ' selected' : '') + '>Interior Designer</option>';
+    html += '          <option value="admin"' + (user.role === 'admin' ? ' selected' : '') + '>Admin</option>';
+    html += '        </select>';
+    html += '      </div>';
+    html += '      <div class="edit-field">';
+    html += '        <label>Tier</label>';
+    html += '        <select id="tier-' + uid + '">';
+    html += '          <option value=""' + (!user.tier ? ' selected' : '') + '>None</option>';
+    html += '          <option value="tier_1"' + (user.tier === 'tier_1' ? ' selected' : '') + '>Tier 1</option>';
+    html += '          <option value="tier_2"' + (user.tier === 'tier_2' ? ' selected' : '') + '>Tier 2</option>';
+    html += '          <option value="tier_3"' + (user.tier === 'tier_3' ? ' selected' : '') + '>Tier 3</option>';
+    html += '        </select>';
+    html += '      </div>';
+    html += '      <div class="edit-field">';
+    html += '        <label>Status</label>';
+    html += '        <select id="status-' + uid + '">';
+    html += '          <option value="active"' + (user.status === 'active' ? ' selected' : '') + '>Active</option>';
+    html += '          <option value="pending"' + (user.status === 'pending' ? ' selected' : '') + '>Pending</option>';
+    html += '          <option value="suspended"' + (user.status === 'suspended' ? ' selected' : '') + '>Suspended</option>';
+    html += '        </select>';
+    html += '      </div>';
+    html += '      <button class="save-btn" onclick="event.stopPropagation(); saveUser(\'' + uid + '\', \'' + (user.clerk_user_id || '') + '\')">Save Changes</button>';
+    html += '      <button class="cancel-edit-btn" onclick="event.stopPropagation(); closeEditRow(\'' + uid + '\')">Cancel</button>';
+    html += '    </div>';
+    html += '  </td>';
+    html += '</tr>';
+  });
+
+  tbody.innerHTML = html;
+
+  // Reopen the previously open edit row if still present
+  if (_openEditId) {
+    var editRow = document.getElementById('edit-' + _openEditId);
+    if (editRow) editRow.classList.add('open');
+  }
+}
+
+function toggleEditRow(uid) {
+  var editRow = document.getElementById('edit-' + uid);
+  if (!editRow) return;
+
+  if (editRow.classList.contains('open')) {
+    editRow.classList.remove('open');
+    _openEditId = null;
+  } else {
+    // Close any other open edit rows
+    document.querySelectorAll('.edit-row.open').forEach(function(el) { el.classList.remove('open'); });
+    editRow.classList.add('open');
+    _openEditId = uid;
+  }
+}
+
+function closeEditRow(uid) {
+  var editRow = document.getElementById('edit-' + uid);
+  if (editRow) editRow.classList.remove('open');
+  _openEditId = null;
+}
+
+async function saveUser(uid, clerkUserId) {
+  var newRole = document.getElementById('role-' + uid).value;
+  var newTier = document.getElementById('tier-' + uid).value || null;
+  var newStatus = document.getElementById('status-' + uid).value;
+
+  var saveBtn = document.querySelector('#edit-' + uid + ' .save-btn');
+  if (saveBtn) saveBtn.disabled = true;
+
+  var sb = await HCHCAuth.getAuthClient();
+  if (!sb) { showToast('Auth client unavailable', 'error'); if (saveBtn) saveBtn.disabled = false; return; }
+
+  try {
+    var updateData = { role: newRole, tier: newTier, status: newStatus };
+
+    // Update by id if numeric, otherwise by clerk_user_id
+    var query;
+    if (uid === clerkUserId || !clerkUserId) {
+      query = sb.from('user_profiles').update(updateData).eq('clerk_user_id', uid);
+    } else {
+      query = sb.from('user_profiles').update(updateData).eq('id', uid);
+    }
+
+    var result = await query;
+
+    if (result.error) {
+      showToast('Update failed: ' + result.error.message, 'error');
+      if (saveBtn) saveBtn.disabled = false;
+      return;
+    }
+
+    showToast('User updated successfully', 'success');
+
+    // Refresh data
+    await loadUsers();
+    filterUsers();
+  } catch (e) {
+    console.error('Save failed:', e);
+    showToast('Save failed. Check console.', 'error');
+    if (saveBtn) saveBtn.disabled = false;
+  }
+}
+
+function _esc(str) {
+  var d = document.createElement('div');
+  d.textContent = str || '';
+  return d.innerHTML;
+}
+
+function _formatRole(role) {
+  var map = { homeowner: 'Homeowner', builder: 'Builder', interior_designer: 'Interior Designer', admin: 'Admin' };
+  return map[role] || role || '--';
+}
+
+function _formatTier(tier) {
+  var map = { tier_1: 'Tier 1', tier_2: 'Tier 2', tier_3: 'Tier 3' };
+  return map[tier] || '--';
+}
+</script>
+
+<!-- Auth System -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2" async></script>
+<script
+  data-clerk-publishable-key="pk_test_cmFwaWQtbWFja2VyZWwtMjguY2xlcmsuYWNjb3VudHMuZGV2JA"
+  src="https://cdn.jsdelivr.net/npm/@clerk/clerk-js@4/dist/clerk.browser.js"
+  async>
+</script>
+<script src="/config.js"></script>
+<script src="/js/supabase-client.js"></script>
+<script src="/js/clerk-auth.js"></script>
+<script src="/js/route-guard.js"></script>
+<script src="/js/global-nav.js"></script>
+<script src="/js/page-init.js"></script>
+</body>
+</html>

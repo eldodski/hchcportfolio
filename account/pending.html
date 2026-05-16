@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Account Pending | HCHC Platform</title>
+<link rel="icon" type="image/png" sizes="32x32" href="/images/logo/favicon-32.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Jost:ital,wght@0,200;0,300;0,400;1,200&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --ivory: #F5F0EB;
+  --navy: #1B2A4A;
+  --espresso: #3C2A21;
+  --sand: #D4C5B2;
+  --mocha: #A37762;
+  --carrara: #E8E4E0;
+  --gold: #C4A265;
+  --heading: 'Cormorant Garamond', Georgia, serif;
+  --body: 'Jost', 'Segoe UI', sans-serif;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: var(--body);
+  font-weight: 400;
+  font-size: 17px;
+  line-height: 1.7;
+  color: var(--espresso);
+  background: var(--ivory);
+  -webkit-font-smoothing: antialiased;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 24px;
+}
+
+a { color: inherit; text-decoration: none; }
+
+h1, h2 {
+  font-family: var(--heading);
+  font-weight: 600;
+  color: var(--navy);
+  line-height: 1.2;
+}
+
+.pending-card {
+  background: #fff;
+  border: 1px solid var(--carrara);
+  padding: 56px 48px;
+  max-width: 520px;
+  width: 100%;
+  text-align: center;
+}
+
+.pending-card .wordmark {
+  display: block;
+  margin: 0 auto 36px;
+  height: 36px;
+}
+
+.pending-card .status-icon {
+  width: 64px;
+  height: 64px;
+  margin: 0 auto 28px;
+  background: var(--ivory);
+  border: 2px solid var(--gold);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.6rem;
+  color: var(--gold);
+}
+
+.pending-card h1 {
+  font-size: 1.6rem;
+  margin-bottom: 20px;
+}
+
+.pending-card .message {
+  font-size: 0.95rem;
+  color: var(--espresso);
+  margin: 0 auto 12px;
+  max-width: 400px;
+}
+
+.pending-card .user-email {
+  font-weight: 400;
+  color: var(--navy);
+  font-size: 0.95rem;
+  margin-bottom: 36px;
+}
+
+.btn {
+  display: inline-block;
+  font-family: var(--body);
+  font-weight: 300;
+  font-size: 0.85rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 15px 36px;
+  border: none;
+  cursor: pointer;
+  transition: background 0.3s ease, color 0.3s ease;
+  text-decoration: none;
+}
+
+.btn-outline {
+  background: transparent;
+  color: var(--navy);
+  border: 1px solid var(--navy);
+}
+
+.btn-outline:hover {
+  background: var(--navy);
+  color: var(--ivory);
+}
+
+.contact-note {
+  margin-top: 24px;
+  font-size: 0.82rem;
+  color: var(--mocha);
+}
+
+.contact-note a {
+  color: var(--navy);
+  border-bottom: 1px solid var(--gold);
+}
+</style>
+</head>
+<body>
+
+<div class="pending-card">
+  <img src="/images/logo/hchc-wordmark-navy.svg" alt="Hill Country Home Concepts" class="wordmark">
+  <div class="status-icon">&#9203;</div>
+  <h1>Account Pending Approval</h1>
+  <p class="message">Thank you for signing up. Your account is currently being reviewed. You will receive an email at</p>
+  <p class="user-email" id="user-email">your registered address</p>
+  <p class="message">once your account has been approved.</p>
+  <button class="btn btn-outline" id="sign-out-btn" onclick="HCHCAuth.signOut()">Sign Out</button>
+  <p class="contact-note">Questions? Contact <a href="mailto:ena.dodski@hillcountryhomeconcepts.com">ena.dodski@hillcountryhomeconcepts.com</a></p>
+</div>
+
+<!-- Auth System -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2" async></script>
+<script
+  data-clerk-publishable-key="pk_test_cmFwaWQtbWFja2VyZWwtMjguY2xlcmsuYWNjb3VudHMuZGV2JA"
+  src="https://cdn.jsdelivr.net/npm/@clerk/clerk-js@4/dist/clerk.browser.js"
+  async>
+</script>
+<script src="/config.js"></script>
+<script src="/js/supabase-client.js"></script>
+<script src="/js/clerk-auth.js"></script>
+<script src="/js/route-guard.js"></script>
+<script src="/js/global-nav.js"></script>
+<script src="/js/page-init.js"></script>
+<script>
+HCHCAuth.onReady(function() {
+  if (!HCHCAuth.isSignedIn()) {
+    window.location.href = '/login.html';
+    return;
+  }
+  var profile = HCHCAuth.getProfile();
+  var emailEl = document.getElementById('user-email');
+  if (profile && profile.email) {
+    emailEl.textContent = profile.email;
+  } else if (window.Clerk && window.Clerk.user) {
+    emailEl.textContent = window.Clerk.user.primaryEmailAddress
+      ? window.Clerk.user.primaryEmailAddress.emailAddress
+      : 'your registered address';
+  }
+});
+</script>
+</body>
+</html>
