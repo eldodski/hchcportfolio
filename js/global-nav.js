@@ -477,6 +477,8 @@
       label: 'Overview',
       links: [
         { name: 'Admin Dashboard', href: '/admin/', icon: '\u{1F3E0}' },
+        { name: 'User Dashboard', href: '/dashboard/', icon: '\u{1F4CB}' },
+        { name: 'View Site', href: '/', icon: '\u{1F310}' },
       ]
     },
     {
