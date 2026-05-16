@@ -489,15 +489,7 @@
     {
       label: 'Content',
       links: [
-        { name: 'Content Queue', href: '/admin/content-queue.html', icon: '\u{1F4DD}' },
         { name: 'Social Media Queue', href: '/dashboard/social-queue.html', icon: '\u{1F4F1}' },
-        { name: 'Posts', href: '/admin/posts.html', icon: '\u{1F4F0}' },
-      ]
-    },
-    {
-      label: 'Projects',
-      links: [
-        { name: 'Project Review', href: '/admin/project-review.html', icon: '\u{1F4C1}' },
       ]
     },
     {
@@ -505,7 +497,6 @@
       links: [
         { name: 'Material Library', href: '/materials.html', icon: '\u{1F3A8}' },
         { name: 'Presentation Engine', href: '/presentation-engine.html', icon: '\u{1F4CA}' },
-        { name: 'Platform Settings', href: '/admin/settings.html', icon: '\u2699' },
       ]
     },
   ];
