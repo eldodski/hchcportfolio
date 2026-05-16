@@ -394,8 +394,11 @@ HCHCAuth.onReady(async () => {
   const role = HCHCAuth.getRole() || 'homeowner';
   const name = HCHCAuth.getFirstName() || 'User';
 
-  document.getElementById('user-display').textContent = name;
-  document.getElementById('signout-btn').style.display = 'block';
+  // user-display and signout-btn are now handled by global-nav
+  const userEl = document.getElementById('user-display');
+  if (userEl) userEl.textContent = name;
+  const signoutEl = document.getElementById('signout-btn');
+  if (signoutEl) signoutEl.style.display = 'block';
 
   renderDashboard(role, name);
 });
