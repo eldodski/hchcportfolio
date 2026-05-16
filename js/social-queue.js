@@ -7,19 +7,19 @@ let editingPostId = null;
 // ============ INITIALIZATION ============
 
 async function initSocialQueue() {
-  const clerk = await initClerk();
-  if (!clerk || !clerk.user) {
+  await HCHCAuth.init();
+  if (!HCHCAuth.isSignedIn()) {
     document.getElementById('queue-content').innerHTML = `
       <div style="text-align:center; padding:80px 24px;">
         <h2 style="font-family:var(--heading); color:var(--navy); margin-bottom:12px;">Sign In Required</h2>
         <p style="color:var(--mocha); margin-bottom:24px;">You need to sign in to access the social queue.</p>
-        <button class="btn btn-primary" onclick="openSignIn()">Sign In</button>
+        <button class="btn btn-primary" onclick="HCHCAuth.openSignIn()">Sign In</button>
       </div>`;
     return;
   }
 
-  const role = getUserRole();
-  if (role !== 'admin' && role !== 'designer') {
+  const role = HCHCAuth.getRole();
+  if (role !== 'admin' && role !== 'interior_designer') {
     document.getElementById('queue-content').innerHTML = `
       <div style="text-align:center; padding:80px 24px;">
         <h2 style="font-family:var(--heading); color:var(--navy);">Access Denied</h2>
