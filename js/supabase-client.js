@@ -163,6 +163,23 @@ async function getPublishedPosts(filters = {}) {
   return data;
 }
 
+async function getLatestPosts(filters = {}) {
+  const sb = getSupabase();
+  const limit = filters.limit || 6;
+
+  let query = sb.from('social_posts').select('*')
+    .eq('status', 'published')
+    .order('pinned', { ascending: false })
+    .order('published_at', { ascending: false })
+    .limit(limit);
+
+  if (filters.content_tag) query = query.eq('content_tag', filters.content_tag);
+
+  const { data, error } = await query;
+  if (error) { console.error('getLatestPosts error:', error); return []; }
+  return data;
+}
+
 async function getPublishedPostCount(filters = {}) {
   const sb = getSupabase();
   let query = sb.from('social_posts').select('id', { count: 'exact', head: true })

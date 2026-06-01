@@ -80,9 +80,13 @@ function renderPostCard(post) {
     return `<span class="platform-icon">${icons[p] || p}</span>`;
   }).join('');
 
+  const displayTitle = post.title || '';
   const caption = post.caption
     ? (post.caption.length > 80 ? post.caption.substring(0, 80) + '...' : post.caption)
     : 'No caption';
+  const contentTagLabel = post.content_tag
+    ? { projects: 'Projects', tips: 'Tips & Ideas', process: 'Process' }[post.content_tag] || post.content_tag
+    : '';
 
   const scheduledInfo = post.scheduled_at
     ? `<span class="post-schedule">Scheduled: ${new Date(post.scheduled_at).toLocaleDateString()}</span>`
@@ -123,9 +127,12 @@ function renderPostCard(post) {
           ? `<img src="${post.image_url}" alt="${post.alt_text || 'Post image'}" class="post-thumb" loading="lazy">`
           : '<div class="post-thumb-empty">No Image</div>'}
         <div class="post-info">
+          ${displayTitle ? `<p class="post-caption" style="font-weight:400;margin-bottom:2px;">${escapeHtml(displayTitle)}</p>` : ''}
           <p class="post-caption">${escapeHtml(caption)}</p>
           <div class="post-meta">
             <span class="status-badge ${statusClass}">${post.status}</span>
+            ${post.pinned ? '<span class="platform-icon" style="background:rgba(196,162,101,0.2);color:var(--gold);">Pinned</span>' : ''}
+            ${contentTagLabel ? `<span class="platform-icon">${contentTagLabel}</span>` : ''}
             ${platformIcons ? `<span class="post-platforms">${platformIcons}</span>` : ''}
             ${post.project_type ? `<span class="post-type">${post.project_type}</span>` : ''}
           </div>
@@ -233,6 +240,7 @@ function openCreateModal() {
   document.getElementById('post-form').reset();
   document.getElementById('image-preview').innerHTML = '';
   document.getElementById('char-count').textContent = '0 / 2200';
+  document.getElementById('post-pinned').checked = false;
   document.getElementById('post-modal').classList.add('open');
   document.body.style.overflow = 'hidden';
 }
@@ -245,10 +253,13 @@ async function openEditModal(id) {
   const post = posts.find(p => p.id === id);
   if (!post) return;
 
+  document.getElementById('post-title').value = post.title || '';
   document.getElementById('post-caption').value = post.caption || '';
   document.getElementById('post-hashtags').value = (post.hashtags || []).join(', ');
+  document.getElementById('post-content-tag').value = post.content_tag || '';
   document.getElementById('post-alt-text').value = post.alt_text || '';
   document.getElementById('post-project-type').value = post.project_type || '';
+  document.getElementById('post-pinned').checked = post.pinned || false;
   document.getElementById('post-schedule').value = post.scheduled_at
     ? new Date(post.scheduled_at).toISOString().slice(0, 16) : '';
 
@@ -287,13 +298,21 @@ async function handlePostSubmit(e) {
   btn.textContent = 'Saving...';
 
   try {
+    const title = document.getElementById('post-title').value.trim();
     const caption = document.getElementById('post-caption').value.trim();
     const hashtagStr = document.getElementById('post-hashtags').value.trim();
     const hashtags = hashtagStr ? hashtagStr.split(',').map(h => h.trim().replace(/^#/, '')) : [];
+    const contentTag = document.getElementById('post-content-tag').value;
     const altText = document.getElementById('post-alt-text').value.trim();
     const projectType = document.getElementById('post-project-type').value;
+    const pinned = document.getElementById('post-pinned').checked;
     const scheduleVal = document.getElementById('post-schedule').value;
     const scheduled_at = scheduleVal ? new Date(scheduleVal).toISOString() : null;
+
+    // Auto-generate slug from title
+    const slug = title
+      ? title.toLowerCase().replace(/[^a-z0-9\s-]/g, '').replace(/\s+/g, '-').replace(/-+/g, '-').substring(0, 80)
+      : null;
 
     const platforms = [];
     if (document.getElementById('plat-instagram')?.checked) platforms.push('instagram');
@@ -312,10 +331,14 @@ async function handlePostSubmit(e) {
     }
 
     const postData = {
+      title: title || null,
       caption: caption || null,
       hashtags,
+      content_tag: contentTag || null,
       alt_text: altText || null,
       project_type: projectType || null,
+      pinned,
+      slug,
       platforms,
       scheduled_at
     };
@@ -355,12 +378,19 @@ async function submitForReview() {
   const form = document.getElementById('post-form');
   const formData = new FormData(form);
 
+  const title = document.getElementById('post-title').value.trim();
   const caption = document.getElementById('post-caption').value.trim();
   const hashtagStr = document.getElementById('post-hashtags').value.trim();
   const hashtags = hashtagStr ? hashtagStr.split(',').map(h => h.trim().replace(/^#/, '')) : [];
+  const contentTag = document.getElementById('post-content-tag').value;
   const altText = document.getElementById('post-alt-text').value.trim();
   const projectType = document.getElementById('post-project-type').value;
+  const pinned = document.getElementById('post-pinned').checked;
   const scheduleVal = document.getElementById('post-schedule').value;
+
+  const slug = title
+    ? title.toLowerCase().replace(/[^a-z0-9\s-]/g, '').replace(/\s+/g, '-').replace(/-+/g, '-').substring(0, 80)
+    : null;
 
   const platforms = [];
   if (document.getElementById('plat-instagram')?.checked) platforms.push('instagram');
@@ -383,10 +413,14 @@ async function submitForReview() {
     }
 
     const postData = {
+      title: title || null,
       caption: caption || null,
       hashtags,
+      content_tag: contentTag || null,
       alt_text: altText || null,
       project_type: projectType || null,
+      pinned,
+      slug,
       platforms,
       scheduled_at: scheduleVal ? new Date(scheduleVal).toISOString() : null,
       status: 'pending',

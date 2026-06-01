@@ -629,6 +629,12 @@ body {
         <div id="image-preview"></div>
       </div>
 
+      <!-- Title (for Latest feed on public site) -->
+      <div class="form-group">
+        <label for="post-title">Title (shown on website Latest feed)</label>
+        <input type="text" id="post-title" placeholder="e.g. The Navy Kitchen" maxlength="120">
+      </div>
+
       <!-- Caption -->
       <div class="form-group">
         <label for="post-caption">Caption</label>
@@ -640,6 +646,17 @@ body {
       <div class="form-group">
         <label for="post-hashtags">Hashtags (comma-separated)</label>
         <input type="text" id="post-hashtags" placeholder="interiordesign, hillcountry, kitchenreno">
+      </div>
+
+      <!-- Content Tag (for Latest feed filtering) -->
+      <div class="form-group">
+        <label for="post-content-tag">Content Tag (website filter category)</label>
+        <select id="post-content-tag">
+          <option value="">None</option>
+          <option value="projects">Projects</option>
+          <option value="tips">Tips &amp; Ideas</option>
+          <option value="process">Process</option>
+        </select>
       </div>
 
       <!-- Platforms -->
@@ -666,6 +683,13 @@ body {
           <option value="exterior">Exterior</option>
           <option value="moodboard">Mood Board</option>
         </select>
+      </div>
+
+      <!-- Pinned -->
+      <div class="form-group">
+        <div class="checkbox-group">
+          <label><input type="checkbox" id="post-pinned"> Pin to top of Latest feed (max 2)</label>
+        </div>
       </div>
 
       <!-- Alt Text -->

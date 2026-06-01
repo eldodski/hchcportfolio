@@ -1,0 +1,189 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Change Order Parser Output",
+  "description": "Universal schema for parsed change order / selection sheet data. Gemini returns this structure regardless of builder format.",
+  "type": "object",
+  "properties": {
+    "project": {
+      "type": "object",
+      "description": "Project-level metadata extracted from the document header",
+      "properties": {
+        "builder_name": { "type": ["string", "null"] },
+        "client_name": { "type": ["string", "null"] },
+        "address": { "type": ["string", "null"] },
+        "subdivision": { "type": ["string", "null"] },
+        "lot": { "type": ["string", "null"] },
+        "plan_name": { "type": ["string", "null"] },
+        "date": { "type": ["string", "null"], "description": "ISO date string or original date text" }
+      }
+    },
+    "rooms": {
+      "type": "array",
+      "description": "One entry per distinct room or area mentioned in the document",
+      "items": {
+        "type": "object",
+        "properties": {
+          "label": { "type": "string", "description": "Human-readable room name, e.g. 'Kitchen', 'Master Bath', 'Bath 2'" },
+          "type": { "type": "string", "enum": ["kitchen", "bathroom", "bedroom", "living", "dining", "office", "utility", "exterior", "hallway", "whole_home", "other"] },
+          "paint": {
+            "type": ["object", "null"],
+            "properties": {
+              "vendor": { "type": ["string", "null"] },
+              "color": { "type": ["string", "null"] },
+              "code": { "type": ["string", "null"], "description": "Paint code like PPG 1001-1" },
+              "application": { "type": ["string", "null"], "description": "walls, trim, accent, ceiling" },
+              "installNotes": { "type": "string", "default": "" }
+            }
+          },
+          "flooring": {
+            "type": ["array", "null"],
+            "items": {
+              "type": "object",
+              "properties": {
+                "vendor": { "type": ["string", "null"] },
+                "series": { "type": ["string", "null"] },
+                "color": { "type": ["string", "null"] },
+                "materialType": { "type": ["string", "null"], "description": "LVP, Hardwood, Carpet, Tile" },
+                "direction": { "type": ["string", "null"], "description": "Installation direction: front to back, left to right, etc." },
+                "pad": { "type": ["string", "null"], "description": "Carpet pad type if applicable" },
+                "installNotes": { "type": "string", "default": "" }
+              }
+            }
+          },
+          "cabinetry": {
+            "type": ["object", "null"],
+            "properties": {
+              "vendor": { "type": ["string", "null"] },
+              "wood": { "type": ["string", "null"], "description": "Wood species or level" },
+              "door_style": { "type": ["string", "null"] },
+              "finish": { "type": ["string", "null"] },
+              "installNotes": { "type": "string", "default": "" }
+            }
+          },
+          "countertops": {
+            "type": ["object", "null"],
+            "properties": {
+              "vendor": { "type": ["string", "null"] },
+              "material": { "type": ["string", "null"], "description": "Granite, Quartz, Marble, etc." },
+              "color": { "type": ["string", "null"] },
+              "edge": { "type": ["string", "null"], "description": "Edge profile: flat, beveled, bullnose, etc." },
+              "installNotes": { "type": "string", "default": "" }
+            }
+          },
+          "backsplash": {
+            "type": ["object", "null"],
+            "properties": {
+              "vendor": { "type": ["string", "null"] },
+              "series": { "type": ["string", "null"] },
+              "color": { "type": ["string", "null"] },
+              "size": { "type": ["string", "null"], "description": "Tile dimensions" },
+              "grout_color": { "type": ["string", "null"] },
+              "pattern": { "type": ["string", "null"], "description": "Herringbone, stacked, offset, etc." },
+              "installNotes": { "type": "string", "default": "" }
+            }
+          },
+          "tile": {
+            "type": ["array", "null"],
+            "description": "Wall tile, shower tile, floor tile for bathrooms",
+            "items": {
+              "type": "object",
+              "properties": {
+                "vendor": { "type": ["string", "null"] },
+                "series": { "type": ["string", "null"] },
+                "color": { "type": ["string", "null"] },
+                "size": { "type": ["string", "null"] },
+                "application": { "type": ["string", "null"], "description": "field tile, accent, niche, floor, shower wall, tub surround" },
+                "grout_color": { "type": ["string", "null"] },
+                "pattern": { "type": ["string", "null"] },
+                "installNotes": { "type": "string", "default": "" }
+              }
+            }
+          },
+          "hardware": {
+            "type": ["object", "null"],
+            "properties": {
+              "vendor": { "type": ["string", "null"] },
+              "series": { "type": ["string", "null"] },
+              "color": { "type": ["string", "null"] },
+              "installNotes": { "type": "string", "default": "" }
+            }
+          },
+          "plumbing": {
+            "type": ["array", "null"],
+            "description": "Faucets, sinks, shower fixtures, accessories",
+            "items": {
+              "type": "object",
+              "properties": {
+                "vendor": { "type": ["string", "null"] },
+                "fixture_type": { "type": ["string", "null"], "description": "faucet, sink, shower valve, tub faucet, towel bar, paper holder, etc." },
+                "series": { "type": ["string", "null"] },
+                "color": { "type": ["string", "null"] },
+                "model_number": { "type": ["string", "null"] },
+                "installNotes": { "type": "string", "default": "" }
+              }
+            }
+          },
+          "lighting": {
+            "type": ["object", "null"],
+            "properties": {
+              "vendor": { "type": ["string", "null"] },
+              "series": { "type": ["string", "null"] },
+              "finish": { "type": ["string", "null"] },
+              "package_level": { "type": ["string", "null"] },
+              "installNotes": { "type": "string", "default": "" }
+            }
+          },
+          "fireplace": {
+            "type": ["object", "null"],
+            "properties": {
+              "style": { "type": ["string", "null"] },
+              "material": { "type": ["string", "null"], "description": "Stone, tile, etc." },
+              "cut": { "type": ["string", "null"] },
+              "grout_mortar": { "type": ["string", "null"] },
+              "mantel": { "type": ["string", "null"] },
+              "installNotes": { "type": "string", "default": "" }
+            }
+          },
+          "doors": {
+            "type": ["object", "null"],
+            "properties": {
+              "style": { "type": ["string", "null"] },
+              "hardware_style": { "type": ["string", "null"] },
+              "hardware_finish": { "type": ["string", "null"] },
+              "installNotes": { "type": "string", "default": "" }
+            }
+          }
+        },
+        "required": ["label", "type"]
+      }
+    },
+    "change_orders": {
+      "type": "array",
+      "description": "Individual line items from the change order section, if present",
+      "items": {
+        "type": "object",
+        "properties": {
+          "item_number": { "type": ["string", "null"] },
+          "location": { "type": ["string", "null"] },
+          "description": { "type": "string" },
+          "model_number": { "type": ["string", "null"] },
+          "quantity": { "type": ["number", "null"] },
+          "unit_price": { "type": ["number", "null"] },
+          "total_price": { "type": ["number", "null"] }
+        }
+      }
+    },
+    "flags": {
+      "type": "array",
+      "description": "Anything ambiguous, illegible, or conflicting that needs human review",
+      "items": {
+        "type": "object",
+        "properties": {
+          "field": { "type": "string", "description": "Which field or room the flag applies to" },
+          "issue": { "type": "string", "description": "What is ambiguous or unclear" }
+        }
+      }
+    }
+  },
+  "required": ["project", "rooms"]
+}

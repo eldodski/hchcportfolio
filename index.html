@@ -1348,61 +1348,9 @@ footer {
       <button class="filter-pill" data-filter="process">Process</button>
     </div>
 
-    <!-- Static placeholder cards — will be replaced by Supabase feed -->
-    <div class="latest-grid fade-in">
-      <div class="latest-card" data-tag="projects">
-        <img src="pro_photos/new-navy-kitchen.png" alt="Navy kitchen island with copper pendants" loading="lazy">
-        <div class="latest-card-body">
-          <div class="latest-card-tag">Projects</div>
-          <div class="latest-card-title">The Navy Kitchen</div>
-          <div class="latest-card-date">May 2026</div>
-        </div>
-      </div>
-
-      <div class="latest-card" data-tag="process">
-        <img src="pro_photos/modern-contrast.webp" alt="Modern contrast material palette" loading="lazy">
-        <div class="latest-card-body">
-          <div class="latest-card-tag">Process</div>
-          <div class="latest-card-title">Modern Contrast: Material Palette</div>
-          <div class="latest-card-date">May 2026</div>
-        </div>
-      </div>
-
-      <div class="latest-card" data-tag="projects">
-        <img src="pro_photos/new-hero.png" alt="Primary bathroom spa retreat" loading="lazy">
-        <div class="latest-card-body">
-          <div class="latest-card-tag">Projects</div>
-          <div class="latest-card-title">The Primary Bath Retreat</div>
-          <div class="latest-card-date">April 2026</div>
-        </div>
-      </div>
-
-      <div class="latest-card" data-tag="tips">
-        <img src="pro_photos/walnut-dining.webp" alt="Walnut dining table with warm styling" loading="lazy">
-        <div class="latest-card-body">
-          <div class="latest-card-tag">Tips &amp; Ideas</div>
-          <div class="latest-card-title">Choosing the Right Dining Table</div>
-          <div class="latest-card-date">April 2026</div>
-        </div>
-      </div>
-
-      <div class="latest-card" data-tag="process">
-        <img src="pro_photos/trad-residence.webp" alt="Traditional residence mood board" loading="lazy">
-        <div class="latest-card-body">
-          <div class="latest-card-tag">Process</div>
-          <div class="latest-card-title">Inside the Mood Board</div>
-          <div class="latest-card-date">April 2026</div>
-        </div>
-      </div>
-
-      <div class="latest-card" data-tag="projects">
-        <img src="pro_photos/sunroom-living.webp" alt="Hill Country sunroom living space" loading="lazy">
-        <div class="latest-card-body">
-          <div class="latest-card-tag">Projects</div>
-          <div class="latest-card-title">The Sunroom</div>
-          <div class="latest-card-date">March 2026</div>
-        </div>
-      </div>
+    <!-- Live feed from Supabase social_posts -->
+    <div class="latest-grid fade-in" id="latest-grid">
+      <div class="latest-card" style="grid-column:1/-1;text-align:center;padding:40px;color:var(--dusty-blue);">Loading...</div>
     </div>
 
     <div class="latest-footer fade-in">
@@ -1658,23 +1606,58 @@ footer {
     });
   });
 
-  // Filter pills (client-side)
+  // Filter pills — Supabase-powered Latest feed
   var pills = document.querySelectorAll('.filter-pill');
-  var cards = document.querySelectorAll('.latest-card');
+  var latestGrid = document.getElementById('latest-grid');
+  var tagLabels = { projects: 'Projects', tips: 'Tips & Ideas', process: 'Process' };
+
+  function renderLatestCards(posts) {
+    if (!posts || posts.length === 0) {
+      latestGrid.innerHTML = '<div class="latest-card" style="grid-column:1/-1;text-align:center;padding:40px;color:var(--dusty-blue);">No posts yet. Check back soon.</div>';
+      return;
+    }
+    latestGrid.innerHTML = posts.map(function(post) {
+      var date = post.published_at ? new Date(post.published_at).toLocaleDateString('en-US', { month: 'long', year: 'numeric' }) : '';
+      var tag = post.content_tag ? (tagLabels[post.content_tag] || post.content_tag) : '';
+      var title = post.title || (post.caption ? post.caption.substring(0, 50) : 'Untitled');
+      var imgSrc = post.image_url || '';
+      var alt = post.alt_text || 'Design project by Hill Country Home Concepts';
+      var slug = post.slug ? '/social/#' + post.slug : '/social/';
+      return '<a class="latest-card" href="' + slug + '" data-tag="' + (post.content_tag || '') + '">'
+        + (imgSrc ? '<img src="' + imgSrc + '" alt="' + alt.replace(/"/g, '&quot;') + '" loading="lazy">' : '')
+        + '<div class="latest-card-body">'
+        + (tag ? '<div class="latest-card-tag">' + tag + '</div>' : '')
+        + '<div class="latest-card-title">' + title.replace(/</g, '&lt;') + '</div>'
+        + '<div class="latest-card-date">' + date + '</div>'
+        + '</div></a>';
+    }).join('');
+  }
+
+  function loadLatestFeed(contentTag) {
+    var filters = { limit: 6 };
+    if (contentTag && contentTag !== 'all') filters.content_tag = contentTag;
+    if (typeof getLatestPosts === 'function') {
+      getLatestPosts(filters).then(renderLatestCards);
+    }
+  }
+
   pills.forEach(function(pill) {
     pill.addEventListener('click', function() {
       pills.forEach(function(p) { p.classList.remove('active'); });
       pill.classList.add('active');
-      var filter = pill.getAttribute('data-filter');
-      cards.forEach(function(card) {
-        if (filter === 'all' || card.getAttribute('data-tag') === filter) {
-          card.style.display = '';
-        } else {
-          card.style.display = 'none';
-        }
-      });
+      loadLatestFeed(pill.getAttribute('data-filter'));
     });
   });
+
+  // Initial load — wait for Supabase SDK
+  function initLatestFeed() {
+    if (typeof getLatestPosts === 'function' && typeof HCHC_CONFIG !== 'undefined') {
+      loadLatestFeed('all');
+    } else {
+      setTimeout(initLatestFeed, 200);
+    }
+  }
+  initLatestFeed();
 })();
 </script>
 
