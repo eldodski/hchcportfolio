@@ -234,19 +234,39 @@ async function deleteSocialPost(id) {
 }
 
 async function uploadSocialImage(file) {
-  const sb = getSupabase();
   const ext = file.name.split('.').pop();
   const filename = `${crypto.randomUUID()}.${ext}`;
 
-  const { error } = await sb.storage.from('social-images').upload(filename, file, {
-    cacheControl: '3600',
-    upsert: false
+  // Use server-side upload proxy to bypass storage RLS
+  const base64 = await _fileToBase64(file);
+  const res = await fetch('/api/upload', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      bucket: 'social-images',
+      filename,
+      contentType: file.type,
+      fileBase64: base64,
+    }),
   });
 
-  if (error) { console.error('uploadSocialImage error:', error); throw error; }
+  const result = await res.json();
+  if (!res.ok) {
+    console.error('uploadSocialImage error:', result);
+    throw new Error(result.error || 'Image upload failed');
+  }
 
-  const { data: urlData } = sb.storage.from('social-images').getPublicUrl(filename);
-  return { url: urlData.publicUrl, path: filename };
+  return { url: result.url, path: result.path };
+}
+
+// Convert a File to base64 string (without data URL prefix)
+function _fileToBase64(file) {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = () => resolve(reader.result.split(',')[1]);
+    reader.onerror = reject;
+    reader.readAsDataURL(file);
+  });
 }
 
 async function deleteSocialImage(path) {

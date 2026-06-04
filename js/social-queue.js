@@ -331,17 +331,19 @@ async function handlePostSubmit(e) {
     }
 
     const postData = {
-      title: title || null,
       caption: caption || null,
       hashtags,
-      content_tag: contentTag || null,
       alt_text: altText || null,
       project_type: projectType || null,
-      pinned,
-      slug,
       platforms,
       scheduled_at
     };
+
+    // Only include columns that may not exist yet (requires migration)
+    if (title) postData.title = title;
+    if (contentTag) postData.content_tag = contentTag;
+    if (slug) postData.slug = slug;
+    if (pinned) postData.pinned = pinned;
 
     if (image_url) {
       postData.image_url = image_url;
@@ -354,7 +356,21 @@ async function handlePostSubmit(e) {
     } else {
       postData.created_by = HCHCAuth.getUser()?.id;
       postData.status = 'draft';
-      await createSocialPost(postData);
+      // Try full insert; if columns don't exist, retry without optional fields
+      try {
+        await createSocialPost(postData);
+      } catch (insertErr) {
+        if (insertErr?.code === '42703') {
+          // Column doesn't exist — strip optional fields and retry
+          delete postData.title;
+          delete postData.content_tag;
+          delete postData.slug;
+          delete postData.pinned;
+          await createSocialPost(postData);
+        } else {
+          throw insertErr;
+        }
+      }
       showToast('Post created as draft');
     }
 
@@ -362,7 +378,8 @@ async function handlePostSubmit(e) {
     await loadPosts();
   } catch (err) {
     console.error('Save error:', err);
-    showToast('Error saving post. Try again.');
+    const msg = err?.message || (typeof err === 'string' ? err : 'Unknown error');
+    showToast('Error: ' + msg);
   } finally {
     btn.disabled = false;
     btn.textContent = originalText;
@@ -413,19 +430,21 @@ async function submitForReview() {
     }
 
     const postData = {
-      title: title || null,
       caption: caption || null,
       hashtags,
-      content_tag: contentTag || null,
       alt_text: altText || null,
       project_type: projectType || null,
-      pinned,
-      slug,
       platforms,
       scheduled_at: scheduleVal ? new Date(scheduleVal).toISOString() : null,
       status: 'pending',
       created_by: HCHCAuth.getUser()?.id
     };
+
+    // Only include columns that may not exist yet (requires migration)
+    if (title) postData.title = title;
+    if (contentTag) postData.content_tag = contentTag;
+    if (slug) postData.slug = slug;
+    if (pinned) postData.pinned = pinned;
 
     if (image_url) {
       postData.image_url = image_url;
@@ -436,7 +455,20 @@ async function submitForReview() {
       postData.status = 'pending';
       await updateSocialPost(editingPostId, postData);
     } else {
-      await createSocialPost(postData);
+      // Try full insert; if columns don't exist, retry without optional fields
+      try {
+        await createSocialPost(postData);
+      } catch (insertErr) {
+        if (insertErr?.code === '42703') {
+          delete postData.title;
+          delete postData.content_tag;
+          delete postData.slug;
+          delete postData.pinned;
+          await createSocialPost(postData);
+        } else {
+          throw insertErr;
+        }
+      }
     }
 
     showToast('Post submitted for review');
@@ -444,7 +476,8 @@ async function submitForReview() {
     await loadPosts();
   } catch (err) {
     console.error('Submit error:', err);
-    showToast('Error submitting post.');
+    const msg = err?.message || (typeof err === 'string' ? err : 'Unknown error');
+    showToast('Error: ' + msg);
   } finally {
     btn.disabled = false;
     btn.textContent = 'Submit for Review';
