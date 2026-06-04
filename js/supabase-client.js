@@ -167,14 +167,31 @@ async function getLatestPosts(filters = {}) {
   const sb = getSupabase();
   const limit = filters.limit || 6;
 
+  // Try full query with pinned/content_tag columns first
   let query = sb.from('social_posts').select('*')
     .eq('status', 'published')
-    .order('pinned', { ascending: false })
     .order('published_at', { ascending: false })
     .limit(limit);
 
-  if (filters.content_tag) query = query.eq('content_tag', filters.content_tag);
+  // Only add pinned ordering and content_tag filter if columns exist
+  try {
+    let fullQuery = sb.from('social_posts').select('*')
+      .eq('status', 'published')
+      .order('pinned', { ascending: false })
+      .order('published_at', { ascending: false })
+      .limit(limit);
 
+    if (filters.content_tag) fullQuery = fullQuery.eq('content_tag', filters.content_tag);
+
+    const { data, error } = await fullQuery;
+    if (!error) return data || [];
+    // If pinned/content_tag columns don't exist, fall through to basic query
+    console.warn('getLatestPosts: falling back to basic query (missing columns)');
+  } catch (e) {
+    console.warn('getLatestPosts: falling back to basic query', e);
+  }
+
+  // Fallback: no pinned ordering, no content_tag filter
   const { data, error } = await query;
   if (error) { console.error('getLatestPosts error:', error); return []; }
   return data;
