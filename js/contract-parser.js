@@ -550,23 +550,95 @@ Use these exact category values: flooring, countertops, backsplash, cabinetry, w
     return 'application/octet-stream';
   }
 
-  // ── API Call ───────────────────────────────────────────────────────
+  // ── Helper: parse error from response ─────────────────────────────
+
+  function parseApiError(errBody, status) {
+    if (!errBody) return 'API returned status ' + status;
+    if (typeof errBody.error === 'object') return errBody.error.message || JSON.stringify(errBody.error);
+    return errBody.error || ('API returned status ' + status);
+  }
+
+  // ── API Call (two-step: upload to Gemini, then generate) ──────────
 
   async function extractFromDocument(file) {
-    const base64Data = await readFileAsBase64(file);
-    const mimeType = getMimeType(file);
+    var mimeType = getMimeType(file);
 
-    // Use the file upload endpoint to avoid Vercel body size limits.
-    // Uploads file to Gemini File API first, then calls generateContent.
+    // Step 1: Get a Gemini upload URL from our lightweight API (tiny JSON body, no file data)
+    var uploadUrlRes;
+    try {
+      uploadUrlRes = await fetch('/api/gemini-upload', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ mimeType: mimeType, fileName: file.name, fileSize: file.size })
+      });
+    } catch (networkErr) {
+      throw new Error('Network error: Could not reach the server. ' + (networkErr.message || ''));
+    }
+    if (!uploadUrlRes.ok) {
+      var e1; try { e1 = await uploadUrlRes.json(); } catch (_) { e1 = {}; }
+      throw new Error(parseApiError(e1, uploadUrlRes.status));
+    }
+    var uploadData = await uploadUrlRes.json();
+    var uploadUrl = uploadData.uploadUrl;
+    if (!uploadUrl) throw new Error('Server did not return an upload URL.');
+
+    // Step 2: Upload file directly to Gemini (bypasses Vercel body limit entirely)
+    var fileBuffer = await file.arrayBuffer();
+    var uploadRes;
+    try {
+      uploadRes = await fetch(uploadUrl, {
+        method: 'POST',
+        headers: {
+          'Content-Length': String(file.size),
+          'X-Goog-Upload-Offset': '0',
+          'X-Goog-Upload-Command': 'upload, finalize',
+        },
+        body: fileBuffer
+      });
+    } catch (networkErr) {
+      throw new Error('File upload to Gemini failed: ' + (networkErr.message || ''));
+    }
+    if (!uploadRes.ok) {
+      throw new Error('File upload failed with status ' + uploadRes.status);
+    }
+    var fileData = await uploadRes.json();
+    var fileUri = fileData.file && fileData.file.uri;
+    var fileName2 = fileData.file && fileData.file.name;
+    if (!fileUri) throw new Error('Upload succeeded but no file URI returned.');
+
+    // Step 3: Poll until file is ACTIVE (Gemini needs time to process PDFs)
+    var state = (fileData.file && fileData.file.state) || 'PROCESSING';
+    var attempts = 0;
+    while (state === 'PROCESSING' && attempts < 30) {
+      await new Promise(function (r) { setTimeout(r, 2000); });
+      try {
+        // Poll via our upload endpoint to avoid exposing the API key
+        // Actually, the status URL is public once you have the file name
+        var statusRes = await fetch('/api/gemini-upload', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ checkStatus: fileName2 })
+        });
+        if (statusRes.ok) {
+          var sd = await statusRes.json();
+          state = sd.state || state;
+        }
+      } catch (_) { /* keep polling */ }
+      attempts++;
+    }
+    if (state !== 'ACTIVE') {
+      throw new Error('File processing timed out (state: ' + state + '). Try a smaller document.');
+    }
+
+    // Step 4: Call generateContent via our API (small JSON body, no file data)
     var response;
     try {
-      response = await fetch('/api/gemini-file', {
+      response = await fetch('/api/gemini-generate', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          fileBase64: base64Data,
+          fileUri: fileUri,
           mimeType: mimeType,
-          fileName: file.name,
           prompt: EXTRACTION_PROMPT,
           model: 'gemini-2.5-flash',
           generationConfig: {
@@ -577,14 +649,13 @@ Use these exact category values: flooring, countertops, backsplash, cabinetry, w
         })
       });
     } catch (networkErr) {
-      throw new Error('Network error: Could not reach the server. ' + (networkErr.message || ''));
+      throw new Error('Network error calling Gemini: ' + (networkErr.message || ''));
     }
 
     if (!response.ok) {
       var errBody;
       try { errBody = await response.json(); } catch (_) { errBody = {}; }
-      var errMsg = (typeof errBody.error === 'object' ? (errBody.error.message || JSON.stringify(errBody.error)) : errBody.error) || ('Gemini API returned status ' + response.status);
-      throw new Error(errMsg);
+      throw new Error(parseApiError(errBody, response.status));
     }
 
     var data;
@@ -1070,7 +1141,7 @@ Use these exact category values: flooring, countertops, backsplash, cabinetry, w
       showStatus('Reading ' + file.name + '...', true);
 
       try {
-        showStatus('Extracting data from document...', true);
+        showStatus('Uploading document to AI...', true);
         var parsed = await extractFromDocument(file);
         hideStatus();
 

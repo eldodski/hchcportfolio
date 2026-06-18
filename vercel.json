@@ -40,6 +40,9 @@
     },
     "api/gemini-file.js": {
       "maxDuration": 120
+    },
+    "api/gemini-generate.js": {
+      "maxDuration": 120
     }
   }
 }
