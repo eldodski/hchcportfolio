@@ -553,7 +553,7 @@ Return ONLY the JSON object. No markdown fences, no commentary.`;
           model: 'gemini-2.5-flash',
           generationConfig: {
             temperature: 0.1,
-            maxOutputTokens: 4096
+            maxOutputTokens: 16384
           }
         })
       });
