@@ -35,3 +35,8 @@ Repositioning*.docx
 
 # Scripts with credentials
 scripts/run-migrations.js
+
+# Playwright auth state
+.auth/
+test-results/
+playwright-report/

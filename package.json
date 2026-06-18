@@ -1,0 +1,32 @@
+{
+  "name": "ena",
+  "version": "1.0.0",
+  "description": "",
+  "main": "config.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "test": "npx playwright test",
+    "test:public": "npx playwright test --grep 'Data Files'",
+    "test:auth-setup": "node tests/auth-setup.js",
+    "test:ui": "npx playwright test --ui",
+    "scrape-images": "node scripts/scrape-material-images.js",
+    "scrape-images:dry": "node scripts/scrape-material-images.js --dry-run"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/eldodski/hchcportfolio.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "bugs": {
+    "url": "https://github.com/eldodski/hchcportfolio/issues"
+  },
+  "homepage": "https://github.com/eldodski/hchcportfolio#readme",
+  "devDependencies": {
+    "@playwright/test": "^1.61.0"
+  }
+}

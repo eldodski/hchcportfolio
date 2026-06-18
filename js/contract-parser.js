@@ -538,38 +538,49 @@ Return ONLY the JSON object. No markdown fences, no commentary.`;
     const base64Data = await readFileAsBase64(file);
     const mimeType = getMimeType(file);
 
-    const response = await fetch('/api/gemini', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        model: 'gemini-2.0-flash',
-        contents: [
-          {
-            parts: [
-              { text: EXTRACTION_PROMPT },
-              { inline_data: { mime_type: mimeType, data: base64Data } }
-            ]
+    // Use the file upload endpoint to avoid Vercel body size limits.
+    // Uploads file to Gemini File API first, then calls generateContent.
+    var response;
+    try {
+      response = await fetch('/api/gemini-file', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          fileBase64: base64Data,
+          mimeType: mimeType,
+          fileName: file.name,
+          prompt: EXTRACTION_PROMPT,
+          model: 'gemini-2.5-flash',
+          generationConfig: {
+            temperature: 0.1,
+            maxOutputTokens: 4096
           }
-        ],
-        generationConfig: {
-          temperature: 0.1,
-          maxOutputTokens: 4096
-        }
-      })
-    });
-
-    if (!response.ok) {
-      const err = await response.json().catch(function () { return {}; });
-      throw new Error(err.error || 'Gemini API returned status ' + response.status);
+        })
+      });
+    } catch (networkErr) {
+      throw new Error('Network error: Could not reach the server. ' + (networkErr.message || ''));
     }
 
-    const data = await response.json();
+    if (!response.ok) {
+      var errBody;
+      try { errBody = await response.json(); } catch (_) { errBody = {}; }
+      var errMsg = errBody.error || ('Gemini API returned status ' + response.status);
+      throw new Error(errMsg);
+    }
+
+    var data;
+    try { data = await response.json(); } catch (_) {
+      throw new Error('Invalid response from server.');
+    }
 
     // Extract text from Gemini response
     var text = '';
     try {
       text = data.candidates[0].content.parts[0].text;
     } catch (e) {
+      if (data.candidates && data.candidates[0] && data.candidates[0].finishReason === 'SAFETY') {
+        throw new Error('Document was blocked by content safety filters. Try a different file.');
+      }
       throw new Error('Unexpected response format from Gemini.');
     }
 
