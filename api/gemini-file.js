@@ -111,7 +111,7 @@ export default async function handler(req, res) {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           contents,
-          generationConfig: generationConfig || { temperature: 0.1, maxOutputTokens: 16384 }
+          generationConfig: generationConfig || { temperature: 0.1, maxOutputTokens: 16384, responseMimeType: 'application/json' }
         })
       }
     );
