@@ -15,13 +15,26 @@ const ContractParser = (function () {
   let _containerEl = null;
 
   // ── Extraction Prompt ──────────────────────────────────────────────
-  const EXTRACTION_PROMPT = `You are a document parser for an interior design workflow tool. I am going to upload a change order document. Extract the following fields exactly as they appear in the document and return them in a simple labeled list. If a field is not found, say "not found" and do not guess or infer.
+  const EXTRACTION_PROMPT = `You are a document parser for an interior design presentation tool. Extract ONLY the buyer record and interior design finish selections from this change order document.
 
-Fields to extract: Builder, Community, Lot, Street Address, Buyer 1 Full Name, Buyer 2 Full Name (if present), Change Order Date, and all product and finish selections listed on the document including product names, colors, and any installation notes.
+BUYER RECORD — extract these 7 fields exactly as written. Use "not found" if absent:
+- Builder, Community/Subdivision, Lot, Street Address, Buyer 1 Full Name, Buyer 2 Full Name, Change Order Date
 
-Do not extract any other information. Do not summarize the document. Return only the requested fields and their values.
+FINISH SELECTIONS — extract ONLY these interior design categories:
+- Flooring (LVP, hardwood, tile floor)
+- Countertops (quartz, granite, marble)
+- Backsplash (kitchen tile)
+- Cabinetry (cabinet style, wood, finish)
+- Wall Tile (bathroom walls, shower tile)
+- Floor Tile (bathroom floor tile)
+- Paint (wall colors, trim colors)
+- Hardware (cabinet knobs, pulls)
 
-Return the result as JSON with this structure:
+SKIP everything else (plumbing fixtures, doors, windows, HVAC, electrical, appliances, structural items, pricing).
+
+For each finish selection include: the room or area it applies to (e.g. "Kitchen", "Master Bath", "All Bathrooms"), the vendor and product name, the color/finish, and any installation notes (pattern, grout color, direction, etc).
+
+Return as JSON:
 {
   "buyerRecord": {
     "builder": "",
@@ -34,15 +47,16 @@ Return the result as JSON with this structure:
   },
   "finishSelections": [
     {
-      "category": "",
-      "productName": "",
-      "color": "",
-      "installNotes": ""
+      "room": "Kitchen",
+      "category": "backsplash",
+      "productName": "DalTile Perpetuo 12x24",
+      "color": "Elegant Beige",
+      "installNotes": "herringbone pattern, Frost grout"
     }
   ]
 }
 
-Return ONLY the JSON object. No markdown fences, no commentary.`;
+Use these exact category values: flooring, countertops, backsplash, cabinetry, wall_tile, floor_tile, paint, hardware.`;
 
   // ── Accepted MIME types ────────────────────────────────────────────
   const ACCEPTED_TYPES = {
@@ -478,6 +492,10 @@ Return ONLY the JSON object. No markdown fences, no commentary.`;
       row.className = 'cp-finish-row';
       row.innerHTML = `
         <div class="cp-field">
+          <label>Room</label>
+          <input type="text" data-finish-idx="${idx}" data-finish-key="room" value="${escapeAttr(item.room || '')}">
+        </div>
+        <div class="cp-field">
           <label>Category</label>
           <input type="text" data-finish-idx="${idx}" data-finish-key="category" value="${escapeAttr(item.category || '')}">
         </div>
@@ -553,7 +571,7 @@ Return ONLY the JSON object. No markdown fences, no commentary.`;
           model: 'gemini-2.5-flash',
           generationConfig: {
             temperature: 0.1,
-            maxOutputTokens: 16384,
+            maxOutputTokens: 65536,
             responseMimeType: 'application/json'
           }
         })
