@@ -622,13 +622,15 @@ Use these exact category values: flooring, countertops, backsplash, cabinetry, w
 
   // ── Populate Presentation Engine Fields ────────────────────────────
 
-  // Map parser category names to presentation engine property names
+  // Map parser category names to Supabase material DB category names
   var CATEGORY_MAP = {
     'backsplash': 'kitchen_backsplash',
     'countertops': 'countertops',
     'cabinetry': 'cabinetry',
     'paint': 'paint',
-    'hardware': 'hardware'
+    'hardware': 'hardware',
+    'wall_tile': 'bathroom_wall',
+    'floor_tile': 'tile_floor'
   };
 
   // Categories that go onto kitchen rooms via the cascade card system
@@ -679,20 +681,23 @@ Use these exact category values: flooring, countertops, backsplash, cabinetry, w
       var mName = (m.name || '').toLowerCase();
 
       // Vendor match in product name
-      if (mVendor && pLower.includes(mVendor)) score += 40;
+      if (mVendor && pLower.includes(mVendor)) score += 30;
 
       // Series match in product name
       if (mSeries && pLower.includes(mSeries)) score += 30;
 
-      // Color match
+      // Color match — highest weight to ensure correct variant
       if (cLower && mColor) {
-        if (mColor === cLower) score += 25;
-        else if (cLower.includes(mColor) || mColor.includes(cLower)) score += 15;
+        if (mColor === cLower) score += 40;
+        else if (cLower.includes(mColor) || mColor.includes(cLower)) score += 20;
       }
 
       // Full name match as fallback
       if (mName && pLower.includes(mName)) score += 20;
       if (mName && mName.includes(pLower)) score += 15;
+
+      // Also check if color appears in product name (e.g., "Sonoma Linen")
+      if (mColor && pLower.includes(mColor)) score += 15;
 
       return { material: m, score: score };
     });
@@ -717,7 +722,8 @@ Use these exact category values: flooring, countertops, backsplash, cabinetry, w
       state.color = mat.color || '';
       state.material = mat;
     }
-    if (installNotes) {
+    // Filter out "not found" and similar placeholder values
+    if (installNotes && installNotes.toLowerCase() !== 'not found' && installNotes.toLowerCase() !== 'n/a' && installNotes.toLowerCase() !== 'none') {
       state.installNotes = installNotes;
     }
   }
@@ -892,10 +898,15 @@ Use these exact category values: flooring, countertops, backsplash, cabinetry, w
             // Apply to first water fixture's surround or floor tile
             var fixture = roomState.waterFixtures && roomState.waterFixtures[0];
             if (fixture) {
-              if (cat === 'wall_tile') {
-                setCascadeState(fixture.surroundTile, mat, sel.installNotes);
-              } else {
-                setCascadeState(fixture.floorTile, mat, sel.installNotes);
+              var tileState = cat === 'wall_tile' ? fixture.surroundTile : fixture.floorTile;
+              setCascadeState(tileState, mat, sel.installNotes);
+              if (!mat && sel.productName) {
+                var tp = (sel.productName || '').split(/\s+/);
+                if (tp.length >= 2) {
+                  tileState.vendor = tp[0];
+                  tileState.series = tp.slice(1).join(' ');
+                }
+                tileState.color = sel.color || '';
               }
             }
           } else if (cat === 'flooring') {
