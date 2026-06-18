@@ -583,7 +583,7 @@ Use these exact category values: flooring, countertops, backsplash, cabinetry, w
     if (!response.ok) {
       var errBody;
       try { errBody = await response.json(); } catch (_) { errBody = {}; }
-      var errMsg = errBody.error || ('Gemini API returned status ' + response.status);
+      var errMsg = (typeof errBody.error === 'object' ? (errBody.error.message || JSON.stringify(errBody.error)) : errBody.error) || ('Gemini API returned status ' + response.status);
       throw new Error(errMsg);
     }
 
@@ -1041,12 +1041,15 @@ Use these exact category values: flooring, countertops, backsplash, cabinetry, w
     confirmBtn.addEventListener('click', function () {
       var data = readConfirmedData(overlay);
       _lastParsedData = data;
-      populateFields(data);
-      overlay.classList.remove('cp-active');
-
-      // Show brief success feedback
-      showStatus('Fields populated successfully.', false);
-      setTimeout(function () { hideStatus(); }, 2500);
+      try {
+        populateFields(data);
+        overlay.classList.remove('cp-active');
+        showStatus('Fields populated successfully.', false);
+        setTimeout(function () { hideStatus(); }, 2500);
+      } catch (err) {
+        console.error('populateFields error:', err);
+        showError('Failed to populate fields: ' + (err.message || err));
+      }
     });
 
     // ── File Processing ──────────────────────────────────────────────
