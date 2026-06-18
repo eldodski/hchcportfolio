@@ -622,10 +622,110 @@ Use these exact category values: flooring, countertops, backsplash, cabinetry, w
 
   // ── Populate Presentation Engine Fields ────────────────────────────
 
+  // Map parser category names to presentation engine property names
+  var CATEGORY_MAP = {
+    'backsplash': 'kitchen_backsplash',
+    'countertops': 'countertops',
+    'cabinetry': 'cabinetry',
+    'paint': 'paint',
+    'hardware': 'hardware'
+  };
+
+  // Categories that go onto kitchen rooms via the cascade card system
+  var KITCHEN_CATS = ['backsplash', 'countertops', 'cabinetry', 'paint', 'hardware'];
+
+  // Categories that go onto bathroom fixtures or bathroom-level properties
+  var BATH_FIXTURE_CATS = ['wall_tile', 'floor_tile'];
+
+  function isKitchenRoom(roomName) {
+    var lower = (roomName || '').toLowerCase();
+    return lower.includes('kitchen') || lower.includes('pantry') || lower.includes('laundry') || lower.includes('utility');
+  }
+
+  function isBathroomRoom(roomName) {
+    var lower = (roomName || '').toLowerCase();
+    return lower.includes('bath') || lower.includes('shower') || lower.includes('powder') || lower.includes('restroom') || lower.includes('master') || lower.includes('owner');
+  }
+
+  /**
+   * Fuzzy-match a parsed product string against allMaterials.
+   * Tries exact vendor+series match first, then progressively looser text matching.
+   * Returns the best matching material or null.
+   */
+  function fuzzyMatchMaterial(category, productName, color) {
+    if (typeof allMaterials === 'undefined' || !allMaterials.length) return null;
+
+    var engineCat = CATEGORY_MAP[category] || category;
+    var candidates = allMaterials.filter(function (m) { return m.category === engineCat; });
+    if (!candidates.length) {
+      // Also try flooring category for floor-related items
+      if (category === 'flooring' || category === 'floor_tile') {
+        candidates = allMaterials.filter(function (m) {
+          return m.category === 'flooring' || m.category === 'tile_floor';
+        });
+      }
+    }
+    if (!candidates.length) return null;
+
+    var pLower = (productName || '').toLowerCase();
+    var cLower = (color || '').toLowerCase();
+
+    // Score each candidate
+    var scored = candidates.map(function (m) {
+      var score = 0;
+      var mVendor = (m.vendor || '').toLowerCase();
+      var mSeries = (m.series || '').toLowerCase();
+      var mColor = (m.color || '').toLowerCase();
+      var mName = (m.name || '').toLowerCase();
+
+      // Vendor match in product name
+      if (mVendor && pLower.includes(mVendor)) score += 40;
+
+      // Series match in product name
+      if (mSeries && pLower.includes(mSeries)) score += 30;
+
+      // Color match
+      if (cLower && mColor) {
+        if (mColor === cLower) score += 25;
+        else if (cLower.includes(mColor) || mColor.includes(cLower)) score += 15;
+      }
+
+      // Full name match as fallback
+      if (mName && pLower.includes(mName)) score += 20;
+      if (mName && mName.includes(pLower)) score += 15;
+
+      return { material: m, score: score };
+    });
+
+    // Sort by score descending
+    scored.sort(function (a, b) { return b.score - a.score; });
+
+    // Only return if we have a reasonable match (at least vendor OR series matched)
+    if (scored[0] && scored[0].score >= 30) {
+      return scored[0].material;
+    }
+    return null;
+  }
+
+  /**
+   * Set a material cascade state (vendor/series/color/material) on a room property.
+   */
+  function setCascadeState(state, mat, installNotes) {
+    if (mat) {
+      state.vendor = mat.vendor || '';
+      state.series = mat.series || '';
+      state.color = mat.color || '';
+      state.material = mat;
+    }
+    if (installNotes) {
+      state.installNotes = installNotes;
+    }
+  }
+
   function populateFields(data) {
     var br = data.buyerRecord;
 
-    // Project Name: Builder - Community Lot ##
+    // ── Buyer Record Fields ──
     var projectParts = [];
     if (br.builder) projectParts.push(br.builder);
     var communityLot = '';
@@ -639,7 +739,6 @@ Use these exact category values: flooring, countertops, backsplash, cabinetry, w
       projectInput.value = projectName;
     }
 
-    // Client Name: Buyer 1 (& Buyer 2 if present)
     var clientName = br.buyer1Name || '';
     if (br.buyer2Name && br.buyer2Name.toLowerCase() !== 'not found') {
       clientName += ' & ' + br.buyer2Name;
@@ -649,22 +748,189 @@ Use these exact category values: flooring, countertops, backsplash, cabinetry, w
       clientInput.value = clientName;
     }
 
-    // Builder
     var builderInput = document.getElementById('builder-name');
     if (builderInput && br.builder) {
       builderInput.value = br.builder;
     }
 
-    // Address
     var addressInput = document.getElementById('address');
     if (addressInput && br.streetAddress && br.streetAddress.toLowerCase() !== 'not found') {
       addressInput.value = br.streetAddress;
     }
 
-    // Trigger preview update
-    if (typeof updatePreview === 'function') {
-      updatePreview();
+    // ── Finish Selections → Rooms ──
+    var finishes = data.finishSelections || [];
+    if (!finishes.length) {
+      if (typeof updatePreview === 'function') updatePreview();
+      return;
     }
+
+    // Group selections by room name
+    var roomGroups = {};
+    finishes.forEach(function (sel) {
+      var roomName = sel.room || 'General';
+      if (!roomGroups[roomName]) roomGroups[roomName] = [];
+      roomGroups[roomName].push(sel);
+    });
+
+    // Clear existing rooms
+    if (typeof rooms !== 'undefined') {
+      rooms.length = 0;
+      if (typeof roomIdCounter !== 'undefined') roomIdCounter = 0;
+    }
+
+    var roomNames = Object.keys(roomGroups);
+
+    // Classify rooms and create them
+    // Selections tagged "All" or "General" get distributed to the first matching room
+    var generalSelections = [];
+    var createdRooms = [];
+
+    roomNames.forEach(function (name) {
+      var lower = name.toLowerCase();
+      if (lower === 'all' || lower === 'general' || lower === 'all bathrooms' || lower === 'all rooms' || lower === 'whole house' || lower === 'throughout') {
+        // These get distributed after rooms are created
+        generalSelections = generalSelections.concat(roomGroups[name]);
+        return;
+      }
+
+      var type = 'bathroom'; // default to bathroom
+      if (isKitchenRoom(name)) type = 'kitchen';
+      else if (!isBathroomRoom(name)) {
+        // Ambiguous rooms (e.g., "Living Room", "Foyer") - check their categories
+        var cats = roomGroups[name].map(function (s) { return s.category; });
+        var hasKitchenCat = cats.some(function (c) { return KITCHEN_CATS.indexOf(c) >= 0; });
+        if (hasKitchenCat) type = 'kitchen';
+      }
+
+      if (typeof createRoomState === 'function' && typeof rooms !== 'undefined') {
+        var roomState = createRoomState(type);
+        // Override the auto-generated label with the parsed room name
+        roomState.label = name;
+        rooms.push(roomState);
+        createdRooms.push({ state: roomState, type: type, name: name, selections: roomGroups[name] });
+      }
+    });
+
+    // If no rooms were created but we have general selections, create defaults
+    if (createdRooms.length === 0 && generalSelections.length > 0) {
+      var hasKitchenItems = generalSelections.some(function (s) { return KITCHEN_CATS.indexOf(s.category) >= 0; });
+      var hasBathItems = generalSelections.some(function (s) { return BATH_FIXTURE_CATS.indexOf(s.category) >= 0; });
+
+      if (hasKitchenItems && typeof createRoomState === 'function') {
+        var kitchenRoom = createRoomState('kitchen');
+        rooms.push(kitchenRoom);
+        createdRooms.push({ state: kitchenRoom, type: 'kitchen', name: 'Kitchen', selections: [] });
+      }
+      if (hasBathItems && typeof createRoomState === 'function') {
+        var bathRoom = createRoomState('bathroom');
+        rooms.push(bathRoom);
+        createdRooms.push({ state: bathRoom, type: 'bathroom', name: "Owner's Bath", selections: [] });
+      }
+      // If still nothing, create both defaults
+      if (createdRooms.length === 0 && typeof createRoomState === 'function') {
+        var defKitchen = createRoomState('kitchen');
+        var defBath = createRoomState('bathroom');
+        rooms.push(defKitchen);
+        rooms.push(defBath);
+        createdRooms.push({ state: defKitchen, type: 'kitchen', name: 'Kitchen', selections: [] });
+        createdRooms.push({ state: defBath, type: 'bathroom', name: "Owner's Bath", selections: [] });
+      }
+    }
+
+    // Distribute "general" selections to the first matching room type
+    generalSelections.forEach(function (sel) {
+      var isKitchenCat = KITCHEN_CATS.indexOf(sel.category) >= 0;
+      var targetType = isKitchenCat ? 'kitchen' : 'bathroom';
+      // Find first room of matching type, or first room available
+      var target = createdRooms.find(function (r) { return r.type === targetType; }) || createdRooms[0];
+      if (target) target.selections.push(sel);
+    });
+
+    // Apply selections to each room's state
+    createdRooms.forEach(function (entry) {
+      var roomState = entry.state;
+      var type = entry.type;
+
+      entry.selections.forEach(function (sel) {
+        var cat = sel.category;
+        var mat = fuzzyMatchMaterial(cat, sel.productName, sel.color);
+
+        if (type === 'kitchen') {
+          // Kitchen cascade categories
+          var engineCat = CATEGORY_MAP[cat];
+          if (engineCat && roomState[engineCat]) {
+            setCascadeState(roomState[engineCat], mat, sel.installNotes);
+            // Also set raw values even if no material match
+            if (!mat && sel.productName) {
+              // Try to split productName into vendor + series
+              var parts = (sel.productName || '').split(/\s+/);
+              if (parts.length >= 2) {
+                roomState[engineCat].vendor = parts[0];
+                roomState[engineCat].series = parts.slice(1).join(' ');
+              }
+              roomState[engineCat].color = sel.color || '';
+            }
+          } else if (cat === 'flooring') {
+            // Set on first flooring slot
+            var f = roomState.flooring[0];
+            if (f) {
+              setCascadeState(f, mat, sel.installNotes);
+              if (!mat && sel.productName) {
+                var fp = (sel.productName || '').split(/\s+/);
+                if (fp.length >= 2) {
+                  f.vendor = fp[0];
+                  f.series = fp.slice(1).join(' ');
+                }
+                f.color = sel.color || '';
+              }
+            }
+          }
+        } else {
+          // Bathroom room
+          if (cat === 'wall_tile' || cat === 'floor_tile') {
+            // Apply to first water fixture's surround or floor tile
+            var fixture = roomState.waterFixtures && roomState.waterFixtures[0];
+            if (fixture) {
+              if (cat === 'wall_tile') {
+                setCascadeState(fixture.surroundTile, mat, sel.installNotes);
+              } else {
+                setCascadeState(fixture.floorTile, mat, sel.installNotes);
+              }
+            }
+          } else if (cat === 'flooring') {
+            var bf = roomState.flooring && roomState.flooring[0];
+            if (bf) {
+              setCascadeState(bf, mat, sel.installNotes);
+              if (!mat && sel.productName) {
+                var bfp = (sel.productName || '').split(/\s+/);
+                if (bfp.length >= 2) {
+                  bf.vendor = bfp[0];
+                  bf.series = bfp.slice(1).join(' ');
+                }
+                bf.color = sel.color || '';
+              }
+            }
+          } else if (cat === 'paint' && roomState.paint) {
+            setCascadeState(roomState.paint, mat, sel.installNotes);
+          } else if (cat === 'hardware' && roomState.hardware) {
+            setCascadeState(roomState.hardware, mat, sel.installNotes);
+          } else if (cat === 'countertops') {
+            // Bathroom countertops — no direct slot, skip
+          } else {
+            // Fallback: try kitchen-style mapping for any remaining categories
+            var fc = CATEGORY_MAP[cat];
+            if (fc && roomState[fc]) {
+              setCascadeState(roomState[fc], mat, sel.installNotes);
+            }
+          }
+        }
+      });
+    });
+
+    // Re-render rooms and update preview
+    if (typeof renderRooms === 'function') renderRooms();
+    if (typeof updatePreview === 'function') updatePreview();
   }
 
   // ── Read Confirmed Data from Overlay Inputs ────────────────────────
