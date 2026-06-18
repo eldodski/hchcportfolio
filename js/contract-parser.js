@@ -582,24 +582,26 @@ Use these exact category values: flooring, countertops, backsplash, cabinetry, w
     var uploadUrl = uploadData.uploadUrl;
     if (!uploadUrl) throw new Error('Server did not return an upload URL.');
 
-    // Step 2: Upload file directly to Gemini (bypasses Vercel body limit entirely)
+    // Step 2: Upload file via proxy (raw binary, no base64 inflation)
+    // Can't upload directly to Gemini from browser due to CORS, so we proxy
+    // through /api/gemini-proxy-upload which forwards raw bytes to Gemini.
     var fileBuffer = await file.arrayBuffer();
     var uploadRes;
     try {
-      uploadRes = await fetch(uploadUrl, {
+      uploadRes = await fetch('/api/gemini-proxy-upload', {
         method: 'POST',
         headers: {
-          'Content-Length': String(file.size),
-          'X-Goog-Upload-Offset': '0',
-          'X-Goog-Upload-Command': 'upload, finalize',
+          'Content-Type': 'application/octet-stream',
+          'X-Upload-Url': uploadUrl,
         },
         body: fileBuffer
       });
     } catch (networkErr) {
-      throw new Error('File upload to Gemini failed: ' + (networkErr.message || ''));
+      throw new Error('File upload failed: ' + (networkErr.message || ''));
     }
     if (!uploadRes.ok) {
-      throw new Error('File upload failed with status ' + uploadRes.status);
+      var e2; try { e2 = await uploadRes.json(); } catch (_) { e2 = {}; }
+      throw new Error(parseApiError(e2, uploadRes.status));
     }
     var fileData = await uploadRes.json();
     var fileUri = fileData.file && fileData.file.uri;
