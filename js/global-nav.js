@@ -69,7 +69,7 @@
       transition: color 0.2s;
     }
     .hchc-nav-right a:hover { color: ${V.ivory}; }
-    .hchc-nav-btn {
+    .hchc-nav-btn, .hchc-nav-right a.hchc-nav-btn {
       display: inline-block;
       background: ${V.gold};
       color: ${V.navy};
@@ -84,7 +84,7 @@
       text-decoration: none;
       transition: background 0.2s, color 0.2s;
     }
-    .hchc-nav-btn:hover {
+    .hchc-nav-btn:hover, .hchc-nav-right a.hchc-nav-btn:hover {
       background: ${V.ivory};
       color: ${V.navy};
     }
@@ -455,7 +455,7 @@
   const DESIGNER_LINKS = [
     { name: 'Dashboard', href: '/dashboard/' },
     { name: 'My Projects', href: '/dashboard/designer/' },
-    { name: 'Presentation Engine', href: '/presentation-engine.html', tierGated: 'tier_2' },
+    { name: 'HC Finishing Tool', href: '/presentation-engine.html', tierGated: 'tier_2' },
     { name: 'Account', href: '/account/settings.html' },
   ];
 
@@ -463,7 +463,7 @@
     { name: 'Dashboard', href: '/dashboard/' },
     { name: 'My Projects', href: '/dashboard/builder/' },
     { name: 'Submit a Project', href: '/dashboard/submit-project.html' },
-    { name: 'Presentation Engine', href: '/presentation-engine.html', tierGated: 'tier_2' },
+    { name: 'HC Finishing Tool', href: '/presentation-engine.html', tierGated: 'tier_2' },
   ];
 
   const HOMEOWNER_LINKS = [
@@ -498,7 +498,7 @@
       label: 'Platform',
       links: [
         { name: 'Material Library', href: '/materials.html', icon: '\u{1F3A8}' },
-        { name: 'Presentation Engine', href: '/presentation-engine.html', icon: '\u{1F4CA}' },
+        { name: 'HC Finishing Tool', href: '/presentation-engine.html', icon: '\u{1F4CA}' },
         { name: 'Platform Settings', href: '/admin/settings.html', icon: '\u2699' },
       ]
     },

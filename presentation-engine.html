@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Presentation Engine | HCHC Platform</title>
+<title>HC Finishing Tool | HCHC Platform</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Jost:ital,wght@0,200;0,300;0,400;1,200&display=swap" rel="stylesheet">
@@ -941,7 +941,7 @@ body {
 
     <div class="input-group">
       <label for="address">Address</label>
-      <input type="text" id="address" placeholder="e.g., 1842 Clover Pass, Boerne TX" oninput="updatePreview()">
+      <input type="text" id="address" placeholder="e.g., 1842 Clover Pass, Boerne, TX" oninput="updatePreview()">
     </div>
 
     <div class="section-label">Design Style</div>
@@ -985,7 +985,7 @@ body {
         <img id="mood-board-thumb" src="" alt="Mood board preview">
       </div>
       <div class="mood-board-prompt">
-        Boost this image into a cover worthy mood board for an interior design magazine. Keep the existing colors and materials consistent with the image, but remove all labels and text from the image.
+        Boost this image into a cover-worthy mood board for an interior design magazine. Keep the existing colors and materials consistent with the image, but remove all labels and text from the image.
       </div>
     </div>
 
@@ -2201,7 +2201,7 @@ async function enhanceMoodBoard(file) {
     const base64 = await fileToBase64(file);
     const mimeType = file.type || 'image/jpeg';
 
-    const prompt = 'Boost this image into a cover worthy mood board for an interior design magazine. Keep the existing colors and materials consistent with the image, but remove all labels and text from the image.';
+    const prompt = 'Boost this image into a cover-worthy mood board for an interior design magazine. Keep the existing colors and materials consistent with the image, but remove all labels and text from the image.';
 
     const response = await fetch('/api/gemini', {
       method: 'POST',
@@ -2238,16 +2238,16 @@ async function enhanceMoodBoard(file) {
       const enhancedUrl = `data:${imgPart.inlineData.mimeType};base64,${imgPart.inlineData.data}`;
       moodBoardUrl = enhancedUrl;
       img.src = enhancedUrl;
-      showToast('Mood board enhanced with AI', 'success');
+      showToast('Mood board enhanced with AI.', 'success');
     } else {
-      showToast('AI returned no image — using original', 'info');
+      showToast('AI returned no image, so we kept your original photo.', 'info');
     }
   } catch (err) {
     console.error('Gemini enhancement failed:', err);
     if (err.message === 'QUOTA') {
-      showToast('AI image generation requires Google billing — using original photo', 'info');
+      showToast('AI image generation requires Google billing, so we kept your original photo.', 'info');
     } else {
-      showToast('AI enhancement failed — using original photo', 'info');
+      showToast('AI enhancement failed, so we kept your original photo.', 'info');
     }
   } finally {
     previewDiv.classList.remove('mood-board-loading');
@@ -2455,7 +2455,7 @@ function buildBathroomPreview(room) {
     rows += `<tr><td>Niche Style</td><td>${esc(room.niches.styleName)}${room.niches.shelfMaterial ? ' / ' + esc(room.niches.shelfMaterial) : ''}</td></tr>`;
     rows += `<tr><td>Niche Placement</td><td>${esc(room.niches.placement)}</td></tr>`;
     if (room.niches.decorativeTile.material) {
-      cards.push(buildPreviewCard('Niche Deco Tile', room.niches.decorativeTile.material, ''));
+      cards.push(buildPreviewCard('Niche Decorative Tile', room.niches.decorativeTile.material, ''));
     }
   }
 
@@ -2599,10 +2599,10 @@ async function saveDraft() {
       window.history.replaceState({}, '', url);
     }
 
-    showToast('Draft saved', 'success');
+    showToast('Draft saved.', 'success');
   } catch (err) {
     console.error('Save draft failed:', err);
-    showToast('Failed to save draft', 'error');
+    showToast('We could not save your draft. Please try again.', 'error');
   } finally {
     btn.disabled = false;
     btn.textContent = 'Save Draft';
@@ -2650,10 +2650,10 @@ async function generateAndSave() {
     try {
       const presentationUrl = await uploadPresentation(projectId, html);
       await updateProject(projectId, { presentation_url: presentationUrl });
-      showToast('Presentation generated and saved', 'success');
+      showToast('Presentation generated and saved.', 'success');
     } catch (uploadErr) {
       console.warn('Presentation upload failed (bucket may not exist):', uploadErr);
-      showToast('Generated (upload failed — create presentations bucket)', 'info');
+      showToast('Presentation generated, but the upload failed. Please create the "presentations" storage bucket.', 'info');
     }
 
     // Update URL
@@ -2663,7 +2663,7 @@ async function generateAndSave() {
 
   } catch (err) {
     console.error('Generate failed:', err);
-    showToast('Generation failed', 'error');
+    showToast('We could not generate the presentation. Please try again.', 'error');
   } finally {
     btn.disabled = false;
     btn.innerHTML = 'Generate &amp; Save';
@@ -2752,7 +2752,7 @@ async function loadFromURL() {
 
     renderRooms();
     updatePreview();
-    showToast('Project loaded', 'info');
+    showToast('Project loaded.', 'info');
   } catch (err) {
     console.error('Load project failed:', err);
   }
@@ -2814,10 +2814,10 @@ async function downloadPDF() {
 
     await html2pdf().set(opt).from(container).save();
     document.body.removeChild(container);
-    showToast('PDF downloaded', 'success');
+    showToast('PDF downloaded.', 'success');
   } catch (err) {
     console.error('PDF generation failed:', err);
-    showToast('PDF generation failed', 'error');
+    showToast('We could not generate the PDF. Please try again.', 'error');
   } finally {
     btn.disabled = false;
     btn.textContent = 'Download PDF';
@@ -2875,13 +2875,13 @@ async function downloadSignoffPDF() {
     });
 
     if (success) {
-      showToast('Sign-off PDF downloaded', 'success');
+      showToast('Sign-off PDF downloaded.', 'success');
     } else {
-      showToast('PDF generation failed', 'error');
+      showToast('We could not generate the PDF. Please try again.', 'error');
     }
   } catch (err) {
     console.error('Sign-off PDF generation failed:', err);
-    showToast('PDF generation failed', 'error');
+    showToast('We could not generate the PDF. Please try again.', 'error');
   } finally {
     if (btn) { btn.disabled = false; btn.textContent = 'Download Sign-Off PDF'; }
   }

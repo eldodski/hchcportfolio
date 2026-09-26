@@ -194,7 +194,7 @@ body {
 
 <div class="admin-page">
   <h1>Admin Dashboard</h1>
-  <p class="subtitle">Platform overview and quick actions</p>
+  <p class="subtitle">Here is an overview of the platform, along with quick actions for common tasks.</p>
 
   <div class="stat-grid">
     <a href="/admin/user-approvals.html" class="stat-card">
@@ -231,7 +231,7 @@ body {
     <a href="/admin/user-approvals.html" class="quick-action-btn primary">Review Approvals</a>
     <a href="/admin/user-management.html" class="quick-action-btn">Manage Users</a>
     <a href="/materials.html" class="quick-action-btn">Material Library</a>
-    <a href="/presentation-engine.html" class="quick-action-btn">Presentation Engine</a>
+    <a href="/presentation-engine.html" class="quick-action-btn">HC Finishing Tool</a>
   </div>
 </div>
 
@@ -296,20 +296,20 @@ HCHCAuth.onReady(async function() {
     if (recentSignups.data && recentSignups.data.length > 0) {
       recentSignups.data.forEach(function(item) {
         var li = document.createElement('li');
-        var statusLabel = item.status === 'pending' ? 'New signup' : item.status === 'approved' ? 'Approved' : item.status === 'rejected' ? 'Rejected' : item.status;
+        var statusLabel = item.status === 'pending' ? 'New Sign-Up' : item.status === 'approved' ? 'Approved' : item.status === 'rejected' ? 'Rejected' : item.status;
         var name = (item.first_name || '') + ' ' + (item.last_name || '');
         name = name.trim() || 'Unknown';
         var timeAgo = _formatTimeAgo(new Date(item.created_at));
 
-        li.innerHTML = '<span class="activity-text"><strong>' + _escHtml(statusLabel) + '</strong> &mdash; ' + _escHtml(name) + '</span><span class="activity-time">' + timeAgo + '</span>';
+        li.innerHTML = '<span class="activity-text"><strong>' + _escHtml(statusLabel) + '</strong>: ' + _escHtml(name) + '</span><span class="activity-time">' + timeAgo + '</span>';
         activityList.appendChild(li);
       });
     } else {
-      activityList.innerHTML = '<li class="activity-placeholder">No recent activity</li>';
+      activityList.innerHTML = '<li class="activity-placeholder">No recent activity yet.</li>';
     }
   } catch (e) {
     console.warn('Failed to fetch activity:', e);
-    document.getElementById('activity-list').innerHTML = '<li class="activity-placeholder">Unable to load activity</li>';
+    document.getElementById('activity-list').innerHTML = '<li class="activity-placeholder">We could not load recent activity.</li>';
   }
 });
 

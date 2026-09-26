@@ -407,7 +407,7 @@ function showAuthRequired() {
   document.getElementById('dashboard-content').innerHTML = `
     <div class="auth-required">
       <h2>Sign In Required</h2>
-      <p>You need to sign in to access the dashboard.</p>
+      <p>Please sign in to access your dashboard.</p>
       <a href="/login.html" class="btn btn-primary">Sign In</a>
     </div>
   `;
@@ -442,7 +442,7 @@ function renderDashboard(role, name) {
         <a href="#submit-project" class="action-card" onclick="showSubmitForm()">
           <span class="action-icon">&#9998;</span>
           <h3>Submit a Project</h3>
-          <p>Submit a new project for design consultation. Upload plans and describe desired finishes.</p>
+          <p>Submit a new project for design consultation and describe the finishes you have in mind.</p>
         </a>
       ` : ''}
 
@@ -456,7 +456,7 @@ function renderDashboard(role, name) {
 
       <a href="#projects" class="action-card">
         <span class="action-icon">&#9776;</span>
-        <h3>${isAdmin ? 'All Projects' : 'My Projects'}</h3>
+        <h3>${isAdmin ? 'All Projects' : 'Your Projects'}</h3>
         <p>View project history, download completed presentations, and track submission status.</p>
       </a>
     </div>
@@ -485,11 +485,11 @@ function renderDashboard(role, name) {
           <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-bottom:16px;">
             <div class="form-group" style="display:flex; flex-direction:column;">
               <label style="font-size:0.72rem; font-weight:300; letter-spacing:0.1em; text-transform:uppercase; color:var(--mocha); margin-bottom:4px;">Project Name *</label>
-              <input type="text" id="proj-name" required style="font-family:var(--body); padding:10px 12px; border:1px solid var(--sand); font-size:0.88rem;" placeholder="e.g., Lot 42 - Fair Oaks Ranch">
+              <input type="text" id="proj-name" required style="font-family:var(--body); padding:10px 12px; border:1px solid var(--sand); font-size:0.88rem;" placeholder="e.g., Lot 42, Fair Oaks Ranch">
             </div>
             <div class="form-group" style="display:flex; flex-direction:column;">
               <label style="font-size:0.72rem; font-weight:300; letter-spacing:0.1em; text-transform:uppercase; color:var(--mocha); margin-bottom:4px;">Address / Lot</label>
-              <input type="text" id="proj-address" style="font-family:var(--body); padding:10px 12px; border:1px solid var(--sand); font-size:0.88rem;" placeholder="e.g., 1842 Clover Pass, Boerne TX">
+              <input type="text" id="proj-address" style="font-family:var(--body); padding:10px 12px; border:1px solid var(--sand); font-size:0.88rem;" placeholder="e.g., 1842 Clover Pass, Boerne, TX">
             </div>
           </div>
           <div class="form-group" style="display:flex; flex-direction:column; margin-bottom:16px;">
@@ -504,7 +504,7 @@ function renderDashboard(role, name) {
             <label style="font-size:0.72rem; font-weight:300; letter-spacing:0.1em; text-transform:uppercase; color:var(--mocha); margin-bottom:4px;">Describe Desired Finishes</label>
             <textarea id="proj-notes" rows="4" style="font-family:var(--body); padding:10px 12px; border:1px solid var(--sand); font-size:0.88rem; resize:vertical;" placeholder="Tell us about your vision, preferred styles, budget range, and any specific requirements."></textarea>
           </div>
-          <p style="font-size:0.8rem; color:var(--mocha); margin-bottom:16px;">Typical turnaround: 72 hours / 3 business days.</p>
+          <p style="font-size:0.8rem; color:var(--mocha); margin-bottom:16px;">Typical turnaround: 3 business days.</p>
           <button type="submit" class="btn btn-primary" id="submit-proj-btn">Submit Project</button>
         </form>
       </div>
@@ -576,12 +576,12 @@ async function submitProject(e) {
       status: 'submitted'
     });
 
-    alert('Project submitted. We will review and respond within 72 hours.');
+    alert('Thank you! Your project has been submitted. We will review it and respond within 3 business days.');
     document.getElementById('project-form').reset();
     document.getElementById('submit-form-section').style.display = 'none';
     await loadProjects();
   } catch (err) {
-    alert('Error submitting project. Please try again.');
+    alert('We could not submit your project. Please try again.');
     console.error(err);
   } finally {
     btn.disabled = false;

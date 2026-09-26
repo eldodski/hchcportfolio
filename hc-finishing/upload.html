@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Upload Order Form — HC Finishing</title>
+  <title>Upload Order Form | HC Finishing</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
   <style>
@@ -411,7 +411,7 @@
 
   <div class="container">
     <h1>Upload Order Form</h1>
-    <p class="subtitle">Drop a builder order form PDF to extract and structure the data.</p>
+    <p class="subtitle">Drop in a builder order form PDF to extract and organize its data.</p>
 
     <!-- Drop Zone -->
     <div class="drop-zone" id="dropZone">
@@ -452,7 +452,7 @@
 
       <div id="roomCards"></div>
 
-      <span class="raw-toggle" id="rawToggle">Show raw extracted text</span>
+      <span class="raw-toggle" id="rawToggle">Show Raw Extracted Text</span>
       <div class="raw-text" id="rawText"></div>
 
       <div class="actions">
@@ -538,7 +538,7 @@
       ocrProgressCallback = (progress, totalPages, currentPage) => {
         const ocrDiv = document.getElementById('ocrProgress');
         ocrDiv.style.display = 'block';
-        document.getElementById('spinnerText').textContent = 'Scanned PDF detected — running OCR...';
+        document.getElementById('spinnerText').textContent = 'Scanned PDF detected. Running text recognition (OCR)...';
         if (currentPage) {
           document.getElementById('ocrStatus').textContent = `Processing page ${currentPage} of ${totalPages}...`;
         }
@@ -563,7 +563,7 @@
 
       } catch (err) {
         document.getElementById('spinner').classList.remove('active');
-        showError('Failed to parse PDF: ' + err.message);
+        showError('We could not read this PDF: ' + err.message);
         console.error(err);
       }
     }
@@ -616,8 +616,8 @@
             <div class="material-row">
               <span class="cat">${m.category}</span>
               <span class="product">${m.product}</span>
-              <span class="color">${m.color || '—'}</span>
-              <span class="qty">${m.quantity || '—'}</span>
+              <span class="color">${m.color || '-'}</span>
+              <span class="qty">${m.quantity || '-'}</span>
             </div>
           `).join('')}
         </div>
@@ -649,7 +649,7 @@
 
         // Show toast with review link
         const toast = document.getElementById('toast');
-        toast.innerHTML = `Saved successfully. <a href="review.html?id=${result.id}">Review and approve</a>`;
+        toast.innerHTML = `Saved successfully. <a href="review.html?id=${result.id}">Review and approve it now</a>.`;
         toast.classList.add('active');
 
         saveBtn.textContent = 'Saved';
@@ -661,7 +661,7 @@
       } catch (err) {
         saveBtn.disabled = false;
         saveBtn.textContent = 'Save to Project';
-        showError('Failed to save: ' + err.message);
+        showError('We could not save this order form: ' + err.message);
       }
     }
 

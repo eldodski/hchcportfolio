@@ -410,7 +410,7 @@ body {
 
 <div class="admin-page">
   <h1>User Approvals</h1>
-  <p class="subtitle">Review and manage signup requests</p>
+  <p class="subtitle">Review and manage sign-up requests.</p>
 
   <div class="tab-filters" id="tab-filters">
     <button class="active" data-filter="all">All <span class="tab-count" id="count-all">0</span></button>
@@ -420,16 +420,16 @@ body {
   </div>
 
   <div class="requests-list" id="requests-list">
-    <div class="loading-spinner">Loading signup requests...</div>
+    <div class="loading-spinner">Loading sign-up requests...</div>
   </div>
 </div>
 
 <!-- Reject Modal -->
 <div class="modal-overlay" id="reject-modal">
   <div class="modal">
-    <h3>Reject Signup Request</h3>
+    <h3>Reject Sign-Up Request</h3>
     <p style="font-size: 0.85rem; font-weight: 300; color: var(--espresso); margin-bottom: 16px;">
-      Rejecting <strong id="reject-modal-name"></strong>. Provide a reason (optional).
+      You are rejecting <strong id="reject-modal-name"></strong>. You may add an optional reason below.
     </p>
     <label for="reject-reason">Admin Notes</label>
     <textarea id="reject-reason" placeholder="Reason for rejection..."></textarea>
@@ -482,7 +482,7 @@ HCHCAuth.onReady(async function() {
 async function loadRequests() {
   var sb = await HCHCAuth.getAuthClient();
   if (!sb) {
-    document.getElementById('requests-list').innerHTML = '<div class="empty-state"><p>Unable to connect to database</p></div>';
+    document.getElementById('requests-list').innerHTML = '<div class="empty-state"><p>We could not connect to the database.</p></div>';
     return;
   }
 
@@ -491,7 +491,7 @@ async function loadRequests() {
 
     if (result.error) {
       console.error('Error loading requests:', result.error);
-      document.getElementById('requests-list').innerHTML = '<div class="empty-state"><p>Error loading requests</p></div>';
+      document.getElementById('requests-list').innerHTML = '<div class="empty-state"><p>We could not load sign-up requests.</p></div>';
       return;
     }
 
@@ -500,7 +500,7 @@ async function loadRequests() {
     renderRequests();
   } catch (e) {
     console.error('Failed to load requests:', e);
-    document.getElementById('requests-list').innerHTML = '<div class="empty-state"><p>Failed to load requests</p></div>';
+    document.getElementById('requests-list').innerHTML = '<div class="empty-state"><p>We could not load sign-up requests.</p></div>';
   }
 }
 
@@ -538,7 +538,7 @@ function renderRequests() {
     container.innerHTML = '<div class="empty-state"><div class="empty-icon">' +
       (_currentFilter === 'pending' ? '&#10003;' : '&#128196;') +
       '</div><p>' +
-      (_currentFilter === 'pending' ? 'No pending requests. All caught up.' : 'No ' + _currentFilter + ' requests found.') +
+      (_currentFilter === 'pending' ? 'No pending requests. You are all caught up.' : 'No ' + _currentFilter + ' requests found.') +
       '</p></div>';
     return;
   }
@@ -605,7 +605,7 @@ async function approveRequest(requestId) {
   btns.forEach(function(b) { b.disabled = true; });
 
   var sb = await HCHCAuth.getAuthClient();
-  if (!sb) { showToast('Auth client unavailable', 'error'); return; }
+  if (!sb) { showToast('We could not connect to the sign-in service. Please refresh and try again.', 'error'); return; }
 
   try {
     // 1. Update signup_requests status to approved
@@ -616,7 +616,7 @@ async function approveRequest(requestId) {
       .single();
 
     if (updateReq.error) {
-      showToast('Failed to update request: ' + updateReq.error.message, 'error');
+      showToast('We could not update this request: ' + updateReq.error.message, 'error');
       btns.forEach(function(b) { b.disabled = false; });
       return;
     }
@@ -651,7 +651,7 @@ async function approveRequest(requestId) {
     await loadRequests();
   } catch (e) {
     console.error('Approve failed:', e);
-    showToast('Approval failed. Check console.', 'error');
+    showToast('Approval failed. Please check the browser console for details.', 'error');
     btns.forEach(function(b) { b.disabled = false; });
   }
 }
@@ -677,7 +677,7 @@ async function confirmReject() {
   confirmBtn.disabled = true;
 
   var sb = await HCHCAuth.getAuthClient();
-  if (!sb) { showToast('Auth client unavailable', 'error'); confirmBtn.disabled = false; return; }
+  if (!sb) { showToast('We could not connect to the sign-in service. Please refresh and try again.', 'error'); confirmBtn.disabled = false; return; }
 
   try {
     var updateData = {
@@ -693,7 +693,7 @@ async function confirmReject() {
       .single();
 
     if (result.error) {
-      showToast('Rejection failed: ' + result.error.message, 'error');
+      showToast('We could not reject this request: ' + result.error.message, 'error');
       confirmBtn.disabled = false;
       return;
     }
@@ -704,7 +704,7 @@ async function confirmReject() {
     await loadRequests();
   } catch (e) {
     console.error('Reject failed:', e);
-    showToast('Rejection failed. Check console.', 'error');
+    showToast('Rejection failed. Please check the browser console for details.', 'error');
     confirmBtn.disabled = false;
   }
 }

@@ -146,25 +146,66 @@ async function getSocialPosts(filters = {}) {
   return data;
 }
 
+// Built-in posts (js/static-posts.js) shown when the database is unreachable or empty
+const DB_TIMEOUT_MS = 5000;
+
+// Supabase retries failed requests for a long time; give up after DB_TIMEOUT_MS
+function withTimeout(promise, ms = DB_TIMEOUT_MS) {
+  return Promise.race([
+    promise,
+    new Promise((_, reject) => setTimeout(() => reject(new Error('Database request timed out')), ms))
+  ]);
+}
+
+function getStaticPosts(filters = {}) {
+  let posts = window.HCHC_STATIC_POSTS || [];
+  if (filters.project_type) posts = posts.filter(p => p.project_type === filters.project_type);
+  if (filters.content_tag) posts = posts.filter(p => p.content_tag === filters.content_tag);
+  return posts;
+}
+
 async function getPublishedPosts(filters = {}) {
-  const sb = getSupabase();
   const limit = filters.limit || 12;
   const offset = filters.offset || 0;
+  const fallback = () => getStaticPosts(filters).slice(offset, offset + limit);
 
-  let query = sb.from('social_posts').select('*')
-    .eq('status', 'published')
-    .order('published_at', { ascending: false })
-    .range(offset, offset + limit - 1);
+  try {
+    const sb = getSupabase();
+    if (!sb) return fallback();
 
-  if (filters.project_type) query = query.eq('project_type', filters.project_type);
+    let query = sb.from('social_posts').select('*')
+      .eq('status', 'published')
+      .order('published_at', { ascending: false })
+      .range(offset, offset + limit - 1);
 
-  const { data, error } = await query;
-  if (error) { console.error('getPublishedPosts error:', error); return []; }
-  return data;
+    if (filters.project_type) query = query.eq('project_type', filters.project_type);
+
+    const { data, error } = await withTimeout(query);
+    if (error) { console.error('getPublishedPosts error:', error); return fallback(); }
+    if ((!data || data.length === 0) && offset === 0) return fallback();
+    return data;
+  } catch (e) {
+    console.error('getPublishedPosts error:', e);
+    return fallback();
+  }
 }
 
 async function getLatestPosts(filters = {}) {
+  try {
+    const posts = await withTimeout(getLatestPostsFromDb(filters));
+    if (posts && posts.length) return posts;
+  } catch (e) {
+    console.error('getLatestPosts error:', e);
+  }
+  return getStaticPosts(filters)
+    .slice()
+    .sort((a, b) => (b.pinned ? 1 : 0) - (a.pinned ? 1 : 0))
+    .slice(0, filters.limit || 6);
+}
+
+async function getLatestPostsFromDb(filters = {}) {
   const sb = getSupabase();
+  if (!sb) return [];
   const limit = filters.limit || 6;
 
   // Try full query with pinned/content_tag columns first
@@ -198,13 +239,20 @@ async function getLatestPosts(filters = {}) {
 }
 
 async function getPublishedPostCount(filters = {}) {
-  const sb = getSupabase();
-  let query = sb.from('social_posts').select('id', { count: 'exact', head: true })
-    .eq('status', 'published');
-  if (filters.project_type) query = query.eq('project_type', filters.project_type);
-  const { count, error } = await query;
-  if (error) { console.error('getPublishedPostCount error:', error); return 0; }
-  return count || 0;
+  const fallback = () => getStaticPosts(filters).length;
+  try {
+    const sb = getSupabase();
+    if (!sb) return fallback();
+    let query = sb.from('social_posts').select('id', { count: 'exact', head: true })
+      .eq('status', 'published');
+    if (filters.project_type) query = query.eq('project_type', filters.project_type);
+    const { count, error } = await withTimeout(query);
+    if (error) { console.error('getPublishedPostCount error:', error); return fallback(); }
+    return count || fallback();
+  } catch (e) {
+    console.error('getPublishedPostCount error:', e);
+    return fallback();
+  }
 }
 
 async function createSocialPost(post) {

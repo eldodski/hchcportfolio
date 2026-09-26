@@ -40,3 +40,9 @@ scripts/run-migrations.js
 .auth/
 test-results/
 playwright-report/
+
+# Private working files (kept locally, never published)
+docs/
+archive/
+*.docx
+hchc-*.json

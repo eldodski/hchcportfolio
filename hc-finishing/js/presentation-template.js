@@ -314,8 +314,8 @@ function buildRoomPage(room, index) {
       <tr>
         <td><span class="cat-badge">${esc(catLabel)}</span></td>
         <td><strong>${esc(m.product)}</strong></td>
-        <td>${esc(m.color) || '—'}</td>
-        <td>${esc(m.quantity) || '—'}</td>
+        <td>${esc(m.color) || '-'}</td>
+        <td>${esc(m.quantity) || '-'}</td>
         <td>${m.notes ? esc(m.notes) : ''}</td>
       </tr>`;
   }).join('');
@@ -373,17 +373,17 @@ function buildSummaryPage(rooms, data) {
     </div>
     <div class="summary-card">
       <h3>Rooms</h3>
-      ${rooms.map(r => `<div style="font-size: 10pt; margin-bottom: 0.2rem;">${esc(r.name)} — ${r.materials.length} selections</div>`).join('')}
+      ${rooms.map(r => `<div style="font-size: 10pt; margin-bottom: 0.2rem;">${esc(r.name)}: ${r.materials.length} selection${r.materials.length !== 1 ? 's' : ''}</div>`).join('')}
     </div>
   </div>
 
   <div class="next-steps">
     <h3>Next Steps</h3>
     <ol>
-      <li>Review all material selections with the client.</li>
-      <li>Confirm quantities and special order items.</li>
-      <li>Schedule material procurement timeline.</li>
-      <li>Coordinate installation schedule with builder.</li>
+      <li>Review all material selections together.</li>
+      <li>Confirm quantities and any special-order items.</li>
+      <li>Set a timeline for material procurement.</li>
+      <li>Coordinate the installation schedule with the builder.</li>
     </ol>
   </div>
 

@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Dashboard — HC Finishing</title>
+  <title>Dashboard | HC Finishing</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
   <style>
@@ -257,7 +257,7 @@
 
   <div class="container">
     <div class="welcome" id="welcome">
-      <h1>Welcome back</h1>
+      <h1>Welcome Back</h1>
       <p>HC Finishing Dashboard</p>
     </div>
 
@@ -325,7 +325,7 @@
         await initClerk();
         updateNavAuth();
         const name = getUserDisplayName();
-        document.querySelector('.welcome h1').textContent = `Welcome back, ${name}`;
+        document.querySelector('.welcome h1').textContent = `Welcome Back, ${name}`;
         const role = getUserRole();
         document.querySelector('.welcome p').innerHTML =
           `HC Finishing Dashboard <span class="role-badge">${role}</span>`;
@@ -361,7 +361,7 @@
         }
       } catch (e) {
         document.getElementById('recentList').innerHTML =
-          '<div class="empty-state">Could not load data. Supabase table may not be set up yet.</div>';
+          '<div class="empty-state">We could not load your data. The Supabase table may not be set up yet.</div>';
       }
 
       // Material count

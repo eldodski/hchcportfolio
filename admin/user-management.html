@@ -297,7 +297,7 @@ body {
 
 <div class="admin-page">
   <h1>User Management</h1>
-  <p class="subtitle">View and manage all platform users</p>
+  <p class="subtitle">View and manage every user on the platform.</p>
 
   <div class="search-bar">
     <input type="text" id="search-input" placeholder="Search by name or email..." oninput="filterUsers()">
@@ -364,7 +364,7 @@ HCHCAuth.onReady(async function() {
 async function loadUsers() {
   var sb = await HCHCAuth.getAuthClient();
   if (!sb) {
-    document.getElementById('user-tbody').innerHTML = '<tr><td colspan="6" class="empty-state">Unable to connect</td></tr>';
+    document.getElementById('user-tbody').innerHTML = '<tr><td colspan="6" class="empty-state">We could not connect to the database.</td></tr>';
     return;
   }
 
@@ -373,7 +373,7 @@ async function loadUsers() {
 
     if (result.error) {
       console.error('Error loading users:', result.error);
-      document.getElementById('user-tbody').innerHTML = '<tr><td colspan="6" class="empty-state">Error loading users</td></tr>';
+      document.getElementById('user-tbody').innerHTML = '<tr><td colspan="6" class="empty-state">We could not load users.</td></tr>';
       return;
     }
 
@@ -381,7 +381,7 @@ async function loadUsers() {
     renderUsers(_allUsers);
   } catch (e) {
     console.error('Failed to load users:', e);
-    document.getElementById('user-tbody').innerHTML = '<tr><td colspan="6" class="empty-state">Failed to load users</td></tr>';
+    document.getElementById('user-tbody').innerHTML = '<tr><td colspan="6" class="empty-state">We could not load users.</td></tr>';
   }
 }
 
@@ -409,7 +409,7 @@ function renderUsers(users) {
   document.getElementById('user-count').textContent = users.length + ' user' + (users.length !== 1 ? 's' : '');
 
   if (users.length === 0) {
-    tbody.innerHTML = '<tr><td colspan="6" class="empty-state">No users found</td></tr>';
+    tbody.innerHTML = '<tr><td colspan="6" class="empty-state">No users found.</td></tr>';
     return;
   }
 
@@ -508,7 +508,7 @@ async function saveUser(uid, clerkUserId) {
   if (saveBtn) saveBtn.disabled = true;
 
   var sb = await HCHCAuth.getAuthClient();
-  if (!sb) { showToast('Auth client unavailable', 'error'); if (saveBtn) saveBtn.disabled = false; return; }
+  if (!sb) { showToast('We could not connect to the sign-in service. Please refresh and try again.', 'error'); if (saveBtn) saveBtn.disabled = false; return; }
 
   try {
     var updateData = { role: newRole, tier: newTier, status: newStatus };
@@ -524,19 +524,19 @@ async function saveUser(uid, clerkUserId) {
     var result = await query;
 
     if (result.error) {
-      showToast('Update failed: ' + result.error.message, 'error');
+      showToast('We could not update this user: ' + result.error.message, 'error');
       if (saveBtn) saveBtn.disabled = false;
       return;
     }
 
-    showToast('User updated successfully', 'success');
+    showToast('User updated successfully.', 'success');
 
     // Refresh data
     await loadUsers();
     filterUsers();
   } catch (e) {
     console.error('Save failed:', e);
-    showToast('Save failed. Check console.', 'error');
+    showToast('Save failed. Please check the browser console for details.', 'error');
     if (saveBtn) saveBtn.disabled = false;
   }
 }

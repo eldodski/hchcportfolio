@@ -356,7 +356,7 @@ body {
 <div class="main">
   <div class="page-header">
     <h1>Dashboard</h1>
-    <p>Overview of your materials, vendors, and projects.</p>
+    <p>Here is an overview of your materials, vendors, and projects.</p>
   </div>
 
   <!-- Stats Row -->
@@ -447,7 +447,7 @@ body {
     <a class="action-card" href="/">
       <div class="action-icon">&#8962;</div>
       <div class="action-label">Home</div>
-      <div class="action-desc">Return to main site</div>
+      <div class="action-desc">Return to the main site</div>
     </a>
   </div>
 </div>
@@ -532,7 +532,7 @@ function renderCategoryBreakdown(materials) {
 
   container.innerHTML = CATEGORIES.map(cat => `
     <div class="breakdown-row">
-      <span class="breakdown-label">${cat}</span>
+      <span class="breakdown-label">${cat.replace(/_/g, ' ')}</span>
       <div class="breakdown-bar">
         <div class="breakdown-fill" style="width: ${(counts[cat] / max) * 100}%"></div>
       </div>

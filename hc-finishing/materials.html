@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Material Library — HC Finishing</title>
+  <title>Material Library | HC Finishing</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
   <style>
@@ -409,7 +409,7 @@
         <select id="filterPrice" onchange="filterMaterials()">
           <option value="">All</option>
           <option value="builder">Builder Grade</option>
-          <option value="mid">Mid Range</option>
+          <option value="mid">Mid-Range</option>
           <option value="premium">Premium</option>
           <option value="luxury">Luxury</option>
         </select>
@@ -462,7 +462,7 @@
           <label>Price Tier</label>
           <select id="matPriceTier">
             <option value="builder">Builder Grade</option>
-            <option value="mid">Mid Range</option>
+            <option value="mid">Mid-Range</option>
             <option value="premium">Premium</option>
             <option value="luxury">Luxury</option>
           </select>
@@ -522,11 +522,11 @@
 
         if (error) throw error;
         allMaterials = data || [];
-        document.getElementById('materialCount').textContent = `${allMaterials.length} materials`;
+        document.getElementById('materialCount').textContent = `${allMaterials.length} material${allMaterials.length === 1 ? '' : 's'}`;
         renderMaterials(allMaterials);
       } catch (e) {
         document.getElementById('materialGrid').innerHTML =
-          '<div class="empty-state"><p>Could not load materials. Check Supabase connection.</p></div>';
+          '<div class="empty-state"><p>We could not load materials. Please check the Supabase connection.</p></div>';
       }
     }
 
@@ -693,7 +693,7 @@
         closeModal();
         await loadMaterials();
       } catch (e) {
-        showToast('Error: ' + e.message);
+        showToast('We could not save this material: ' + e.message);
       }
 
       btn.disabled = false;
@@ -702,7 +702,7 @@
 
     async function deleteMaterial() {
       const id = document.getElementById('editId').value;
-      if (!id || !confirm('Delete this material?')) return;
+      if (!id || !confirm('Delete this material? This cannot be undone.')) return;
 
       try {
         const sb = getSupabase();
@@ -712,7 +712,7 @@
         closeModal();
         await loadMaterials();
       } catch (e) {
-        showToast('Error: ' + e.message);
+        showToast('We could not delete this material: ' + e.message);
       }
     }
 

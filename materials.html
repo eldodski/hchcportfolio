@@ -481,7 +481,7 @@ body {
           <input type="file" id="mat-image-file" accept="image/*" onchange="previewImage(event)">
           <div class="image-upload-text" id="image-upload-text">
             <strong>Click to upload</strong> or drag and drop<br>
-            PNG, JPG, WebP up to 5MB
+            PNG, JPG, or WebP, up to 5 MB
           </div>
         </div>
       </div>
@@ -495,7 +495,7 @@ body {
         <div class="form-group">
           <label for="mat-category">Category *</label>
           <select id="mat-category" required>
-            <option value="">Select category</option>
+            <option value="">Select a category</option>
             <option value="flooring">Flooring</option>
             <option value="cabinetry">Cabinetry</option>
             <option value="countertops">Countertops</option>
@@ -511,7 +511,7 @@ body {
         <div class="form-group">
           <label for="mat-price">Price Tier</label>
           <select id="mat-price">
-            <option value="">Select tier</option>
+            <option value="">Select a tier</option>
             <option value="low">Low</option>
             <option value="mid">Mid</option>
             <option value="high">High</option>
@@ -584,7 +584,7 @@ async function loadMaterials() {
     populateVendorFilter();
     renderGrid(allMaterials);
   } catch (err) {
-    grid.innerHTML = '<div class="loading">Could not load materials. Check Supabase connection.</div>';
+    grid.innerHTML = '<div class="loading">We could not load materials. Please check the Supabase connection.</div>';
     console.error(err);
   }
 }
@@ -649,7 +649,7 @@ function renderGrid(materials) {
     grid.innerHTML = `
       <div class="empty-state" style="grid-column: 1 / -1;">
         <h3>No Materials Found</h3>
-        <p>Add your first material to get started.</p>
+        <p>Try adjusting your filters, or add a new material to get started.</p>
       </div>`;
     return;
   }
@@ -667,7 +667,7 @@ function renderGrid(materials) {
           ${m.vendor || ''}${m.series ? ' &rsaquo; ' + m.series : ''}${m.color ? ' &rsaquo; ' + m.color : ''}
         </div>
         <div class="material-meta">
-          <span class="badge badge-category">${m.category}</span>
+          <span class="badge badge-category">${(m.category || '').replace(/_/g, ' ')}</span>
           ${m.price_tier ? `<span class="badge badge-${m.price_tier}">${m.price_tier}</span>` : ''}
         </div>
         ${m.sku ? `<p style="font-size: 0.75rem; color: var(--sand); margin-top: 6px;">SKU: ${m.sku}</p>` : ''}
@@ -732,7 +732,7 @@ function resetImageUpload() {
     <input type="file" id="mat-image-file" accept="image/*" onchange="previewImage(event)">
     <div class="image-upload-text" id="image-upload-text">
       <strong>Click to upload</strong> or drag and drop<br>
-      PNG, JPG, WebP up to 5MB
+      PNG, JPG, or WebP, up to 5 MB
     </div>`;
 }
 
@@ -780,16 +780,16 @@ async function saveMaterial(e) {
 
     if (id) {
       await updateMaterial(id, data);
-      showToast('Material updated');
+      showToast('Material updated.');
     } else {
       await createMaterial(data);
-      showToast('Material added');
+      showToast('Material added.');
     }
 
     closeModal();
     await loadMaterials();
   } catch (err) {
-    showToast('Error saving material: ' + err.message, true);
+    showToast('We could not save this material: ' + err.message, true);
   } finally {
     btn.disabled = false;
     btn.textContent = isEditing ? 'Update Material' : 'Save Material';
@@ -805,11 +805,11 @@ async function confirmDelete() {
     const mat = allMaterials.find(m => m.id === id);
     if (mat?.image_url) await deleteMaterialImage(mat.image_url);
     await deleteMaterial(id);
-    showToast('Material deleted');
+    showToast('Material deleted.');
     closeModal();
     await loadMaterials();
   } catch (err) {
-    showToast('Error deleting: ' + err.message, true);
+    showToast('We could not delete this material: ' + err.message, true);
   }
 }
 

@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Generate Presentation — HC Finishing</title>
+  <title>Generate Presentation | HC Finishing</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
   <style>
@@ -303,7 +303,7 @@
     <!-- Edit Overrides -->
     <div class="edit-section" id="editSection">
       <h2>Presentation Details</h2>
-      <p style="font-weight: 300; color: var(--mocha); margin-bottom: 1rem;">Edit any fields before generating. These override the parsed data.</p>
+      <p style="font-weight: 300; color: var(--mocha); margin-bottom: 1rem;">Edit any field before generating. Your changes override the parsed data.</p>
       <div class="edit-grid">
         <div class="edit-field" style="grid-column: 1 / -1;">
           <label>Design Style</label>
@@ -354,7 +354,7 @@
       <div class="preview-header">
         <h2>Presentation Preview</h2>
         <span style="font-weight: 300; color: var(--mocha); font-size: 0.85rem;">
-          Review before exporting. This is the Sanity Gate.
+          Review carefully before exporting. This is your Sanity Gate.
         </span>
       </div>
       <div class="preview-frame">
@@ -373,7 +373,7 @@
   <div class="modal-overlay" id="exportModal">
     <div class="modal">
       <h3>Approve Presentation</h3>
-      <p>This will open the presentation in a new tab for printing or saving as PDF. By exporting, you confirm this presentation is client-ready.</p>
+      <p>This will open the presentation in a new tab for printing or saving as a PDF. By exporting, you confirm this presentation is client-ready.</p>
       <div class="modal-actions">
         <button class="btn btn-approve" onclick="confirmExport()">Export to New Tab</button>
         <button class="btn btn-secondary" onclick="closeExportModal()">Cancel</button>
@@ -459,7 +459,7 @@
         `).join('');
       } catch (e) {
         document.getElementById('formList').innerHTML =
-          '<div class="empty-state">Could not load order forms. Check Supabase connection.</div>';
+          '<div class="empty-state">We could not load order forms. Please check the Supabase connection.</div>';
       }
     }
 
@@ -498,7 +498,7 @@
         runCompatibilityCheck(parsed);
 
       } catch (e) {
-        showToast('Error loading form: ' + e.message);
+        showToast('We could not load this order form: ' + e.message);
       }
     }
 
@@ -526,7 +526,7 @@
           const tone = sel.tone || 'neutral';
           if (pref.tones && pref.tones.length > 0 && !pref.tones.includes(tone)) {
             report.warnings.push(
-              `${sel.category} "${sel.name}" has a ${tone} tone, but ${activeStyle.name} style prefers ${pref.tones.join(' or ')} for this category.`
+              `${sel.category} "${sel.name}" has a ${tone} tone, but the ${activeStyle.name} style favors ${pref.tones.join(' or ')} tones for this category.`
             );
             report.overallScore = Math.max(0, report.overallScore - 5);
           }
@@ -541,7 +541,7 @@
       const indicator = document.getElementById('compatIndicator');
       indicator.className = `compat-indicator active compat-${report.status}`;
       document.getElementById('compatScore').textContent = `${report.overallScore}/100`;
-      document.getElementById('compatLabel').textContent = ` — ${getStatusLabel(report.status)}`;
+      document.getElementById('compatLabel').textContent = `(${getStatusLabel(report.status)})`;
 
       const warnings = document.getElementById('compatWarnings');
       const allItems = [...report.warnings, ...report.suggestions];
@@ -584,7 +584,7 @@
 
       document.getElementById('exportBtn').disabled = false;
 
-      showToast('Preview generated. Review before exporting.');
+      showToast('Preview generated. Please review it before exporting.');
     }
 
     function openExportModal() {
@@ -606,7 +606,7 @@
 
       // Show approved banner
       document.getElementById('approvedBanner').classList.add('active');
-      showToast('Presentation exported to new tab. Use Ctrl+P to save as PDF.');
+      showToast('Presentation opened in a new tab. Press Ctrl+P to save it as a PDF.');
     }
 
     function showToast(msg) {
