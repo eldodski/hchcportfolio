@@ -133,14 +133,18 @@ h1, h2 {
 <script src="/js/page-init.js"></script>
 <script>
 HCHCAuth.onReady(function() {
+  // Only allow returning to a page on this site
+  var returnUrl = new URLSearchParams(window.location.search).get('returnUrl') || '';
+  if (!/^\/(?!\/)/.test(returnUrl)) returnUrl = '/dashboard/';
   if (HCHCAuth.isSignedIn()) {
-    var params = new URLSearchParams(window.location.search);
-    window.location.href = params.get('returnUrl') || '/dashboard/';
+    window.location.href = returnUrl;
     return;
   }
   var el = document.getElementById('clerk-sign-in');
   if (window.Clerk && el) {
     window.Clerk.mountSignIn(el, {
+      afterSignInUrl: returnUrl,
+      afterSignUpUrl: '/account/pending.html',
       appearance: {
         variables: { colorPrimary: '#1B2A4A', colorText: '#3C2A21', fontFamily: 'Jost, sans-serif', borderRadius: '0px' }
       }

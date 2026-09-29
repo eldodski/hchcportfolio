@@ -186,7 +186,9 @@ HCHCAuth.onReady(function() {
   if (window.Clerk && clerkEl) {
     window.Clerk.mountSignUp(clerkEl, {
       appearance: { variables: { colorPrimary: '#1B2A4A', colorText: '#3C2A21', fontFamily: 'Jost, sans-serif', borderRadius: '0px' } },
-      unsafeMetadata: { role: 'interior_designer' }
+      unsafeMetadata: { role: 'interior_designer' },
+      afterSignUpUrl: '/account/pending.html',
+      afterSignInUrl: '/dashboard/'
     });
   }
   clerkEl.addEventListener('click', function(e) {

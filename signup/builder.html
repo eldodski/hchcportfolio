@@ -226,7 +226,9 @@ HCHCAuth.onReady(function() {
   if (window.Clerk && clerkEl) {
     window.Clerk.mountSignUp(clerkEl, {
       appearance: { variables: { colorPrimary: '#1B2A4A', colorText: '#3C2A21', fontFamily: 'Jost, sans-serif', borderRadius: '0px' } },
-      unsafeMetadata: { role: 'builder', company: companyInput.value }
+      unsafeMetadata: { role: 'builder', company: companyInput.value },
+      afterSignUpUrl: '/account/pending.html',
+      afterSignInUrl: '/dashboard/'
     });
     // Update metadata when company name changes
     companyInput.addEventListener('input', function() {
@@ -234,7 +236,9 @@ HCHCAuth.onReady(function() {
       window.Clerk.unmountSignUp(clerkEl);
       window.Clerk.mountSignUp(clerkEl, {
         appearance: { variables: { colorPrimary: '#1B2A4A', colorText: '#3C2A21', fontFamily: 'Jost, sans-serif', borderRadius: '0px' } },
-        unsafeMetadata: { role: 'builder', company: companyInput.value }
+        unsafeMetadata: { role: 'builder', company: companyInput.value },
+        afterSignUpUrl: '/account/pending.html',
+        afterSignInUrl: '/dashboard/'
       });
     });
   }
