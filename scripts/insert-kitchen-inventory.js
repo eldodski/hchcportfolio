@@ -7,7 +7,7 @@
 // 3. Uses local image paths (served from Vercel CDN)
 
 const SUPABASE_URL = 'https://eqqllaiswgkoxrivgmig.supabase.co';
-const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVxcWxsYWlzd2drb3hyaXZnbWlnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzY0NjY5NjAsImV4cCI6MjA5MjA0Mjk2MH0.D8KuzcRktLom6lTL7QChPih8CmZaThEpjy5lGYl-ZAM';
+const SUPABASE_KEY = 'sb_publishable_1XGHwy5hcnaUqX0cjpp0vA_ux0Ue6aX';
 
 async function supabaseRequest(method, path, body) {
   const url = `${SUPABASE_URL}/rest/v1/${path}`;
