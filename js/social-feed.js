@@ -87,7 +87,10 @@ function renderFeedCard(post) {
     : '';
 
   const caption = post.caption || '';
-  const shortCaption = caption.length > 120 ? caption.substring(0, 120) + '...' : caption;
+  // Cut long captions at the last whole word, never mid-word
+  const shortCaption = caption.length > 120
+    ? caption.substring(0, 121).replace(/\s+\S*$/, '').replace(/[\s.,;:!?\-]+$/, '') + '...'
+    : caption;
   const hashtags = (post.hashtags || []).map(h => `#${h}`).join(' ');
 
   const imgSrc = post.image_url || '';

@@ -1817,6 +1817,18 @@ footer {
   var latestGrid = document.getElementById('latest-grid');
   var tagLabels = { projects: 'Projects', tips: 'Tips & Ideas', process: 'Process' };
 
+  // Short teaser from a caption: whole words only (up to 8 words and about 50
+  // characters), with trailing punctuation removed and "..." added at the end.
+  function captionTeaser(caption) {
+    var words = String(caption).trim().split(/\s+/);
+    var out = [];
+    for (var i = 0; i < words.length && out.length < 8; i++) {
+      if (out.length && (out.join(' ') + ' ' + words[i]).length > 50) break;
+      out.push(words[i]);
+    }
+    return out.join(' ').replace(/[\s.,;:!?\-]+$/, '') + '...';
+  }
+
   function renderLatestCards(posts) {
     if (!posts || posts.length === 0) {
       latestGrid.innerHTML = '<div class="latest-card" style="grid-column:1/-1;text-align:center;padding:40px;color:var(--dusty-blue);">No posts yet. Check back soon.</div>';
@@ -1825,7 +1837,7 @@ footer {
     latestGrid.innerHTML = posts.map(function(post) {
       var date = post.published_at ? new Date(post.published_at).toLocaleDateString('en-US', { month: 'long', year: 'numeric' }) : '';
       var tag = post.content_tag ? (tagLabels[post.content_tag] || post.content_tag) : '';
-      var title = post.title || (post.caption ? post.caption.substring(0, 50) : 'Untitled');
+      var title = post.title || (post.caption ? captionTeaser(post.caption) : 'Untitled');
       var imgSrc = post.image_url || '';
       var alt = post.alt_text || 'Design project by Hill Country Home Concepts';
       var slug = post.slug ? '/social/#' + post.slug : '/social/';
