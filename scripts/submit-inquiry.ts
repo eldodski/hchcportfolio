@@ -1,4 +1,4 @@
-// Supabase Edge Function: submit-inquiry
+// Supabase Edge Function: submit-inquiry (deployed under the name rapid-responder)
 // Receives the homepage contact form, saves it to the inquiries table,
 // then emails a copy to Ena through Resend.
 // The inquiry is saved first, so it is never lost if the email step fails.

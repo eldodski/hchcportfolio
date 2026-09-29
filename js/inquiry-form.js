@@ -1,12 +1,12 @@
 // Homepage inquiry form.
-// Sends the form to the submit-inquiry Supabase edge function, which saves it
+// Sends the form to the Supabase edge function named rapid-responder, which saves it
 // to the inquiries table and emails a copy to Ena.
 
 (function() {
   var form = document.getElementById('inquire-form');
   if (!form || typeof HCHC_CONFIG === 'undefined') return;
 
-  var ENDPOINT = HCHC_CONFIG.supabase.url + '/functions/v1/submit-inquiry';
+  var ENDPOINT = HCHC_CONFIG.supabase.url + '/functions/v1/rapid-responder';
   var FALLBACK_EMAIL = 'ena.dodski@hillcountryhomeconcepts.com';
   var button = form.querySelector('button[type="submit"]');
   var status = form.querySelector('.form-status');
