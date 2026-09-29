@@ -938,6 +938,15 @@ p { max-width: 680px; }
   margin-top: 20px;
   grid-column: span 2;
 }
+.form-status {
+  text-align: center;
+  font-size: 0.95rem;
+  color: var(--gold, #C4A265);
+  grid-column: span 2;
+  margin: 8px 0 0;
+}
+.form-status.is-error { color: var(--sand, #D4C5B2); }
+.form-status a { color: inherit; text-decoration: underline; }
 
 .closing-email {
   font-size: 0.82rem;
@@ -1119,7 +1128,7 @@ footer {
   .contact-form-grid { grid-template-columns: 1fr; }
   .form-group.full { grid-column: span 1; }
   .form-submit-wrap { grid-column: span 1; }
-  .form-note { grid-column: span 1; }
+  .form-note, .form-status { grid-column: span 1; }
 
   /* Footer */
   footer { padding: 40px 24px 24px; }
@@ -1502,11 +1511,8 @@ footer {
 
     <!-- Panel 2: Contact Form -->
     <div class="closing-panel" id="panel-inquire">
-      <form class="contact-form-grid" id="inquire-form" action="https://formsubmit.co/ena.dodski@hillcountryhomeconcepts.com" method="POST">
-        <input type="hidden" name="_subject" value="New HCHC Inquiry">
-        <input type="hidden" name="_captcha" value="false">
-        <input type="hidden" name="_template" value="table">
-        <input type="text" name="_honey" style="display:none">
+      <form class="contact-form-grid" id="inquire-form">
+        <input type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true" style="display:none">
         <div class="form-group">
           <label for="contact-name">Name</label>
           <input type="text" id="contact-name" name="name" placeholder="Your name" required>
@@ -1544,6 +1550,7 @@ footer {
         <div class="form-submit-wrap">
           <button type="submit" class="btn btn-accent">Send Inquiry &rarr;</button>
         </div>
+        <p class="form-status" role="status" aria-live="polite" hidden></p>
         <p class="form-note">We typically respond within 48 hours. Your information is never shared.</p>
       </form>
     </div>
@@ -1679,6 +1686,7 @@ footer {
 <script src="/js/route-guard.js"></script>
 <script src="/js/global-nav.js"></script>
 <script src="/js/page-init.js"></script>
+<script src="/js/inquiry-form.js"></script>
 <script>
 (function() {
   var slider = document.getElementById('compSlider');

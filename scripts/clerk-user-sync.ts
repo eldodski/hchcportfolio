@@ -4,9 +4,11 @@
 
 import { serve } from 'https://deno.land/std@0.177.0/http/server.ts'
 import { createClient } from 'https://esm.sh/@supabase/supabase-js@2'
+import { Webhook } from 'npm:svix@1'
 
 const SUPABASE_URL = Deno.env.get('SUPABASE_URL')!
-const SUPABASE_SERVICE_KEY = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!
+// Custom secret holding the sb_secret key (legacy service_role keys are disabled)
+const SUPABASE_SERVICE_KEY = Deno.env.get('HCHC_SECRET_KEY')!
 const CLERK_WEBHOOK_SECRET = Deno.env.get('CLERK_WEBHOOK_SECRET')
 
 serve(async (req) => {
@@ -14,7 +16,25 @@ serve(async (req) => {
     return new Response('Method not allowed', { status: 405 })
   }
 
-  const body = await req.json()
+  // SECURITY: Only accept messages signed by Clerk. JWT verification is off
+  // for this function because Clerk cannot send a Supabase JWT.
+  if (!CLERK_WEBHOOK_SECRET) {
+    console.error('CLERK_WEBHOOK_SECRET is not set')
+    return new Response('Server configuration error', { status: 500 })
+  }
+
+  const payload = await req.text()
+  let body: any
+  try {
+    body = new Webhook(CLERK_WEBHOOK_SECRET).verify(payload, {
+      'svix-id': req.headers.get('svix-id') ?? '',
+      'svix-timestamp': req.headers.get('svix-timestamp') ?? '',
+      'svix-signature': req.headers.get('svix-signature') ?? '',
+    })
+  } catch (err) {
+    console.error('Webhook signature check failed:', err)
+    return new Response('Invalid signature', { status: 401 })
+  }
 
   // Verify this is a user.created event
   if (body.type !== 'user.created') {
