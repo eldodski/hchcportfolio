@@ -685,6 +685,7 @@ p { max-width: 680px; }
 
 .tools-cta-below {
   text-align: center;
+  margin: 0 auto;
   font-size: 0.92rem;
   color: var(--espresso);
 }
@@ -695,6 +696,150 @@ p { max-width: 680px; }
   transition: color 0.3s ease;
 }
 .tools-cta-below a:hover { color: var(--mocha); }
+
+/* ========== PRICING BUNDLES ========== */
+.bundle-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 28px;
+  margin-bottom: 48px;
+}
+.bundle-card {
+  background: #fff;
+  border: 1px solid var(--sand);
+  padding: 36px 30px;
+  display: flex;
+  flex-direction: column;
+  transition: border-color 0.3s ease;
+}
+.bundle-card:hover { border-color: var(--navy); }
+.bundle-card.featured { border: 1px solid var(--gold); box-shadow: 0 0 0 1px var(--gold); }
+.bundle-tag {
+  font-family: var(--body);
+  font-weight: 300;
+  font-size: 0.7rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--mocha);
+  margin-bottom: 10px;
+}
+.bundle-card h3 {
+  font-family: var(--heading);
+  font-weight: 600;
+  font-size: 1.5rem;
+  color: var(--navy);
+  margin-bottom: 6px;
+}
+.bundle-price {
+  font-family: var(--heading);
+  font-weight: 600;
+  font-size: 1.6rem;
+  color: var(--gold);
+  margin-bottom: 14px;
+}
+.bundle-fit {
+  font-size: 0.88rem;
+  line-height: 1.6;
+  color: var(--espresso);
+  margin-bottom: 20px;
+  max-width: none;
+}
+.bundle-lines {
+  list-style: none;
+  margin-bottom: 28px;
+  flex: 1;
+}
+.bundle-lines li {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  font-size: 0.86rem;
+  line-height: 1.5;
+  color: var(--espresso);
+  padding: 10px 0;
+  border-top: 1px solid var(--carrara);
+}
+.bundle-lines li span:last-child {
+  white-space: nowrap;
+  color: var(--navy);
+  font-weight: 400;
+}
+.bundle-btn { width: 100%; text-align: center; }
+.bundle-card .btn-ghost { color: var(--navy); border-color: var(--navy); }
+.bundle-card .btn-ghost:hover { background: var(--navy); color: #fff; }
+
+.pricing-extras {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+  margin-bottom: 36px;
+}
+.addons, .render-preview {
+  background: #fff;
+  border: 1px solid var(--sand);
+  padding: 36px 30px;
+}
+.addons h3, .render-preview h3 {
+  font-family: var(--heading);
+  font-weight: 600;
+  font-size: 1.35rem;
+  color: var(--navy);
+  margin-bottom: 14px;
+}
+.render-preview h3 { margin-top: 24px; }
+.render-preview p, .pricing-example p {
+  font-size: 0.9rem;
+  line-height: 1.65;
+  color: var(--espresso);
+  max-width: none;
+}
+.pricing-example {
+  background: var(--ivory);
+  border-left: 2px solid var(--gold);
+  padding: 18px 20px;
+}
+.pricing-example .section-label { margin-bottom: 6px; }
+.pricing-terms {
+  text-align: center;
+  max-width: 760px;
+  margin: 0 auto 20px;
+  font-size: 0.82rem;
+  line-height: 1.6;
+  color: var(--espresso);
+  opacity: 0.8;
+}
+
+/* ========== FOR BUILDERS AND DESIGNERS ========== */
+.pros-section {
+  padding: 100px 40px;
+  background: var(--carrara);
+}
+.pro-form { display: grid; gap: 14px; }
+.pro-form label {
+  display: grid;
+  gap: 6px;
+  font-family: var(--body);
+  font-weight: 300;
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--navy);
+}
+.pro-form input, .pro-form textarea {
+  font-family: var(--body);
+  font-weight: 300;
+  font-size: 0.95rem;
+  letter-spacing: normal;
+  text-transform: none;
+  color: var(--espresso);
+  background: var(--ivory);
+  border: 1px solid var(--sand);
+  padding: 12px 14px;
+}
+.pro-form input:focus, .pro-form textarea:focus { outline: none; border-color: var(--navy); }
+.pro-form .btn { justify-self: start; }
+.pro-form .form-status { text-align: left; color: var(--navy); margin: 0; }
+.pro-form .form-status.is-error { color: var(--mocha); }
 
 /* ========== SECTION 6 — THE PROCESS ========== */
 .process-section {
@@ -1114,6 +1259,9 @@ footer {
 
   /* Tools */
   .tools-grid { grid-template-columns: 1fr; }
+  .bundle-grid, .pricing-extras { grid-template-columns: 1fr; }
+  .pros-section { padding: 72px 20px; }
+  .pro-form .btn { justify-self: stretch; text-align: center; }
 
   /* Process */
   .process-steps {
@@ -1262,7 +1410,7 @@ footer {
         <div class="service-tile-body">
           <h3>Design Consultation</h3>
           <p>Warm by Design. Thoughtful design consultation for new homes and renovations that balances beauty, comfort, and practicality. Make smarter decisions and create a home that truly feels like yours.</p>
-          <a href="#tools" class="service-tile-link">Learn More &rarr;</a>
+          <a href="#pricing" class="service-tile-link">See Pricing &rarr;</a>
         </div>
       </div>
 
@@ -1270,8 +1418,8 @@ footer {
         <img src="pro_photos/hc-finishing-tile.png" alt="HC Finishing Tools material flat lay" class="service-tile-img" loading="lazy">
         <div class="service-tile-body">
           <h3>HC Finishing Tools</h3>
-          <p>Hill Country Home Concepts equips builders and interior designers with AI-powered tools that transform ideas into accurate visuals, finish presentations, and construction-ready documentation in a fraction of the usual time. Streamline collaboration, reduce costly revisions, and move projects from concept to completion faster and with greater confidence.</p>
-          <a href="#tools" class="service-tile-link">Learn More &rarr;</a>
+          <p>Now under development. We are building tools that transform ideas into accurate visuals, finish presentations, and construction-ready documentation in a fraction of the usual time. Join the waitlist to hear when they launch.</p>
+          <a href="#tools" class="service-tile-link">Join the Waitlist &rarr;</a>
         </div>
       </div>
 
@@ -1280,7 +1428,7 @@ footer {
         <div class="service-tile-body">
           <h3>Creating Smart Design Experiences</h3>
           <p>Partnering with builders to deliver a design system that combines thoughtful, human-centered design with powerful AI tools to create a personalized experience for every homebuyer. From photorealistic visuals to streamlined selections and precise documentation, we help builders delight clients, reduce decision fatigue, and move projects to construction faster.</p>
-          <a href="#tools" class="service-tile-link">Learn More &rarr;</a>
+          <a href="#tools" class="service-tile-link">Inquire About Builder Services &rarr;</a>
         </div>
       </div>
     </div>
@@ -1300,21 +1448,21 @@ footer {
         <h3>Builders &amp; Developers</h3>
         <p>You need consistency, speed, and buyer satisfaction at scale. We bring design systems that reduce decision fatigue, accelerate selections, and give your buyers confidence before a single nail is driven.</p>
         <p class="delivers">What we deliver: finish selection packages, buyer-ready presentations, photorealistic renderings, and design systems that work across communities.</p>
-        <a href="#tools" class="audience-cta">See How We Work With Builders &rarr;</a>
+        <a href="#tools" class="audience-cta">Inquire About Builder Services &rarr;</a>
       </div>
 
       <div class="audience-col fade-in">
         <h3>Interior &amp; Home Designers</h3>
-        <p>Your time is your product. Our HC Finishing Tool handles the production so you can focus on the design, delivering client-ready packages, installation diagrams, and photorealistic renders faster than your current workflow.</p>
-        <p class="delivers">What we deliver: AI-assisted design presentations, render credits, and a tool that works the way you think.</p>
-        <a href="#tools" class="audience-cta">Explore Our Tools &rarr;</a>
+        <p>Your time is your product. We are building the HC Finishing Tool to handle the production so you can focus on the design, with client-ready packages, installation diagrams, and photorealistic renders delivered faster than your current workflow.</p>
+        <p class="delivers">Coming soon: AI-assisted design presentations and a tool that works the way you think.</p>
+        <a href="#tools" class="audience-cta">Join the Waitlist &rarr;</a>
       </div>
 
       <div class="audience-col fade-in" id="homeowners">
         <h3>Homeowners</h3>
         <p>Building or renovating a home is one of the most significant investments you will make. We help you make selections with confidence and deliver a finished plan your contractor can actually execute.</p>
         <p class="delivers">What we deliver: personalized design consultation, curated finish selections, and a presentation you will be proud to sign.</p>
-        <a href="#contact" class="audience-cta">Get in Touch &rarr;</a>
+        <a href="#pricing" class="audience-cta">See Pricing &rarr;</a>
       </div>
     </div>
   </div>
@@ -1370,31 +1518,75 @@ footer {
   </div>
 </div>
 
-<!-- ========== SECTION 5 — THE TOOLS ========== -->
-<div class="tools-section" id="tools">
+<!-- ========== SECTION 5 — PRICING (HOMEOWNERS) ========== -->
+<div class="tools-section" id="pricing">
   <div class="tools-inner">
     <div class="tools-header fade-in">
-      <div class="section-label">For Design Professionals</div>
-      <h2>We built the tools we wished existed.</h2>
+      <div class="section-label">Pricing for Homeowners</div>
+      <h2>Clear pricing, bundled for you.</h2>
     </div>
 
-    <p class="tools-subtext fade-in">The HCHC platform gives designers and builders access to AI-assisted presentation generation and photorealistic renderings, all guided by expert human review to ensure every deliverable is accurate, thoughtful, and client-ready. By combining advanced technology with professional design oversight, we help you work faster, communicate more clearly, and deliver a highly personalized experience without sacrificing quality.</p>
+    <p class="tools-subtext fade-in">Every project begins with a 60-minute on-site consultation and a selections appointment. From there, you receive a design presentation and product schedule, complete with photorealistic 3D renderings. Choose the bundle that fits your project, and add only what you need.</p>
 
-    <div class="tools-grid">
-      <div class="tool-block fade-in">
-        <img src="pro_photos/client-presentation.webp" alt="HC Finishing Tool dashboard preview" class="tool-block-img" loading="lazy">
-        <h3>HC Finishing Tool</h3>
-        <p>Generate complete, client-ready design presentations from a change order or selections list. Materials are matched against our curated library, installation diagrams are pre-populated, and your finished draft is ready for review. Once approved, it downloads ready for client signature.</p>
-        <ul class="tool-bullets">
-          <li>AI-assisted, human-approved</li>
-          <li>Supports installation diagrams and material specs</li>
-          <li>Download-ready for client signature</li>
+    <div class="bundle-grid">
+      <div class="bundle-card fade-in">
+        <div class="bundle-tag">Where every project starts</div>
+        <h3>Design Plan</h3>
+        <div class="bundle-price">$1,350 to $1,475</div>
+        <p class="bundle-fit">Best for one room or a focused project, such as a kitchen or bathroom, where the layout is already set.</p>
+        <ul class="bundle-lines">
+          <li><span>On-site consultation (60 minutes)</span><span>$250</span></li>
+          <li><span>Selections appointment (2 to 3 hours, based on size and scale)</span><span>$250 to $375</span></li>
+          <li><span>Design presentation and product schedule, with photorealistic 3D renderings</span><span>$850</span></li>
         </ul>
-        <div class="tool-pricing">$300/month <span style="font-family:var(--body);font-weight:300;font-size:0.82rem;color:var(--espresso);">includes 1 render credit per month</span></div>
-        <a href="dashboard.html" class="btn btn-primary">Start Your Subscription &rarr;</a>
+        <a href="#contact" class="btn btn-ghost bundle-btn" data-bundle="Design Plan">Request This Bundle &rarr;</a>
       </div>
 
-      <div class="tool-block fade-in">
+      <div class="bundle-card featured fade-in">
+        <div class="bundle-tag">For changing layouts</div>
+        <h3>Design Plan Plus</h3>
+        <div class="bundle-price">From $2,400</div>
+        <p class="bundle-fit">Best for renovations where the layout or furniture plan is changing. Add $350 for each additional room.</p>
+        <ul class="bundle-lines">
+          <li><span>Everything in Design Plan</span><span>$1,350+</span></li>
+          <li><span>Site measure and documentation</span><span>$450</span></li>
+          <li><span>Design concept and mood boards (virtual)</span><span>$250</span></li>
+          <li><span>Space planning, first room</span><span>$350</span></li>
+        </ul>
+        <a href="#contact" class="btn btn-primary bundle-btn" data-bundle="Design Plan Plus">Request This Bundle &rarr;</a>
+      </div>
+
+      <div class="bundle-card fade-in">
+        <div class="bundle-tag">Start to finish</div>
+        <h3>Full Project Design</h3>
+        <div class="bundle-price">Custom Estimate</div>
+        <p class="bundle-fit">Best for whole-home or multi-room projects that need design support through construction. Priced after your consultation.</p>
+        <ul class="bundle-lines">
+          <li><span>Everything in Design Plan Plus</span><span>From $2,400</span></li>
+          <li><span>Builder and trade coordination</span><span>$125 per hour</span></li>
+          <li><span>Progress site visits</span><span>$150 per visit</span></li>
+        </ul>
+        <a href="#contact" class="btn btn-ghost bundle-btn" data-bundle="Full Project Design">Request an Estimate &rarr;</a>
+      </div>
+    </div>
+
+    <div class="pricing-extras">
+      <div class="addons fade-in">
+        <h3>Add to Any Bundle</h3>
+        <ul class="bundle-lines">
+          <li><span>Furnishings and decor plan</span><span>$400 per room</span></li>
+          <li><span>Physical mood boards</span><span>Add $250</span></li>
+          <li><span>Purchasing and order tracking</span><span>$125 per hour</span></li>
+          <li><span>Styling and install day</span><span>$750</span></li>
+          <li><span>Additional design time</span><span>$125 per hour or $750 per day</span></li>
+        </ul>
+        <div class="pricing-example">
+          <div class="section-label">Example Project</div>
+          <p>A recent three-room renovation with a primary bathroom was estimated at <strong>$4,425</strong>. It included space planning, selections, a design presentation with 3D renderings, builder coordination, and progress site visits.</p>
+        </div>
+      </div>
+
+      <div class="render-preview fade-in">
         <div class="comparison-slider" id="compSlider">
           <img src="9pghm0qi.jpg" alt="3D model before rendering" class="comp-img" draggable="false">
           <img src="1778930314577.png" alt="Photorealistic render after" class="comp-img" draggable="false">
@@ -1402,22 +1594,62 @@ footer {
             <img src="1778930314577.png" alt="Photorealistic render after" class="comp-img" draggable="false">
           </div>
           <div class="comp-handle" style="left:50%;"></div>
-          <span class="comp-label comp-label-before">3D Model</span>
-          <span class="comp-label comp-label-after">Render</span>
+          <span class="comp-label comp-label-before">Render</span>
+          <span class="comp-label comp-label-after">3D Model</span>
         </div>
-        <h3>Photorealistic Renders</h3>
-        <p>Submit your Revit, Rhino, or SketchUp files. We deliver photorealistic images of your spaces, interior or exterior, within 3 business days. Every project includes one scoping call, human review, and a flat fee.</p>
-        <ul class="tool-bullets">
-          <li>$1,000 per room, plus $250 per additional iteration</li>
-          <li>Delivery in 3 business days</li>
-          <li>Accepted formats: Revit, Rhino, SketchUp</li>
-        </ul>
-        <div class="tool-pricing">Flat fee per project</div>
-        <a href="#contact" class="btn btn-primary">Submit a Project &rarr;</a>
+        <h3>See Your Home Before It Is Built</h3>
+        <p>Every design presentation includes photorealistic 3D renderings, so you can see your finishes together in your space before a single order is placed. Drag the slider to compare.</p>
       </div>
     </div>
 
-    <p class="tools-cta-below fade-in">Not sure which option fits your workflow? <a href="#contact">Book a quick call &rarr;</a></p>
+    <p class="pricing-terms fade-in">A 50% retainer is due at signing, and the balance is due when your design plan is delivered. Hourly services are estimates, and you are billed only for the time used. Furniture, fixtures, materials, and contractor labor are purchased separately.</p>
+
+    <p class="tools-cta-below fade-in">Not sure which bundle fits? <a href="#contact" data-bundle="Not Sure Yet">Request a complimentary 20-minute intro call &rarr;</a></p>
+  </div>
+</div>
+
+<!-- ========== SECTION 5B — FOR BUILDERS AND DESIGNERS ========== -->
+<div class="pros-section" id="tools">
+  <div class="tools-inner">
+    <div class="tools-header fade-in">
+      <div class="section-label">For Builders and Designers</div>
+      <h2>Professional services are coming soon.</h2>
+    </div>
+
+    <p class="tools-subtext fade-in">We are building design systems for builders and tools for design professionals. Tell us about your needs today, and you will be the first to know when these services open.</p>
+
+    <div class="tools-grid">
+      <div class="tool-block fade-in">
+        <div class="bundle-tag">Coming Soon</div>
+        <h3>Builder and Developer Services</h3>
+        <p>Finish selection packages, buyer-ready presentations, and design systems that work across communities. Share your project and we will reach out to discuss how we can help.</p>
+        <form class="pro-form js-inquiry-form" data-success="Thank you. We received your inquiry and will be in touch soon.">
+          <input type="hidden" name="project_type" value="Builder Inquiry">
+          <input type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true" style="display:none">
+          <label>Name<input type="text" name="name" required></label>
+          <label>Email<input type="email" name="email" required></label>
+          <label>Company<input type="text" name="company"></label>
+          <label>Tell Us About Your Project<textarea name="message" rows="3"></textarea></label>
+          <button type="submit" class="btn btn-primary">Inquire Here &rarr;</button>
+          <p class="form-status" role="status" aria-live="polite" hidden></p>
+        </form>
+      </div>
+
+      <div class="tool-block fade-in">
+        <div class="bundle-tag">Under Development</div>
+        <h3>HC Finishing Tool</h3>
+        <p>Our tool for creating client-ready design presentations, material specifications, and installation diagrams is under development. Join the waitlist to receive updates as it gets closer to launch.</p>
+        <form class="pro-form js-inquiry-form" data-success="Thank you. You are on the waitlist, and we will send you updates.">
+          <input type="hidden" name="project_type" value="Designer Waitlist">
+          <input type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true" style="display:none">
+          <label>Name<input type="text" name="name" required></label>
+          <label>Email<input type="email" name="email" required></label>
+          <label>Company or Studio<input type="text" name="company"></label>
+          <button type="submit" class="btn btn-primary">Join the Waitlist &rarr;</button>
+          <p class="form-status" role="status" aria-live="polite" hidden></p>
+        </form>
+      </div>
+    </div>
   </div>
 </div>
 
@@ -1433,22 +1665,22 @@ footer {
       <div class="process-step">
         <div class="step-number">1</div>
         <h3>Connect</h3>
-        <p>Schedule a complimentary 30-minute call to discuss your project, workflow, and goals. We will recommend the products, tools, or services that best fit your needs.</p>
+        <p>Start with a complimentary 20-minute intro call. We talk through your project, timeline, and budget, and recommend the bundle that fits.</p>
       </div>
       <div class="process-step">
         <div class="step-number">2</div>
-        <h3>Submit Your Files</h3>
-        <p>Upload your plans, images, selections, change orders, or 3D models. Once we receive your materials, we confirm scope, pricing, and delivery timeline.</p>
+        <h3>On-Site Consultation</h3>
+        <p>We walk through your home together for at least 60 minutes to review your space, your goals, and your style.</p>
       </div>
       <div class="process-step">
         <div class="step-number">3</div>
-        <h3>We Create</h3>
-        <p>Using our design system and AI-assisted tools, we produce editable presentations, photorealistic renderings, and supporting documentation. Every deliverable is reviewed by a design professional to ensure accuracy and quality.</p>
+        <h3>Selections Appointment</h3>
+        <p>In a 2 to 3 hour appointment, we choose your finishes and materials together, based on the size and scale of your project.</p>
       </div>
       <div class="process-step">
         <div class="step-number">4</div>
-        <h3>Deliver &amp; Present</h3>
-        <p>Receive polished, client-ready presentations and signable documents that make approvals simple and keep your project moving forward with confidence.</p>
+        <h3>Design Presentation</h3>
+        <p>You receive your design presentation and product schedule, with photorealistic 3D renderings, ready for your builder and trades.</p>
       </div>
     </div>
   </div>
@@ -1457,60 +1689,11 @@ footer {
 <!-- ========== SECTION 7 — CLOSING CTA ========== -->
 <div class="closing-section" id="contact">
   <div class="closing-inner fade-in">
-    <h2>Ready to build something that performs?</h2>
-    <p class="closing-subtext">Whether you are a builder scaling a community, a designer streamlining your workflow, or a homeowner making one of the most important decisions of your life, we are ready.</p>
+    <h2>Ready to start your design plan?</h2>
+    <p class="closing-subtext">Tell us about your home and your project. We will reply within 48 hours to schedule your complimentary 20-minute intro call.</p>
 
-    <div class="closing-tabs">
-      <button class="closing-tab active" data-panel="tiers">Get Started</button>
-      <button class="closing-tab" data-panel="inquire">Talk Through Your Project</button>
-    </div>
-
-    <!-- Panel 1: Tier Selection -->
-    <div class="closing-panel active" id="panel-tiers">
-      <div class="tier-grid">
-        <div class="tier-card">
-          <div class="tier-name">For Homeowners</div>
-          <div class="tier-price">$250</div>
-          <div class="tier-period">single home consultation</div>
-          <ul class="tier-features">
-            <li>90-minute design session</li>
-            <li>Actionable design direction</li>
-            <li>Material recommendations</li>
-            <li>Follow-up summary document</li>
-          </ul>
-          <a href="dashboard.html?plan=consultation" class="btn btn-ghost">Select &rarr;</a>
-        </div>
-        <div class="tier-card featured">
-          <div class="tier-name">HC Finishing Tool</div>
-          <div class="tier-price">$300</div>
-          <div class="tier-period">per month</div>
-          <ul class="tier-features">
-            <li>AI-assisted presentations</li>
-            <li>Material library access</li>
-            <li>Installation diagrams</li>
-            <li>1 render credit per month</li>
-            <li>Human review on every deliverable</li>
-          </ul>
-          <a href="dashboard.html?plan=engine" class="btn btn-accent">Select &rarr;</a>
-        </div>
-        <div class="tier-card">
-          <div class="tier-name">Full-Service Design</div>
-          <div class="tier-price">Use Our Team</div>
-          <div class="tier-period">project-based</div>
-          <ul class="tier-features">
-            <li>Complete design management</li>
-            <li>Full access to our web tools</li>
-            <li>Dedicated human support</li>
-            <li>Photorealistic renders</li>
-            <li>Dedicated project timeline</li>
-          </ul>
-          <a href="#inquire-form" class="btn btn-ghost" onclick="document.querySelector('[data-panel=inquire]').click()">Contact Us &rarr;</a>
-        </div>
-      </div>
-    </div>
-
-    <!-- Panel 2: Contact Form -->
-    <div class="closing-panel" id="panel-inquire">
+    <!-- Contact Form -->
+    <div class="closing-panel active" id="panel-inquire">
       <form class="contact-form-grid" id="inquire-form">
         <input type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true" style="display:none">
         <div class="form-group">
@@ -1522,14 +1705,13 @@ footer {
           <input type="email" id="contact-email" name="email" placeholder="your@email.com" required>
         </div>
         <div class="form-group">
-          <label for="contact-type">Project Type</label>
+          <label for="contact-type">Bundle</label>
           <select id="contact-type" name="project_type">
-            <option value="" disabled selected>Select a project type</option>
-            <option>Full-Service Design</option>
-            <option>Room Refresh</option>
-            <option>Design Consultation</option>
-            <option>HC Finishing Tool</option>
-            <option>Photorealistic Renders</option>
+            <option value="" disabled selected>Select a bundle</option>
+            <option>Design Plan</option>
+            <option>Design Plan Plus</option>
+            <option>Full Project Design</option>
+            <option>Not Sure Yet</option>
             <option>Other</option>
           </select>
         </div>
@@ -1567,6 +1749,7 @@ footer {
       <ul class="footer-nav">
         <li><a href="#latest">Latest</a></li>
         <li><a href="#services">Services</a></li>
+        <li><a href="#pricing">Pricing</a></li>
         <li><a href="#tools">For Professionals</a></li>
         <li><a href="#contact">Contact</a></li>
       </ul>

@@ -1,62 +1,89 @@
-// Homepage inquiry form.
-// Sends the form to the Supabase edge function named rapid-responder, which saves it
+// Homepage inquiry forms (the main contact form, the builder inquiry form,
+// and the designer waitlist form).
+// Each sends to the Supabase edge function named rapid-responder, which saves it
 // to the inquiries table and emails a copy to Ena.
 
 (function() {
-  var form = document.getElementById('inquire-form');
-  if (!form || typeof HCHC_CONFIG === 'undefined') return;
+  if (typeof HCHC_CONFIG === 'undefined') return;
 
   var ENDPOINT = HCHC_CONFIG.supabase.url + '/functions/v1/rapid-responder';
   var FALLBACK_EMAIL = 'ena.dodski@hillcountryhomeconcepts.com';
-  var button = form.querySelector('button[type="submit"]');
-  var status = form.querySelector('.form-status');
+  var DEFAULT_SUCCESS = 'Thank you. Your inquiry has been sent, and we will be in touch within 48 hours.';
 
-  function showStatus(html, isError) {
-    status.innerHTML = html;
-    status.classList.toggle('is-error', !!isError);
-    status.hidden = false;
+  function value(form, name) {
+    var field = form.elements[name];
+    return field ? field.value : '';
   }
 
-  form.addEventListener('submit', function(e) {
-    e.preventDefault();
+  function setup(form) {
+    var button = form.querySelector('button[type="submit"]');
+    var status = form.querySelector('.form-status');
 
-    var data = {
-      name: form.elements.name.value,
-      email: form.elements.email.value,
-      project_type: form.elements.project_type.value,
-      timeline: form.elements.timeline.value,
-      message: form.elements.message.value,
-      website: form.elements.website.value,
-      page: window.location.pathname
-    };
+    function showStatus(html, isError) {
+      status.innerHTML = html;
+      status.classList.toggle('is-error', !!isError);
+      status.hidden = false;
+    }
 
-    var buttonText = button.innerHTML;
-    button.disabled = true;
-    button.textContent = 'Sending...';
-    status.hidden = true;
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
 
-    fetch(ENDPOINT, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(data)
-    })
-      .then(function(res) {
-        return res.json().catch(function() { return {}; }).then(function(body) {
-          if (!res.ok) throw new Error(body.error || 'Request failed');
+      // The builder and designer forms collect a company name; keep it with the message
+      var message = value(form, 'message');
+      var company = value(form, 'company').trim();
+      if (company) message = 'Company: ' + company + (message ? '\n\n' + message : '');
+
+      var data = {
+        name: value(form, 'name'),
+        email: value(form, 'email'),
+        project_type: value(form, 'project_type'),
+        timeline: value(form, 'timeline'),
+        message: message,
+        website: value(form, 'website'),
+        page: window.location.pathname
+      };
+
+      var buttonText = button.innerHTML;
+      button.disabled = true;
+      button.textContent = 'Sending...';
+      status.hidden = true;
+
+      fetch(ENDPOINT, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+      })
+        .then(function(res) {
+          return res.json().catch(function() { return {}; }).then(function(body) {
+            if (!res.ok) throw new Error(body.error || 'Request failed');
+          });
+        })
+        .then(function() {
+          form.reset();
+          showStatus(form.getAttribute('data-success') || DEFAULT_SUCCESS, false);
+        })
+        .catch(function(err) {
+          console.error('Inquiry failed:', err);
+          showStatus('We are sorry. Your message could not be sent. Please try again, or email us at <a href="mailto:' +
+            FALLBACK_EMAIL + '">' + FALLBACK_EMAIL + '</a>.', true);
+        })
+        .then(function() {
+          button.disabled = false;
+          button.innerHTML = buttonText;
         });
-      })
-      .then(function() {
-        form.reset();
-        showStatus('Thank you. Your inquiry has been sent, and we will be in touch within 48 hours.', false);
-      })
-      .catch(function(err) {
-        console.error('Inquiry failed:', err);
-        showStatus('We are sorry. Your inquiry could not be sent. Please try again, or email us at <a href="mailto:' +
-          FALLBACK_EMAIL + '">' + FALLBACK_EMAIL + '</a>.', true);
-      })
-      .then(function() {
-        button.disabled = false;
-        button.innerHTML = buttonText;
+    });
+  }
+
+  var forms = document.querySelectorAll('#inquire-form, .js-inquiry-form');
+  Array.prototype.forEach.call(forms, setup);
+
+  // "Request This Bundle" buttons preselect the bundle in the main contact form
+  var bundleSelect = document.getElementById('contact-type');
+  if (bundleSelect) {
+    document.querySelectorAll('[data-bundle]').forEach(function(link) {
+      link.addEventListener('click', function() {
+        bundleSelect.value = link.getAttribute('data-bundle');
       });
-  });
+    });
+  }
 })();
