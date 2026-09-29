@@ -1,7 +1,9 @@
 // Social Post Publishing API
 // Publishes posts to Pinterest and Instagram (when new Meta Business account is connected)
+import { checkOrigin } from './_allowed-origin.js';
 
 export default async function handler(req, res) {
+  if (!checkOrigin(req, res)) return;
   if (req.method !== 'POST') {
     return res.status(405).json({ error: 'Method not allowed' });
   }

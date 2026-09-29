@@ -11,6 +11,7 @@ const HCHCRouteGuard = (function () {
   // Each key is a path prefix, value defines requirements
   const ROUTE_RULES = {
     '/admin/': { requireAuth: true, requireActive: true, requireRole: ['admin'] },
+    '/admin': { requireAuth: true, requireActive: true, requireRole: ['admin'] },
     '/dashboard/designer/': { requireAuth: true, requireActive: true, requireRole: ['interior_designer'] },
     '/dashboard/builder/': { requireAuth: true, requireActive: true, requireRole: ['builder'] },
     '/dashboard/homeowner/': { requireAuth: true, requireActive: true, requireRole: ['homeowner'] },
@@ -99,7 +100,7 @@ const HCHCRouteGuard = (function () {
       // Check tier
       if (rule.requireTier && !HCHCAuth.isAdmin()) {
         if (!HCHCAuth.hasTier(rule.requireTier)) {
-          window.location.href = '/plans.html?upgrade=' + encodeURIComponent(rule.requireTier);
+          window.location.href = '/?upgrade=' + encodeURIComponent(rule.requireTier) + '#contact';
           return;
         }
       }

@@ -5,7 +5,13 @@ const http = require('http');
 
 // ── Config ──────────────────────────────────────────────────────────────
 const SUPABASE_URL = 'https://eqqllaiswgkoxrivgmig.supabase.co';
-const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVxcWxsYWlzd2drb3hyaXZnbWlnIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc3NjQ2Njk2MCwiZXhwIjoyMDkyMDQyOTYwfQ.CWsC6YZAzxi7U6yg9gPt1uymoN_KiuQgcjItY62TUpM';
+// Never paste the service role key here. Set it in your terminal first:
+//   SUPABASE_SERVICE_ROLE_KEY=... node scripts/upload-images.js
+const SUPABASE_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY;
+if (!SUPABASE_KEY) {
+  console.error('Missing SUPABASE_SERVICE_ROLE_KEY environment variable.');
+  process.exit(1);
+}
 const BUCKET = 'material-images';
 const BATCH_SIZE = 5;
 const MAX_IMAGE_SIZE = 500 * 1024; // 500KB limit

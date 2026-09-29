@@ -1,0 +1,9 @@
+# Internal files that should never be published on the live site.
+# They stay in the project for working on the site.
+scripts/
+tests/
+node_modules/
+playwright.config.js
+*.md
+*.sql
+hc-finishing/page1-preview.png

@@ -2,6 +2,7 @@
 // Receives raw binary body + upload URL in header, forwards to Gemini.
 // This avoids CORS issues (browser can't POST directly to Google)
 // and avoids base64 inflation (raw bytes = 33% smaller than base64).
+import { checkOrigin } from './_allowed-origin.js';
 
 export const config = {
   api: {
@@ -19,9 +20,7 @@ function collectBody(req) {
 }
 
 export default async function handler(req, res) {
-  res.setHeader('Access-Control-Allow-Origin', '*');
-  res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
-  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, X-Upload-Url');
+  if (!checkOrigin(req, res, 'Content-Type, X-Upload-Url')) return;
 
   if (req.method === 'OPTIONS') return res.status(200).end();
   if (req.method !== 'POST') return res.status(405).json({ error: 'Method not allowed' });

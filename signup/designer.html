@@ -142,6 +142,11 @@ h1, h2 {
 }
 
 .back-link a:hover { color: var(--mocha); }
+/* Keep the Clerk sign-in box inside small phone screens */
+@media (max-width: 600px) {
+  .signup-card { padding: 32px 8px; width: calc(100% - 8px); box-sizing: border-box; }
+}
+.cl-rootBox, .cl-card { max-width: 100%; box-sizing: border-box; }
 </style>
 </head>
 <body>

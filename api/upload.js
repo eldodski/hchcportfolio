@@ -5,6 +5,7 @@
 //   SUPABASE_SERVICE_ROLE_KEY, SUPABASE_URL
 //   GOOGLE_SERVICE_ACCOUNT_KEY (full JSON string of service account key)
 //   GOOGLE_DRIVE_FOLDER_ID (shared folder ID for uploads)
+import { checkOrigin } from './_allowed-origin.js';
 
 import crypto from 'crypto';
 
@@ -140,6 +141,7 @@ async function uploadToGoogleDrive(accessToken, parentFolderId, filename, fileBu
 // ============ MAIN HANDLER ============
 
 export default async function handler(req, res) {
+  if (!checkOrigin(req, res)) return;
   if (req.method !== 'POST') {
     return res.status(405).json({ error: 'Method not allowed' });
   }
@@ -172,7 +174,8 @@ export default async function handler(req, res) {
       {
         method: 'POST',
         headers: {
-          'Authorization': `Bearer ${serviceKey}`,
+          // New Supabase secret keys (sb_secret_...) are not JWTs and go only in the apikey header
+          ...(serviceKey.startsWith('eyJ') ? { 'Authorization': `Bearer ${serviceKey}` } : {}),
           'apikey': serviceKey,
           'Content-Type': contentType || 'application/octet-stream',
           'Cache-Control': '3600',

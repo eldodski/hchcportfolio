@@ -1,10 +1,9 @@
 // Vercel Serverless Function — proxies Gemini API calls
 // API key is stored in Vercel environment variable GEMINI_API_KEY
+import { checkOrigin } from './_allowed-origin.js';
 export default async function handler(req, res) {
+  if (!checkOrigin(req, res)) return;
   // CORS headers
-  res.setHeader('Access-Control-Allow-Origin', '*');
-  res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
-  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
 
   if (req.method === 'OPTIONS') {
     return res.status(200).end();

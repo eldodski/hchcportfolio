@@ -19,8 +19,6 @@
     { "source": "/admin/user-approvals/", "destination": "/admin/user-approvals.html" },
     { "source": "/admin/user-management", "destination": "/admin/user-management.html" },
     { "source": "/admin/user-management/", "destination": "/admin/user-management.html" },
-    { "source": "/admin/settings", "destination": "/admin/settings.html" },
-    { "source": "/admin/settings/", "destination": "/admin/settings.html" },
     { "source": "/account/pending", "destination": "/account/pending.html" },
     { "source": "/account/pending/", "destination": "/account/pending.html" },
     { "source": "/account/settings", "destination": "/account/settings.html" },
@@ -30,9 +28,12 @@
     { "source": "/legal/subscription-terms", "destination": "/legal/subscription-terms.html" },
     { "source": "/legal/subscription-terms/", "destination": "/legal/subscription-terms.html" },
     { "source": "/legal/privacy-policy", "destination": "/legal/privacy-policy.html" },
-    { "source": "/legal/privacy-policy/", "destination": "/legal/privacy-policy.html" },
-    { "source": "/plans", "destination": "/plans.html" },
-    { "source": "/plans/", "destination": "/plans.html" }
+    { "source": "/legal/privacy-policy/", "destination": "/legal/privacy-policy.html" }
+  ],
+  "redirects": [
+    { "source": "/plans", "destination": "/#contact", "permanent": false },
+    { "source": "/plans/", "destination": "/#contact", "permanent": false },
+    { "source": "/plans.html", "destination": "/#contact", "permanent": false }
   ],
   "functions": {
     "api/gemini.js": {

@@ -29,6 +29,9 @@
       top: 0;
       z-index: 1000;
       font-family: 'Jost', 'Segoe UI', sans-serif;
+      width: 100%;
+      box-sizing: border-box;
+      align-self: stretch;
     }
     .hchc-nav-logo {
       font-family: 'Cormorant Garamond', Georgia, serif;
@@ -568,7 +571,7 @@
     return links.map(l => {
       if (!l.tierGated) return l;
       if (HCHCAuth.hasTier(l.tierGated) || HCHCAuth.isAdmin()) return l;
-      return { ...l, name: 'Upgrade to Access', href: '/plans.html' };
+      return { ...l, name: 'Upgrade to Access', href: '/#contact' };
     });
   }
 
@@ -807,6 +810,9 @@
   // ---- INIT ----
 
   function init() {
+    // Pages that do not load clerk-auth.js keep their own built-in menu
+    if (typeof HCHCAuth === 'undefined') return;
+
     HCHCAuth.onReady(() => {
       render();
     });

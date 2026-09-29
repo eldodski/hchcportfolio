@@ -261,6 +261,11 @@
     }
     .approved-banner.active { display: block; }
     .approved-banner .check { color: var(--success); font-size: 1.5rem; margin-right: 0.5rem; }
+    /* Phones: let the menu wrap instead of running off the screen */
+    @media (max-width: 767px) {
+      nav { flex-wrap: wrap; gap: 0.75rem; padding: 1rem 1.25rem; }
+      nav ul, nav .nav-links { flex-wrap: wrap; gap: 0.75rem 1.25rem; }
+    }
   </style>
 </head>
 <body>

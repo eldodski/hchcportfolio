@@ -209,11 +209,11 @@ body {
       <div class="stat-footer">Approved accounts</div>
     </a>
 
-    <a href="/admin/project-review.html" class="stat-card">
+    <div class="stat-card">
       <div class="stat-label">Total Projects</div>
       <div class="stat-value loading" id="project-count">--</div>
       <div class="stat-footer">All projects</div>
-    </a>
+    </div>
 
     <a href="/materials.html" class="stat-card">
       <div class="stat-label">Total Materials</div>
@@ -236,8 +236,8 @@ body {
 </div>
 
 <script>
-// Admin dashboard data loader
-HCHCAuth.onReady(async function() {
+// Admin dashboard data loader (runs after the auth scripts below have loaded)
+window.addEventListener('DOMContentLoaded', () => HCHCAuth.onReady(async function() {
   if (!HCHCAuth.isAdmin()) return;
 
   var sb = await HCHCAuth.getAuthClient();
@@ -311,7 +311,7 @@ HCHCAuth.onReady(async function() {
     console.warn('Failed to fetch activity:', e);
     document.getElementById('activity-list').innerHTML = '<li class="activity-placeholder">We could not load recent activity.</li>';
   }
-});
+}));
 
 function _formatTimeAgo(date) {
   var seconds = Math.floor((new Date() - date) / 1000);
