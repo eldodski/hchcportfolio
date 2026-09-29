@@ -225,17 +225,64 @@
       align-items: center;
       justify-content: center;
     }
+    .hchc-mobile-overlay-logo {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-weight: 600;
+      font-size: 1.1rem;
+      color: ${V.ivory};
+    }
+    .hchc-mobile-links {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 24px;
+      gap: 4px;
+    }
     .hchc-mobile-overlay a {
       display: block;
-      padding: 14px 24px;
+      padding: 10px 24px;
       color: ${V.ivory};
-      font-size: 1rem;
-      font-weight: 300;
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: 1.6rem;
+      font-weight: 600;
+      text-align: center;
       text-decoration: none;
-      border-bottom: 1px solid rgba(255,255,255,0.04);
-      transition: background 0.15s;
+      transition: color 0.15s;
     }
-    .hchc-mobile-overlay a:hover { background: rgba(255,255,255,0.06); }
+    .hchc-mobile-overlay a:hover { color: ${V.gold}; }
+    .hchc-mobile-overlay a.hchc-mobile-signin {
+      margin-top: 20px;
+      font-family: 'Jost', sans-serif;
+      font-size: 0.8rem;
+      font-weight: 300;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: ${V.sand};
+    }
+    .hchc-mobile-overlay a.hchc-mobile-cta {
+      margin-top: 8px;
+      background: ${V.gold};
+      color: ${V.navy};
+      font-family: 'Jost', sans-serif;
+      font-size: 0.8rem;
+      font-weight: 400;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      padding: 14px 40px;
+    }
+    .hchc-mobile-overlay a.hchc-mobile-cta:hover { background: ${V.ivory}; color: ${V.navy}; }
+    .hchc-mobile-tagline {
+      text-align: center;
+      padding: 20px 24px 32px;
+      font-family: 'Jost', sans-serif;
+      font-size: 0.72rem;
+      font-weight: 200;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: ${V.dustyBlue};
+    }
     .hchc-mobile-overlay a.active { color: ${V.gold}; }
     .hchc-mobile-overlay-section {
       padding: 8px 24px 4px;
@@ -422,7 +469,15 @@
         letter-spacing: 0.06em;
       }
     }
+    /* Phones: keep the logo and button on one line */
+    @media (max-width: 600px) {
+      .hchc-nav-topbar { padding: 12px 16px; gap: 12px; }
+      .hchc-nav-logo { font-size: 1rem; white-space: nowrap; }
+      .hchc-nav-right { gap: 12px; }
+      .hchc-nav-btn, .hchc-nav-right a.hchc-nav-btn { white-space: nowrap; font-size: 0.68rem; padding: 8px 14px; }
+    }
     @media (max-width: 374px) {
+      .hchc-nav-right a.hchc-nav-btn { display: none; }
       .hchc-nav-homeowner .hchc-hamburger { display: flex !important; }
       .hchc-nav-homeowner .hchc-nav-center { display: none !important; }
     }
@@ -738,19 +793,21 @@
     overlay.className = 'hchc-mobile-overlay';
     let html = `
       <div class="hchc-mobile-overlay-header">
-        <span style="font-family: 'Cormorant Garamond', serif; font-weight: 600; color: ${V.gold}">HCHC</span>
+        <span class="hchc-mobile-overlay-logo">Hill Country Home Concepts</span>
         <button class="hchc-mobile-overlay-close" aria-label="Close menu">&times;</button>
       </div>
     `;
+    html += '<div class="hchc-mobile-links">';
     links.forEach(l => {
       html += `<a href="${l.href}" class="${isActive(l.href) ? 'active' : ''}">${l.name}</a>`;
     });
     if (showSignOut) {
       html += `<button class="hchc-mobile-signout" onclick="HCHCAuth.signOut()">Sign Out</button>`;
     } else {
-      html += `<a href="/login.html">Sign In</a>`;
-      html += `<a href="/signup/" style="color:${V.gold}">Get Started</a>`;
+      html += `<a href="/login.html" class="hchc-mobile-signin">Sign In</a>`;
+      html += `<a href="/signup/" class="hchc-mobile-cta">Get Started</a>`;
     }
+    html += '</div><div class="hchc-mobile-tagline">Warm by Design</div>';
     overlay.innerHTML = html;
 
     // Close handler
