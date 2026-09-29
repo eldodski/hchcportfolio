@@ -47,6 +47,7 @@
       align-items: center;
     }
     .hchc-nav-center a {
+      white-space: nowrap;
       color: ${V.sand};
       font-size: 0.8rem;
       font-weight: 300;
@@ -394,8 +395,8 @@
     }
 
     /* ======= RESPONSIVE ======= */
-    /* Mobile: show hamburger, hide desktop links */
-    @media (max-width: 767px) {
+    /* Mobile and tablet: show hamburger, hide desktop links (six links need about 1180px) */
+    @media (max-width: 1179px) {
       .hchc-hamburger { display: flex; }
       .hchc-nav-center { display: none; }
       .hchc-nav-right .hchc-nav-dropdown { display: none; }
@@ -404,14 +405,14 @@
       .hchc-admin-content-offset { margin-left: 0 !important; }
     }
     /* Desktop: hide hamburger */
-    @media (min-width: 768px) {
+    @media (min-width: 1180px) {
       .hchc-hamburger { display: none !important; }
       .hchc-mobile-overlay { display: none !important; }
     }
 
     /* Homeowner: keep flat top bar on mobile (no hamburger) */
     .hchc-nav-homeowner .hchc-hamburger { display: none !important; }
-    @media (max-width: 767px) {
+    @media (max-width: 1179px) {
       .hchc-nav-homeowner .hchc-nav-center {
         display: flex;
         gap: 12px;
@@ -453,6 +454,7 @@
     { name: 'Services', href: '/#services' },
     { name: 'Pricing', href: '/#pricing' },
     { name: 'For Professionals', href: '/#audience' },
+    { name: 'About', href: '/#team' },
     { name: 'Contact', href: '/#contact' },
   ];
 
