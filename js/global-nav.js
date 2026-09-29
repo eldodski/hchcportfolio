@@ -452,7 +452,7 @@
     { name: 'Latest', href: '/#latest' },
     { name: 'Services', href: '/#services' },
     { name: 'Pricing', href: '/#pricing' },
-    { name: 'For Professionals', href: '/#tools' },
+    { name: 'For Professionals', href: '/#audience' },
     { name: 'Contact', href: '/#contact' },
   ];
 
