@@ -799,6 +799,11 @@ p { max-width: 680px; }
   padding: 18px 20px;
 }
 .pricing-example .section-label { margin-bottom: 6px; }
+.pricing-sub {
+  font-size: 0.95rem;
+  letter-spacing: 0.16em;
+  margin-top: 12px;
+}
 .pricing-terms {
   text-align: center;
   max-width: 760px;
@@ -1383,14 +1388,14 @@ footer {
 
 <!-- ========== SECTION 1 — HERO ========== -->
 <section class="hero" id="hero">
-  <img src="pro_photos/new-hero.png" alt="Modern bathroom with freestanding tub and glass shower in Texas Hill Country home" class="hero-bg">
+  <img src="pro_photos/master-bath-spa.webp" alt="Spa primary bathroom with freestanding tub, lit shower niches, and glass shower in a Texas Hill Country home" class="hero-bg">
   <div class="hero-overlay"></div>
   <div class="hero-content fade-in">
-    <h1>Design that sells. Systems that scale.</h1>
-    <p class="hero-tagline">Interior design strategy for builders, developers, and discerning homeowners across the Texas Hill Country.</p>
+    <h1>Warm by Design.</h1>
+    <p class="hero-tagline">Thoughtful, approachable interior design for homeowners across the Texas Hill Country.</p>
     <div class="hero-buttons">
-      <a href="#audience" class="btn btn-primary">I Work in Building &amp; Design</a>
-      <a href="#homeowners" class="btn btn-ghost">I Am a Homeowner</a>
+      <a href="#pricing" class="btn btn-primary">I Am a Homeowner</a>
+      <a href="#tools" class="btn btn-ghost">I Work in Building &amp; Design</a>
     </div>
     <p class="hero-note">We are currently accepting new clients and professional partnerships.</p>
   </div>
@@ -1406,29 +1411,32 @@ footer {
 
     <div class="services-grid">
       <div class="service-tile fade-in">
-        <img src="pro_photos/living-open-concept.webp" alt="Full-service residential interior design" class="service-tile-img" loading="lazy">
+        <img src="pro_photos/living-open-concept.webp" alt="Open concept living room designed for everyday family life" class="service-tile-img" loading="lazy">
         <div class="service-tile-body">
+          <div class="bundle-tag">For Homeowners</div>
           <h3>Design Consultation</h3>
-          <p>Warm by Design. Thoughtful design consultation for new homes and renovations that balances beauty, comfort, and practicality. Make smarter decisions and create a home that truly feels like yours.</p>
+          <p>Thoughtful design built around how you live. We offer affordable, approachable design services that help you choose finishes with confidence and truly make your house a home.</p>
           <a href="#pricing" class="service-tile-link">See Pricing &rarr;</a>
         </div>
       </div>
 
       <div class="service-tile fade-in">
-        <img src="pro_photos/hc-finishing-tile.png" alt="HC Finishing Tools material flat lay" class="service-tile-img" loading="lazy">
+        <img src="pro_photos/smart-design.png" alt="New construction kitchen with white cabinets and blue island" class="service-tile-img" loading="lazy">
         <div class="service-tile-body">
-          <h3>HC Finishing Tools</h3>
-          <p>Now under development. We are building tools that transform ideas into accurate visuals, finish presentations, and construction-ready documentation in a fraction of the usual time. Join the waitlist to hear when they launch.</p>
-          <a href="#tools" class="service-tile-link">Join the Waitlist &rarr;</a>
+          <div class="bundle-tag">For Builders and Developers</div>
+          <h3>Operational Design Support</h3>
+          <p>My background is in new home construction. For more than ten years, I have solved operational issues at every stage of the build, from before the foundation is poured to the final tile being laid.</p>
+          <a href="#tools" class="service-tile-link">Inquire About Builder Services &rarr;</a>
         </div>
       </div>
 
       <div class="service-tile fade-in">
-        <img src="pro_photos/smart-design.png" alt="Smart design kitchen with white cabinets and blue island" class="service-tile-img" loading="lazy">
+        <img src="pro_photos/hc-finishing-tile.png" alt="HC Finishing Tool material flat lay" class="service-tile-img" loading="lazy">
         <div class="service-tile-body">
-          <h3>Creating Smart Design Experiences</h3>
-          <p>Partnering with builders to deliver a design system that combines thoughtful, human-centered design with powerful AI tools to create a personalized experience for every homebuyer. From photorealistic visuals to streamlined selections and precise documentation, we help builders delight clients, reduce decision fatigue, and move projects to construction faster.</p>
-          <a href="#tools" class="service-tile-link">Inquire About Builder Services &rarr;</a>
+          <div class="bundle-tag">For Designers: Under Development</div>
+          <h3>HC Finishing Tool</h3>
+          <p>A tool that will turn your selections into client-ready presentations, material specifications, and installation diagrams in a fraction of the usual time. Join the waitlist to hear when it launches.</p>
+          <a href="#tools" class="service-tile-link">Join the Waitlist &rarr;</a>
         </div>
       </div>
     </div>
@@ -1522,8 +1530,8 @@ footer {
 <div class="tools-section" id="pricing">
   <div class="tools-inner">
     <div class="tools-header fade-in">
-      <div class="section-label">Pricing for Homeowners</div>
-      <h2>Clear pricing, bundled for you.</h2>
+      <h2>Pricing for Homeowners</h2>
+      <div class="section-label pricing-sub">Clear pricing, bundled for you.</div>
     </div>
 
     <p class="tools-subtext fade-in">Every project begins with a 60-minute on-site consultation and a selections appointment. From there, you receive a design presentation and product schedule, complete with photorealistic 3D renderings. Choose the bundle that fits your project, and add only what you need.</p>
@@ -1622,7 +1630,13 @@ footer {
       <div class="tool-block fade-in">
         <div class="bundle-tag">Coming Soon</div>
         <h3>Builder and Developer Services</h3>
-        <p>Finish selection packages, buyer-ready presentations, and design systems that work across communities. Share your project and we will reach out to discuss how we can help.</p>
+        <p>Operational support from foundation to final tile. We help builders keep selections on schedule, reduce costly revisions, and give every buyer a smooth, confident design experience.</p>
+        <ul class="tool-bullets">
+          <li>Finish selection packages and design systems across communities</li>
+          <li>Buyer selection appointments and presentations</li>
+          <li>Selections process and scheduling improvements</li>
+          <li>Specification review before orders are placed</li>
+        </ul>
         <form class="pro-form js-inquiry-form" data-success="Thank you. We received your inquiry and will be in touch soon.">
           <input type="hidden" name="project_type" value="Builder Inquiry">
           <input type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true" style="display:none">
@@ -1705,7 +1719,7 @@ footer {
           <input type="email" id="contact-email" name="email" placeholder="your@email.com" required>
         </div>
         <div class="form-group">
-          <label for="contact-type">Bundle</label>
+          <label for="contact-type">Which bundle are you interested in?</label>
           <select id="contact-type" name="project_type">
             <option value="" disabled selected>Select a bundle</option>
             <option>Design Plan</option>
