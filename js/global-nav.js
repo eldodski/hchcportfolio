@@ -468,6 +468,20 @@
         font-size: 0.7rem;
         letter-spacing: 0.06em;
       }
+      /* Homeowners have no hamburger menu, so keep Sign Out reachable */
+      .hchc-nav-homeowner .hchc-nav-right .hchc-nav-dropdown { display: block; }
+    }
+    /* Homeowner phones: links move to their own row under the logo */
+    @media (max-width: 700px) {
+      .hchc-nav-homeowner { flex-wrap: wrap; row-gap: 10px; }
+      .hchc-nav-homeowner .hchc-nav-center {
+        order: 3;
+        width: 100%;
+        justify-content: flex-start;
+        gap: 20px;
+        padding-top: 8px;
+        border-top: 1px solid rgba(255,255,255,0.12);
+      }
     }
     /* Phones: keep the logo and button on one line */
     @media (max-width: 600px) {
@@ -478,8 +492,7 @@
     }
     @media (max-width: 374px) {
       .hchc-nav-right a.hchc-nav-btn { display: none; }
-      .hchc-nav-homeowner .hchc-hamburger { display: flex !important; }
-      .hchc-nav-homeowner .hchc-nav-center { display: none !important; }
+      .hchc-nav-homeowner .hchc-nav-center { gap: 14px; }
     }
 
     /* Remove the old floating hamburger nav trigger */
@@ -529,8 +542,8 @@
 
   const HOMEOWNER_LINKS = [
     { name: 'My Project', href: '/dashboard/homeowner/' },
-    { name: 'Messages', href: '/dashboard/homeowner/messages' },
-    { name: 'Invoices', href: '/dashboard/homeowner/invoices' },
+    { name: 'Documents', href: '/dashboard/homeowner/#documents' },
+    { name: 'Messages', href: '/dashboard/homeowner/#messages' },
   ];
 
   const ADMIN_SIDEBAR_SECTIONS = [
@@ -547,6 +560,7 @@
       links: [
         { name: 'User Approvals', href: '/admin/user-approvals.html', icon: '\u2713' },
         { name: 'User Management', href: '/admin/user-management.html', icon: '\u{1F465}' },
+        { name: 'Clients', href: '/admin/clients.html', icon: '\u{1F4C1}' },
       ]
     },
     {

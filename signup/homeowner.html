@@ -186,7 +186,9 @@ HCHCAuth.onReady(function() {
   if (window.Clerk && clerkEl) {
     window.Clerk.mountSignUp(clerkEl, {
       appearance: { variables: { colorPrimary: '#1B2A4A', colorText: '#3C2A21', fontFamily: 'Jost, sans-serif', borderRadius: '0px' } },
-      unsafeMetadata: { role: 'homeowner' }
+      unsafeMetadata: { role: 'homeowner' },
+      // Invitation links include the client's email so it is filled in for them
+      initialValues: { emailAddress: new URLSearchParams(location.search).get('email') || undefined }
     });
   }
   // Intercept form submission to enforce terms

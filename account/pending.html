@@ -160,6 +160,7 @@ h1, h2 {
 <script src="/js/route-guard.js"></script>
 <script src="/js/global-nav.js"></script>
 <script src="/js/page-init.js"></script>
+<script src="/js/client-portal.js"></script>
 <script>
 HCHCAuth.onReady(function() {
   if (!HCHCAuth.isSignedIn()) {
@@ -175,6 +176,19 @@ HCHCAuth.onReady(function() {
       ? window.Clerk.user.primaryEmailAddress.emailAddress
       : 'your registered address';
   }
+
+  // Invited clients are approved automatically. Check a few times in case
+  // their account is still being set up, then send them to their dashboard.
+  var tries = 0;
+  function checkInvite() {
+    HCHCPortal.call('status').then(function (s) {
+      if (s.status === 'active') { window.location.href = '/dashboard/'; return; }
+      if (++tries < 5) setTimeout(checkInvite, 3000);
+    }).catch(function () {
+      if (++tries < 5) setTimeout(checkInvite, 3000);
+    });
+  }
+  checkInvite();
 });
 </script>
 </body>

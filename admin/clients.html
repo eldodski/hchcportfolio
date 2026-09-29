@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Clients | HCHC Admin</title>
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Jost:wght@200;300;400&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --ivory: #F5F0EB;
+  --navy: #1B2A4A;
+  --espresso: #3C2A21;
+  --sand: #D4C5B2;
+  --mocha: #A37762;
+  --carrara: #E8E4E0;
+  --gold: #C4A265;
+  --dusty-blue: #7B9BAE;
+  --sage: #8A9A7B;
+  --heading: 'Cormorant Garamond', Georgia, serif;
+  --body: 'Jost', 'Segoe UI', sans-serif;
+}
+
+body {
+  font-family: var(--body);
+  font-weight: 300;
+  font-size: 16px;
+  line-height: 1.6;
+  color: var(--espresso);
+  background: var(--ivory);
+}
+
+.admin-page { padding: 40px 48px; max-width: 1200px; }
+.admin-page h1 { font-family: var(--heading); font-weight: 600; font-size: 2rem; color: var(--navy); margin-bottom: 8px; }
+.subtitle { font-size: 0.9rem; color: var(--mocha); margin-bottom: 32px; max-width: 760px; }
+
+.eyebrow { font-weight: 200; font-size: 0.72rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--mocha); }
+h2 { font-family: var(--heading); font-weight: 600; font-size: 1.5rem; color: var(--navy); margin-bottom: 14px; }
+
+.panel { background: #fff; border: 1px solid var(--carrara); padding: 24px; margin-bottom: 28px; }
+.warning { background: #f6ebe6; border-left: 3px solid var(--mocha); padding: 14px 18px; margin-bottom: 28px; font-size: 0.9rem; }
+
+.row-form { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
+input[type=text], input[type=email], select {
+  font-family: var(--body); font-size: 0.9rem; font-weight: 300;
+  padding: 9px 12px; border: 1px solid var(--sand); background: var(--ivory); color: var(--espresso);
+  min-width: 0;
+}
+input[type=text]:focus, input[type=email]:focus, select:focus { outline: 2px solid var(--dusty-blue); outline-offset: -1px; }
+.check { font-size: 0.85rem; display: inline-flex; gap: 6px; align-items: center; }
+
+.btn {
+  font-family: var(--body); font-size: 0.7rem; font-weight: 400; letter-spacing: 0.14em; text-transform: uppercase;
+  padding: 10px 18px; border: 1px solid var(--navy); cursor: pointer; text-decoration: none; display: inline-block;
+}
+.btn-primary { background: var(--navy); color: var(--ivory); }
+.btn-primary:disabled { opacity: 0.55; cursor: default; }
+.btn-outline { background: transparent; color: var(--navy); }
+.btn-outline:hover { background: var(--carrara); }
+.btn-link { background: none; border: 0; color: var(--mocha); font-family: var(--body); font-size: 0.8rem; cursor: pointer; text-decoration: underline; padding: 0; }
+
+.project { background: #fff; border: 1px solid var(--carrara); padding: 22px 24px; margin-bottom: 18px; }
+.project.archived { opacity: 0.7; }
+.project-head { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px; align-items: baseline; margin-bottom: 12px; }
+.project-head h3 { font-family: var(--heading); font-weight: 600; font-size: 1.35rem; color: var(--navy); }
+.project-links { display: flex; flex-wrap: wrap; gap: 16px; font-size: 0.8rem; }
+.project-links a { color: var(--navy); }
+
+table { width: 100%; border-collapse: collapse; font-size: 0.88rem; margin-bottom: 14px; }
+th { text-align: left; font-weight: 300; font-size: 0.68rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--mocha); padding: 6px 8px; border-bottom: 1px solid var(--sand); }
+td { padding: 8px; border-bottom: 1px solid var(--carrara); vertical-align: middle; overflow-wrap: anywhere; }
+.status { font-size: 0.75rem; padding: 2px 8px; background: var(--carrara); white-space: nowrap; }
+.status.joined { background: #e6ebe0; color: #4d5a41; }
+.status.invited { background: #e6edf1; color: #3f5a6b; }
+.empty { font-size: 0.85rem; color: #9a8b80; padding: 6px 0 12px; }
+
+.toast { position: fixed; bottom: 24px; right: 24px; background: var(--navy); color: var(--ivory); padding: 12px 20px; font-size: 0.88rem; display: none; z-index: 100; max-width: 360px; }
+.toast.show { display: block; }
+.toast.err { background: #7a3f2c; }
+.loading { color: var(--mocha); padding: 40px 0; }
+
+@media (max-width: 768px) {
+  .admin-page { padding: 24px 16px; }
+  table, thead, tbody, tr, td { display: block; }
+  thead { display: none; }
+  tr { border-bottom: 1px solid var(--carrara); padding: 8px 0; }
+  td { border: 0; padding: 2px 0; }
+}
+</style>
+</head>
+<body>
+
+<div class="admin-page">
+  <h1>Clients</h1>
+  <p class="subtitle">Each client project has its own folder in the HCHC Clients Shared Drive. Anything you place in a
+    project's "For Client" folder appears on the client's dashboard. Files that clients send land in "From Client",
+    and their messages arrive in your email.</p>
+
+  <div id="app"><p class="loading">Loading clients...</p></div>
+</div>
+
+<div class="toast" id="toast" role="status"></div>
+
+<!-- Auth System -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script
+  data-clerk-publishable-key="pk_test_cmFwaWQtbWFja2VyZWwtMjguY2xlcmsuYWNjb3VudHMuZGV2JA"
+  src="https://cdn.jsdelivr.net/npm/@clerk/clerk-js@4/dist/clerk.browser.js"
+  async>
+</script>
+<script src="/config.js"></script>
+<script src="/js/supabase-client.js"></script>
+<script src="/js/clerk-auth.js"></script>
+<script src="/js/route-guard.js"></script>
+<script src="/js/global-nav.js"></script>
+<script src="/js/page-init.js"></script>
+<script src="/js/client-portal.js"></script>
+
+<script>
+(function () {
+  'use strict';
+
+  const app = document.getElementById('app');
+  let data = { projects: [], unlinked: [], driveConnected: true };
+
+  const esc = (s) => String(s == null ? '' : s).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+  const fmt = (iso) => iso ? new Date(iso).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }) : '';
+
+  function toast(text, isError) {
+    const t = document.getElementById('toast');
+    t.textContent = text;
+    t.className = 'toast show' + (isError ? ' err' : '');
+    clearTimeout(toast._timer);
+    toast._timer = setTimeout(() => { t.className = 'toast'; }, 4500);
+  }
+
+  HCHCAuth.onReady(() => {
+    if (!HCHCAuth.isAdmin()) return; // the route guard handles everyone else
+    load();
+  });
+
+  async function load() {
+    try {
+      data = await HCHCPortal.call('admin_list');
+      render();
+    } catch (e) {
+      app.innerHTML = `<div class="warning">We could not load clients: ${esc(e.message)}</div>`;
+    }
+  }
+
+  async function run(button, action, payload, successText) {
+    if (button) button.disabled = true;
+    try {
+      const result = await HCHCPortal.call(action, payload);
+      if (successText) toast(typeof successText === 'function' ? successText(result) : successText);
+      await load();
+    } catch (e) {
+      toast(e.message, true);
+      if (button) button.disabled = false;
+    }
+  }
+
+  function render() {
+    const active = data.projects.filter(p => !p.archived);
+    const archived = data.projects.filter(p => p.archived);
+
+    app.innerHTML = `
+      ${data.driveConnected ? '' : `<div class="warning"><strong>Google Drive is not connected yet.</strong>
+        New projects cannot create folders until the HCHC Clients Shared Drive is set up.</div>`}
+
+      <div class="panel">
+        <p class="eyebrow">New Client Project</p>
+        <form class="row-form" id="new-project" style="margin-top:10px;">
+          <input type="text" name="name" placeholder="Project name, for example Smith Residence" required maxlength="120" style="flex:1 1 280px;">
+          <button class="btn btn-primary" type="submit">Create Project and Folders</button>
+        </form>
+      </div>
+
+      ${data.unlinked.length ? `
+        <div class="panel">
+          <p class="eyebrow">Homeowner Accounts Without a Project</p>
+          <p style="font-size:0.85rem; margin:6px 0 12px;">These people signed up on their own. Link them to a project to approve them and open their dashboard.</p>
+          <table>
+            <thead><tr><th>Name</th><th>Email</th><th>Signed Up</th><th>Status</th><th>Link to Project</th></tr></thead>
+            <tbody>${data.unlinked.map(u => `
+              <tr>
+                <td>${esc(((u.first_name || '') + ' ' + (u.last_name || '')).trim() || 'Not given')}</td>
+                <td>${esc(u.email)}</td>
+                <td>${esc(fmt(u.created_at))}</td>
+                <td><span class="status">${esc(u.status)}</span></td>
+                <td>${active.length ? `
+                  <form class="row-form link-user" data-email="${esc(u.email)}" data-name="${esc(((u.first_name || '') + ' ' + (u.last_name || '')).trim())}">
+                    <select name="project_id">${active.map(p => `<option value="${esc(p.id)}">${esc(p.name)}</option>`).join('')}</select>
+                    <button class="btn btn-outline" type="submit">Link</button>
+                  </form>` : '<span class="empty">Create a project first.</span>'}</td>
+              </tr>`).join('')}</tbody>
+          </table>
+        </div>` : ''}
+
+      <h2>Active Projects</h2>
+      ${active.length ? active.map(renderProject).join('') : '<p class="empty">No client projects yet.</p>'}
+
+      ${archived.length ? `<details style="margin-top:28px;"><summary class="eyebrow" style="cursor:pointer;">Archived Projects (${archived.length})</summary>
+        <div style="margin-top:14px;">${archived.map(renderProject).join('')}</div></details>` : ''}
+    `;
+
+    wire();
+  }
+
+  function renderProject(p) {
+    const members = p.client_members || [];
+    return `
+      <div class="project ${p.archived ? 'archived' : ''}">
+        <div class="project-head">
+          <h3>${esc(p.name)}</h3>
+          <div class="project-links">
+            ${p.drive_folder_id ? `<a href="https://drive.google.com/drive/folders/${esc(p.drive_folder_id)}" target="_blank" rel="noopener">Open in Google Drive</a>` : ''}
+            <a href="/dashboard/homeowner/?project=${esc(p.id)}" target="_blank" rel="noopener">Preview Client Dashboard</a>
+            <button class="btn-link archive" data-id="${esc(p.id)}" data-archived="${p.archived ? 'false' : 'true'}">${p.archived ? 'Restore' : 'Archive'}</button>
+          </div>
+        </div>
+
+        ${members.length ? `
+          <table>
+            <thead><tr><th>Name</th><th>Email</th><th>Status</th><th></th></tr></thead>
+            <tbody>${members.map(m => `
+              <tr>
+                <td>${esc(m.name || '')}</td>
+                <td>${esc(m.email)}</td>
+                <td>${m.clerk_user_id
+                  ? `<span class="status joined">Joined ${esc(fmt(m.joined_at))}</span>`
+                  : m.invited_at ? `<span class="status invited">Invited ${esc(fmt(m.invited_at))}</span>`
+                  : '<span class="status">Not invited</span>'}</td>
+                <td style="white-space:nowrap;">
+                  ${m.clerk_user_id ? '' : `<button class="btn-link resend" data-id="${esc(m.id)}">${m.invited_at ? 'Resend invite' : 'Send invite'}</button> &nbsp;`}
+                  <button class="btn-link remove" data-id="${esc(m.id)}" data-email="${esc(m.email)}">Remove</button>
+                </td>
+              </tr>`).join('')}</tbody>
+          </table>` : '<p class="empty">No one has access to this project yet.</p>'}
+
+        ${p.archived ? '' : `
+          <form class="row-form add-member" data-id="${esc(p.id)}">
+            <input type="text" name="name" placeholder="Client name" maxlength="200" style="flex:1 1 160px;">
+            <input type="email" name="email" placeholder="Client email" required maxlength="320" style="flex:1 1 220px;">
+            <label class="check"><input type="checkbox" name="send_invite" checked> Send invitation email</label>
+            <button class="btn btn-outline" type="submit">Add Person</button>
+          </form>`}
+      </div>`;
+  }
+
+  function wire() {
+    const np = document.getElementById('new-project');
+    np.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const btn = np.querySelector('button');
+      btn.textContent = 'Creating folders...';
+      run(btn, 'admin_create_project', { name: np.elements.name.value }, 'Project created. Its folders are ready in Google Drive.');
+    });
+
+    app.querySelectorAll('.add-member').forEach(f => f.addEventListener('submit', (e) => {
+      e.preventDefault();
+      run(f.querySelector('button'), 'admin_add_member', {
+        project_id: f.dataset.id,
+        name: f.elements.name.value,
+        email: f.elements.email.value,
+        send_invite: f.elements.send_invite.checked
+      }, (r) => r.linked ? 'This person already had an account. They now have access.'
+        : r.invited ? 'Added, and the invitation email was sent.'
+        : f.elements.send_invite.checked ? 'Added, but the invitation email could not be sent. Try Resend invite.'
+        : 'Added. No invitation was sent.');
+    }));
+
+    app.querySelectorAll('.link-user').forEach(f => f.addEventListener('submit', (e) => {
+      e.preventDefault();
+      run(f.querySelector('button'), 'admin_add_member', {
+        project_id: f.elements.project_id.value,
+        email: f.dataset.email,
+        name: f.dataset.name,
+        send_invite: false
+      }, 'Linked and approved. They can now see their dashboard.');
+    }));
+
+    app.querySelectorAll('.resend').forEach(b => b.addEventListener('click', () =>
+      run(b, 'admin_resend_invite', { member_id: b.dataset.id }, 'Invitation sent.')));
+
+    app.querySelectorAll('.remove').forEach(b => b.addEventListener('click', () => {
+      if (!confirm('Remove ' + b.dataset.email + ' from this project? Their account stays, but they will no longer see this project.')) return;
+      run(b, 'admin_remove_member', { member_id: b.dataset.id }, 'Removed.');
+    }));
+
+    app.querySelectorAll('.archive').forEach(b => b.addEventListener('click', () => {
+      const archiving = b.dataset.archived === 'true';
+      if (archiving && !confirm('Archive this project? The client will no longer see it. The Drive folder is not changed.')) return;
+      run(b, 'admin_archive_project', { project_id: b.dataset.id, archived: archiving }, archiving ? 'Project archived.' : 'Project restored.');
+    }));
+  }
+})();
+</script>
+</body>
+</html>
