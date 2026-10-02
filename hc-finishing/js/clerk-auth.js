@@ -69,7 +69,7 @@ async function signOut() {
 function openSignIn() {
   if (!_clerk) return;
   _clerk.openSignIn({
-    afterSignInUrl: 'dashboard.html',
+    forceRedirectUrl: 'dashboard.html',
     appearance: {
       variables: {
         colorPrimary: '#1B2A4A',
@@ -84,7 +84,7 @@ function openSignIn() {
 function openSignUp() {
   if (!_clerk) return;
   _clerk.openSignUp({
-    afterSignUpUrl: 'dashboard.html',
+    forceRedirectUrl: 'dashboard.html',
     appearance: {
       variables: {
         colorPrimary: '#1B2A4A',

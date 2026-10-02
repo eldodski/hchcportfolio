@@ -200,7 +200,7 @@ const HCHCAuth = (function () {
   function openSignIn(returnUrl) {
     if (!_clerk) return;
     _clerk.openSignIn({
-      afterSignInUrl: returnUrl || '/dashboard/',
+      forceRedirectUrl: returnUrl || '/dashboard/',
       appearance: {
         variables: {
           colorPrimary: '#1B2A4A',
@@ -218,7 +218,7 @@ const HCHCAuth = (function () {
     if (options?.companyName) meta.company_name = options.companyName;
 
     _clerk.openSignUp({
-      afterSignUpUrl: '/account/pending.html',
+      forceRedirectUrl: '/account/pending.html',
       appearance: {
         variables: {
           colorPrimary: '#1B2A4A',

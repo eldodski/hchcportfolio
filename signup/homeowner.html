@@ -169,7 +169,7 @@ h1, h2 {
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2" async></script>
 <script
   data-clerk-publishable-key="pk_test_cmFwaWQtbWFja2VyZWwtMjguY2xlcmsuYWNjb3VudHMuZGV2JA"
-  src="https://cdn.jsdelivr.net/npm/@clerk/clerk-js@4/dist/clerk.browser.js"
+  src="https://cdn.jsdelivr.net/npm/@clerk/clerk-js@5/dist/clerk.browser.js"
   async>
 </script>
 <script src="/config.js"></script>
@@ -187,8 +187,8 @@ HCHCAuth.onReady(function() {
     window.Clerk.mountSignUp(clerkEl, {
       appearance: { variables: { colorPrimary: '#1B2A4A', colorText: '#3C2A21', fontFamily: 'Jost, sans-serif', borderRadius: '0px' } },
       unsafeMetadata: { role: 'homeowner' },
-      afterSignUpUrl: '/account/pending.html',
-      afterSignInUrl: '/dashboard/',
+      forceRedirectUrl: '/account/pending.html',
+      signInForceRedirectUrl: '/dashboard/',
       // Invitation links include the client's email so it is filled in for them
       initialValues: { emailAddress: new URLSearchParams(location.search).get('email') || undefined }
     });
